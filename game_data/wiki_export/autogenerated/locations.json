@@ -1,0 +1,445 @@
+[
+  {
+    "id": "azurazera",
+    "wiki_slug": "Azurazera",
+    "name": "Azurazera",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "barbantok",
+    "wiki_slug": "Barbantok",
+    "name": "Barbantok",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "beach_of_woes",
+    "wiki_slug": "Beach_of_Woes",
+    "name": "Beach of Woes",
+    "tags": [
+      "herberts_guiding_grounds",
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "bilgemont_port",
+    "wiki_slug": "Bilgemont_Port",
+    "name": "Bilgemont Port",
+    "tags": [
+      "erdwise",
+      "gdte"
+    ]
+  },
+  {
+    "id": "black_eye_peak",
+    "wiki_slug": "Black_Eye_Peak",
+    "name": "Black Eye Peak",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "blackrane",
+    "wiki_slug": "Blackrane",
+    "name": "Blackrane",
+    "tags": [
+      "wallisia"
+    ]
+  },
+  {
+    "id": "blackspell_port",
+    "wiki_slug": "Blackspell_Port",
+    "name": "Blackspell Port",
+    "tags": [
+      "erdwise",
+      "gdte"
+    ]
+  },
+  {
+    "id": "blackwater_fields",
+    "wiki_slug": "Blackwater_Fields",
+    "name": "Blackwater Fields",
+    "tags": [
+      "wallisia"
+    ]
+  },
+  {
+    "id": "bog_bottom",
+    "wiki_slug": "Bog_Bottom",
+    "name": "Bog Bottom",
+    "tags": [
+      "gdte",
+      "halfling_rebels"
+    ]
+  },
+  {
+    "id": "bog_top",
+    "wiki_slug": "Bog_Top",
+    "name": "Bog Top",
+    "tags": [
+      "gdte",
+      "halfling_rebels"
+    ]
+  },
+  {
+    "id": "casbrant_fields",
+    "wiki_slug": "Casbrant_Fields",
+    "name": "Casbrant Fields",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "casbrants_grave",
+    "wiki_slug": "Casbrant's_Grave",
+    "name": "Casbrant's Grave",
+    "tags": [
+      "syrenthia",
+      "underwater"
+    ]
+  },
+  {
+    "id": "centaham",
+    "wiki_slug": "Centaham",
+    "name": "Centaham",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "coldington",
+    "wiki_slug": "Coldington",
+    "name": "Coldington",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "crown_of_cinders",
+    "wiki_slug": "Crown_of_Cinders",
+    "name": "Crown of Cinders",
+    "tags": [
+      "wrentmark"
+    ]
+  },
+  {
+    "id": "darktide_trench",
+    "wiki_slug": "Darktide_Trench",
+    "name": "Darktide Trench",
+    "tags": [
+      "syrenthia",
+      "underwater"
+    ]
+  },
+  {
+    "id": "disenchanted_forest",
+    "wiki_slug": "Disenchanted_Forest",
+    "name": "Disenchanted Forest",
+    "tags": [
+      "herberts_guiding_grounds",
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "elaras_lagoon",
+    "wiki_slug": "Elara's_Lagoon",
+    "name": "Elara's Lagoon",
+    "tags": [
+      "syrenthia",
+      "underwater"
+    ]
+  },
+  {
+    "id": "everhaven",
+    "wiki_slug": "Everhaven",
+    "name": "Everhaven",
+    "tags": [
+      "erdwise",
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "farsand_coast",
+    "wiki_slug": "Farsand_Coast",
+    "name": "Farsand Coast",
+    "tags": [
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "fort_of_permafrost",
+    "wiki_slug": "Fort_of_Permafrost",
+    "name": "Fort of Permafrost",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "frostbite_mountain",
+    "wiki_slug": "Frostbite_Mountain",
+    "name": "Frostbite Mountain",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "frusenholm",
+    "wiki_slug": "Frusenholm",
+    "name": "Frusenholm",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "granfiddich",
+    "wiki_slug": "Granfiddich",
+    "name": "Granfiddich",
+    "tags": [
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "granfiddich_shores",
+    "wiki_slug": "Granfiddich_Shores",
+    "name": "Granfiddich Shores",
+    "tags": [
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "halfling_campgrounds",
+    "wiki_slug": "Halfling_Campgrounds",
+    "name": "Halfling Campgrounds",
+    "tags": [
+      "gdte",
+      "halfling_rebels"
+    ]
+  },
+  {
+    "id": "halfmaw_hideout",
+    "wiki_slug": "Halfmaw_Hideout",
+    "name": "Halfmaw Hideout",
+    "tags": [
+      "gdte",
+      "halfling_rebels"
+    ]
+  },
+  {
+    "id": "horn_of_respite",
+    "wiki_slug": "Horn_of_Respite",
+    "name": "Horn of Respite",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "kallaheim",
+    "wiki_slug": "Kallaheim",
+    "name": "Kallaheim",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "kelp_forest",
+    "wiki_slug": "Kelp_Forest",
+    "name": "Kelp Forest",
+    "tags": [
+      "syrenthia",
+      "underwater"
+    ]
+  },
+  {
+    "id": "kildome_cross",
+    "wiki_slug": "Kildome_Cross",
+    "name": "Kildome Cross",
+    "tags": [
+      "wallisia"
+    ]
+  },
+  {
+    "id": "mangrove_forest",
+    "wiki_slug": "Mangrove_Forest",
+    "name": "Mangrove Forest",
+    "tags": [
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "myriadian_arc",
+    "wiki_slug": "Myriadian_Arc",
+    "name": "Myriadian Arc",
+    "tags": [
+      "wrentmark"
+    ]
+  },
+  {
+    "id": "noiseless_pass",
+    "wiki_slug": "Noiseless_Pass",
+    "name": "Noiseless Pass",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "nomad_woods",
+    "wiki_slug": "Nomad_Woods",
+    "name": "Nomad Woods",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "norsack_plains",
+    "wiki_slug": "Norsack_Plains",
+    "name": "Norsack Plains",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "nurturing_nook_springs",
+    "wiki_slug": "Nurturing_Nook_Springs",
+    "name": "Nurturing Nook Springs",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "old_arena_ruins",
+    "wiki_slug": "Old_Arena_Ruins",
+    "name": "Old Arena Ruins",
+    "tags": [
+      "erdwise",
+      "gdte"
+    ]
+  },
+  {
+    "id": "pit_of_pittance",
+    "wiki_slug": "Pit_of_Pittance",
+    "name": "Pit of Pittance",
+    "tags": [
+      "herberts_guiding_grounds",
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "port_skildar",
+    "wiki_slug": "Port_Skildar",
+    "name": "Port Skildar",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "red_coast",
+    "wiki_slug": "Red_Coast",
+    "name": "Red Coast",
+    "tags": [
+      "erdwise",
+      "gdte"
+    ]
+  },
+  {
+    "id": "salsfirth",
+    "wiki_slug": "Salsfirth",
+    "name": "Salsfirth",
+    "tags": [
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "sanguine_hills",
+    "wiki_slug": "Sanguine_Hills",
+    "name": "Sanguine Hills",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "stalking_yew_woods",
+    "wiki_slug": "Stalking_Yew_Woods",
+    "name": "Stalking Yew Woods",
+    "tags": [
+      "wallisia"
+    ]
+  },
+  {
+    "id": "tendon_wet_fields",
+    "wiki_slug": "Tendon_Wet_Fields",
+    "name": "Tendon Wet Fields",
+    "tags": [
+      "wallisia"
+    ]
+  },
+  {
+    "id": "underwater_cave",
+    "wiki_slug": "Underwater_Cave",
+    "name": "Underwater Cave",
+    "tags": [
+      "syrenthia",
+      "underwater"
+    ]
+  },
+  {
+    "id": "vastalume",
+    "wiki_slug": "Vastalume",
+    "name": "Vastalume",
+    "tags": [
+      "syrenthia",
+      "underwater"
+    ]
+  },
+  {
+    "id": "warrenfield",
+    "wiki_slug": "Warrenfield",
+    "name": "Warrenfield",
+    "tags": [
+      "gdte",
+      "trellin"
+    ]
+  },
+  {
+    "id": "winter_waves_glacier",
+    "wiki_slug": "Winter_Waves_Glacier",
+    "name": "Winter Waves Glacier",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "winters_end",
+    "wiki_slug": "Winter's_End",
+    "name": "Winter's End",
+    "tags": [
+      "jarvonia"
+    ]
+  },
+  {
+    "id": "witched_woods",
+    "wiki_slug": "Witched_Woods",
+    "name": "Witched Woods",
+    "tags": [
+      "gdte",
+      "halfling_rebels"
+    ]
+  },
+  {
+    "id": "wraithwater",
+    "wiki_slug": "Wraithwater",
+    "name": "Wraithwater",
+    "tags": [
+      "spectral",
+      "wallisia"
+    ]
+  }
+]

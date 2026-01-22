@@ -1,0 +1,7787 @@
+[
+  {
+    "id": "antique_market_assessor",
+    "wiki_slug": "Special:MyLanguage/Antique_market_assessor",
+    "name": "Antique market assessor",
+    "primary_skill": "trinketry",
+    "locations": [
+      "blackspell_port"
+    ],
+    "base_steps": 600,
+    "base_xp": 225.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "trinketry",
+        "value": 40
+      }
+    ],
+    "faction_rewards": [
+      {
+        "faction_id": "erdwise",
+        "amount": 0.01
+      }
+    ],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 25.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 10,
+        "max_quantity": 100,
+        "chance": 12.736
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 28.302
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 21.226
+      },
+      {
+        "item_id": "rough_wrentmarine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 7.075
+      },
+      {
+        "item_id": "rough_jade",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.83
+      },
+      {
+        "item_id": "rough_topaz",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.83
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "trinketry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "meteorite_fragment",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "apprentice_for_loif",
+    "wiki_slug": "Special:MyLanguage/Apprentice_for_Loif",
+    "name": "Apprentice for Loif",
+    "primary_skill": "crafting",
+    "locations": [
+      "frusenholm"
+    ],
+    "base_steps": 300,
+    "base_xp": 30.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "crafting",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 1,
+        "max_quantity": 10,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "crafting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "bodysurfing",
+    "wiki_slug": "Special:MyLanguage/Bodysurfing",
+    "name": "Bodysurfing",
+    "primary_skill": "agility",
+    "locations": [
+      "red_coast"
+    ],
+    "base_steps": 109,
+    "base_xp": 104.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 40
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 82.0
+      },
+      {
+        "item_id": "raw_salmon",
+        "min_quantity": 1,
+        "max_quantity": 4,
+        "chance": 10.028
+      },
+      {
+        "item_id": "raw_jellyfish",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 5.014
+      },
+      {
+        "item_id": "raw_squid",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.507
+      },
+      {
+        "item_id": "eel_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.15
+      },
+      {
+        "item_id": "life_vest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.15
+      },
+      {
+        "item_id": "shark_tooth_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.15
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sunken_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "bog_fishing_(net)",
+    "wiki_slug": "Special:MyLanguage/Bog_fishing_(Net)",
+    "name": "Bog fishing (Net)",
+    "primary_skill": "fishing",
+    "locations": [
+      "bog_top"
+    ],
+    "base_steps": 135,
+    "base_xp": 150.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_net",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "raw_largemouth_bass",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.222
+      },
+      {
+        "item_id": "raw_perch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.222
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.222
+      },
+      {
+        "item_id": "grass",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 11.111
+      },
+      {
+        "item_id": "mud",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 11.111
+      },
+      {
+        "item_id": "trash",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 11.111
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "bog_fishing_(spear)",
+    "wiki_slug": "Special:MyLanguage/Bog_fishing_(Spear)",
+    "name": "Bog fishing (Spear)",
+    "primary_skill": "fishing",
+    "locations": [
+      "bog_bottom"
+    ],
+    "base_steps": 135,
+    "base_xp": 150.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_spear",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "raw_largemouth_bass",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.222
+      },
+      {
+        "item_id": "raw_perch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.222
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.222
+      },
+      {
+        "item_id": "mud",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 11.111
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 11.111
+      },
+      {
+        "item_id": "sweet_kelp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 11.111
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "branch_trimming",
+    "wiki_slug": "Special:MyLanguage/Branch_trimming",
+    "name": "Branch trimming",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "coldington",
+      "horn_of_respite",
+      "mangrove_forest"
+    ],
+    "base_steps": 50,
+    "base_xp": 9.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 19.0
+      },
+      {
+        "item_id": "wooden_stick",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 98.335
+      },
+      {
+        "item_id": "sturdy_branch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 5.722
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "brig_repair",
+    "wiki_slug": "Special:MyLanguage/Brig_repair",
+    "name": "Brig repair",
+    "primary_skill": "carpentry",
+    "locations": [
+      "port_skildar"
+    ],
+    "base_steps": 88,
+    "base_xp": 43.0,
+    "secondary_xp": {
+      "smithing": 22.0
+    },
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 20
+      },
+      {
+        "type": "skill_level",
+        "target": "smithing",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "carpentry_tool",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 88.064
+      },
+      {
+        "item_id": "metal_scrap",
+        "min_quantity": 2,
+        "max_quantity": 10,
+        "chance": 5.871
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 2,
+        "max_quantity": 10,
+        "chance": 5.871
+      },
+      {
+        "item_id": "life_vest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.159
+      },
+      {
+        "item_id": "beaver_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.035
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "smithing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "butterfly_catching",
+    "wiki_slug": "Special:MyLanguage/Butterfly_catching",
+    "name": "Butterfly catching",
+    "primary_skill": "foraging",
+    "locations": [
+      "warrenfield"
+    ],
+    "base_steps": 115,
+    "base_xp": 72.0,
+    "secondary_xp": {
+      "agility": 26.0
+    },
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 40
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "bug_catching_net",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 20.0
+      },
+      {
+        "item_id": "flax",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 25.526
+      },
+      {
+        "item_id": "wheat",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 25.526
+      },
+      {
+        "item_id": "honeycomb",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 20.421
+      },
+      {
+        "item_id": "hemp",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 8.424
+      },
+      {
+        "item_id": "fireflies_in_a_jar",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.102
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "blue_lotus_butterfly",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05
+      },
+      {
+        "item_id": "chicken_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.08
+      }
+    ]
+  },
+  {
+    "id": "cave_diving",
+    "wiki_slug": "Special:MyLanguage/Cave_diving",
+    "name": "Cave diving",
+    "primary_skill": "mining",
+    "locations": [
+      "underwater_cave"
+    ],
+    "base_steps": 1500,
+    "base_xp": 800.0,
+    "secondary_xp": {
+      "agility": 150.0,
+      "foraging": 800.0
+    },
+    "max_efficiency": 1.3,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 55
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 55
+      },
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 10.0
+      },
+      {
+        "item_id": "pearls",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 17.308
+      },
+      {
+        "item_id": "salty_hops",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 17.308
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 17.308
+      },
+      {
+        "item_id": "tarsilium_ore",
+        "min_quantity": 1,
+        "max_quantity": 7,
+        "chance": 17.308
+      },
+      {
+        "item_id": "volcanic_rock",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 17.308
+      },
+      {
+        "item_id": "bat_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.731
+      },
+      {
+        "item_id": "glowstick",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.731
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "ancient_trident",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": "classic_skiing",
+    "wiki_slug": "Special:MyLanguage/Classic_skiing",
+    "name": "Classic skiing",
+    "primary_skill": "agility",
+    "locations": [
+      "casbrant_fields"
+    ],
+    "base_steps": 247,
+    "base_xp": 87.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 5
+      },
+      {
+        "type": "keyword_count",
+        "target": "skis",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cleaning_the_holy_fountain",
+    "wiki_slug": "Special:MyLanguage/Cleaning_the_holy_fountain",
+    "name": "Cleaning the holy fountain",
+    "primary_skill": "fishing",
+    "locations": [
+      "azurazera"
+    ],
+    "base_steps": 110,
+    "base_xp": 58.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 20
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_net",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [
+      {
+        "faction_id": "jarvonia",
+        "amount": 0.01
+      }
+    ],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 75.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 1,
+        "max_quantity": 10,
+        "chance": 8.333
+      },
+      {
+        "item_id": "trash",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.667
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "cold_embrace",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.26
+      },
+      {
+        "item_id": "flame_of_azura",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.09
+      }
+    ]
+  },
+  {
+    "id": "cliff_foraging",
+    "wiki_slug": "Special:MyLanguage/Cliff_foraging",
+    "name": "Cliff foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "frostbite_mountain",
+      "sanguine_hills"
+    ],
+    "base_steps": 121,
+    "base_xp": 64.0,
+    "secondary_xp": {
+      "agility": 16.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 25
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 20
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 15.0
+      },
+      {
+        "item_id": "berries",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 67.327
+      },
+      {
+        "item_id": "wheat",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 14.026
+      },
+      {
+        "item_id": "honeycomb",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 3.507
+      },
+      {
+        "item_id": "feather_cape",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.14
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "coral_cutting",
+    "wiki_slug": "Special:MyLanguage/Coral_cutting",
+    "name": "Coral cutting",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "kelp_forest"
+    ],
+    "base_steps": 120,
+    "base_xp": 120.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 45
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coral",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_bamboo",
+    "wiki_slug": "Special:MyLanguage/Cut_bamboo",
+    "name": "Cut bamboo",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "witched_woods"
+    ],
+    "base_steps": 70,
+    "base_xp": 60.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 45
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "bamboo_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 99.983
+      },
+      {
+        "item_id": "circular_root_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.017
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_birch_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_birch_trees",
+    "name": "Cut birch trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "disenchanted_forest",
+      "nomad_woods"
+    ],
+    "base_steps": 35,
+    "base_xp": 10.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "birch_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "rusty_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "birch_skis",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": "cut_ectoplasm_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_ectoplasm_trees",
+    "name": "Cut ectoplasm trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "wraithwater"
+    ],
+    "base_steps": 101,
+    "base_xp": 100.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "ectoplasm_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_mangrove_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_mangrove_trees",
+    "name": "Cut mangrove trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "mangrove_forest"
+    ],
+    "base_steps": 90,
+    "base_xp": 97.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.1,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "mangrove_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 99.972
+      },
+      {
+        "item_id": "circular_root_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.028
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_maple_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_maple_trees",
+    "name": "Cut maple trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "mangrove_forest"
+    ],
+    "base_steps": 65,
+    "base_xp": 46.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "maple_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 99.984
+      },
+      {
+        "item_id": "circular_root_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.016
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_oak_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_oak_trees",
+    "name": "Cut oak trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "noiseless_pass",
+      "nomad_woods"
+    ],
+    "base_steps": 60,
+    "base_xp": 38.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 25
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "oak_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_pine_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_pine_trees",
+    "name": "Cut pine trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "disenchanted_forest",
+      "horn_of_respite"
+    ],
+    "base_steps": 50,
+    "base_xp": 19.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "pine_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "birch_skis",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": "cut_spruce_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_spruce_trees",
+    "name": "Cut spruce trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "casbrant_fields",
+      "noiseless_pass",
+      "nomad_woods"
+    ],
+    "base_steps": 50,
+    "base_xp": 29.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 20
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "spruce_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_teak_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_teak_trees",
+    "name": "Cut teak trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "farsand_coast"
+    ],
+    "base_steps": 70,
+    "base_xp": 60.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "teak_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 99.98
+      },
+      {
+        "item_id": "beaver_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.02
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "cut_willow_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_willow_trees",
+    "name": "Cut willow trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "warrenfield",
+      "witched_woods"
+    ],
+    "base_steps": 58,
+    "base_xp": 50.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "willow_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 99.987
+      },
+      {
+        "item_id": "circular_root_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.013
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "weeping_willow_tear",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.03
+      }
+    ]
+  },
+  {
+    "id": "cut_yew_trees",
+    "wiki_slug": "Special:MyLanguage/Cut_yew_trees",
+    "name": "Cut yew trees",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "stalking_yew_woods"
+    ],
+    "base_steps": 150,
+    "base_xp": 125.0,
+    "secondary_xp": {},
+    "max_efficiency": 2.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 60
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "yew_logs",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "dragonfly_catching",
+    "wiki_slug": "Special:MyLanguage/Dragonfly_catching",
+    "name": "Dragonfly catching",
+    "primary_skill": "foraging",
+    "locations": [
+      "blackwater_fields"
+    ],
+    "base_steps": 260,
+    "base_xp": 106.0,
+    "secondary_xp": {
+      "agility": 38.0
+    },
+    "max_efficiency": 1.4,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 60
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "bug_catching_net",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 20.0
+      },
+      {
+        "item_id": "ironweed",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 44.358
+      },
+      {
+        "item_id": "sunblossom",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 22.179
+      },
+      {
+        "item_id": "loverose",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 13.307
+      },
+      {
+        "item_id": "dragonfly_catching_net",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.155
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "brilliant_emerald_dragonfly",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05
+      },
+      {
+        "item_id": "chicken_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.14
+      }
+    ]
+  },
+  {
+    "id": "ectoplasm_fishing",
+    "wiki_slug": "Special:MyLanguage/Ectoplasm_fishing",
+    "name": "Ectoplasm fishing",
+    "primary_skill": "fishing",
+    "locations": [
+      "wraithwater"
+    ],
+    "base_steps": 149,
+    "base_xp": 104.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.25,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_tool",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "ectoplasm_fish",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "emergency_darkness_escape_(swamp)",
+    "wiki_slug": "Special:MyLanguage/Emergency_darkness_escape_(Swamp)",
+    "name": "Emergency darkness escape (Swamp)",
+    "primary_skill": "agility",
+    "locations": [
+      "bog_bottom",
+      "bog_top",
+      "halfling_campgrounds",
+      "halfmaw_hideout",
+      "witched_woods"
+    ],
+    "base_steps": 10000,
+    "base_xp": 10.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": []
+  },
+  {
+    "id": "emergency_desert_escape",
+    "wiki_slug": "Special:MyLanguage/Emergency_desert_escape",
+    "name": "Emergency desert escape",
+    "primary_skill": "agility",
+    "locations": [
+      "crown_of_cinders",
+      "myriadian_arc"
+    ],
+    "base_steps": 10000,
+    "base_xp": 10.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": []
+  },
+  {
+    "id": "emergency_swim_escape",
+    "wiki_slug": "Special:MyLanguage/Emergency_swim_escape",
+    "name": "Emergency swim escape",
+    "primary_skill": "agility",
+    "locations": [
+      "casbrants_grave",
+      "darktide_trench",
+      "elaras_lagoon",
+      "kelp_forest",
+      "underwater_cave",
+      "vastalume"
+    ],
+    "base_steps": 10000,
+    "base_xp": 10.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": []
+  },
+  {
+    "id": "emergency_swim_escape_(swamp)",
+    "wiki_slug": "Special:MyLanguage/Emergency_swim_escape_(Swamp)",
+    "name": "Emergency swim escape (Swamp)",
+    "primary_skill": "agility",
+    "locations": [
+      "bog_bottom"
+    ],
+    "base_steps": 10000,
+    "base_xp": 10.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": []
+  },
+  {
+    "id": "erdwise_dumpster_diving",
+    "wiki_slug": "Special:MyLanguage/Erdwise_dumpster_diving",
+    "name": "Erdwise dumpster diving",
+    "primary_skill": "foraging",
+    "locations": [
+      "blackspell_port"
+    ],
+    "base_steps": 250,
+    "base_xp": 173.0,
+    "secondary_xp": {
+      "agility": 62.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 35
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 20
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 48.879
+      },
+      {
+        "item_id": "fishing_line",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.488
+      },
+      {
+        "item_id": "raw_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.488
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.488
+      },
+      {
+        "item_id": "raw_carp",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 5.75
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 5.75
+      },
+      {
+        "item_id": "pine_fishing_rod",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.163
+      },
+      {
+        "item_id": "beer",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.875
+      },
+      {
+        "item_id": "wine",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.875
+      },
+      {
+        "item_id": "oak_fishing_rod",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.725
+      },
+      {
+        "item_id": "rough_ruby",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.201
+      },
+      {
+        "item_id": "simple_life_vest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.201
+      },
+      {
+        "item_id": "shrimp_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.115
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "explore_bog_bottom",
+    "wiki_slug": "Special:MyLanguage/Explore_bog_bottom",
+    "name": "Explore bog bottom",
+    "primary_skill": "mining",
+    "locations": [
+      "bog_bottom"
+    ],
+    "base_steps": 2500,
+    "base_xp": 600.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "explore_underwater_cave",
+    "wiki_slug": "Special:MyLanguage/Explore_underwater_cave",
+    "name": "Explore underwater cave",
+    "primary_skill": "mining",
+    "locations": [
+      "underwater_cave"
+    ],
+    "base_steps": 2500,
+    "base_xp": 600.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "essence_of_the_swamp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ]
+  },
+  {
+    "id": "firewood_making",
+    "wiki_slug": "Special:MyLanguage/Firewood_making",
+    "name": "Firewood making",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "coldington"
+    ],
+    "base_steps": 68,
+    "base_xp": 22.0,
+    "secondary_xp": {
+      "agility": 11.0
+    },
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 15
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "hatchet",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 85.0
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 2,
+        "max_quantity": 12,
+        "chance": 14.591
+      },
+      {
+        "item_id": "tree_scaling_claws",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.409
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "flame_stoking",
+    "wiki_slug": "Special:MyLanguage/Flame_stoking",
+    "name": "Flame stoking",
+    "primary_skill": "smithing",
+    "locations": [
+      "kallaheim"
+    ],
+    "base_steps": 300,
+    "base_xp": 30.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "smithing",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 1,
+        "max_quantity": 10,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "smithing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "flooded_field_scavenging",
+    "wiki_slug": "Special:MyLanguage/Flooded_field_scavenging",
+    "name": "Flooded field scavenging",
+    "primary_skill": "foraging",
+    "locations": [
+      "tendon_wet_fields"
+    ],
+    "base_steps": 460,
+    "base_xp": 500.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.2,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 55
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 10.0
+      },
+      {
+        "item_id": "cattail",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 50.0
+      },
+      {
+        "item_id": "highwater_lotus",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 25.0
+      },
+      {
+        "item_id": "sweet_kelp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 15.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "jar_of_dirt",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.13
+      },
+      {
+        "item_id": "tortoise_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.21
+      }
+    ]
+  },
+  {
+    "id": "flooded_river_fishing_(rod)",
+    "wiki_slug": "Special:MyLanguage/Flooded_river_fishing_(Rod)",
+    "name": "Flooded river fishing (Rod)",
+    "primary_skill": "fishing",
+    "locations": [
+      "tendon_wet_fields"
+    ],
+    "base_steps": 220,
+    "base_xp": 265.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.2,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_rod",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "raw_pike",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 49.784
+      },
+      {
+        "item_id": "raw_largemouth_bass",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 33.19
+      },
+      {
+        "item_id": "raw_stream_eel",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.595
+      },
+      {
+        "item_id": "fishing_stringer",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.431
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "forest_foraging",
+    "wiki_slug": "Special:MyLanguage/Forest_foraging",
+    "name": "Forest foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "disenchanted_forest",
+      "horn_of_respite"
+    ],
+    "base_steps": 80,
+    "base_xp": 20.0,
+    "secondary_xp": {
+      "agility": 3.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": null
+      },
+      {
+        "item_id": "nettle",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      },
+      {
+        "item_id": "thistle",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      },
+      {
+        "item_id": "wheat",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      },
+      {
+        "item_id": "wooden_stick",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      },
+      {
+        "item_id": "honeycomb",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "moondaisy",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      },
+      {
+        "item_id": "snowdrop",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "rusty_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "birch_skis",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      }
+    ]
+  },
+  {
+    "id": "fossil_mining",
+    "wiki_slug": "Special:MyLanguage/Fossil_mining",
+    "name": "Fossil mining",
+    "primary_skill": "mining",
+    "locations": [
+      "darktide_trench"
+    ],
+    "base_steps": 500,
+    "base_xp": 375.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.4,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "expert_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "seahorse_fossil",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "walrus_tusk",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      },
+      {
+        "item_id": "swordfish_sword_fossil",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05
+      },
+      {
+        "item_id": "terrifying_fossil",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.01
+      }
+    ]
+  },
+  {
+    "id": "gdte_skydisc_course",
+    "wiki_slug": "Special:MyLanguage/GDTE_skydisc_course",
+    "name": "GDTE skydisc course",
+    "primary_skill": "agility",
+    "locations": [
+      "bilgemont_port"
+    ],
+    "base_steps": 680,
+    "base_xp": 392.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 25
+      },
+      {
+        "type": "keyword_count",
+        "target": "skydisc",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "ghost_tag",
+    "wiki_slug": "Special:MyLanguage/Ghost_tag",
+    "name": "Ghost tag",
+    "primary_skill": "agility",
+    "locations": [
+      "wraithwater"
+    ],
+    "base_steps": 567,
+    "base_xp": 345.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 55
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "ectoplasm",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "glacier_foraging",
+    "wiki_slug": "Special:MyLanguage/Glacier_foraging",
+    "name": "Glacier foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "winter_waves_glacier"
+    ],
+    "base_steps": 208,
+    "base_xp": 169.0,
+    "secondary_xp": {
+      "agility": 12.0
+    },
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 30
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 30
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.987
+      },
+      {
+        "item_id": "blue_ice_sickle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.013
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "expedition_journal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05
+      }
+    ]
+  },
+  {
+    "id": "gold_panning",
+    "wiki_slug": "Special:MyLanguage/Gold_panning",
+    "name": "Gold panning",
+    "primary_skill": "mining",
+    "locations": [
+      "norsack_plains"
+    ],
+    "base_steps": 70,
+    "base_xp": 20.0,
+    "secondary_xp": {
+      "fishing": 12.0
+    },
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 15
+      },
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 5
+      },
+      {
+        "type": "keyword_count",
+        "target": "gold_pan",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 55.0
+      },
+      {
+        "item_id": "copper_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.733
+      },
+      {
+        "item_id": "tin_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 8.845
+      },
+      {
+        "item_id": "gold_nugget",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 7.171
+      },
+      {
+        "item_id": "silver_nugget",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 7.171
+      },
+      {
+        "item_id": "iron_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.781
+      },
+      {
+        "item_id": "old_copper_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.12
+      },
+      {
+        "item_id": "old_silver_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.12
+      },
+      {
+        "item_id": "old_gold_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.06
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "graveyard_foraging",
+    "wiki_slug": "Special:MyLanguage/Graveyard_foraging",
+    "name": "Graveyard foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "wraithwater"
+    ],
+    "base_steps": 108,
+    "base_xp": 94.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.25,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 55
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 10.0
+      },
+      {
+        "item_id": "bones",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 72.727
+      },
+      {
+        "item_id": "widows_kiss",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 16.364
+      },
+      {
+        "item_id": "old_copper_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.364
+      },
+      {
+        "item_id": "old_silver_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.364
+      },
+      {
+        "item_id": "old_gold_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.182
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "haunted_teddy_bear",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "guard_duty",
+    "wiki_slug": "Special:MyLanguage/Guard_duty",
+    "name": "Guard duty",
+    "primary_skill": "agility",
+    "locations": [
+      "bilgemont_port",
+      "blackspell_port",
+      "everhaven",
+      "warrenfield"
+    ],
+    "base_steps": 110,
+    "base_xp": 140.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.1,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "shield",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "weapon",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 1,
+        "max_quantity": 30,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "horseshoe_making",
+    "wiki_slug": "Special:MyLanguage/Horseshoe_making",
+    "name": "Horseshoe making",
+    "primary_skill": "smithing",
+    "locations": [
+      "port_skildar"
+    ],
+    "base_steps": 70,
+    "base_xp": 25.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "smithing",
+        "value": 20
+      },
+      {
+        "type": "keyword_count",
+        "target": "smithing_hammer",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 85.0
+      },
+      {
+        "item_id": "metal_scrap",
+        "min_quantity": 2,
+        "max_quantity": 14,
+        "chance": 14.953
+      },
+      {
+        "item_id": "cooling_icicle_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.047
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "smithing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "house_jumping",
+    "wiki_slug": "Special:MyLanguage/House_jumping",
+    "name": "House jumping",
+    "primary_skill": "agility",
+    "locations": [
+      "everhaven"
+    ],
+    "base_steps": 147,
+    "base_xp": 143.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.1,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 45
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 30.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 3,
+        "max_quantity": 5,
+        "chance": 29.915
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 19.943
+      },
+      {
+        "item_id": "wooden_stick",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 19.943
+      },
+      {
+        "item_id": "flowy_trousers",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.199
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "hull_repair",
+    "wiki_slug": "Special:MyLanguage/Hull_repair",
+    "name": "Hull repair",
+    "primary_skill": "carpentry",
+    "locations": [
+      "blackspell_port"
+    ],
+    "base_steps": 147,
+    "base_xp": 97.0,
+    "secondary_xp": {
+      "smithing": 50.0
+    },
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 40
+      },
+      {
+        "type": "skill_level",
+        "target": "smithing",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "carpentry_tool",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 6,
+        "max_quantity": 8,
+        "chance": 80.41
+      },
+      {
+        "item_id": "metal_scrap",
+        "min_quantity": 4,
+        "max_quantity": 20,
+        "chance": 9.705
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 4,
+        "max_quantity": 20,
+        "chance": 9.705
+      },
+      {
+        "item_id": "sailors_hat",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.111
+      },
+      {
+        "item_id": "beaver_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.069
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "smithing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "hut_jumping",
+    "wiki_slug": "Special:MyLanguage/Hut_jumping",
+    "name": "Hut jumping",
+    "primary_skill": "agility",
+    "locations": [
+      "coldington"
+    ],
+    "base_steps": 53,
+    "base_xp": 34.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 25
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 78.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 7.273
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 7.273
+      },
+      {
+        "item_id": "wooden_stick",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 7.273
+      },
+      {
+        "item_id": "parkour_gloves",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.182
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "bird_nest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "ice_sculpting",
+    "wiki_slug": "Special:MyLanguage/Ice_sculpting",
+    "name": "Ice sculpting",
+    "primary_skill": "carpentry",
+    "locations": [
+      "frusenholm"
+    ],
+    "base_steps": 89,
+    "base_xp": 21.0,
+    "secondary_xp": {
+      "crafting": 21.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 15
+      },
+      {
+        "type": "skill_level",
+        "target": "crafting",
+        "value": 15
+      },
+      {
+        "type": "keyword_count",
+        "target": "carpentry_tool",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 50.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 49.791
+      },
+      {
+        "item_id": "ice_cutter",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.209
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "crafting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "tiny_swan_ice_sculpture",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "isthmus_sea_fishing_(net)",
+    "wiki_slug": "Special:MyLanguage/Isthmus_sea_fishing_(Net)",
+    "name": "Isthmus sea fishing (Net)",
+    "primary_skill": "fishing",
+    "locations": [
+      "kildome_cross"
+    ],
+    "base_steps": 320,
+    "base_xp": 362.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 60
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_net",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 25.0
+      },
+      {
+        "item_id": "raw_moray",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 74.493
+      },
+      {
+        "item_id": "shark_tooth_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.343
+      },
+      {
+        "item_id": "fishnet_shirt",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.164
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "jarvonia_skydisc_course",
+    "wiki_slug": "Special:MyLanguage/Jarvonia_skydisc_course",
+    "name": "Jarvonia skydisc course",
+    "primary_skill": "agility",
+    "locations": [
+      "barbantok"
+    ],
+    "base_steps": 430,
+    "base_xp": 193.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "skydisc",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "kayaking",
+    "wiki_slug": "Special:MyLanguage/Kayaking",
+    "name": "Kayaking",
+    "primary_skill": "agility",
+    "locations": [
+      "old_arena_ruins"
+    ],
+    "base_steps": 68,
+    "base_xp": 49.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "life_vest",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 70.0
+      },
+      {
+        "item_id": "raw_pike",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 11.979
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 11.979
+      },
+      {
+        "item_id": "flax",
+        "min_quantity": 2,
+        "max_quantity": 6,
+        "chance": 5.989
+      },
+      {
+        "item_id": "lucky_rabbit_foot_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.053
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "tortoise_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.04
+      }
+    ]
+  },
+  {
+    "id": "kelp_foraging",
+    "wiki_slug": "Special:MyLanguage/Kelp_foraging",
+    "name": "Kelp foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "kelp_forest"
+    ],
+    "base_steps": 110,
+    "base_xp": 35.0,
+    "secondary_xp": {
+      "woodcutting": 35.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 35
+      },
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "kelp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 95.238
+      },
+      {
+        "item_id": "sweet_kelp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.762
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "lake_fishing",
+    "wiki_slug": "Special:MyLanguage/Lake_fishing",
+    "name": "Lake fishing",
+    "primary_skill": "fishing",
+    "locations": [
+      "azurazera",
+      "frusenholm"
+    ],
+    "base_steps": 75,
+    "base_xp": 22.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 5
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_rod",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "raw_carp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_pike",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "litter_looting",
+    "wiki_slug": "Special:MyLanguage/Litter_looting",
+    "name": "Litter looting",
+    "primary_skill": "foraging",
+    "locations": [
+      "granfiddich",
+      "kallaheim"
+    ],
+    "base_steps": 95,
+    "base_xp": 32.0,
+    "secondary_xp": {
+      "agility": 6.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 8
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 40.0
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 17.391
+      },
+      {
+        "item_id": "raw_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 14.493
+      },
+      {
+        "item_id": "trash",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 14.493
+      },
+      {
+        "item_id": "birch_plank",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.145
+      },
+      {
+        "item_id": "simple_torch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.899
+      },
+      {
+        "item_id": "smelly_socks",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.58
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "magnet_fishing",
+    "wiki_slug": "Special:MyLanguage/Magnet_fishing",
+    "name": "Magnet fishing",
+    "primary_skill": "fishing",
+    "locations": [
+      "old_arena_ruins"
+    ],
+    "base_steps": 189,
+    "base_xp": 136.0,
+    "secondary_xp": {
+      "foraging": 60.0
+    },
+    "max_efficiency": 1.3,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 40
+      },
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "magnetic",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 3,
+        "max_quantity": 6,
+        "chance": 38.615
+      },
+      {
+        "item_id": "iron_ore",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 13.702
+      },
+      {
+        "item_id": "trash",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 13.702
+      },
+      {
+        "item_id": "fishing_line",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 11.211
+      },
+      {
+        "item_id": "copper_hatchet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.983
+      },
+      {
+        "item_id": "copper_pickaxe",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.983
+      },
+      {
+        "item_id": "iron_hatchet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.363
+      },
+      {
+        "item_id": "iron_pickaxe",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.363
+      },
+      {
+        "item_id": "old_copper_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.246
+      },
+      {
+        "item_id": "old_silver_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.246
+      },
+      {
+        "item_id": "steel_hatchet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.246
+      },
+      {
+        "item_id": "steel_pickaxe",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.246
+      },
+      {
+        "item_id": "old_gold_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.623
+      },
+      {
+        "item_id": "heron_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.249
+      },
+      {
+        "item_id": "simple_magnet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.224
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "old_war_sword",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.09
+      }
+    ]
+  },
+  {
+    "id": "merfolk_dancing",
+    "wiki_slug": "Special:MyLanguage/Merfolk_dancing",
+    "name": "Merfolk dancing",
+    "primary_skill": "agility",
+    "locations": [
+      "vastalume"
+    ],
+    "base_steps": 300,
+    "base_xp": 195.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [
+      {
+        "faction_id": "syrenthia",
+        "amount": 0.02
+      }
+    ],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "salty_hops",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 9.804
+      },
+      {
+        "item_id": "merfolk_dress",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.196
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "letter_from_a._a.",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      },
+      {
+        "item_id": "dolphin_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.19
+      }
+    ]
+  },
+  {
+    "id": "merfolk_farm_foraging",
+    "wiki_slug": "Special:MyLanguage/Merfolk_farm_foraging",
+    "name": "Merfolk farm foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "elaras_lagoon"
+    ],
+    "base_steps": 100,
+    "base_xp": 90.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "cucumber",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 26.667
+      },
+      {
+        "item_id": "sea_cabbage",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 26.667
+      },
+      {
+        "item_id": "sea_spinach",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 26.667
+      },
+      {
+        "item_id": "underwater_lotus",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 13.333
+      },
+      {
+        "item_id": "salty_hops",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "mine_adamant_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_adamant_ore",
+    "name": "Mine adamant ore",
+    "primary_skill": "mining",
+    "locations": [
+      "crown_of_cinders"
+    ],
+    "base_steps": 163,
+    "base_xp": 108.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 60
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "adamant_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_wrentmarine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.87
+      },
+      {
+        "item_id": "rough_sun_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.13
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "camel_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.07
+      }
+    ]
+  },
+  {
+    "id": "mine_coal",
+    "wiki_slug": "Special:MyLanguage/Mine_coal",
+    "name": "Mine coal",
+    "primary_skill": "mining",
+    "locations": [
+      "frostbite_mountain",
+      "sanguine_hills"
+    ],
+    "base_steps": 80,
+    "base_xp": 48.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "mine_copper_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_copper_ore",
+    "name": "Mine copper ore",
+    "primary_skill": "mining",
+    "locations": [
+      "frostbite_mountain"
+    ],
+    "base_steps": 50,
+    "base_xp": 12.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "copper_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "jarvonian_crossword_puzzle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "mine_crystal_coal",
+    "wiki_slug": "Special:MyLanguage/Mine_crystal_coal",
+    "name": "Mine crystal coal",
+    "primary_skill": "mining",
+    "locations": [
+      "crown_of_cinders"
+    ],
+    "base_steps": 127,
+    "base_xp": 88.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.3,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 60
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "crystal_coal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 97.561
+      },
+      {
+        "item_id": "crystallized_flame",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.439
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_wrentmarine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.87
+      },
+      {
+        "item_id": "rough_sun_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.13
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "rose_quartz",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.01
+      },
+      {
+        "item_id": "camel_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.06
+      }
+    ]
+  },
+  {
+    "id": "mine_ectoplasm_rocks",
+    "wiki_slug": "Special:MyLanguage/Mine_ectoplasm_rocks",
+    "name": "Mine ectoplasm rocks",
+    "primary_skill": "mining",
+    "locations": [
+      "wraithwater"
+    ],
+    "base_steps": 132,
+    "base_xp": 95.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.2,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "ectoplasm_rock",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.714
+      },
+      {
+        "item_id": "rough_topaz",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.286
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "mine_farganite_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_farganite_ore",
+    "name": "Mine farganite ore",
+    "primary_skill": "mining",
+    "locations": [
+      "black_eye_peak"
+    ],
+    "base_steps": 105,
+    "base_xp": 78.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "farganite_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "mine_gold_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_gold_ore",
+    "name": "Mine gold ore",
+    "primary_skill": "mining",
+    "locations": [
+      "crown_of_cinders"
+    ],
+    "base_steps": 68,
+    "base_xp": 48.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "gold_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_wrentmarine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.87
+      },
+      {
+        "item_id": "rough_sun_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.13
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "camel_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.04
+      }
+    ]
+  },
+  {
+    "id": "mine_iron_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_iron_ore",
+    "name": "Mine iron ore",
+    "primary_skill": "mining",
+    "locations": [
+      "frostbite_mountain"
+    ],
+    "base_steps": 60,
+    "base_xp": 29.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 20
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "iron_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "jarvonian_crossword_puzzle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "mine_silver_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_silver_ore",
+    "name": "Mine silver ore",
+    "primary_skill": "mining",
+    "locations": [
+      "crown_of_cinders"
+    ],
+    "base_steps": 56,
+    "base_xp": 39.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "silver_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_wrentmarine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.87
+      },
+      {
+        "item_id": "rough_sun_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.13
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "camel_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.03
+      }
+    ]
+  },
+  {
+    "id": "mine_tarsilium_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_tarsilium_ore",
+    "name": "Mine tarsilium ore",
+    "primary_skill": "mining",
+    "locations": [
+      "sanguine_hills"
+    ],
+    "base_steps": 90,
+    "base_xp": 58.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "tarsilium_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "mine_tarsilium_ore_(underwater)",
+    "wiki_slug": "Special:MyLanguage/Mine_tarsilium_ore_(Underwater)",
+    "name": "Mine tarsilium ore (Underwater)",
+    "primary_skill": "mining",
+    "locations": [
+      "underwater_cave"
+    ],
+    "base_steps": 86,
+    "base_xp": 58.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "tarsilium_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "mine_tin_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_tin_ore",
+    "name": "Mine tin ore",
+    "primary_skill": "mining",
+    "locations": [
+      "frostbite_mountain"
+    ],
+    "base_steps": 65,
+    "base_xp": 22.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "tin_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "jarvonian_crossword_puzzle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "mine_violite_ore",
+    "wiki_slug": "Special:MyLanguage/Mine_violite_ore",
+    "name": "Mine violite ore",
+    "primary_skill": "mining",
+    "locations": [
+      "crown_of_cinders"
+    ],
+    "base_steps": 225,
+    "base_xp": 132.0,
+    "secondary_xp": {},
+    "max_efficiency": 2.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 70
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "violite_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_wrentmarine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.87
+      },
+      {
+        "item_id": "rough_sun_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.13
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "camel_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.07
+      }
+    ]
+  },
+  {
+    "id": "mine_volcanic_rock",
+    "wiki_slug": "Special:MyLanguage/Mine_volcanic_rock",
+    "name": "Mine volcanic rock",
+    "primary_skill": "mining",
+    "locations": [
+      "underwater_cave"
+    ],
+    "base_steps": 125,
+    "base_xp": 120.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 45
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "volcanic_rock",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 95.238
+      },
+      {
+        "item_id": "volcanic_ash",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.762
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "very_shiny_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.02
+      }
+    ]
+  },
+  {
+    "id": "mountain_climbing",
+    "wiki_slug": "Special:MyLanguage/Mountain_climbing",
+    "name": "Mountain climbing",
+    "primary_skill": "agility",
+    "locations": [
+      "frostbite_mountain"
+    ],
+    "base_steps": 57,
+    "base_xp": 23.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "climbing_gear",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 54.0
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 23.728
+      },
+      {
+        "item_id": "copper_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 12.655
+      },
+      {
+        "item_id": "tin_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.327
+      },
+      {
+        "item_id": "iron_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.164
+      },
+      {
+        "item_id": "iron_thermos",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.127
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "plains_foraging",
+    "wiki_slug": "Special:MyLanguage/Plains_foraging",
+    "name": "Plains foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "casbrant_fields",
+      "norsack_plains"
+    ],
+    "base_steps": 95,
+    "base_xp": 35.0,
+    "secondary_xp": {
+      "agility": 13.0
+    },
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 10
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": null
+      },
+      {
+        "item_id": "wheat",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": null
+      },
+      {
+        "item_id": "flax",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "snowdrop",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "honeycomb",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": null
+      },
+      {
+        "item_id": "sticky_finger_shorts",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "hemp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "predator_hunting_(spear)",
+    "wiki_slug": "Special:MyLanguage/Predator_hunting_(Spear)",
+    "name": "Predator hunting (Spear)",
+    "primary_skill": "fishing",
+    "locations": [
+      "darktide_trench"
+    ],
+    "base_steps": 250,
+    "base_xp": 320.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.2,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 55
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_spear",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "expert_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": null
+      },
+      {
+        "item_id": "raw_shark",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_squid",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_anglerfish",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "anglerfish_mask",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "repair_the_bank",
+    "wiki_slug": "Special:MyLanguage/Repair_the_bank",
+    "name": "Repair the bank",
+    "primary_skill": "carpentry",
+    "locations": [
+      "wraithwater"
+    ],
+    "base_steps": 6000,
+    "base_xp": 30000.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 58
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "rescue_team",
+    "wiki_slug": "Special:MyLanguage/Rescue_team",
+    "name": "Rescue team",
+    "primary_skill": "agility",
+    "locations": [
+      "horn_of_respite"
+    ],
+    "base_steps": 8500,
+    "base_xp": 5000.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "climbing_gear",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "skis",
+        "value": 1
+      },
+      {
+        "type": "achievement_points",
+        "target": null,
+        "value": 20
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 45.185
+      },
+      {
+        "item_id": "adventurers_enamel_pin",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 100.0
+      },
+      {
+        "item_id": "name_tag",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 40.0
+      },
+      {
+        "item_id": "unidentified_remains",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 30.0
+      },
+      {
+        "item_id": "compass_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 8.33
+      }
+    ]
+  },
+  {
+    "id": "ridge_scrambling",
+    "wiki_slug": "Special:MyLanguage/Ridge_scrambling",
+    "name": "Ridge scrambling",
+    "primary_skill": "agility",
+    "locations": [
+      "black_eye_peak"
+    ],
+    "base_steps": 119,
+    "base_xp": 94.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "climbing_gear",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 37.0
+      },
+      {
+        "item_id": "coal",
+        "min_quantity": 1,
+        "max_quantity": 4,
+        "chance": 38.92
+      },
+      {
+        "item_id": "flax",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 20.605
+      },
+      {
+        "item_id": "iron_pickaxe",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.289
+      },
+      {
+        "item_id": "steel_pickaxe",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.145
+      },
+      {
+        "item_id": "mountaineering_guidebook",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.041
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "run_for_your_life",
+    "wiki_slug": "Special:MyLanguage/Run_for_your_life",
+    "name": "Run for your life",
+    "primary_skill": "agility",
+    "locations": [
+      "bog_top",
+      "halfling_campgrounds",
+      "halfmaw_hideout",
+      "witched_woods"
+    ],
+    "base_steps": 500,
+    "base_xp": 200.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "essence_of_the_swamp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ]
+  },
+  {
+    "id": "sandcastle_building",
+    "wiki_slug": "Special:MyLanguage/Sandcastle_building",
+    "name": "Sandcastle building",
+    "primary_skill": "carpentry",
+    "locations": [
+      "beach_of_woes"
+    ],
+    "base_steps": 225,
+    "base_xp": 70.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "rusty_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "lost_timmys_sand_shovel",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.0
+      }
+    ]
+  },
+  {
+    "id": "sea_fishing_(cage)",
+    "wiki_slug": "Special:MyLanguage/Sea_fishing_(Cage)",
+    "name": "Sea fishing (Cage)",
+    "primary_skill": "fishing",
+    "locations": [
+      "winters_end"
+    ],
+    "base_steps": 150,
+    "base_xp": 125.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_cage",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": null
+      },
+      {
+        "item_id": "raw_lobster",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "trash",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "pink_pearl_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "crustacean_call",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sunken_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "sea_fishing_(net)",
+    "wiki_slug": "Special:MyLanguage/Sea_fishing_(Net)",
+    "name": "Sea fishing (Net)",
+    "primary_skill": "fishing",
+    "locations": [
+      "beach_of_woes",
+      "granfiddich_shores"
+    ],
+    "base_steps": 95,
+    "base_xp": 28.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_net",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": null
+      },
+      {
+        "item_id": "raw_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "pink_pearl_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_jellyfish",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "rusty_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sunken_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "sea_fishing_(rod)",
+    "wiki_slug": "Special:MyLanguage/Sea_fishing_(Rod)",
+    "name": "Sea fishing (Rod)",
+    "primary_skill": "fishing",
+    "locations": [
+      "granfiddich_shores",
+      "port_skildar"
+    ],
+    "base_steps": 110,
+    "base_xp": 64.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 20
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_rod",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_salmon",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_squid",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sunken_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "sea_fishing_(spear)",
+    "wiki_slug": "Special:MyLanguage/Sea_fishing_(Spear)",
+    "name": "Sea fishing (Spear)",
+    "primary_skill": "fishing",
+    "locations": [
+      "casbrants_grave"
+    ],
+    "base_steps": 125,
+    "base_xp": 82.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "fishing",
+        "value": 30
+      },
+      {
+        "type": "keyword_count",
+        "target": "fishing_spear",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": null
+      },
+      {
+        "item_id": "raw_salmon",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "eye_patch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "heron_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_stingray",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      },
+      {
+        "item_id": "raw_swordfish",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": null
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "fishing_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "search_team",
+    "wiki_slug": "Special:MyLanguage/Search_team",
+    "name": "Search team",
+    "primary_skill": "agility",
+    "locations": [
+      "horn_of_respite"
+    ],
+    "base_steps": 7505,
+    "base_xp": 2400.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 33.022
+      },
+      {
+        "item_id": "alien_squeaky_toy",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 12.5
+      },
+      {
+        "item_id": "adventurers_enamel_pin",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 100.0
+      },
+      {
+        "item_id": "name_tag",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 40.0
+      }
+    ]
+  },
+  {
+    "id": "seashell_searching",
+    "wiki_slug": "Special:MyLanguage/Seashell_searching",
+    "name": "Seashell searching",
+    "primary_skill": "foraging",
+    "locations": [
+      "beach_of_woes",
+      "farsand_coast",
+      "granfiddich_shores"
+    ],
+    "base_steps": 105,
+    "base_xp": 70.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 25
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 15.0
+      },
+      {
+        "item_id": "fishbone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 36.12
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 25.497
+      },
+      {
+        "item_id": "clam_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.998
+      },
+      {
+        "item_id": "pearls",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.374
+      },
+      {
+        "item_id": "beaver_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.011
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sunken_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "shoreline_scramble",
+    "wiki_slug": "Special:MyLanguage/Shoreline_scramble",
+    "name": "Shoreline scramble",
+    "primary_skill": "agility",
+    "locations": [
+      "kildome_cross"
+    ],
+    "base_steps": 165,
+    "base_xp": 152.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.4,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 60
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.88
+      },
+      {
+        "item_id": "feather_boots",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.12
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "shiny_broken_skydisk",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.02
+      }
+    ]
+  },
+  {
+    "id": "skate_skiing",
+    "wiki_slug": "Special:MyLanguage/Skate_skiing",
+    "name": "Skate skiing",
+    "primary_skill": "agility",
+    "locations": [
+      "noiseless_pass"
+    ],
+    "base_steps": 318,
+    "base_xp": 172.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 20
+      },
+      {
+        "type": "keyword_count",
+        "target": "skis",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "reindeer_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.2
+      }
+    ]
+  },
+  {
+    "id": "sledding",
+    "wiki_slug": "Special:MyLanguage/Sledding",
+    "name": "Sledding",
+    "primary_skill": "agility",
+    "locations": [
+      "nurturing_nook_springs"
+    ],
+    "base_steps": 100,
+    "base_xp": 50.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 20
+      }
+    ],
+    "faction_rewards": [
+      {
+        "faction_id": "jarvonia",
+        "amount": 0.01
+      }
+    ],
+    "drops": [],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "soup_kitchen_volunteering",
+    "wiki_slug": "Special:MyLanguage/Soup_kitchen_volunteering",
+    "name": "Soup kitchen volunteering",
+    "primary_skill": "cooking",
+    "locations": [
+      "azurazera",
+      "granfiddich"
+    ],
+    "base_steps": 56,
+    "base_xp": 22.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.7,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "cooking",
+        "value": 10
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 75.0
+      },
+      {
+        "item_id": "nettle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 5.43
+      },
+      {
+        "item_id": "raw_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 5.43
+      },
+      {
+        "item_id": "raw_perch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.344
+      },
+      {
+        "item_id": "wheat",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 4.344
+      },
+      {
+        "item_id": "cooked_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.715
+      },
+      {
+        "item_id": "raw_carp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.715
+      },
+      {
+        "item_id": "measuring_spoons_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.022
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "cooking_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "soup_kitchen_badge",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05
+      }
+    ]
+  },
+  {
+    "id": "spelunking",
+    "wiki_slug": "Special:MyLanguage/Spelunking",
+    "name": "Spelunking",
+    "primary_skill": "mining",
+    "locations": [
+      "black_eye_peak"
+    ],
+    "base_steps": 375,
+    "base_xp": 232.0,
+    "secondary_xp": {
+      "agility": 232.0
+    },
+    "max_efficiency": 1.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 50
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "climbing_gear",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 20.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 10,
+        "max_quantity": 15,
+        "chance": 29.869
+      },
+      {
+        "item_id": "coal",
+        "min_quantity": 4,
+        "max_quantity": 7,
+        "chance": 19.913
+      },
+      {
+        "item_id": "farganite_ore",
+        "min_quantity": 2,
+        "max_quantity": 5,
+        "chance": 14.935
+      },
+      {
+        "item_id": "tarsilium_ore",
+        "min_quantity": 3,
+        "max_quantity": 6,
+        "chance": 14.935
+      },
+      {
+        "item_id": "bat_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.348
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "ancient_ankh",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.07
+      }
+    ]
+  },
+  {
+    "id": "spring_bat_tracking",
+    "wiki_slug": "Special:MyLanguage/Spring_bat_tracking",
+    "name": "Spring bat tracking",
+    "primary_skill": "agility",
+    "locations": [
+      "winters_end"
+    ],
+    "base_steps": 10000,
+    "base_xp": 4000.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "essence_of_the_swamp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ]
+  },
+  {
+    "id": "spring_cave_foraging",
+    "wiki_slug": "Special:MyLanguage/Spring_cave_foraging",
+    "name": "Spring cave foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "winters_end"
+    ],
+    "base_steps": 74,
+    "base_xp": 59.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 30.0
+      },
+      {
+        "item_id": "mushroom",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 40.354
+      },
+      {
+        "item_id": "carrot",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 26.902
+      },
+      {
+        "item_id": "honeycomb",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.69
+      },
+      {
+        "item_id": "bat_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.054
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "stone_quarrying",
+    "wiki_slug": "Special:MyLanguage/Stone_quarrying",
+    "name": "Stone quarrying",
+    "primary_skill": "mining",
+    "locations": [
+      "sanguine_hills"
+    ],
+    "base_steps": 39,
+    "base_xp": 8.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 10.0
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 87.097
+      },
+      {
+        "item_id": "large_stone",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.903
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "summer_cave_foraging",
+    "wiki_slug": "Special:MyLanguage/Summer_cave_foraging",
+    "name": "Summer cave foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "bog_top"
+    ],
+    "base_steps": 400,
+    "base_xp": 400.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "bell_pepper",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 57.802
+      },
+      {
+        "item_id": "egg",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 57.802
+      },
+      {
+        "item_id": "honeycomb",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 57.802
+      },
+      {
+        "item_id": "mushroom",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 57.802
+      },
+      {
+        "item_id": "bat_trinket",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 0.075
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "surface_copper_mining",
+    "wiki_slug": "Special:MyLanguage/Surface_copper_mining",
+    "name": "Surface copper mining",
+    "primary_skill": "mining",
+    "locations": [
+      "pit_of_pittance"
+    ],
+    "base_steps": 55,
+    "base_xp": 12.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "copper_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "rusty_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "surface_salt_mining",
+    "wiki_slug": "Special:MyLanguage/Surface_salt_mining",
+    "name": "Surface salt mining",
+    "primary_skill": "mining",
+    "locations": [
+      "pit_of_pittance"
+    ],
+    "base_steps": 55,
+    "base_xp": 12.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "salt_crystal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "rusty_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      },
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "surface_swimming",
+    "wiki_slug": "Special:MyLanguage/Surface_swimming",
+    "name": "Surface swimming",
+    "primary_skill": "agility",
+    "locations": [
+      "farsand_coast",
+      "granfiddich_shores"
+    ],
+    "base_steps": 56,
+    "base_xp": 32.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 20
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 82.0
+      },
+      {
+        "item_id": "raw_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 4,
+        "chance": 10.056
+      },
+      {
+        "item_id": "raw_carp",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 5.028
+      },
+      {
+        "item_id": "raw_trout",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.514
+      },
+      {
+        "item_id": "simple_life_vest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.302
+      },
+      {
+        "item_id": "eel_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.101
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sunken_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "surface_tin_mining",
+    "wiki_slug": "Special:MyLanguage/Surface_tin_mining",
+    "name": "Surface tin mining",
+    "primary_skill": "mining",
+    "locations": [
+      "pit_of_pittance"
+    ],
+    "base_steps": 70,
+    "base_xp": 22.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.6,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "tin_ore",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_star_pearl",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "swamp_foraging",
+    "wiki_slug": "Special:MyLanguage/Swamp_foraging",
+    "name": "Swamp foraging",
+    "primary_skill": "foraging",
+    "locations": [
+      "bog_top"
+    ],
+    "base_steps": 200,
+    "base_xp": 200.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 45
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "bell_pepper",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 14.265
+      },
+      {
+        "item_id": "grass",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 14.265
+      },
+      {
+        "item_id": "milkweed",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 14.265
+      },
+      {
+        "item_id": "mud",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 14.265
+      },
+      {
+        "item_id": "pepper",
+        "min_quantity": 1,
+        "max_quantity": 10,
+        "chance": 14.265
+      },
+      {
+        "item_id": "root",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 14.265
+      },
+      {
+        "item_id": "rotbud",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 14.265
+      },
+      {
+        "item_id": "beaver_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.143
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "tinkering",
+    "wiki_slug": "Special:MyLanguage/Tinkering",
+    "name": "Tinkering",
+    "primary_skill": "crafting",
+    "locations": [
+      "barbantok"
+    ],
+    "base_steps": 92,
+    "base_xp": 30.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.1,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "crafting",
+        "value": 25
+      },
+      {
+        "type": "keyword_count",
+        "target": "crafting_tool",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 75.0
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 3,
+        "max_quantity": 6,
+        "chance": 12.45
+      },
+      {
+        "item_id": "metal_scrap",
+        "min_quantity": 2,
+        "max_quantity": 20,
+        "chance": 6.225
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 2,
+        "max_quantity": 20,
+        "chance": 6.225
+      },
+      {
+        "item_id": "wire_saw",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "crafting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "silver_pocket_watch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "treasure_hunt",
+    "wiki_slug": "Special:MyLanguage/Treasure_hunt",
+    "name": "Treasure hunt",
+    "primary_skill": "foraging",
+    "locations": [
+      "horn_of_respite"
+    ],
+    "base_steps": 100,
+    "base_xp": 10.0,
+    "secondary_xp": {
+      "agility": 10.0,
+      "fishing": 10.0,
+      "woodcutting": 10.0
+    },
+    "max_efficiency": 0.2,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 20
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "petrified_branch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.84
+      },
+      {
+        "item_id": "floating_coral",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.121
+      },
+      {
+        "item_id": "easter_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.024
+      },
+      {
+        "item_id": "treasure_hunter_token",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.006
+      },
+      {
+        "item_id": "artificial_snowflake",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.003
+      },
+      {
+        "item_id": "adventurers_enamel_pin",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.0
+      },
+      {
+        "item_id": "reindeer_egg",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05
+      }
+    ]
+  },
+  {
+    "id": "trellin_dumpster_diving",
+    "wiki_slug": "Special:MyLanguage/Trellin_dumpster_diving",
+    "name": "Trellin dumpster diving",
+    "primary_skill": "foraging",
+    "locations": [
+      "granfiddich"
+    ],
+    "base_steps": 250,
+    "base_xp": 173.0,
+    "secondary_xp": {
+      "agility": 62.0
+    },
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 35
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 20
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "coins",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 51.576
+      },
+      {
+        "item_id": "birch_logs",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.456
+      },
+      {
+        "item_id": "maple_logs",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.456
+      },
+      {
+        "item_id": "pine_logs",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.456
+      },
+      {
+        "item_id": "wooden_stick",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 9.456
+      },
+      {
+        "item_id": "beer",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.006
+      },
+      {
+        "item_id": "bronze_hatchet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.006
+      },
+      {
+        "item_id": "cooked_shrimp",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.006
+      },
+      {
+        "item_id": "iron_hatchet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.006
+      },
+      {
+        "item_id": "wine",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 2.006
+      },
+      {
+        "item_id": "simple_chisel",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.229
+      },
+      {
+        "item_id": "simple_saw",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.229
+      },
+      {
+        "item_id": "shrimp_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.115
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "underwater_aqueduct_construction",
+    "wiki_slug": "Special:MyLanguage/Underwater_aqueduct_construction",
+    "name": "Underwater aqueduct construction",
+    "primary_skill": "carpentry",
+    "locations": [
+      "bog_bottom"
+    ],
+    "base_steps": 150,
+    "base_xp": 70.0,
+    "secondary_xp": {
+      "agility": 70.0
+    },
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 40
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "carpentry_tool",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [
+      {
+        "faction_id": "halfling_rebels",
+        "amount": 0.01
+      }
+    ],
+    "drops": [
+      {
+        "item_id": "mud",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 50.0
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 50.0
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_jade",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "underwater_aqueduct_digging",
+    "wiki_slug": "Special:MyLanguage/Underwater_aqueduct_digging",
+    "name": "Underwater aqueduct digging",
+    "primary_skill": "mining",
+    "locations": [
+      "bog_bottom"
+    ],
+    "base_steps": 100,
+    "base_xp": 90.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.9,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "mining",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "pickaxe",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 50.0
+      },
+      {
+        "item_id": "stone",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 16.664
+      },
+      {
+        "item_id": "volcanic_rock",
+        "min_quantity": 1,
+        "max_quantity": 5,
+        "chance": 16.664
+      },
+      {
+        "item_id": "gold_nugget",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 8.332
+      },
+      {
+        "item_id": "silver_nugget",
+        "min_quantity": 1,
+        "max_quantity": 3,
+        "chance": 8.332
+      },
+      {
+        "item_id": "ring_of_pandemonium",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.009
+      },
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 99.0
+      },
+      {
+        "item_id": "rough_opal",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.769
+      },
+      {
+        "item_id": "rough_jade",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.231
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "mining_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "underwater_basket_weaving",
+    "wiki_slug": "Special:MyLanguage/Underwater_basket_weaving",
+    "name": "Underwater basket weaving",
+    "primary_skill": "crafting",
+    "locations": [
+      "elaras_lagoon"
+    ],
+    "base_steps": 300,
+    "base_xp": 180.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "crafting",
+        "value": 40
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 60.0
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 39.722
+      },
+      {
+        "item_id": "flatpack_shark",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.278
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "crafting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "underwater_swimming",
+    "wiki_slug": "Special:MyLanguage/Underwater_swimming",
+    "name": "Underwater swimming",
+    "primary_skill": "agility",
+    "locations": [
+      "elaras_lagoon"
+    ],
+    "base_steps": 150,
+    "base_xp": 155.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.1,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "advanced_diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 50.0
+      },
+      {
+        "item_id": "raw_stingray",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 24.691
+      },
+      {
+        "item_id": "raw_swordfish",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 24.691
+      },
+      {
+        "item_id": "eel_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.309
+      },
+      {
+        "item_id": "flippers",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.309
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 10.0
+      }
+    ]
+  },
+  {
+    "id": "vegetable_chopping",
+    "wiki_slug": "Special:MyLanguage/Vegetable_chopping",
+    "name": "Vegetable chopping",
+    "primary_skill": "cooking",
+    "locations": [
+      "kallaheim"
+    ],
+    "base_steps": 300,
+    "base_xp": 30.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "cooking",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 50.0
+      },
+      {
+        "item_id": "nettle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.667
+      },
+      {
+        "item_id": "potato",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.667
+      },
+      {
+        "item_id": "tomato",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 16.667
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "cooking_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "venture_into_the_bog",
+    "wiki_slug": "Special:MyLanguage/Venture_into_the_bog",
+    "name": "Venture into the bog",
+    "primary_skill": "agility",
+    "locations": [
+      "granfiddich"
+    ],
+    "base_steps": 2500,
+    "base_xp": 600.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "essence_of_the_swamp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ]
+  },
+  {
+    "id": "venture_into_the_hideout",
+    "wiki_slug": "Special:MyLanguage/Venture_into_the_hideout",
+    "name": "Venture into the hideout",
+    "primary_skill": "woodcutting",
+    "locations": [
+      "blackspell_port"
+    ],
+    "base_steps": 2500,
+    "base_xp": 600.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "woodcutting",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "woodcutting_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "essence_of_the_swamp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ]
+  },
+  {
+    "id": "venture_into_the_woods",
+    "wiki_slug": "Special:MyLanguage/Venture_into_the_woods",
+    "name": "Venture into the woods",
+    "primary_skill": "foraging",
+    "locations": [
+      "salsfirth"
+    ],
+    "base_steps": 2500,
+    "base_xp": 600.0,
+    "secondary_xp": {},
+    "max_efficiency": 1.0,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 50
+      },
+      {
+        "type": "keyword_count",
+        "target": "light_source",
+        "value": 2
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 100.0
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "essence_of_the_swamp",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 100.0
+      }
+    ]
+  },
+  {
+    "id": "wine_grape_stomping",
+    "wiki_slug": "Special:MyLanguage/Wine_grape_stomping",
+    "name": "Wine grape stomping",
+    "primary_skill": "cooking",
+    "locations": [
+      "granfiddich"
+    ],
+    "base_steps": 143,
+    "base_xp": 112.0,
+    "secondary_xp": {
+      "agility": 28.0
+    },
+    "max_efficiency": 1.2,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "cooking",
+        "value": 45
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 30
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 20.0
+      },
+      {
+        "item_id": "berries",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 39.9
+      },
+      {
+        "item_id": "wine",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 39.9
+      },
+      {
+        "item_id": "eberhart_corkscrew",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.133
+      },
+      {
+        "item_id": "measuring_spoons_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.067
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "cooking_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      }
+    ]
+  },
+  {
+    "id": "wood_carving",
+    "wiki_slug": "Special:MyLanguage/Wood_carving",
+    "name": "Wood carving",
+    "primary_skill": "carpentry",
+    "locations": [
+      "barbantok"
+    ],
+    "base_steps": 53,
+    "base_xp": 14.0,
+    "secondary_xp": {},
+    "max_efficiency": 0.5,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 10
+      },
+      {
+        "type": "keyword_count",
+        "target": "carpentry_tool",
+        "value": 1
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 90.0
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 2,
+        "max_quantity": 14,
+        "chance": 9.881
+      },
+      {
+        "item_id": "carving_knife",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.119
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "carpentry_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "wooden_carved_bear_figurine",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1
+      }
+    ]
+  },
+  {
+    "id": "wreck_diving",
+    "wiki_slug": "Special:MyLanguage/Wreck_diving",
+    "name": "Wreck diving",
+    "primary_skill": "foraging",
+    "locations": [
+      "casbrants_grave"
+    ],
+    "base_steps": 1000,
+    "base_xp": 700.0,
+    "secondary_xp": {
+      "agility": 100.0
+    },
+    "max_efficiency": 0.8,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "foraging",
+        "value": 35
+      },
+      {
+        "type": "skill_level",
+        "target": "agility",
+        "value": 35
+      },
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "faction_rewards": [],
+    "drops": [
+      {
+        "item_id": "nothing",
+        "min_quantity": 0,
+        "max_quantity": 0,
+        "chance": 10.0
+      },
+      {
+        "item_id": "sea_shell",
+        "min_quantity": 10,
+        "max_quantity": 15,
+        "chance": 44.944
+      },
+      {
+        "item_id": "silver_nugget",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 31.461
+      },
+      {
+        "item_id": "gold_nugget",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 13.483
+      },
+      {
+        "item_id": "pirate_hat",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.112
+      }
+    ],
+    "secondary_drops": [
+      {
+        "item_id": "agility_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coin_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "coral_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "foraging_chest",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "gem_pouch",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.4
+      },
+      {
+        "item_id": "dinglehopper",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.5
+      }
+    ]
+  }
+]

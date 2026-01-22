@@ -1,206 +1,402 @@
-from typing import List, Optional
+from enum import Enum
+from typing import List, Optional, Dict, Set, Tuple
+from collections import defaultdict, Counter
 from pydantic import BaseModel, Field
 
-def deduce_max_efficiency(base_steps: int, min_steps: int) -> float:
-    if min_steps <= 0: return 0.0
-    return (base_steps / min_steps) - 1.0
+# ============================================================================
+# ENUMS
+# ============================================================================
 
-class Item(BaseModel):
+class EquipmentQuality(str, Enum):
+    NORMAL = "Normal"
+    GOOD = "Good"
+    GREAT = "Great"
+    EXCELLENT = "Excellent"
+    PERFECT = "Perfect"
+    ETERNAL = "Eternal"
+    NONE = "None" 
+
+class EquipmentSlot(str, Enum):
+    PRIMARY = "primary"
+    SECONDARY = "secondary"
+    HEAD = "head"
+    CHEST = "chest"
+    LEGS = "legs"
+    FEET = "feet"
+    TOOLS = "tools"
+    RING = "ring"
+    NECK = "neck"
+    CAPE = "cape"
+    BACK = "back"
+    HANDS = "hands"
+    GLOVES = "gloves" 
+    UNKNOWN = "unknown"
+
+class SkillName(str, Enum):
+    AGILITY = "agility"
+    CARPENTRY = "carpentry"
+    COOKING = "cooking"
+    CRAFTING = "crafting"
+    FISHING = "fishing"
+    FORAGING = "foraging"
+    MINING = "mining"
+    SMITHING = "smithing"
+    TRINKETRY = "trinketry"
+    WOODCUTTING = "woodcutting"
+    TRAVELING = "traveling"
+    NONE = "none"
+
+class ConditionType(str, Enum):
+    GLOBAL = "global"
+    LOCATION = "location"           
+    REGION = "region"               
+    SKILL_ACTIVITY = "skill_activity"    
+    SPECIFIC_ACTIVITY = "specific_activity" 
+    ACHIEVEMENT_POINTS = "achievement_points" 
+    ITEM_OWNERSHIP = "item_ownership"
+    SET_EQUIPPED = "set_equipped"
+    TOTAL_SKILL_LEVEL = "total_skill_level"
+    ACTIVITY_COMPLETION = "activity_completion"
+
+class RequirementType(str, Enum):
+    SKILL_LEVEL = "skill_level"
+    QUEST_COMPLETED = "quest_completed"
+    REPUTATION = "reputation"
+    CHARACTER_LEVEL = "character_level"
+    KEYWORD_COUNT = "keyword_count"       
+    ACTIVITY_COMPLETION = "activity_completion" 
+    ACHIEVEMENT_POINTS = "achievement_points" 
+    TOOL_EQUIPPED = "tool_equipped"
+    UNIQUE_TOOLS = "unique_tools"
+
+class StatName(str, Enum):
+    # Core
+    WORK_EFFICIENCY = "work_efficiency"
+    DOUBLE_ACTION = "double_action"
+    DOUBLE_REWARDS = "double_rewards"
+    NO_MATERIALS_CONSUMED = "no_materials_consumed"
+    QUALITY_OUTCOME = "quality_outcome"
+    
+    # Steps
+    STEPS_ADD = "steps_add"
+    STEPS_PERCENT = "steps_percent"
+    XP_PERCENT = "xp_percent" 
+    
+    # XP (Legacy/Variations)
+    BONUS_XP_ADD = "bonus_xp_add"
+    BONUS_XP_PERCENT = "bonus_xp_percent"
+    
+    # Finding
+    CHEST_FINDING = "chest_finding"
+    FIND_BIRD_NESTS = "find_bird_nests"
+    FIND_COLLECTIBLES = "find_collectibles"
+    FIND_GEMS = "find_gems"
+    FINE_MATERIAL_FINDING = "fine_material_finding"
+    
+    # Finding Items
+    FIND_ADVENTURERS_GUILD_TOKEN = "find_adventurers_guild_token"
+    FIND_FISHING_BAIT = "find_fishing_bait"
+    FIND_CRUSTACEAN = "find_crustacean"
+    FIND_ECTOPLASM = "find_ectoplasm"
+    FIND_GOLD = "find_gold"
+    FIND_COIN_POUCH = "find_coin_pouch"
+    FIND_JUNK = "find_junk"
+    FIND_SEA_SHELLS = "find_sea_shells"
+    FIND_GOLD_NUGGET = "find_gold_nugget"
+    FIND_SKILL_CHEST = "find_skill_chest"
+    
+    INVENTORY_SPACE = "inventory_space"
+
+# ============================================================================
+# MODELS
+# ============================================================================
+
+class Condition(BaseModel):
+    type: ConditionType
+    target: Optional[str] = None 
+    value: Optional[int] = None
+    
+    class Config:
+        frozen = True
+
+class Modifier(BaseModel):
+    stat: StatName
+    value: float
+    conditions: Tuple[Condition, ...] = Field(default_factory=tuple)
+
+    class Config:
+        frozen = True
+
+class Requirement(BaseModel):
+    type: RequirementType
+    target: Optional[str] = None     
+    value: int             
+
+    class Config:
+        frozen = True
+
+class DropEntry(BaseModel):
+    item_id: str          
+    min_quantity: int
+    max_quantity: int
+    chance: Optional[float] = None 
+    
+    class Config:
+        frozen = True
+
+class FactionReward(BaseModel):
+    faction_id: str       
+    amount: float
+
+    class Config:
+        frozen = True
+
+class BaseEntity(BaseModel):
+    id: str
+    wiki_slug: str
     name: str
-    slot: str
-    skill: Optional[str] = None
-    min_level: Optional[int] = None
-    work_eff_percent: Optional[float] = None
-    xp_percent: Optional[float] = None
-    plus_xp: Optional[float] = None
-    chest_percent: Optional[float] = None
-    fine_mat_percent: Optional[float] = None
-    double_rewards: Optional[float] = None
-    double_action: Optional[float] = None
-    minus_steps: Optional[int] = None
-    minus_steps_percent: Optional[float] = None
-    quality_outcome: Optional[float] = None
-    no_mats_consumed_percent: Optional[float] = None
-    bird_nest_percent: Optional[float] = None
-    find_gems_percent: Optional[float] = None
-    adventuring_guild_token_percent: Optional[float] = None
-    collectible_percent: Optional[float] = None
-    gain_coins_percent: Optional[float] = None
-    roll_gem_pouch_table_percent: Optional[float] = None
-    find_coin_pouch_percent: Optional[float] = None
-    keywords: List[str] = Field(default_factory=list)
-    region: Optional[str] = None
-    underwater_only: bool = False
-    clean_item_name: Optional[str] = None
-    rarity_sort: Optional[int] = None
-    uuid: Optional[str] = None
-    export_name: Optional[str] = None
 
-    @classmethod
-    def from_csv_row(cls, row: dict):
-        def _val(key, is_percent=False, type_func=str):
-            v = row.get(key, '').strip()
-            if not v or v == '-': return None
-            if type_func == bool: return v.upper() == 'TRUE'
-            if type_func == list: return [s.strip() for s in v.split(',')]
-            if type_func == int: return int(v)
-           
-            val_str = v.replace('%', '')
-            try:
-                if is_percent or '%' in key:
-                    return float(val_str) / 100.0
-                return type_func(val_str)
-            except ValueError:
-                return None
+    class Config:
+        frozen = True
 
-        # Normalize "Global" to None
-        skill_val = _val('Skill')
-        if skill_val and skill_val.lower() == 'global':
-            skill_val = None
-        return cls(
-            name=row['Item'],
-            slot=row['Slot'],
-            skill=skill_val,
-            min_level=_val('Min Level', type_func=int),
-            work_eff_percent=_val('Work %', type_func=float),
-            xp_percent=_val('XP %', type_func=float),
-            plus_xp=_val('Plus XP', type_func=float),
-            chest_percent=_val('Chest %', type_func=float),
-            fine_mat_percent=_val('Fine Mat %', type_func=float),
+class BaseItem(BaseEntity):      
+    value: int          
+    keywords: Tuple[str, ...] = Field(default_factory=tuple)
 
-            double_rewards=_val('Dbl Rewards', is_percent=True, type_func=float),
-            double_action=_val('Dbl Action', is_percent=True, type_func=float),
-            quality_outcome=_val('Craft Outcome', is_percent=True, type_func=int),
-            
-            minus_steps=_val('Minus Steps', type_func=int),
-            minus_steps_percent=_val('Minus Steps %',type_func=float),
-            no_mats_consumed_percent=_val('No Mats %',type_func=float),
-            bird_nest_percent=_val('Bird Nest %',type_func=float),
-            find_gems_percent=_val('Find Gems %',type_func=float),
-            adventuring_guild_token_percent=_val('Ad Guild Token %',type_func=float),
-            collectible_percent=_val('Collectible %',type_func=float),
-            gain_coins_percent=_val('Gain 1-10 Coins %',type_func=float),
-            roll_gem_pouch_table_percent=_val('Roll Gem Pouch Table %',type_func=float),
-            find_coin_pouch_percent=_val('Find 1 Coin Pouch %',type_func=float),
-            keywords=_val('Keywords', type_func=list) or [],
-            region=_val('Region'),
-            underwater_only=_val('Underwater Only', type_func=bool) or False,
-            rarity_sort=_val('Rarity Sort', type_func=int),
-            clean_item_name=_val('Clean Item Name'),
-            uuid=_val('UUID'),
-            export_name=_val('Export Name')
-        )
-
-class Activity(BaseModel):
-    activity: str
-    locations: List[str] = Field(default_factory=list)
-    region: Optional[str] = None
-    required_keywords: List[str] = Field(default_factory=list)
-    is_underwater: bool = False
-    skill: Optional[str] = None
-    skill_level: Optional[int] = None
-    base_xp: Optional[float] = None
-    base_gem_drop_rate: Optional[float] = None
-    max_work_efficiency: Optional[float] = None
-    base_steps: Optional[int] = None
-    min_steps: Optional[int] = None
-
-
-    @classmethod
-    def from_activity_csv_row(cls, row: dict):
-        def _val(key, type_func=str):
-            v = row.get(key, '').strip()
-            if not v or v == '-': return None
-            if type_func == bool: return v.upper() == 'TRUE'
-            if type_func == list: return [s.strip() for s in v.split(',')]
-            return type_func(v.replace('%', ''))
-
-        return cls(
-            activity=row['Activity'],
-            locations=_val('Location(s)', list) or [],
-            region=_val('Region'),
-            required_keywords=_val('Required Keywords', list) or [],
-            is_underwater=_val('Is Underwater', bool) or False,
-            skill=_val('Skill1'),
-            skill_level=_val('S1 Min', int),
-            base_xp=_val('Base XP (S1)', float),
-            base_gem_drop_rate=_val('Base Gem Drop Rate', float),
-            base_steps=_val('Base Steps', int),
-            min_steps=_val('"Min" Steps', int),
-            max_work_efficiency=deduce_max_efficiency(base_steps=_val('Base Steps', int) or 0, min_steps=_val('"Min" Steps', int) or 0),
-        )
-    @classmethod
-    def from_recipe_csv_row(cls, row: dict):
-        def _val(key, type_func=str):
-            v = row.get(key, '').strip()
-            if not v or v == '-': return None
-            if type_func == bool: return v.upper() == 'TRUE'
-            if type_func == list: return [s.strip() for s in v.split(',')]
-            return type_func(v.replace('%', ''))
-        return cls(
-            activity=row['Recipe'],
-            locations=_val('Location(s)', list) or [],
-            region=None,             
-            required_keywords=[],    
-            is_underwater=False, 
-            skill=_val('Skill'),
-            skill_level=_val('Min Level', int),
-            base_xp=_val('Base XP', float),
-            base_gem_drop_rate=None, 
-            base_steps=_val('Base Steps', int),
-            min_steps=_val('"Min" Steps', int),
-            max_work_efficiency=deduce_max_efficiency(
-                base_steps=_val('Base Steps', int) or 0, 
-                min_steps=_val('"Min" Steps', int) or 0
-            ),
-        )
-        
-
-class GearSet(BaseModel):
-    head: Optional[Item] = None
-    chest: Optional[Item] = None
-    legs: Optional[Item] = None
-    feet: Optional[Item] = None
-    cape: Optional[Item] = None
-    back: Optional[Item] = None
-    neck: Optional[Item] = None
-    hands: Optional[Item] = None
-    primary: Optional[Item] = None
-    secondary: Optional[Item] = None
-    rings: List[Item] = Field(default_factory=list)
-    tools: List[Item] = Field(default_factory=list)
-    pet: Optional[Item] = None
-    consumable: Optional[Item] = None
+class Equipment(BaseItem):
+    slot: EquipmentSlot
+    quality: EquipmentQuality
+    requirements: Tuple[Requirement, ...] = Field(default_factory=tuple) 
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)      
+    
+    @property
+    def skill(self) -> str:
+        skills = set()
+        for req in self.requirements:
+            if req.type == RequirementType.SKILL_LEVEL and req.target:
+                skills.add(req.target.lower())
+        for mod in self.modifiers:
+            for cond in mod.conditions:
+                if cond.type == ConditionType.SKILL_ACTIVITY and cond.target:
+                    skills.add(cond.target.lower())
+        return ",".join(skills) if skills else None
 
     @property
-    def all_items(self) -> List[Item]:
-        single = [self.head, self.chest, self.legs, self.feet, self.cape, self.back, self.neck, self.hands, self.primary, self.secondary, self.pet, self.consumable]
-        return [i for i in single if i] + self.rings + self.tools
+    def region(self) -> Optional[str]:
+        for req in self.requirements:
+            if req.type == RequirementType.REPUTATION: 
+                return req.target 
+        return None
 
-    def get_stats(self, activity_skill: str):
-        stats = {
-            "work_efficiency": 0.0, "xp_percent": 0.0, "flat_xp": 0.0,
-            "chest_finding": 0.0, "double_action": 0.0, "double_rewards": 0.0,
-            "no_mats": 0.0, "fine_material": 0.0,
-            "flat_step_reduction": 0, "percent_step_reduction": 0.0,
-            "quality_outcome": 0.0
-        }
-        for item in self.all_items:
-            item_skills = item.skill.split(',') if item.skill else []
-            if item.skill is None or activity_skill in item_skills:
-                if item.work_eff_percent: stats["work_efficiency"] += item.work_eff_percent
-                if item.xp_percent: stats["xp_percent"] += item.xp_percent
-                if item.plus_xp: stats["flat_xp"] += item.plus_xp
-            
-            if item.chest_percent: stats["chest_finding"] += item.chest_percent
-            if item.double_action: stats["double_action"] += item.double_action
-            if item.double_rewards: stats["double_rewards"] += item.double_rewards
-            if item.no_mats_consumed_percent: stats["no_mats"] += item.no_mats_consumed_percent
-            if item.fine_mat_percent: stats["fine_material"] += item.fine_mat_percent
-            if item.minus_steps: stats["flat_step_reduction"] += item.minus_steps
-            if item.minus_steps_percent: stats["percent_step_reduction"] += item.minus_steps_percent
-            if item.quality_outcome: stats["quality_outcome"] += item.quality_outcome
+    @property
+    def is_underwater(self) -> bool:
+        return "underwater" in self.keywords
+
+    @property
+    def clean_item_name(self) -> str:
+        return self.name
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+
+class Activity(BaseEntity):
+    primary_skill: SkillName
+    locations: Tuple[str, ...] = Field(default_factory=tuple) 
+    base_steps: int = 0
+    base_xp: float = 0.0
+    secondary_xp: Dict[SkillName, float] = Field(default_factory=dict)
+    max_efficiency: float = 0.0 
+    requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
+    faction_rewards: Tuple[FactionReward, ...] = Field(default_factory=tuple)
+    drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
+    secondary_drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
+    
+    @property
+    def level(self) -> int:
+        for req in self.requirements:
+            if req.type == RequirementType.SKILL_LEVEL and req.target:
+                if req.target.lower() == self.primary_skill.lower():
+                    return req.value
+        return 1 
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+
+class RecipeMaterial(BaseModel):
+    item_id: str
+    amount: int
+    
+    class Config:
+        frozen = True
+
+class Recipe(BaseEntity):
+    skill: SkillName
+    level: int
+    service: str 
+    output_item_id: str
+    output_quantity: int
+    materials: Tuple[Tuple[RecipeMaterial, ...], ...] = Field(default_factory=tuple)
+    base_xp: float = 0.0
+    base_steps: int = 0
+    max_efficiency: float = 0.0
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+
+class Location(BaseEntity):
+    tags: Tuple[str, ...] = Field(default_factory=tuple)
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+
+# ============================================================================
+# GEARSET
+# ============================================================================
+
+class GearSet(BaseModel):
+    head: Optional[Equipment] = None
+    chest: Optional[Equipment] = None
+    legs: Optional[Equipment] = None
+    feet: Optional[Equipment] = None
+    back: Optional[Equipment] = None
+    cape: Optional[Equipment] = None
+    neck: Optional[Equipment] = None
+    hands: Optional[Equipment] = None
+    primary: Optional[Equipment] = None
+    secondary: Optional[Equipment] = None
+    
+    pet: Optional[Equipment] = None          
+    consumable: Optional[Equipment] = None   
+
+    rings: List[Equipment] = Field(default_factory=list)
+    tools: List[Equipment] = Field(default_factory=list)
+
+    def get_all_items(self) -> List[Equipment]:
+        """Returns a flat list of all equipped items that are not None."""
+        items = [
+            self.head, self.chest, self.legs, self.feet,
+            self.back, self.cape, self.neck, self.hands,
+            self.primary, self.secondary, self.pet, self.consumable
+        ]
+        items.extend(self.rings)
+        items.extend(self.tools)
+        return [i for i in items if i]
+
+    def get_keyword_counts(self) -> Counter:
+        """
+        Counts all keywords present in the equipped gear.
+        Normalizes keys: Lowercase + replace underscores with spaces.
+        Example: "Advanced diving gear" -> "advanced diving gear"
+        """
+        counts = Counter()
+        for item in self.get_all_items():
+            for kw in item.keywords:
+                # NORMALIZATION HERE
+                norm_kw = kw.lower().replace("_", " ").strip()
+                counts[norm_kw] += 1
+        return counts
+
+    def get_stats(self, context: Dict[str, any] = None) -> Dict[str, float]:
+        """
+        Calculates total stats provided by the gear using a context-aware approach.
+        """
+        if context is None:
+            context = {}
+
+        active_skill = context.get("skill", "").lower() if context.get("skill") else None
+        loc_id = context.get("location_id")
+        loc_tags = set(t.lower() for t in context.get("location_tags", []))
+        act_id = context.get("activity_id")
+
+        stats = defaultdict(float)
         
-        stats["double_action"] = min(1.0, stats["double_action"])
-        stats["double_rewards"] = min(1.0, stats["double_rewards"])
-        return stats
+        # Pre-calculate counts for "set_equipped" conditions
+        keyword_counts = self.get_keyword_counts()
+        
+        PERCENTAGE_STATS = {
+            StatName.WORK_EFFICIENCY,
+            StatName.DOUBLE_ACTION,
+            StatName.DOUBLE_REWARDS,
+            StatName.NO_MATERIALS_CONSUMED,
+            StatName.STEPS_PERCENT,
+            StatName.XP_PERCENT,
+            StatName.BONUS_XP_PERCENT,
+            StatName.CHEST_FINDING,
+            StatName.FINE_MATERIAL_FINDING,
+            StatName.FIND_BIRD_NESTS,
+            StatName.FIND_COLLECTIBLES,
+            StatName.FIND_GEMS,
+        }
+
+        for item in self.get_all_items():
+            for mod in item.modifiers:
+                applies = True
+                
+                # --- CONDITION CHECKING ---
+                for condition in mod.conditions:
+                    c_type = condition.type
+                    c_target = condition.target.lower() if condition.target else None
+                    c_val = condition.value
+                    
+                    if c_type == ConditionType.GLOBAL:
+                        continue 
+
+                    elif c_type == ConditionType.SKILL_ACTIVITY:
+                        if not active_skill: applies = False 
+                        elif c_target and c_target != active_skill:
+                            applies = False
+
+                    elif c_type == ConditionType.LOCATION:
+                        if not loc_id: applies = False
+                        else:
+                            is_id_match = (c_target == loc_id.lower())
+                            is_tag_match = (c_target in loc_tags)
+                            if not (is_id_match or is_tag_match):
+                                applies = False
+                            
+                    elif c_type == ConditionType.REGION:
+                        if not loc_tags: applies = False
+                        elif c_target and c_target not in loc_tags:
+                            applies = False
+
+                    elif c_type == ConditionType.SPECIFIC_ACTIVITY:
+                        if not act_id: applies = False
+                        elif c_target and c_target != act_id.lower():
+                            applies = False
+                    
+                    elif c_type == ConditionType.SET_EQUIPPED:
+                        if not c_target: 
+                            applies = False
+                        else:
+                            # Normalize target logic for sets too
+                            norm_target = c_target.replace("_", " ").strip()
+                            if keyword_counts.get(norm_target, 0) < (c_val or 1):
+                                applies = False
+
+                if applies:
+                    stat_enum = mod.stat
+                    stat_key = stat_enum.value
+                    value = mod.value
+
+                    if stat_enum in PERCENTAGE_STATS:
+                        value = value / 100.0
+
+                    if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
+                    elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"
+                    elif stat_key == StatName.XP_PERCENT.value: stat_key = "xp_percent"
+                    
+                    elif stat_key == StatName.STEPS_ADD.value: 
+                        stat_key = "flat_step_reduction"
+                        value = -value 
+
+                    elif stat_key == StatName.STEPS_PERCENT.value: 
+                        stat_key = "percent_step_reduction"
+                        value = -value
+                        
+                    stats[stat_key] += value
+
+        return dict(stats)

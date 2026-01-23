@@ -41,24 +41,24 @@ def export_gearset(gearset: GearSet) -> str:
     for type_name, idx, getter in slots_map:
         item = getter(gearset)
         
-        if item and item.id:
-            # 1. LOWERCASE CONVERSION
-            # New models are "ADVENTURING_AMULET", but tools expect "adventuring_amulet"
-            clean_id = item.id.lower()
+        if item and item.uuid:
+            # # 1. LOWERCASE CONVERSION
+            # # New models are "ADVENTURING_AMULET", but tools expect "adventuring_amulet"
+            # clean_id = item.id.lower()
 
-            # 2. SUFFIX STRIPPING
-            # Remove quality suffix if present (e.g. "sword_good" -> "sword")
-            for suffix in SUFFIXES:
-                if clean_id.endswith(suffix):
-                    clean_id = clean_id[:-len(suffix)]
-                    break
+            # # 2. SUFFIX STRIPPING
+            # # Remove quality suffix if present (e.g. "sword_good" -> "sword")
+            # for suffix in SUFFIXES:
+            #     if clean_id.endswith(suffix):
+            #         clean_id = clean_id[:-len(suffix)]
+            #         break
             
-            # 3. QUALITY HANDLING
-            # If quality is "None" (from new models), default to "Normal" for the tool
+            # # 3. QUALITY HANDLING
+            # # If quality is "None" (from new models), default to "Normal" for the tool
             quality_val = "Normal"
 
             inner_data = {
-                "id": clean_id,
+                "id": item.uuid,
                 "quality": quality_val, 
                 "tag": None
             }

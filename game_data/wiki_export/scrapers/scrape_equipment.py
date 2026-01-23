@@ -80,7 +80,9 @@ def extract_equipment_links(html_content):
                     item_name = link.get_text().strip()
                     item_url = 'https://wiki.walkscape.app' + link['href']
                     slug = link['href'].split('/wiki/')[-1]
-                    equipment_links.append((item_name, item_url, slug))
+                    # Extract the UUID from the data-achievement-id attribute
+                    uuid = row.get('data-achievement-id', '')
+                    equipment_links.append((item_name, item_url, slug, uuid))
     return equipment_links
 
 def parse_requirements(soup) -> list[Requirement]:
@@ -243,7 +245,7 @@ def parse_attribute_lines(lines) -> list[Modifier]:
         
     return modifiers
 
-def parse_item_page(html_content, item_name, slug) -> list[Equipment]:
+def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
     soup = BeautifulSoup(html_content, 'html.parser')
     keywords = []
     value = 0
@@ -293,6 +295,7 @@ def parse_item_page(html_content, item_name, slug) -> list[Equipment]:
             id=generate_id(slug, EquipmentQuality.NONE),
             wiki_slug=slug,
             name=item_name,
+            uuid=uuid,
             value=value,
             keywords=keywords,
             slot=slot,
@@ -329,6 +332,7 @@ def parse_item_page(html_content, item_name, slug) -> list[Equipment]:
                         id=generate_id(slug, quality_enum),
                         wiki_slug=slug,
                         name=f"{item_name} ({quality_str})",
+                        uuid=uuid,
                         value=value,
                         keywords=keywords,
                         slot=slot,
@@ -347,6 +351,7 @@ def parse_item_page(html_content, item_name, slug) -> list[Equipment]:
                 id=generate_id(slug, EquipmentQuality.NONE),
                 wiki_slug=slug,
                 name=item_name,
+                uuid=uuid,
                 value=value,
                 keywords=keywords,
                 slot=slot,
@@ -371,13 +376,13 @@ def main():
     print(f"Found {len(links)} items.")
 
     all_equipment = []
-    for i, (name, url, slug) in enumerate(links):
+    for i, (name, url, slug, uuid) in enumerate(links):
         print(f"[{i+1}/{len(links)}] Processing {name}...")
         cache_file = CACHE_DIR / (sanitize_filename(name) + '.html')
         html = download_page(url, cache_file)
         if not html: continue
         try:
-            items = parse_item_page(html, name, slug)
+            items = parse_item_page(html, name, slug, uuid)
             if items:
                 all_equipment.extend(items)
                 print(f"  -> Extracted {len(items)} variants")

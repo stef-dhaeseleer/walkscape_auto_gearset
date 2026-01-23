@@ -173,6 +173,7 @@ class BaseItem(BaseEntity):
     keywords: Tuple[str, ...] = Field(default_factory=tuple)
 
 class Equipment(BaseItem):
+    uuid: str = ""
     slot: EquipmentSlot
     quality: EquipmentQuality
     requirements: Tuple[Requirement, ...] = Field(default_factory=tuple) 

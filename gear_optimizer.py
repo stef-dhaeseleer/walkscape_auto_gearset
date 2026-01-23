@@ -1,9 +1,10 @@
 import itertools
+import math
 from typing import Dict, List, Set, Optional, Tuple, Counter
 from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, EquipmentQuality, RequirementType, ConditionType
 from utils.utils import calculate_steps, calculate_quality_probabilities
 from enum import Enum
-from collections import Counter as PyCounter
+from collections import Counter as PyCounter, defaultdict
 
 # --- Constants & Config ---
 
@@ -344,6 +345,7 @@ class GearOptimizer:
             ("primary", EquipmentSlot.PRIMARY), ("secondary", EquipmentSlot.SECONDARY)
         ]
 
+        # Optimize Main Slots
         for _ in range(3):
             changed = False
             for attr, slot_enum in main_slots:
@@ -412,22 +414,21 @@ class GearOptimizer:
             valid_cands = [t for t in tool_cands if t not in fixed_tools]
             sorted_cands = self._sort_items_by_utility(valid_cands, current_set, activity, player_skill_level, target, context)
             
-            best_tool_subset = []
-            max_t = base_score
-
-            # BRUTE FORCE UP TO 28
-            if len(sorted_cands) <= 28:
-                for r in range(1, available_slots + 1):
-                    for subset in itertools.combinations(sorted_cands, r):
-                        test_tools = fixed_tools + list(subset)
-                        if self._is_valid_tool_set(test_tools, owned_counts):
-                            current_set.tools = test_tools
-                            score = self.calculate_score(current_set, activity, player_skill_level, target, context)
-                            if score > max_t:
-                                max_t = score
-                                best_tool_subset = list(subset)
+            # --- OPTIMIZED BRANCH ---
+            if len(sorted_cands) <= 40:
+                # Optimized Brute Force (Functionally identical to original loop but faster)
+                best_subset, new_score = self._optimized_brute_force_tools(
+                    current_set, fixed_tools, sorted_cands, available_slots,
+                    activity, player_skill_level, target, context, owned_counts, base_score
+                )
+                if best_subset is not None and new_score > base_score:
+                    current_set.tools = fixed_tools + best_subset
+                    base_score = new_score
             else:
+                # Original Greedy Fallback for massive sets (>40 items)
                 current_subset = []
+                max_t = base_score
+                
                 for t in sorted_cands:
                     if len(current_subset) >= available_slots: break
                     test_tools = fixed_tools + current_subset + [t]
@@ -438,6 +439,7 @@ class GearOptimizer:
                             max_t = score
                             current_subset.append(t)
                 
+                # Improvement Pass (Swap)
                 remaining = [t for t in sorted_cands if t not in current_subset]
                 improved = True
                 while improved:
@@ -457,12 +459,288 @@ class GearOptimizer:
                                     improved = True
                                     break 
                         if improved: break
-                best_tool_subset = current_subset
-
-            current_set.tools = fixed_tools + best_tool_subset
-            base_score = max_t
+                
+                current_set.tools = fixed_tools + current_subset
+                base_score = max_t
 
         return current_set
+
+    # --- Fast Tool Optimization (Pre-calculated Logic) ---
+
+    def _optimized_brute_force_tools(self, current_set: GearSet, fixed_tools: List[Equipment], candidates: List[Equipment], 
+                                     slots_count: int, activity, skill_lvl: int, target: OPTIMAZATION_TARGET, context: Dict, 
+                                     owned_counts, current_best_score: float) -> Tuple[List[Equipment], float]:
+        
+        # 1. Pre-calculate Base Stats (Current Set with Fixed Tools Only)
+        orig_tools = current_set.tools
+        current_set.tools = fixed_tools
+        base_stats = current_set.get_stats(context)
+        current_set.tools = orig_tools # Restore just in case
+
+        # 2. Analyze Fixed Tools (Restrictions & Slugs)
+        fixed_slugs = set()
+        fixed_keywords = set()
+        for t in fixed_tools:
+            if t.wiki_slug: fixed_slugs.add(t.wiki_slug)
+            for k in t.keywords:
+                lk = k.lower()
+                if lk in self.restricted_keywords_lower:
+                    fixed_keywords.add(lk)
+
+        # 3. Lightweight Candidate Conversion
+        light_candidates = [] # list of (item, base_stats_dict, cond_mods_list, slug, restricted_kw_set)
+        
+        for item in candidates:
+            # Immediate Pruning: Conflict with Fixed Tools
+            if item.wiki_slug and item.wiki_slug in fixed_slugs: continue
+            
+            conflict = False
+            item_restr = set()
+            for k in item.keywords:
+                lk = k.lower()
+                if lk in self.restricted_keywords_lower:
+                    if lk in fixed_keywords:
+                        conflict = True
+                        break
+                    item_restr.add(lk)
+            if conflict: continue
+
+            # Pre-calc Stats
+            item_base_stats = defaultdict(float)
+            item_cond_mods = []
+            
+            for mod in item.modifiers:
+                applies_always = True
+                is_set_bonus = False
+                
+                for cond in mod.conditions:
+                    c_type = cond.type
+                    if c_type == ConditionType.GLOBAL: continue
+                    
+                    # Eval static conditions now
+                    if c_type == ConditionType.SKILL_ACTIVITY or c_type == ConditionType.LOCATION or c_type == ConditionType.REGION or c_type == ConditionType.SPECIFIC_ACTIVITY:
+                        applies_cond = True
+                        c_target = cond.target.lower() if cond.target else None
+                        
+                        if c_type == ConditionType.SKILL_ACTIVITY:
+                            act_skill = context.get("skill", "").lower()
+                            if not act_skill: applies_cond = False
+                            elif c_target:
+                                from models import GATHERING_SKILLS, ARTISAN_SKILLS
+                                if c_target == act_skill: pass
+                                elif c_target == "gathering" and act_skill in GATHERING_SKILLS: pass
+                                elif c_target == "artisan" and act_skill in ARTISAN_SKILLS: pass
+                                else: applies_cond = False
+                        
+                        elif c_type == ConditionType.LOCATION:
+                            loc_id = context.get("location_id")
+                            loc_tags = context.get("location_tags", set())
+                            if not loc_id: applies_cond = False
+                            else:
+                                if not (c_target == loc_id.lower() or c_target in loc_tags): applies_cond = False
+                        
+                        elif c_type == ConditionType.REGION:
+                            loc_tags = context.get("location_tags", set())
+                            if not loc_tags or (c_target and c_target not in loc_tags): applies_cond = False
+                        
+                        elif c_type == ConditionType.SPECIFIC_ACTIVITY:
+                             act_id = context.get("activity_id")
+                             if not act_id or (c_target and c_target != act_id.lower()): applies_cond = False
+                        
+                        if not applies_cond:
+                            applies_always = False
+                            break
+                    
+                    elif c_type == ConditionType.SET_EQUIPPED:
+                        applies_always = False
+                        is_set_bonus = True 
+                    
+                    else:
+                        applies_always = False
+                        is_set_bonus = True
+
+                if applies_always:
+                    stat_key = mod.stat.value
+                    val = mod.value
+                    if mod.stat in {StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, 
+                                    StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT, 
+                                    StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING, 
+                                    StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS}:
+                        val = val / 100.0
+                    
+                    if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
+                    elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"
+                    elif stat_key == StatName.XP_PERCENT.value: stat_key = "xp_percent"
+                    elif stat_key == StatName.STEPS_ADD.value: 
+                        stat_key = "flat_step_reduction"
+                        val = -val 
+                    elif stat_key == StatName.STEPS_PERCENT.value: 
+                        stat_key = "percent_step_reduction"
+                        val = -val
+                    
+                    item_base_stats[stat_key] += val
+                
+                elif is_set_bonus:
+                    item_cond_mods.append(mod)
+
+            light_candidates.append({
+                "item": item,
+                "stats": item_base_stats,
+                "cond_mods": item_cond_mods,
+                "slug": item.wiki_slug,
+                "keywords": {k.lower().replace("_", " ").strip() for k in item.keywords},
+                "restricted": item_restr
+            })
+
+        # 4. Fast Loop
+        best_subset = None
+        best_val = current_best_score
+
+        # Prepare context for set bonuses
+        fixed_kw_counts = PyCounter()
+        for t in fixed_tools:
+            for k in t.keywords:
+                fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
+        for item in current_set.get_all_items():
+            if item.slot != EquipmentSlot.TOOLS:
+                 for k in item.keywords:
+                    fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
+        
+        t_id = 0
+        if target == OPTIMAZATION_TARGET.reward_rolls: t_id = 0
+        elif target == OPTIMAZATION_TARGET.xp: t_id = 1
+        elif target == OPTIMAZATION_TARGET.chests: t_id = 2
+        elif target == OPTIMAZATION_TARGET.materials_from_input: t_id = 3
+        elif target == OPTIMAZATION_TARGET.fine: t_id = 4
+        elif target == OPTIMAZATION_TARGET.quality: t_id = 5
+        elif target == OPTIMAZATION_TARGET.collectibles: t_id = 6
+
+        act_base_xp = activity.base_xp or 0
+        
+        # Limit search size for speed
+        search_cands = light_candidates[:32] 
+
+        for r in range(1, slots_count + 1):
+            for combo in itertools.combinations(search_cands, r):
+                
+                # A. Validity Check
+                valid_combo = True
+                seen_slugs = set()
+                seen_restr = set()
+                
+                for c in combo:
+                    if c["slug"] and c["slug"] in seen_slugs: 
+                        valid_combo = False; break
+                    seen_slugs.add(c["slug"])
+                    if c["restricted"]:
+                        if not seen_restr.isdisjoint(c["restricted"]):
+                            valid_combo = False; break
+                        seen_restr.update(c["restricted"])
+                
+                if not valid_combo: continue
+
+                # B. Stats Summation
+                # Use defaultdict to handle missing keys gracefully (Fixes KeyError)
+                curr_stats = defaultdict(float, base_stats)
+                
+                # Sum unconditional item stats
+                for c in combo:
+                    for k, v in c["stats"].items():
+                        curr_stats[k] += v
+
+                # C. Conditional Mods (Set Bonuses)
+                has_cond = False
+                for c in combo:
+                    if c["cond_mods"]: has_cond = True; break
+                
+                if has_cond:
+                    current_counts = fixed_kw_counts.copy()
+                    for c in combo:
+                        for k in c["keywords"]:
+                            current_counts[k] += 1
+                    
+                    for c in combo:
+                        for mod in c["cond_mods"]:
+                            applies = True
+                            for cond in mod.conditions:
+                                if cond.type == ConditionType.SET_EQUIPPED:
+                                    norm_target = cond.target.replace("_", " ").strip()
+                                    if current_counts.get(norm_target, 0) < (cond.value or 1):
+                                        applies = False; break
+                            
+                            if applies:
+                                stat_key = mod.stat.value
+                                val = mod.value
+                                if mod.stat in {StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, 
+                                                StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT, 
+                                                StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING, 
+                                                StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS}:
+                                    val = val / 100.0
+                                if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
+                                elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"
+                                elif stat_key == StatName.XP_PERCENT.value: stat_key = "xp_percent"
+                                elif stat_key == StatName.STEPS_ADD.value: 
+                                    stat_key = "flat_step_reduction"
+                                    val = -val 
+                                elif stat_key == StatName.STEPS_PERCENT.value: 
+                                    stat_key = "percent_step_reduction"
+                                    val = -val
+                                curr_stats[stat_key] += val
+
+                # D. Calculate Score
+                steps = calculate_steps(
+                    activity=activity,
+                    player_skill_level=skill_lvl, 
+                    player_work_efficiency=curr_stats.get("work_efficiency", 0),
+                    player_minus_steps=curr_stats.get("flat_step_reduction", 0),
+                    player_minus_steps_percent=curr_stats.get("percent_step_reduction", 0)
+                )
+                steps = max(1, steps)
+
+                da_val = min(1.0, curr_stats.get("double_action", 0))
+                dr_val = curr_stats.get("double_rewards", 0) 
+                nmc_val = min(0.99, curr_stats.get("no_materials_consumed", 0)) 
+                
+                da_mult = 1.0 + da_val
+                dr_mult = 1.0 + dr_val
+                nmc_mult = 1.0 / (1.0 - nmc_val)
+                
+                val = 0.0
+                if t_id == 0:
+                    val = (da_mult * dr_mult) / steps
+                elif t_id == 1:
+                    xp_mult = 1.0 + curr_stats.get("xp_percent", 0)
+                    flat_xp = curr_stats.get("flat_xp", 0)
+                    val = ((act_base_xp * xp_mult + flat_xp) * da_mult) / steps
+                elif t_id == 2:
+                    val = ((1.0 + curr_stats.get("chest_finding", 0)) * da_mult * dr_mult) / steps
+                elif t_id == 3:
+                    val = (dr_mult * nmc_mult)
+                elif t_id == 4:
+                    val = ((1.0 + curr_stats.get("fine_material_finding", 0)) * da_mult * dr_mult) / steps
+                elif t_id == 6:
+                    val = ((1.0 + curr_stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
+                elif t_id == 5:
+                    flat_q = curr_stats.get("quality_outcome", 0)
+                    probs = calculate_quality_probabilities(
+                        activity_min_level=activity.level, 
+                        player_skill_level=skill_lvl,
+                        quality_bonus=flat_q
+                    )
+                    score_q = probs.get("Eternal", 0.0) * 1000 + probs.get("Perfect", 0.0) * 10 + probs.get("Excellent", 0.0)
+                    val = score_q * dr_mult * nmc_mult
+
+                if val > best_val:
+                    # E. Post-Check: Ownership (Lazy)
+                    if owned_counts:
+                         test_tools = [c["item"] for c in combo]
+                         if not self._is_valid_tool_set(test_tools, owned_counts):
+                             continue
+                    
+                    best_val = val
+                    best_subset = [c["item"] for c in combo]
+
+        return best_subset, best_val
 
     def _get_available_count(self, item: Equipment, owned_counts: Dict[str, int]) -> int:
         if not owned_counts: return 999

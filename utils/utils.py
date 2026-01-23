@@ -1,32 +1,50 @@
-import csv
+import math
 from models import Activity
 
-import math
-
 def calculate_steps(
-   activity:Activity,
+   activity: Activity,
    player_skill_level: int,
    player_work_efficiency: float,
    player_minus_steps: int,
    player_minus_steps_percent: float,
-
 ) -> int:
-
+    """
+    Calculates steps based on the Wiki Formula:
+    Steps = ceiling(max(((Base Steps / Work Eff) * % Steps Req Mod) - Flat Steps Req Mod, 10))
+    """
+    
+    # 1. Efficiency Calculation
     level_diff = max(0, player_skill_level - activity.level)
     level_eff = min(0.25, level_diff * 0.0125)
 
     total_added_eff = level_eff + player_work_efficiency
-
     effective_eff = min(total_added_eff, activity.max_efficiency)
 
     efficiency_multiplier = 1.0 + effective_eff
     
-    step_multiplier = 1.0 - player_minus_steps_percent
+    # 2. Step Multipliers
+    # Wiki: "(100% base - X% steps required)" -> passed as 0.05 for -5%
+    step_multiplier_factor = 1.0 - player_minus_steps_percent
 
+    # 3. Core Calculation (Strict Order)
+    # A. Base / Efficiency
+    base_over_eff = activity.base_steps / efficiency_multiplier
     
-    steps = math.ceil( (activity.base_steps / efficiency_multiplier) * step_multiplier ) - player_minus_steps
+    # B. Apply Percent Modifier
+    after_percent = base_over_eff * step_multiplier_factor
+    
+    # C. Apply Flat Modifier 
+    # Note: player_minus_steps is positive here (e.g., 2), representing a reduction.
+    # Wiki formula adds the modifier (which is negative). Equivalent to subtracting the positive magnitude.
+    after_flat = after_percent - float(player_minus_steps)
+    
+    # D. Global Minimum of 10
+    val_floored = max(10.0, after_flat)
+    
+    # E. Ceiling
+    steps = math.ceil(val_floored)
 
-    return max(10, steps)
+    return int(steps)
 
 def calculate_quality_probabilities(
     activity_min_level: int,

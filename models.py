@@ -46,6 +46,15 @@ class SkillName(str, Enum):
     TRAVELING = "traveling"
     NONE = "none"
 
+# --- SKILL CATEGORIES ---
+GATHERING_SKILLS = {
+    "foraging", "mining", "woodcutting", "fishing"
+}
+
+ARTISAN_SKILLS = {
+    "smithing", "carpentry", "trinketry", "crafting", "cooking"
+}
+
 class ConditionType(str, Enum):
     GLOBAL = "global"
     LOCATION = "location"           
@@ -295,7 +304,6 @@ class GearSet(BaseModel):
         counts = Counter()
         for item in self.get_all_items():
             for kw in item.keywords:
-                # NORMALIZATION HERE
                 norm_kw = kw.lower().replace("_", " ").strip()
                 counts[norm_kw] += 1
         return counts
@@ -346,9 +354,23 @@ class GearSet(BaseModel):
                         continue 
 
                     elif c_type == ConditionType.SKILL_ACTIVITY:
-                        if not active_skill: applies = False 
-                        elif c_target and c_target != active_skill:
-                            applies = False
+                        if not active_skill: 
+                            applies = False 
+                        elif c_target:
+                            # 1. Exact Match (e.g., target="fishing" vs active="fishing")
+                            if c_target == active_skill:
+                                pass
+                            
+                            # 2. Gathering Category (e.g., target="gathering" vs active="fishing")
+                            elif c_target == "gathering" and active_skill in GATHERING_SKILLS:
+                                pass
+                                
+                            # 3. Artisan Category (e.g., target="artisan" vs active="smithing")
+                            elif c_target == "artisan" and active_skill in ARTISAN_SKILLS:
+                                pass
+                                
+                            else:
+                                applies = False
 
                     elif c_type == ConditionType.LOCATION:
                         if not loc_id: applies = False
@@ -372,7 +394,6 @@ class GearSet(BaseModel):
                         if not c_target: 
                             applies = False
                         else:
-                            # Normalize target logic for sets too
                             norm_target = c_target.replace("_", " ").strip()
                             if keyword_counts.get(norm_target, 0) < (c_val or 1):
                                 applies = False

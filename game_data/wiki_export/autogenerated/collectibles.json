@@ -1,0 +1,588 @@
+[
+  {
+    "id": "99_year_old_wine",
+    "wiki_slug": "99-year-old_wine",
+    "name": "99-year-old wine",
+    "modifiers": []
+  },
+  {
+    "id": "ancient_ankh",
+    "wiki_slug": "Ancient_ankh",
+    "name": "Ancient ankh",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ancient_trident",
+    "wiki_slug": "Ancient_trident",
+    "name": "Ancient trident",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "anglerfish_mask",
+    "wiki_slug": "Anglerfish_mask",
+    "name": "Anglerfish mask",
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "artificial_snowflake",
+    "wiki_slug": "Artificial_snowflake",
+    "name": "Artificial snowflake",
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "blue_lotus_butterfly",
+    "wiki_slug": "Blue_lotus_butterfly",
+    "name": "Blue lotus butterfly",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "brilliant_emerald_dragonfly",
+    "wiki_slug": "Brilliant_emerald_dragonfly",
+    "name": "Brilliant emerald dragonfly",
+    "modifiers": []
+  },
+  {
+    "id": "cold_embrace",
+    "wiki_slug": "Cold_Embrace",
+    "name": "Cold Embrace",
+    "modifiers": []
+  },
+  {
+    "id": "dinglehopper",
+    "wiki_slug": "Dinglehopper",
+    "name": "Dinglehopper",
+    "modifiers": [
+      {
+        "stat": "find_collectibles",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "easter_egg",
+    "wiki_slug": "Easter_egg",
+    "name": "Easter egg",
+    "modifiers": [
+      {
+        "stat": "find_collectibles",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "essence_of_the_swamp",
+    "wiki_slug": "Essence_of_the_swamp",
+    "name": "Essence of the swamp",
+    "modifiers": []
+  },
+  {
+    "id": "100.000%",
+    "wiki_slug": "100.000%",
+    "name": "100.000%",
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": 250.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "100.000%",
+    "wiki_slug": "100.000%",
+    "name": "100.000%",
+    "modifiers": []
+  },
+  {
+    "id": "100.000%",
+    "wiki_slug": "100.000%",
+    "name": "100.000%",
+    "modifiers": []
+  },
+  {
+    "id": "100.000%",
+    "wiki_slug": "100.000%",
+    "name": "100.000%",
+    "modifiers": []
+  },
+  {
+    "id": "100.000%",
+    "wiki_slug": "100.000%",
+    "name": "100.000%",
+    "modifiers": []
+  },
+  {
+    "id": "expedition_journal",
+    "wiki_slug": "Expedition_journal",
+    "name": "Expedition journal",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "flame_of_azura",
+    "wiki_slug": "Flame_of_Azura",
+    "name": "Flame of Azura",
+    "modifiers": []
+  },
+  {
+    "id": "floating_coral",
+    "wiki_slug": "Floating_coral",
+    "name": "Floating coral",
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "haunted_teddy_bear",
+    "wiki_slug": "Haunted_teddy_bear",
+    "name": "Haunted teddy bear",
+    "modifiers": []
+  },
+  {
+    "id": "jar_of_dirt",
+    "wiki_slug": "Jar_of_dirt",
+    "name": "Jar of dirt",
+    "modifiers": []
+  },
+  {
+    "id": "jarvonian_crossword_puzzle",
+    "wiki_slug": "Jarvonian_crossword_puzzle",
+    "name": "Jarvonian crossword puzzle",
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "0.100%",
+    "wiki_slug": "0.100%",
+    "name": "0.100%",
+    "modifiers": []
+  },
+  {
+    "id": "0.100%",
+    "wiki_slug": "0.100%",
+    "name": "0.100%",
+    "modifiers": []
+  },
+  {
+    "id": "letter_from_a._a.",
+    "wiki_slug": "Letter_from_A._A.",
+    "name": "Letter from A. A.",
+    "modifiers": []
+  },
+  {
+    "id": "lost_timmys_sand_shovel",
+    "wiki_slug": "Lost_Timmy%27s_sand_shovel",
+    "name": "Lost Timmy's sand shovel",
+    "modifiers": []
+  },
+  {
+    "id": "meteorite_fragment",
+    "wiki_slug": "Meteorite_fragment",
+    "name": "Meteorite fragment",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "old_war_sword",
+    "wiki_slug": "Old_war_sword",
+    "name": "Old war sword",
+    "modifiers": []
+  },
+  {
+    "id": "petrified_branch",
+    "wiki_slug": "Petrified_branch",
+    "name": "Petrified branch",
+    "modifiers": []
+  },
+  {
+    "id": "rose_quartz",
+    "wiki_slug": "Rose_quartz",
+    "name": "Rose quartz",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "seahorse_fossil",
+    "wiki_slug": "Seahorse_fossil",
+    "name": "Seahorse fossil",
+    "modifiers": []
+  },
+  {
+    "id": "shiny_broken_skydisk",
+    "wiki_slug": "Shiny_broken_skydisk",
+    "name": "Shiny broken skydisk",
+    "modifiers": [
+      {
+        "stat": "chest_finding",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "silver_pocket_watch",
+    "wiki_slug": "Silver_pocket_watch",
+    "name": "Silver pocket watch",
+    "modifiers": []
+  },
+  {
+    "id": "soup_kitchen_badge",
+    "wiki_slug": "Soup_kitchen_badge",
+    "name": "Soup kitchen badge",
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "swordfish_sword_fossil",
+    "wiki_slug": "Swordfish_sword_fossil",
+    "name": "Swordfish sword fossil",
+    "modifiers": []
+  },
+  {
+    "id": "terrifying_fossil",
+    "wiki_slug": "Terrifying_fossil",
+    "name": "Terrifying fossil",
+    "modifiers": []
+  },
+  {
+    "id": "tiny_swan_ice_sculpture",
+    "wiki_slug": "Tiny_swan_ice_sculpture",
+    "name": "Tiny swan ice sculpture",
+    "modifiers": []
+  },
+  {
+    "id": "treasure_hunter_token",
+    "wiki_slug": "Treasure_hunter_token",
+    "name": "Treasure hunter token",
+    "modifiers": [
+      {
+        "stat": "find_collectibles",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "very_shiny_stone",
+    "wiki_slug": "Very_shiny_stone",
+    "name": "Very shiny stone",
+    "modifiers": []
+  },
+  {
+    "id": "walrus_tusk",
+    "wiki_slug": "Walrus_tusk",
+    "name": "Walrus tusk",
+    "modifiers": []
+  },
+  {
+    "id": "weeping_willow_tear",
+    "wiki_slug": "Weeping_willow_tear",
+    "name": "Weeping willow tear",
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "wooden_carved_bear_figurine",
+    "wiki_slug": "Wooden_carved_bear_figurine",
+    "name": "Wooden carved bear figurine",
+    "modifiers": []
+  },
+  {
+    "id": "black_eye_peak_wilderness_permit",
+    "wiki_slug": "Black_eye_peak_wilderness_permit",
+    "name": "Black eye peak wilderness permit",
+    "modifiers": []
+  },
+  {
+    "id": "charter_of_the_drowned",
+    "wiki_slug": "Charter_of_the_drowned",
+    "name": "Charter of the drowned",
+    "modifiers": []
+  },
+  {
+    "id": "jarvonian_letter_of_passage",
+    "wiki_slug": "Jarvonian_letter_of_passage",
+    "name": "Jarvonian letter of passage",
+    "modifiers": []
+  },
+  {
+    "id": "mysterious_northern_map",
+    "wiki_slug": "Mysterious_northern_map",
+    "name": "Mysterious northern map",
+    "modifiers": []
+  },
+  {
+    "id": "underwater_map",
+    "wiki_slug": "Underwater_map",
+    "name": "Underwater map",
+    "modifiers": []
+  },
+  {
+    "id": "mark_of_the_deep_one",
+    "wiki_slug": "Mark_of_the_deep_one",
+    "name": "Mark of the deep one",
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "location",
+            "target": "underwater",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mark_of_the_serpent",
+    "wiki_slug": "Mark_of_the_serpent",
+    "name": "Mark of the serpent",
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mark_of_the_trident",
+    "wiki_slug": "Mark_of_the_trident",
+    "name": "Mark of the trident",
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sigil_of_the_ordained",
+    "wiki_slug": "Sigil_of_the_Ordained",
+    "name": "Sigil of the Ordained",
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "western_continent_boat_pass",
+    "wiki_slug": "Western_continent_boat_pass",
+    "name": "Western continent boat pass",
+    "modifiers": []
+  }
+]

@@ -172,6 +172,13 @@ class BaseItem(BaseEntity):
     value: int          
     keywords: Tuple[str, ...] = Field(default_factory=tuple)
 
+class Collectible(BaseEntity):
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+
 class Equipment(BaseItem):
     uuid: str = ""
     slot: EquipmentSlot

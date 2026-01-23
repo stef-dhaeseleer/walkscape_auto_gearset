@@ -1,311 +1,251 @@
 #!/usr/bin/env python3
 """
-Scrape collectibles from the Walkscape wiki Collectibles page.
-
-Generates collectibles.py with collectible names and attributes.
-Collectibles are permanent items that provide passive bonuses.
+Scrape collectibles from the Walkscape wiki.
+Generates collectibles.json using Pydantic models.
 """
 
-# Third-party imports
-from bs4 import BeautifulSoup
-
-# Local imports
-from scraper_utils import *
+import json
 import re
+import sys
+from pathlib import Path
+from bs4 import BeautifulSoup
+from urllib.parse import unquote
 
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
+# Add parent directory for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
+from models import (
+    Collectible, Modifier, StatName, 
+    Condition, ConditionType
+)
+from scraper_utils import *
+
+# Configuration
 RESCRAPE = False
 COLLECTIBLES_URL = 'https://wiki.walkscape.app/wiki/Collectibles'
 CACHE_FILE = get_cache_file('collectibles_cache.html')
+OUTPUT_FILE = get_output_file('collectibles.json')
 
-# Create validator instance
 validator = ScraperValidator()
 
-# ============================================================================
-# PARSING FUNCTIONS
-# ============================================================================
+def normalize_id(text: str) -> str:
+    """Normalize text to snake_case ID."""
+    if not text: return "none"
+    text = unquote(text)
+    text = text.replace('Special:MyLanguage/', '')
+    return text.lower().replace("'", "").replace("-", "_").replace(" ", "_").strip()
 
-def extract_attributes(td):
+def parse_attribute_lines(lines) -> list[Modifier]:
     """
-    Extract attribute bonuses from the attributes cell in nested format.
-    Returns: {skill: {location: {stat: value}}}
+    Parse a list of attribute strings into Modifier objects.
+    Adapts logic from scrape_equipment to ensure consistency.
     """
-    stats = {}
-    
-    # Get the full text to parse
-    full_text = td.get_text()
-    
-    # Split by line breaks to process each stat block
-    lines = full_text.split('\n')
-    
+    modifiers = []
     i = 0
     while i < len(lines):
         line = lines[i].strip()
-        
         if not line or 'None' in line:
             i += 1
             continue
+
+        line_lower = line.lower()
+        conditions = []
         
-        # Extract stat: "+2% Double rewards" or "+10 Bonus experience"
-        stat_match = re.search(r'([+-]?\d+(?:\.\d+)?)\s*(%?)\s+([A-Za-z\s]+)', line)
-        if not stat_match:
+        # Look ahead for context/conditions (similar to scrape_equipment)
+        next_i = i + 1
+        
+        # Collectibles often have the condition on the line *before* or *with* the stat in wiki text
+        # But the split list passed here usually has "While doing X" as a separate line if <br> was used.
+        
+        while next_i < len(lines):
+            next_line = lines[next_i].strip()
+            next_lower = next_line.lower()
+
+            # Location Check
+            loc_text, is_negated = extract_location_from_text(next_line)
+            if loc_text:
+                conditions.append(Condition(type=ConditionType.LOCATION, target=normalize_location_name(loc_text)))
+                next_i += 1
+                continue
+            
+            # Inline "While doing" check on next line
+            if next_lower.startswith('while doing'):
+                act_match = re.search(r'while doing\s+(\w+)', next_lower)
+                if act_match:
+                    activity = act_match.group(1).lower()
+                    if activity in ACTIVITY_KEYWORDS:
+                        conditions.append(Condition(type=ConditionType.SPECIFIC_ACTIVITY, target=activity))
+                    else:
+                        conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=activity))
+                next_i += 1
+                continue
+
+            # Skill Context (e.g. "Fishing") on its own line
+            skill_context = extract_skill_from_text(next_line)
+            if skill_context and skill_context != 'global' and len(next_line.split()) < 3:
+                 conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=skill_context))
+                 next_i += 1
+                 continue
+                 
+            break
+
+        # Check current line for conditions too (sometimes "While doing X" is the current line, stat is next?)
+        # Collectibles table usually has "Stat <br> Condition" or "Condition <br> Stat"
+        # The scrape_equipment logic assumes Stat is current line.
+        
+        # Check if THIS line is just a condition
+        current_skill = extract_skill_from_text(line)
+        current_loc, _ = extract_location_from_text(line)
+        
+        # If the line is JUST a condition line (no numbers), it applies to following lines?
+        # The logic in extract_attributes (old scraper) implies nested parsing.
+        # We'll use a simpler heuristic: If line has a number, it's a stat.
+        
+        has_number = re.search(r'\d', line)
+        if not has_number:
+            # It might be a header line for the following stats
             i += 1
             continue
+
+        # Parse the stat
+        clean_line = re.sub(r'while doing\s+\w+', '', line_lower)
+        clean_line = re.sub(r'while in\s+[\w\s]+', '', clean_line)
         
-        value_str = stat_match.group(1)
-        has_percent = stat_match.group(2) == '%'
-        stat_name_raw = clean_text(stat_match.group(3))
+        value_match = re.search(r'([+-]?\d+(?:\.\d+)?)\s*(%?)', clean_line)
         
-        # Remove trailing context from stat name
-        stat_name_raw = re.sub(r'\s+While.*$', '', stat_name_raw, flags=re.IGNORECASE)
-        stat_name = normalize_stat_name(stat_name_raw)
+        if value_match:
+            value_str = value_match.group(1)
+            is_percent = value_match.group(2) == '%'
+            
+            # Try to find stat name
+            stat_text = re.sub(r'[+-]?\d+(?:\.\d+)?%?', '', clean_line).strip()
+            raw_stat_name = normalize_stat_name(stat_text) or normalize_stat_name(clean_line)
+            
+            if raw_stat_name:
+                final_stat_key = raw_stat_name
+                if raw_stat_name in DUAL_FORMAT_STATS:
+                     final_stat_key = f"{raw_stat_name}_{'percent' if is_percent else 'add'}"
+
+                try:
+                    stat_enum = StatName(final_stat_key)
+                    
+                    # Apply context found in this line or previous context
+                    # (Simplified: Collectibles usually explicitly state conditions)
+                    
+                    # Check for inline skill context
+                    inline_skill = extract_skill_from_text(line)
+                    if inline_skill and inline_skill != 'global':
+                         if not any(c.type == ConditionType.SKILL_ACTIVITY for c in conditions):
+                             conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=inline_skill))
+
+                    if not conditions:
+                        conditions.append(Condition(type=ConditionType.GLOBAL))
+                    
+                    modifiers.append(Modifier(stat=stat_enum, value=float(value_str), conditions=conditions))
+                except ValueError:
+                    validator.add_unrecognized_stat("Parsing", f"Enum conversion failed: {final_stat_key}")
+            else:
+                validator.add_unrecognized_stat("Parsing", line)
         
-        if not stat_name:
-            validator.add_unrecognized_stat('Unknown', line.strip())
-            i += 1
-            continue
+        i = next_i
         
-        # Build value string with % if present for parse_stat_value
-        value_with_percent = value_str
-        if has_percent:
-            value_with_percent += '%'
-        
-        # Determine skill using shared function (check current and next line)
-        skill = extract_skill_from_text(line)
-        if skill == 'global' and i + 1 < len(lines):
-            next_skill = extract_skill_from_text(lines[i + 1])
-            if next_skill and next_skill != 'global':
-                skill = next_skill
-        
-        # Ensure skill is never None
-        if not skill:
-            skill = 'global'
-        
-        # Determine location using shared function (check current and next line)
-        location_text, is_negated = extract_location_from_text(line)
-        if not location_text and i + 1 < len(lines):
-            location_text, is_negated = extract_location_from_text(lines[i + 1])
-        
-        # Normalize location using shared function
-        if location_text:
-            location = normalize_location_name(location_text)
-            # Handle negation (though collectibles probably don't use this)
-            if is_negated:
-                location = '!' + location
-        else:
-            location = 'global'
-        
-        # Use shared function to parse value (handles dual-format stats)
-        final_stat_name, final_value = parse_stat_value(value_with_percent, stat_name)
-        
-        # Build nested structure
-        if skill not in stats:
-            stats[skill] = {}
-        if location not in stats[skill]:
-            stats[skill][location] = {}
-        stats[skill][location][final_stat_name] = final_value
-        
-        i += 1
-    
-    return stats
+    return modifiers
 
 def parse_collectibles():
     """Parse all collectibles from the cached HTML file."""
+    print("Downloading Collectibles page...")
     html = download_page(COLLECTIBLES_URL, CACHE_FILE, rescrape=RESCRAPE)
-    if not html:
-        return []
-    soup = BeautifulSoup(html, 'html.parser')
+    if not html: return []
     
+    soup = BeautifulSoup(html, 'html.parser')
     collectibles = []
     
-    # Find the collectibles table
     content_div = soup.find('div', class_='mw-parser-output')
-    if not content_div:
-        print("Could not find main content div")
-        return []
+    if not content_div: return []
     
-    # Find all collectibles tables (Activities and Rewards sections)
     tables = content_div.find_all('table', class_='wikitable')
-    if not tables:
-        print("Could not find collectibles tables")
-        return []
+    print(f"Found {len(tables)} tables.")
     
-    print(f"Found {len(tables)} collectibles tables")
-    
-    # Parse each collectible row from all tables
     for table in tables:
+        # Skip tables that don't look like collectible lists (heuristic)
+        if not table.find('tr', {'data-achievement-id': True}):
+            continue
+
         rows = table.find_all('tr', {'data-achievement-id': True})
+        rowspan_tracker = {}
         
-        # Track rowspan cells to skip
-        rowspan_tracker = {}  # {col_index: rows_remaining}
-        
-        for row_idx, row in enumerate(rows):
+        for row in rows:
             cells = row.find_all('td')
-            
-            # Adjust cell indices based on active rowspans
             actual_cells = []
-            cell_idx = 0
-            for col_idx in range(10):  # Assume max 10 columns
-                # Check if this column is spanned from a previous row
+            
+            # Handle rowspan logic
+            col_idx = 0
+            cell_iter = iter(cells)
+            while len(actual_cells) < 10: # Safety limit
                 if col_idx in rowspan_tracker and rowspan_tracker[col_idx] > 0:
                     rowspan_tracker[col_idx] -= 1
-                    # Skip this column, it's covered by rowspan
+                    col_idx += 1
                     continue
                 
-                # Add the next actual cell
-                if cell_idx < len(cells):
-                    actual_cells.append(cells[cell_idx])
-                    
-                    # Check if this cell has rowspan
-                    rowspan = cells[cell_idx].get('rowspan')
-                    if rowspan:
-                        rowspan_tracker[col_idx] = int(rowspan) - 1
-                    
-                    cell_idx += 1
+                try:
+                    cell = next(cell_iter)
+                    actual_cells.append(cell)
+                    if cell.get('rowspan'):
+                        rowspan_tracker[col_idx] = int(cell.get('rowspan')) - 1
+                    col_idx += 1
+                except StopIteration:
+                    break
             
-            if len(actual_cells) < 3:
-                continue
+            if len(actual_cells) < 3: continue
             
-            # Extract data from cells
-            # 0: Icon, 1: Name, 2: Attributes/Effect, 3+: Source info (we don't need)
-            
-            # Get name from link
+            # Extract Name
             name_cell = actual_cells[1]
             name_link = name_cell.find('a')
             if name_link:
-                # Get title and clean up Special:MyLanguage/ prefix
-                title = name_link.get('title', '')
-                if title:
-                    # Remove Special:MyLanguage/ prefix
-                    title = title.replace('Special:MyLanguage/', '')
-                    collectible_name = clean_text(title)
-                else:
-                    collectible_name = clean_text(name_link.get_text())
+                title = name_link.get('title', '').replace('Special:MyLanguage/', '')
+                name = clean_text(title) or clean_text(name_link.get_text())
+                slug = name_link.get('href', '').split('/')[-1]
             else:
-                collectible_name = clean_text(name_cell.get_text())
+                name = clean_text(name_cell.get_text())
+                slug = name.replace(' ', '_')
             
-            # Skip if name looks like a percentage (from rowspan confusion)
-            if '%' in collectible_name or collectible_name.replace('.', '').replace(',', '').isdigit():
-                continue
+            # Extract Modifiers
+            attr_cell = actual_cells[2]
+            for br in attr_cell.find_all('br'): br.replace_with('\n')
+            stat_lines = [l.strip() for l in attr_cell.get_text().split('\n') if l.strip()]
             
-            # Get attributes
-            attributes = extract_attributes(actual_cells[2])
+            modifiers = parse_attribute_lines(stat_lines)
             
-            collectible = {
-                'name': collectible_name,
-                'attributes': attributes
-            }
+            col_id = normalize_id(name)
             
-            # Validate attributes
-            issues = validator.validate_item_stats(collectible_name, attributes)
-            if issues:
-                validator.add_item_issue(collectible_name, issues)
-            
-            collectibles.append(collectible)
-            # Print summary
-            if attributes:
-                stat_count = sum(len(loc_stats) for skill_stats in attributes.values() for loc_stats in skill_stats.values())
-                print(f"  {collectible_name}: {stat_count} stats")
-            else:
-                print(f"  {collectible_name}: No stats")
-    
+            try:
+                col = Collectible(
+                    id=col_id,
+                    wiki_slug=slug,
+                    name=name,
+                    value=0, # Collectibles typically have no sell value
+                    modifiers=modifiers
+                )
+                collectibles.append(col)
+                print(f"  Processed: {name} ({len(modifiers)} mods)")
+            except Exception as e:
+                print(f"  Error creating collectible {name}: {e}")
+
     return collectibles
 
-# ============================================================================
-# MODULE GENERATION
-# ============================================================================
-
-def generate_python_module(collectibles):
-    """Generate the collectibles.py module."""
-    output_file = get_output_file('collectibles.py')
+def main():
+    CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
     
-    with open(output_file, 'w', encoding='utf-8') as f:
-        write_module_header(f, 'Auto-generated collectible data from Walkscape wiki.', 'scrape_collectibles.py')
-        write_imports(f, [
-            'from dataclasses import dataclass',
-            'from typing import List, Tuple',
-            'from util.stats_mixin import StatsMixin'
-        ])
-
-        lines = [
-        '@dataclass',
-        'class CollectibleInstance(StatsMixin):',
-        '    """Represents a collectible item with permanent effects."""',
-        '    name: str',
-        '    _stats: dict  # {skill: {location: {stat: value}}}',
-        '    ',
-        '    def __post_init__(self):',
-        '        """Initialize after dataclass init"""',
-        '        # StatsMixin expects self.gated_stats to exist',
-        '        self.gated_stats = {}',
-        '    ',
-        '    # Keep stats as an alias for backward compatibility',
-        '    @property',
-        '    def stats(self):',
-        '        return self._stats',
-        '',
-        '# All collectibles',
-        'COLLECTIBLES = [',
-        ]
-        for collectible in collectibles:
-            lines.extend([
-            '    CollectibleInstance(',
-            f'        name={repr(collectible["name"])},',
-            f'        _stats={repr(collectible["attributes"])}',
-            '    ),',
-            ])
-        
-        lines.extend([
-        ']',
-        '',
-        '# Index by name for quick lookup',
-        'COLLECTIBLES_BY_NAME = {c.name: c for c in COLLECTIBLES}',
-        '',
-        # Generate enum-style access
-        '# Enum-style access to collectibles',
-        'class Collectible:',
-        '    """Enum-style access to all collectibles."""',
-        ])
-
-        for collectible in collectibles:
-            # Convert name to valid Python identifier
-            attr_name = collectible['name'].upper().replace(' ', '_').replace('-', '_').replace("'", '').replace('(', '').replace(')', '').replace('.', '')
-            # Prefix with underscore if starts with digit
-            if attr_name and attr_name[0].isdigit():
-                attr_name = '_' + attr_name
-            if attr_name:  # Skip if empty after cleaning
-                lines.append(f'    {attr_name} = COLLECTIBLES_BY_NAME[{repr(collectible["name"])}]')
-            
-        lines.extend([
-        '',
-        # Add helper function for export name lookup
-        '# Export name lookup',
-        'COLLECTIBLES_BY_EXPORT_NAME = {}',
-        'for c in COLLECTIBLES:',
-        '    # Convert display name to export name format (snake_case)',
-        '    export_name = c.name.lower().replace(" ", "_").replace("-", "_").replace("\'", "").replace("(", "").replace(")", "").replace(".", "")',
-        '    COLLECTIBLES_BY_EXPORT_NAME[export_name] = c',
-        '',
-        'def by_export_name(export_name: str):',
-        '    """Look up collectible by export name (snake_case format)"""',
-        '    return COLLECTIBLES_BY_EXPORT_NAME.get(export_name)',
-        ])
-
-        write_lines(f, lines)
+    data = parse_collectibles()
     
-    print(f"\n✓ Generated {output_file} with {len(collectibles)} collectibles")
-
-# ============================================================================
-# ENTRY POINT
-# ============================================================================
-
-if __name__ == '__main__':
-    collectibles = parse_collectibles()
-    print(f"\nFound {len(collectibles)} collectibles")
-    generate_python_module(collectibles)
+    print(f"\nExporting {len(data)} collectibles to {OUTPUT_FILE}...")
+    json_data = [item.model_dump(mode='json') for item in data]
     
-    # Report validation issues
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, indent=2, ensure_ascii=False)
+    
     validator.report()
+    print("Done.")
+
+if __name__ == "__main__":
+    main()

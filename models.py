@@ -66,6 +66,8 @@ class ConditionType(str, Enum):
     SET_EQUIPPED = "set_equipped"
     TOTAL_SKILL_LEVEL = "total_skill_level"
     ACTIVITY_COMPLETION = "activity_completion"
+    REPUTATION = "reputation"
+
 
 class RequirementType(str, Enum):
     SKILL_LEVEL = "skill_level"
@@ -179,6 +181,17 @@ class Collectible(BaseEntity):
         use_enum_values = True
         frozen = True
 
+class Service(BaseEntity):
+    skill: SkillName
+    tier: str
+    location: str
+    requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+ 
 class Equipment(BaseItem):
     uuid: str = ""
     slot: EquipmentSlot

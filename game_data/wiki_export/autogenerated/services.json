@@ -1,0 +1,825 @@
+[
+  {
+    "id": "basic_sawmill_kallaheim",
+    "wiki_slug": "Basic_Sawmill",
+    "name": "Basic Sawmill",
+    "skill": "carpentry",
+    "tier": "Basic",
+    "location": "kallaheim",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_sawmill_everhaven",
+    "wiki_slug": "Basic_Sawmill",
+    "name": "Basic Sawmill",
+    "skill": "carpentry",
+    "tier": "Basic",
+    "location": "everhaven",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "sawmill_of_barbantok_barbantok",
+    "wiki_slug": "Sawmill_of_Barbantok_(Basic)",
+    "name": "Sawmill of Barbantok",
+    "skill": "carpentry",
+    "tier": "Basic",
+    "location": "barbantok",
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 20
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 17.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "underwater_sawmill_vastalume",
+    "wiki_slug": "Underwater_Sawmill_(Basic)",
+    "name": "Underwater Sawmill",
+    "skill": "carpentry",
+    "tier": "Basic",
+    "location": "vastalume",
+    "requirements": [
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cursed_sawmill_wraithwater",
+    "wiki_slug": "Cursed_Sawmill_(Advanced)",
+    "name": "Cursed Sawmill",
+    "skill": "carpentry",
+    "tier": "Advanced",
+    "location": "wraithwater",
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "carpentry",
+        "value": 55
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": -5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "saw_in_half_mill_halfling_campgrounds",
+    "wiki_slug": "Saw-in-half_mill_(Advanced)",
+    "name": "Saw-in-half mill",
+    "skill": "carpentry",
+    "tier": "Advanced",
+    "location": "halfling_campgrounds",
+    "requirements": [
+      {
+        "type": "reputation",
+        "target": "halfling_rebels",
+        "value": 5
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "reputation",
+            "target": "halfling_rebels",
+            "value": 5
+          }
+        ]
+      },
+      {
+        "stat": "double_action",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "reputation",
+            "target": "halfling_rebels",
+            "value": 10
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "reputation",
+            "target": "halfling_rebels",
+            "value": 20
+          }
+        ]
+      },
+      {
+        "stat": "double_action",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "reputation",
+            "target": "halfling_rebels",
+            "value": 30
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "reputation",
+            "target": "halfling_rebels",
+            "value": 45
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "basic_kitchen_centaham",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "centaham",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_coldington",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "coldington",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_kallaheim",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "kallaheim",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_nurturing_nook_springs",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "nurturing_nook_springs",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_blackspell_port",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "blackspell_port",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_everhaven",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "everhaven",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_halfling_campgrounds",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "halfling_campgrounds",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_kitchen_salsfirth",
+    "wiki_slug": "Basic_Kitchen",
+    "name": "Basic Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "salsfirth",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "alight_kitchen_azurazera",
+    "wiki_slug": "Alight_Kitchen_(Basic)",
+    "name": "Alight Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "azurazera",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "underwater_kitchen_vastalume",
+    "wiki_slug": "Underwater_Kitchen_(Basic)",
+    "name": "Underwater Kitchen",
+    "skill": "cooking",
+    "tier": "Basic",
+    "location": "vastalume",
+    "requirements": [
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "eberhart_mansion_kitchen_granfiddich",
+    "wiki_slug": "Eberhart_Mansion_Kitchen_(Advanced)",
+    "name": "Eberhart Mansion Kitchen",
+    "skill": "cooking",
+    "tier": "Advanced",
+    "location": "granfiddich",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cursed_kitchen_wraithwater",
+    "wiki_slug": "Cursed_Kitchen_(Advanced)",
+    "name": "Cursed Kitchen",
+    "skill": "cooking",
+    "tier": "Advanced",
+    "location": "wraithwater",
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "cooking",
+        "value": 55
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": -5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "basic_workshop_frusenholm",
+    "wiki_slug": "Basic_Workshop",
+    "name": "Basic Workshop",
+    "skill": "crafting",
+    "tier": "Basic",
+    "location": "frusenholm",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_workshop_halfling_campgrounds",
+    "wiki_slug": "Basic_Workshop",
+    "name": "Basic Workshop",
+    "skill": "crafting",
+    "tier": "Basic",
+    "location": "halfling_campgrounds",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_workshop_salsfirth",
+    "wiki_slug": "Basic_Workshop",
+    "name": "Basic Workshop",
+    "skill": "crafting",
+    "tier": "Basic",
+    "location": "salsfirth",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "tidal_workshop_vastalume",
+    "wiki_slug": "Tidal_Workshop_(Advanced)",
+    "name": "Tidal Workshop",
+    "skill": "crafting",
+    "tier": "Advanced",
+    "location": "vastalume",
+    "requirements": [
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cursed_workshop_wraithwater",
+    "wiki_slug": "Cursed_Workshop_(Advanced)",
+    "name": "Cursed Workshop",
+    "skill": "crafting",
+    "tier": "Advanced",
+    "location": "wraithwater",
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "crafting",
+        "value": 55
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "quality_outcome",
+        "value": -7.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "basic_forge_kallaheim",
+    "wiki_slug": "Basic_Forge",
+    "name": "Basic Forge",
+    "skill": "smithing",
+    "tier": "Basic",
+    "location": "kallaheim",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_forge_bilgemont_port",
+    "wiki_slug": "Basic_Forge",
+    "name": "Basic Forge",
+    "skill": "smithing",
+    "tier": "Basic",
+    "location": "bilgemont_port",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_forge_granfiddich",
+    "wiki_slug": "Basic_Forge",
+    "name": "Basic Forge",
+    "skill": "smithing",
+    "tier": "Basic",
+    "location": "granfiddich",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "underwater_forge_vastalume",
+    "wiki_slug": "Underwater_Forge_(Basic)",
+    "name": "Underwater Forge",
+    "skill": "smithing",
+    "tier": "Basic",
+    "location": "vastalume",
+    "requirements": [
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "heatstroke_metalworks_myriadian_arc",
+    "wiki_slug": "Heatstroke_Metalworks_(Advanced)",
+    "name": "Heatstroke Metalworks",
+    "skill": "smithing",
+    "tier": "Advanced",
+    "location": "myriadian_arc",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_action",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cursed_forge_wraithwater",
+    "wiki_slug": "Cursed_Forge_(Advanced)",
+    "name": "Cursed Forge",
+    "skill": "smithing",
+    "tier": "Advanced",
+    "location": "wraithwater",
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "smithing",
+        "value": 55
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "frozen_forge_winter_waves_glacier",
+    "wiki_slug": "Frozen_Forge",
+    "name": "Frozen Forge",
+    "skill": "smithing",
+    "tier": "Advanced",
+    "location": "winter_waves_glacier",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "quality_outcome",
+        "value": 15.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "basic_trinketry_bench_bilgemont_port",
+    "wiki_slug": "Basic_Trinketry_Bench",
+    "name": "Basic Trinketry Bench",
+    "skill": "trinketry",
+    "tier": "Basic",
+    "location": "bilgemont_port",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_trinketry_bench_salsfirth",
+    "wiki_slug": "Basic_Trinketry_Bench",
+    "name": "Basic Trinketry Bench",
+    "skill": "trinketry",
+    "tier": "Basic",
+    "location": "salsfirth",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "ruined_trinketry_bench_winters_end",
+    "wiki_slug": "Ruined_Trinketry_Bench_(Basic)",
+    "name": "Ruined Trinketry Bench",
+    "skill": "trinketry",
+    "tier": "Basic",
+    "location": "winters_end",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "erdwiss_trinketry_factory_blackspell_port",
+    "wiki_slug": "Erdwiss_Trinketry_Factory_(Advanced)",
+    "name": "Erdwiss Trinketry Factory",
+    "skill": "trinketry",
+    "tier": "Advanced",
+    "location": "blackspell_port",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "granular_faceting_facility_myriadian_arc",
+    "wiki_slug": "Granular_Faceting_Facility_(Advanced)",
+    "name": "Granular Faceting Facility",
+    "skill": "trinketry",
+    "tier": "Advanced",
+    "location": "myriadian_arc",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  }
+]

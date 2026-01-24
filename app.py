@@ -331,7 +331,7 @@ def main():
 
     # --- WIKI ---
     with right_col:
-        st.subheader("Wiki Reference")
+        st.subheader("Gear Tool Reference (fala's tool)")
         components.iframe(WIKI_URL, height=1200, scrolling=True)
 
     # --- RESULTS & DEBUGGER ---

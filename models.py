@@ -29,7 +29,6 @@ class EquipmentSlot(str, Enum):
     CAPE = "cape"
     BACK = "back"
     HANDS = "hands"
-    GLOVES = "gloves" 
     UNKNOWN = "unknown"
 
 class SkillName(str, Enum):
@@ -241,6 +240,7 @@ class Activity(BaseEntity):
     faction_rewards: Tuple[FactionReward, ...] = Field(default_factory=tuple)
     drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
     secondary_drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple) # Support for synthesized activities
     
     @property
     def level(self) -> int:
@@ -306,7 +306,6 @@ class GearSet(BaseModel):
     tools: List[Equipment] = Field(default_factory=list)
 
     def get_all_items(self) -> List[Equipment]:
-        """Returns a flat list of all equipped items that are not None."""
         items = [
             self.head, self.chest, self.legs, self.feet,
             self.back, self.cape, self.neck, self.hands,
@@ -317,11 +316,6 @@ class GearSet(BaseModel):
         return [i for i in items if i]
 
     def get_keyword_counts(self) -> Counter:
-        """
-        Counts all keywords present in the equipped gear.
-        Normalizes keys: Lowercase + replace underscores with spaces.
-        Example: "Advanced diving gear" -> "advanced diving gear"
-        """
         counts = Counter()
         for item in self.get_all_items():
             for kw in item.keywords:
@@ -330,9 +324,6 @@ class GearSet(BaseModel):
         return counts
 
     def get_stats(self, context: Dict[str, any] = None) -> Dict[str, float]:
-        """
-        Calculates total stats provided by the gear using a context-aware approach.
-        """
         if context is None:
             context = {}
 
@@ -342,90 +333,61 @@ class GearSet(BaseModel):
         act_id = context.get("activity_id")
 
         stats = defaultdict(float)
-        
-        # Pre-calculate counts for "set_equipped" conditions
         keyword_counts = self.get_keyword_counts()
         
         PERCENTAGE_STATS = {
-            StatName.WORK_EFFICIENCY,
-            StatName.DOUBLE_ACTION,
-            StatName.DOUBLE_REWARDS,
-            StatName.NO_MATERIALS_CONSUMED,
-            StatName.STEPS_PERCENT,
-            StatName.XP_PERCENT,
-            StatName.BONUS_XP_PERCENT,
-            StatName.CHEST_FINDING,
-            StatName.FINE_MATERIAL_FINDING,
-            StatName.FIND_BIRD_NESTS,
-            StatName.FIND_COLLECTIBLES,
-            StatName.FIND_GEMS,
+            StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS,
+            StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT,
+            StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
+            StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
         }
 
         for item in self.get_all_items():
             for mod in item.modifiers:
                 applies = True
                 
-                # --- CONDITION CHECKING ---
                 for condition in mod.conditions:
                     c_type = condition.type
                     c_target = condition.target.lower() if condition.target else None
                     c_val = condition.value
                     
-                    if c_type == ConditionType.GLOBAL:
-                        continue 
+                    if c_type == ConditionType.GLOBAL: continue 
 
                     elif c_type == ConditionType.SKILL_ACTIVITY:
-                        if not active_skill: 
-                            applies = False 
+                        if not active_skill: applies = False 
                         elif c_target:
-                            # 1. Exact Match (e.g., target="fishing" vs active="fishing")
-                            if c_target == active_skill:
-                                pass
-                            
-                            # 2. Gathering Category (e.g., target="gathering" vs active="fishing")
-                            elif c_target == "gathering" and active_skill in GATHERING_SKILLS:
-                                pass
-                                
-                            # 3. Artisan Category (e.g., target="artisan" vs active="smithing")
-                            elif c_target == "artisan" and active_skill in ARTISAN_SKILLS:
-                                pass
-                                
-                            else:
-                                applies = False
+                            if c_target == active_skill: pass
+                            elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
+                            elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                            else: applies = False
 
                     elif c_type == ConditionType.LOCATION:
                         if not loc_id: applies = False
                         else:
                             is_id_match = (c_target == loc_id.lower())
                             is_tag_match = (c_target in loc_tags)
-                            if not (is_id_match or is_tag_match):
-                                applies = False
+                            if not (is_id_match or is_tag_match): applies = False
                             
                     elif c_type == ConditionType.REGION:
                         if not loc_tags: applies = False
-                        elif c_target and c_target not in loc_tags:
-                            applies = False
+                        elif c_target and c_target not in loc_tags: applies = False
 
                     elif c_type == ConditionType.SPECIFIC_ACTIVITY:
                         if not act_id: applies = False
-                        elif c_target and c_target != act_id.lower():
-                            applies = False
+                        elif c_target and c_target != act_id.lower(): applies = False
                     
                     elif c_type == ConditionType.SET_EQUIPPED:
-                        if not c_target: 
-                            applies = False
+                        if not c_target: applies = False
                         else:
                             norm_target = c_target.replace("_", " ").strip()
-                            if keyword_counts.get(norm_target, 0) < (c_val or 1):
-                                applies = False
+                            if keyword_counts.get(norm_target, 0) < (c_val or 1): applies = False
 
                 if applies:
                     stat_enum = mod.stat
                     stat_key = stat_enum.value
                     value = mod.value
 
-                    if stat_enum in PERCENTAGE_STATS:
-                        value = value / 100.0
+                    if stat_enum in PERCENTAGE_STATS: value = value / 100.0
 
                     if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
                     elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"

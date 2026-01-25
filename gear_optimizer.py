@@ -257,6 +257,7 @@ class GearOptimizer:
         relevant_stats = TARGET_TO_STATS.get(target, set())
         dummy_set = GearSet()
 
+        # Phase 1: Rough filtering (Ownership, Requirements, Utility Check)
         for item in self.all_items:
             rejection_reason = None
             
@@ -314,12 +315,17 @@ class GearOptimizer:
                 if s_key not in raw_candidates: raw_candidates[s_key] = []
                 raw_candidates[s_key].append(item)
 
+        # Phase 2: Refined filtering (Best Versions per Slot)
         final_candidates = {}
         for slot, items in raw_candidates.items():
-            best_versions = {}
+            # Dictionary mapping Identity -> List of (Score, QualityRank, Item)
+            # We use a list to keep multiple variations if needed (specifically for Rings)
+            grouped_candidates = defaultdict(list)
+
             for item in items:
                 identity = item.wiki_slug if item.wiki_slug else item.name
                 
+                # Equip to dummy set to calculate score
                 if item.slot == EquipmentSlot.TOOLS: dummy_set.tools = [item]
                 elif item.slot == EquipmentSlot.RING: dummy_set.rings = [item]
                 else:
@@ -330,21 +336,32 @@ class GearOptimizer:
                 score = self.calculate_score(dummy_set, activity, player_skill_level, target, context, ignore_requirements=True)
                 q_rank = QUALITY_RANK.get(item.quality, -1)
                 
+                # Un-equip
                 dummy_set.tools = []; dummy_set.rings = []
                 if item.slot != EquipmentSlot.TOOLS and item.slot != EquipmentSlot.RING:
                      attr_name = item.slot
                      if hasattr(dummy_set, attr_name): setattr(dummy_set, attr_name, None)
 
-                if identity not in best_versions:
-                    best_versions[identity] = (score, item, q_rank)
-                else:
-                    curr_score, _, curr_rank = best_versions[identity]
-                    if score > curr_score:
-                        best_versions[identity] = (score, item, q_rank)
-                    elif abs(score - curr_score) < 0.001 and q_rank > curr_rank:
-                        best_versions[identity] = (score, item, q_rank)
+                # Store candidate info
+                grouped_candidates[identity].append((score, q_rank, item))
             
-            final_candidates[slot] = [v[1] for v in best_versions.values()]
+            # Select best versions
+            slot_candidates = []
+            
+            # For Rings, we keep the top 2 best versions of the same item (e.g. Perfect Ruby Ring AND Excellent Ruby Ring)
+            # For others, we only keep the absolute best version (e.g. Perfect Hatchet only, discard Excellent Hatchet)
+            keep_count = 2 if slot == EquipmentSlot.RING else 1
+
+            for identity, entries in grouped_candidates.items():
+                # Sort by Score (Desc), then Quality (Desc)
+                # Python tuple sort compares element by element
+                entries.sort(key=lambda x: (x[0], x[1]), reverse=True)
+                
+                best_entries = entries[:keep_count]
+                for _, _, itm in best_entries:
+                    slot_candidates.append(itm)
+            
+            final_candidates[slot] = slot_candidates
 
         return final_candidates
 

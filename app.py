@@ -385,7 +385,7 @@ def main():
             can_run = (selected_obj is not None)
             if is_recipe and not selected_service: can_run = False
             
-            run_opt = st.button("🚀 Optimize", type="primary", use_container_width=True, disabled=not can_run)
+            run_opt = st.button("🚀 Optimize", type="primary", width="stretch", disabled=not can_run)
 
     st.divider()
 
@@ -533,7 +533,7 @@ def main():
                 for i, tool in enumerate(best_gear.tools):
                     loadout_data.append({"Slot": f"Tool {i+1}", "Item": tool.name})
 
-                st.dataframe(pd.DataFrame(loadout_data), hide_index=True, use_container_width=True)
+                st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")
 
                 # --- Detailed Breakdown (New Feature) ---
                 with st.expander("🔍 Detailed Item Breakdown", expanded=False):
@@ -745,7 +745,7 @@ def main():
                                 cand_data.append({"Name": item.name, "Score": s, "ID": item.id})
                             
                             df_cand = pd.DataFrame(cand_data).sort_values(by="Score", ascending=False)
-                            st.dataframe(df_cand, use_container_width=True)
+                            st.dataframe(df_cand, width="stretch")
                         else:
                             st.warning("No candidates found for this slot.")
 
@@ -755,7 +755,7 @@ def main():
                         rejected_in_slot = [r for r in debug_rejected if r['slot'] == insp_slot]
                         if rejected_in_slot:
                              df_rej = pd.DataFrame(rejected_in_slot)
-                             st.dataframe(df_rej, use_container_width=True)
+                             st.dataframe(df_rej, width="stretch")
                         else:
                             st.write("No items specifically rejected (all processed items passed or none checked).")
 

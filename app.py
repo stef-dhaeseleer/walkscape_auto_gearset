@@ -75,15 +75,10 @@ def load_data():
 
     # Note: data_loader should be updated to return recipes and service loading if separate
     # For now we assume standard loading or manually load the new files here
-    # Since utils/data_loader is not provided fully, I will manually load new files safely
     
     # Load standard data
     items, activities, recipes, locations, services, collectibles = load_game_data(equipment_path, act_path, rec_path, loc_path, services_path, collectibles_path,)
     
-    # Load Recipes manually to ensure model
- 
-
-
     return items, activities, recipes, locations, services, collectibles
 
 
@@ -162,10 +157,6 @@ def get_compatible_services(recipe: Recipe, all_services: List[Service]) -> List
         
         if is_cursed_req and not s_is_cursed:
             continue
-        # Optional: If recipe is NOT cursed, can we use cursed forge? 
-        # User prompt didn't strictly forbid it, but safe logic usually implies "Basic Forge" means standard.
-        # However, typically higher tier/special forges can do basic things. 
-        # For now, let's allow it unless strict match is needed.
         
         compatible.append(s)
     
@@ -200,9 +191,6 @@ def synthesize_activity_from_recipe(recipe: Recipe, service: Service) -> Activit
 def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:
     stats = {}
     for mod in modifiers:
-        # Simple extraction assuming mostly static bonuses for services
-        # If complex conditions exist, GearOptimizer.optimize handles them if passed correctly
-        # But here we want to show/calc simple ones
         val = mod.value
         if mod.stat in PERCENTAGE_STATS:
             val = val / 100.0
@@ -352,12 +340,6 @@ def main():
             
             if is_recipe and selected_service:
                 final_activity = synthesize_activity_from_recipe(selected_obj, selected_service)
-                # Pre-calculate simple service stats to pass as extra passive
-                # Complex conditional modifiers in service are handled by adding them to the synth activity's modifier list?
-                # Actually GearOptimizer logic for passive stats iterates collectibles. 
-                # We need to manually convert service modifiers to a stat dict for the 'extra_passive_stats' arg.
-                # Since Service modifiers usually have simple "Skill Activity" conditions which are met by definition (we are doing the skill),
-                # we can treat them as effectively global for this optimization context.
                 service_modifiers_stats = extract_modifier_stats(selected_service.modifiers)
 
             player_lvl = calculated_char_lvl if valid_json else 99
@@ -472,10 +454,44 @@ def main():
                 # --- Export Section ---
                 st.markdown("---")
                 
-                with st.success("✅ **Export Ready**"):
-                    export_json = export_gearset(best_gear)
-                    st.caption("Hover over the top-right of the code block to copy!")
-                    st.code(export_json, language="json")
+                # IMPORTANT: Only the notification message is in the success box
+                st.success("✅ **Export Ready**")
+                
+                # The code block and button are now OUTSIDE the success box to prevent hiding/overflow issues
+                export_json = export_gearset(best_gear)
+                
+                st.caption("Hover over the top-right of the code block to copy!")
+                st.code(export_json, language="json")
+                
+                js_code = f"""
+                <script>
+                function copyToClipboard() {{
+                    var content = {json.dumps(export_json)};
+                    navigator.clipboard.writeText(content).then(function() {{
+                        document.getElementById("copyBtn").innerHTML = "✅ Copied!";
+                        setTimeout(function() {{
+                            document.getElementById("copyBtn").innerHTML = "Copy Export";
+                        }}, 2000);
+                    }}, function(err) {{
+                        console.error('Async: Could not copy text: ', err);
+                    }});
+                }}
+                </script>
+                <div style="text-align: right; margin-top: 5px;">
+                    <button id="copyBtn" onclick="copyToClipboard()" style="
+                        background-color: #ff4b4b; 
+                        color: white; 
+                        border: none; 
+                        padding: 8px 15px; 
+                        border-radius: 4px; 
+                        cursor: pointer; 
+                        font-family: 'Source Sans Pro', sans-serif;
+                        font-weight: 600;
+                        font-size: 14px;
+                    ">Copy Export</button>
+                </div>
+                """
+                components.html(js_code, height=50)
 
                 # --- DEBUGGER TABS ---
                 st.markdown("---")

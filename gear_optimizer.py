@@ -68,7 +68,8 @@ class GearOptimizer:
                  owned_item_counts: Optional[Dict[str, int]] = None,
                  achievement_points: int = 0,
                  owned_collectibles: Optional[List[Collectible]] = None,
-                 extra_passive_stats: Optional[Dict[str, float]] = None):
+                 extra_passive_stats: Optional[Dict[str, float]] = None,
+                 context_override: Optional[Dict] = None):
         
         # Reset Debug Info
         self.debug_candidates = {}
@@ -81,28 +82,32 @@ class GearOptimizer:
         else: tool_slots = 3
 
         # 2. Setup Context
-        loc_id = activity.locations[0] if activity.locations else None
-        location_tags = set()
-        if loc_id and loc_id in self.location_map:
-            for t in self.location_map[loc_id].tags:
-                location_tags.add(t.lower())
+        if context_override:
+            context = context_override
+        else:
+            loc_id = activity.locations[0] if activity.locations else None
+            location_tags = set()
+            if loc_id and loc_id in self.location_map:
+                for t in self.location_map[loc_id].tags:
+                    location_tags.add(t.lower())
+                
+            context = {
+                "skill": activity.primary_skill,
+                "location_id": loc_id,
+                "location_tags": location_tags,
+                "activity_id": activity.id,
+                "required_keywords": {},
+                "achievement_points": achievement_points,
+                "total_skill_level": 0 # Should be passed in context_override ideally
+            }
             
-        context = {
-            "skill": activity.primary_skill,
-            "location_id": loc_id,
-            "location_tags": location_tags,
-            "activity_id": activity.id,
-            "required_keywords": {},
-            "achievement_points": achievement_points
-        }
-        
-        # 3. Parse Requirements
-        required_keywords = {} 
-        for req in activity.requirements:
-            if req.type == RequirementType.KEYWORD_COUNT and req.target:
-                norm_target = req.target.lower().replace("_", " ").strip()
-                required_keywords[norm_target] = req.value
-        context["required_keywords"] = required_keywords
+            # 3. Parse Requirements
+            required_keywords = {} 
+            for req in activity.requirements:
+                if req.type == RequirementType.KEYWORD_COUNT and req.target:
+                    norm_target = req.target.lower().replace("_", " ").strip()
+                    required_keywords[norm_target] = req.value
+            context["required_keywords"] = required_keywords
 
         # 4. Calculate Passive Stats from Collectibles AND Extra Sources (Service Modifiers)
         passive_stats = self._calculate_passive_stats(owned_collectibles or [], context)
@@ -111,7 +116,7 @@ class GearOptimizer:
                 passive_stats[k] = passive_stats.get(k, 0.0) + v
 
         # 5. Get Candidates (Strict Filtering)
-        # Note: owned_item_counts filtering happens here
+        required_keywords = context.get("required_keywords", {})
         candidates = self._get_candidates(activity, required_keywords, optimazation_target, context, player_skill_level, owned_item_counts)
         self.debug_candidates = candidates
 
@@ -170,6 +175,9 @@ class GearOptimizer:
         loc_id = context.get("location_id")
         loc_tags = context.get("location_tags", set())
         act_id = context.get("activity_id")
+        
+        user_ap = context.get("achievement_points", 0)
+        total_lvl = context.get("total_skill_level", 0)
 
         for item in collectibles:
             for mod in item.modifiers:
@@ -178,6 +186,7 @@ class GearOptimizer:
                 for condition in mod.conditions:
                     c_type = condition.type
                     c_target = condition.target.lower() if condition.target else None
+                    c_val = condition.value
                     
                     if c_type == ConditionType.GLOBAL:
                         continue 
@@ -208,6 +217,12 @@ class GearOptimizer:
                         if not act_id: applies = False
                         elif c_target and c_target != act_id.lower():
                             applies = False
+                    
+                    elif c_type == ConditionType.ACHIEVEMENT_POINTS:
+                        if user_ap < (c_val or 0): applies = False
+                    
+                    elif c_type == ConditionType.TOTAL_SKILL_LEVEL:
+                        if total_lvl < (c_val or 0): applies = False
                 
                 if applies:
                     stat_enum = mod.stat
@@ -603,6 +618,10 @@ class GearOptimizer:
                 lk = k.lower()
                 if lk in self.restricted_keywords_lower:
                     fixed_keywords.add(lk)
+        
+        # Get Context for conditional checks
+        user_ap = context.get("achievement_points", 0)
+        total_lvl = context.get("total_skill_level", 0)
 
         # 3. Lightweight Candidate Conversion
         light_candidates = [] # list of (item, base_stats_dict, cond_mods_list, slug, restricted_kw_set)
@@ -635,9 +654,12 @@ class GearOptimizer:
                     if c_type == ConditionType.GLOBAL: continue
                     
                     # Eval static conditions now
-                    if c_type == ConditionType.SKILL_ACTIVITY or c_type == ConditionType.LOCATION or c_type == ConditionType.REGION or c_type == ConditionType.SPECIFIC_ACTIVITY:
+                    if c_type in [ConditionType.SKILL_ACTIVITY, ConditionType.LOCATION, 
+                                  ConditionType.REGION, ConditionType.SPECIFIC_ACTIVITY, 
+                                  ConditionType.ACHIEVEMENT_POINTS, ConditionType.TOTAL_SKILL_LEVEL]:
                         applies_cond = True
                         c_target = cond.target.lower() if cond.target else None
+                        c_val = cond.value
                         
                         if c_type == ConditionType.SKILL_ACTIVITY:
                             act_skill = context.get("skill", "").lower()
@@ -663,6 +685,12 @@ class GearOptimizer:
                         elif c_type == ConditionType.SPECIFIC_ACTIVITY:
                              act_id = context.get("activity_id")
                              if not act_id or (c_target and c_target != act_id.lower()): applies_cond = False
+
+                        elif c_type == ConditionType.ACHIEVEMENT_POINTS:
+                            if user_ap < (c_val or 0): applies_cond = False
+
+                        elif c_type == ConditionType.TOTAL_SKILL_LEVEL:
+                            if total_lvl < (c_val or 0): applies_cond = False
                         
                         if not applies_cond:
                             applies_always = False

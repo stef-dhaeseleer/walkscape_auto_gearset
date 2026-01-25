@@ -281,6 +281,9 @@ def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:
 def main():
     all_items_raw, activities, recipes, locations, services, all_collectibles_raw = load_data()   
     
+    # Create a lookup map for locations to fix context generation
+    loc_map = {loc.id: loc for loc in locations}
+
     WIKI_URL = "https://gear.walkscape.app"
 
     st.title("🛡️ WalkScape Gear Optimizer")
@@ -432,10 +435,16 @@ def main():
                     if req.type == RequirementType.KEYWORD_COUNT and req.target:
                          req_kw[req.target.lower().replace("_", " ").strip()] = req.value
                 
+                # Determine correct location tags
+                current_loc_id = final_activity.locations[0] if final_activity.locations else None
+                current_tags = set()
+                if current_loc_id and current_loc_id in loc_map:
+                    current_tags = {t.lower() for t in loc_map[current_loc_id].tags}
+
                 context = {
                     "skill": final_activity.primary_skill,
-                    "location_id": final_activity.locations[0] if final_activity.locations else None,
-                    "location_tags": {t.lower() for t in locations[0].tags} if final_activity.locations else set(),
+                    "location_id": current_loc_id,
+                    "location_tags": current_tags,
                     "activity_id": final_activity.id,
                     "required_keywords": req_kw,
                     "achievement_points": user_ap,

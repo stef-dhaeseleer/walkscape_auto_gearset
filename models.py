@@ -78,6 +78,7 @@ class RequirementType(str, Enum):
     ACHIEVEMENT_POINTS = "achievement_points" 
     TOOL_EQUIPPED = "tool_equipped"
     UNIQUE_TOOLS = "unique_tools"
+    SPECIFIC_ACTIVITY = "specific_activity"
 
 class StatName(str, Enum):
     # Core

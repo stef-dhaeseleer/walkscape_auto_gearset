@@ -330,9 +330,33 @@ class GearOptimizer:
                 if getattr(gs, slot) and getattr(gs, slot).id == item.id:
                     setattr(gs, slot, None)
                     break
+    def _violates_restricted_keywords(self, gs: GearSet, new_item: Equipment) -> bool:
+        """Checks if equipping new_item would violate unique keyword restrictions (e.g. 2 Pickaxes)."""
+        # 1. Identify if the new item has any restricted keywords
+        item_restricted_kws = set()
+        for k in new_item.keywords:
+            lk = k.lower()
+            if lk in self.restricted_keywords_lower:
+                item_restricted_kws.add(lk)
+        
+        if not item_restricted_kws:
+            return False
+
+        # 2. Check if any currently equipped item shares a restricted keyword
+        # Note: We check ALL items, though restrictions are usually just on Tools.
+        for existing in gs.get_all_items():
+            for k in existing.keywords:
+                if k.lower() in item_restricted_kws:
+                    return True
+        return False
 
     def _equip_item(self, gs: GearSet, item: Equipment, max_tools: int) -> bool:
         """Attempts to equip item into appropriate slot. Returns True if successful."""
+        
+        # Validation: Check for Restricted Keywords (e.g. Pickaxe, Hatchet uniqueness)
+        if self._violates_restricted_keywords(gs, item):
+            return False
+
         if item.slot == EquipmentSlot.TOOLS:
             if len(gs.tools) < max_tools:
                 gs.tools.append(item)
@@ -349,8 +373,7 @@ class GearOptimizer:
                 if getattr(gs, attr) is None:
                     setattr(gs, attr, item)
                     return True
-            return False
-            
+            return False          
     def _get_empty_slots(self, gs: GearSet, max_tools: int) -> List[str]:
         empty = []
         for slot in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"]:

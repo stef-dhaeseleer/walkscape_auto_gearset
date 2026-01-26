@@ -7,14 +7,15 @@ from enum import Enum
 from collections import Counter as PyCounter, defaultdict
 
 # --- Constants & Config ---
-
 RESTRICTED_TOOL_KEYWORDS = {
     "Pickaxe", "Hatchet", "Fishing tool", "Fishing lure", "Foraging tool", "Basket", "Bellows",
     "Bug catching net", "Chisel", "Climbing gear", "Cooking knife", "Cooking pan",
     "Fishing cage", "Fishing net", "Fishing spear", "Gold pan", "Knife",
     "Life vest", "Local map", "Log Splitter", "Magnetic", "Magnifying lens",
-    "Ruler", "Sander", "Saw", "Sickle", "Wrench"
+    "Ruler", "Sander", "Saw", "Sickle", "Wrench", "Smithing hammer"
 }
+
+
 
 QUALITY_RANK = {
     EquipmentQuality.NORMAL: 0, EquipmentQuality.GOOD: 1, EquipmentQuality.GREAT: 2,

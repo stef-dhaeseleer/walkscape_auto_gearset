@@ -169,6 +169,55 @@ class Location(BaseEntity):
         use_enum_values = True
         frozen = True
 
+# --- PETS ---
+
+class PetAbility(BaseModel):
+    name: str
+    effect: str
+    requirements: Optional[str] = None
+    cooldown: Optional[str] = None
+    charges: Optional[int] = None
+
+    class Config:
+        frozen = True
+
+class PetLevel(BaseModel):
+    level: int
+    total_xp: int
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
+    abilities: Tuple[PetAbility, ...] = Field(default_factory=tuple)
+
+    class Config:
+        use_enum_values = True
+        frozen = True
+
+class Pet(BaseEntity):
+    egg_item_id: Optional[str] = None
+    xp_requirement_desc: Optional[str] = None
+    levels: Tuple[PetLevel, ...] = Field(default_factory=tuple)
+    
+    # State for the active level chosen by the user
+    active_level: int = 1
+
+    @property
+    def modifiers(self) -> Tuple[Modifier, ...]:
+        """Returns modifiers for the CURRENT active level only."""
+        # Find the level object
+        for lvl in self.levels:
+            if lvl.level == self.active_level:
+                return lvl.modifiers
+        return tuple()
+
+    @property
+    def keywords(self) -> Tuple[str, ...]:
+        """Pets don't typically have keywords like 'Pickaxe', but we return empty for compatibility."""
+        return tuple()
+
+    class Config:
+        use_enum_values = True
+        # Not frozen so we can set active_level, or use copy(update={}) pattern
+        frozen = False 
+
 # ============================================================================
 # GEARSET
 # ============================================================================
@@ -185,13 +234,15 @@ class GearSet(BaseModel):
     primary: Optional[Equipment] = None
     secondary: Optional[Equipment] = None
     
-    pet: Optional[Equipment] = None          
+    # Changed from Equipment to Pet
+    pet: Optional[Pet] = None          
     consumable: Optional[Equipment] = None   
 
     rings: List[Equipment] = Field(default_factory=list)
     tools: List[Equipment] = Field(default_factory=list)
 
-    def get_all_items(self) -> List[Equipment]:
+    def get_all_items(self) -> List[any]:
+        """Returns all equipped items AND the pet if present."""
         items = [
             self.head, self.chest, self.legs, self.feet,
             self.back, self.cape, self.neck, self.hands,
@@ -231,6 +282,7 @@ class GearSet(BaseModel):
             StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
         }
 
+        # Iterate over all items AND the Pet
         for item in self.get_all_items():
             for mod in item.modifiers:
                 applies = True

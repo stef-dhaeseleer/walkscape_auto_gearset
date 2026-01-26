@@ -1,7 +1,7 @@
 import itertools
 import math
 from typing import Dict, List, Set, Optional, Tuple
-from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS
+from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS, Pet
 from utils.utils import calculate_steps, calculate_quality_probabilities
 from collections import Counter as PyCounter, defaultdict
 from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, TARGET_TO_STATS, STAT_ENUM_TO_KEY, QUALITY_RANK
@@ -24,7 +24,8 @@ class GearOptimizer:
                  user_reputation: Optional[Dict[str, float]] = None,
                  owned_collectibles: Optional[List[Collectible]] = None,
                  extra_passive_stats: Optional[Dict[str, float]] = None,
-                 context_override: Optional[Dict] = None):
+                 context_override: Optional[Dict] = None,
+                 pet: Optional[Pet] = None):
         
         # Reset Debug Info
         self.debug_candidates = {}
@@ -80,6 +81,7 @@ class GearOptimizer:
         skeletons = self._generate_skeletons(candidates, required_keywords)
         
         best_overall_set = GearSet()
+        best_overall_set.pet = pet # Inject pet
         best_overall_score = -float('inf')
 
         # 7. Main Optimization Loop
@@ -93,6 +95,7 @@ class GearOptimizer:
                 setattr(current_set, slot, getattr(skeleton_set, slot))
             current_set.rings = list(skeleton_set.rings)
             current_set.tools = list(skeleton_set.tools)
+            current_set.pet = pet # Ensure current working set has the pet
 
             # A. Standard Optimization (Fills empty slots)
             optimized_set = self._optimize_set(
@@ -138,7 +141,6 @@ class GearOptimizer:
                                tool_slots, owned_counts, passive_stats) -> GearSet:
         """
         Iteratively tries to satisfy requirements using different items to see if the overall score improves.
-        Example: Swaps a 'Candlehat' (Head) for a 'Sun Stone Ring' (Ring), then fills the Head slot with best-in-slot.
         """
         if not required_keywords:
             return current_set
@@ -175,19 +177,8 @@ class GearOptimizer:
 
         # Try to swap requirement providers
         # We identify which items currently provide requirements
-        current_providers = []
-        current_items = best_local_set.get_all_items()
         
-        for item in current_items:
-            for k in item.keywords:
-                norm_k = k.lower().replace("_", " ").strip()
-                if norm_k in required_keywords:
-                    current_providers.append(item)
-                    break # Counted this item as a provider
-        
-        # Try replacing each provider with a different item from the pool
-        # This is a greedy hill-climb
-        
+        # Loop for improvement
         improved = True
         iterations = 0
         while improved and iterations < 3:
@@ -197,6 +188,7 @@ class GearOptimizer:
             # Re-identify providers in the CURRENT best set
             active_providers = []
             for item in best_local_set.get_all_items():
+                if isinstance(item, Pet): continue # Skip Pet
                 is_prov = False
                 for k in item.keywords:
                     if k.lower().replace("_", " ").strip() in required_keywords:
@@ -273,6 +265,8 @@ class GearOptimizer:
             setattr(new_set, slot, getattr(gs, slot))
         new_set.rings = list(gs.rings)
         new_set.tools = list(gs.tools)
+        # Ensure Pet is copied
+        new_set.pet = gs.pet
         return new_set
 
     def _unequip_item(self, gs: GearSet, item: Equipment):
@@ -300,6 +294,7 @@ class GearOptimizer:
         # 2. Check if any currently equipped item shares a restricted keyword
         # Note: We check ALL items, though restrictions are usually just on Tools.
         for existing in gs.get_all_items():
+            if isinstance(existing, Pet): continue # Skip Pet
             for k in existing.keywords:
                 if k.lower() in item_restricted_kws:
                     return True
@@ -601,6 +596,7 @@ class GearOptimizer:
                         setattr(gs, attr, val)
                 all_ids = []
                 for i in gs.get_all_items():
+                    if isinstance(i, Pet): continue # Skip pet in signature
                     all_ids.append(i.id)
                 sig = tuple(sorted(all_ids))
                 if sig not in unique_signatures:
@@ -612,20 +608,8 @@ class GearOptimizer:
             options = providers.get(req, [])
             found_existing = False
             
-            # Check if already satisfied by current selection (e.g. multi-keyword item)
-            # This is complex so we just check if we can skip adding new item
-            # For simplicity in this lightweight version, we just add items.
-            
-            # We filter options to prevent explosion, BUT we pick smarter options.
-            # We trust that _optimize_requirements will fix bad choices, so we just need minimal valid sets here.
-            # Just take the first few distinct SLOT options to ensure coverage.
-            
-            # Dedup options by slot to ensure we try "Head" and "Ring" and "Tool"
             seen_slots = set()
             diverse_options = []
-            
-            # Sort options by item quality/score logic? 
-            # We rely on the order from candidates which is roughly sorted, but let's just pick diversity.
             
             for item, attr in options:
                 # If we haven't tried this slot yet for this requirement level, pick it
@@ -945,6 +929,7 @@ class GearOptimizer:
             for k in t.keywords:
                 fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
         for item in current_set.get_all_items():
+            if isinstance(item, Pet): continue # Skip pet keywords
             if item.slot != EquipmentSlot.TOOLS:
                  for k in item.keywords:
                     fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1

@@ -1,0 +1,948 @@
+[
+  {
+    "id": "camel",
+    "wiki_slug": "Camel",
+    "name": "Camel",
+    "egg_item_id": "camel_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 50000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": -30.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "gathering",
+                "value": null
+              },
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": -20.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "artisan",
+                "value": null
+              },
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "steps_add",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Navigate Desert",
+            "effect": "Allows you to navigate and interact in Desert environments.",
+            "requirements": null,
+            "cooldown": null,
+            "charges": 1
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": -15.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "gathering",
+                "value": null
+              },
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": -10.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "artisan",
+                "value": null
+              },
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "steps_add",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 300000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "gathering",
+                "value": null
+              },
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "artisan",
+                "value": null
+              },
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "steps_add",
+            "value": -1.0,
+            "conditions": [
+              {
+                "type": "location",
+                "target": "wrentmark",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "I Miss The Sun",
+            "effect": "Teleports you to Myriadian Arc.",
+            "requirements": null,
+            "cooldown": "12h",
+            "charges": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "chicken",
+    "wiki_slug": "Chicken",
+    "name": "Chicken",
+    "egg_item_id": "chicken_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 35000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 85000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 6.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 10.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 4,
+        "total_xp": 250000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 7.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 15.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "steps_add",
+            "value": -1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "foraging",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Pecking Order",
+            "effect": "Completes 5 Foraging actions instantly.",
+            "requirements": "While doing Foraging.",
+            "cooldown": "4,000 stepsWhile doing Foraging.",
+            "charges": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dolphin",
+    "wiki_slug": "Dolphin",
+    "name": "Dolphin",
+    "egg_item_id": "dolphin_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 35000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 85000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 10.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 15.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 4,
+        "total_xp": 250000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 6.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 20.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 10.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "steps_add",
+            "value": -1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "fishing",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Torpedo Away",
+            "effect": "Completes 10 Underwater Traveling actions instantly.",
+            "requirements": "While traveling.While in Underwater location.",
+            "cooldown": "5,000 stepsWhile in Underwater location.",
+            "charges": 5
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "reindeer",
+    "wiki_slug": "Reindeer",
+    "name": "Reindeer",
+    "egg_item_id": "reindeer_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 50000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "agility",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "location",
+                "target": "jarvonia",
+                "value": null
+              },
+              {
+                "type": "skill_activity",
+                "target": "traveling",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "agility",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "location",
+                "target": "jarvonia",
+                "value": null
+              },
+              {
+                "type": "skill_activity",
+                "target": "traveling",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 300000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "agility",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "location",
+                "target": "jarvonia",
+                "value": null
+              },
+              {
+                "type": "skill_activity",
+                "target": "traveling",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Present Rain",
+            "effect": "Gives 5 random presents containing items.",
+            "requirements": null,
+            "cooldown": "10h",
+            "charges": 15
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "tortoise",
+    "wiki_slug": "Tortoise",
+    "name": "Tortoise",
+    "egg_item_id": "tortoise_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 35000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": -15.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "agility",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 85000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": -10.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "agility",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": -5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "agility",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "work_efficiency",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 6.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 4,
+        "total_xp": 250000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 8.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_add",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smelting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "inventory_space",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "steps_add",
+            "value": -1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "smithing",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Shell Forge",
+            "effect": "Completes 5 Smelting actions instantly.",
+            "requirements": "While doing Smelting recipes.",
+            "cooldown": "4,000 stepsNot doing Agility.",
+            "charges": 10
+          }
+        ]
+      }
+    ]
+  }
+]

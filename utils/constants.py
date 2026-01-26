@@ -1,0 +1,160 @@
+from enum import Enum
+
+class EquipmentQuality(str, Enum):
+    NORMAL = "Normal"
+    GOOD = "Good"
+    GREAT = "Great"
+    EXCELLENT = "Excellent"
+    PERFECT = "Perfect"
+    ETERNAL = "Eternal"
+    NONE = "None" 
+
+class EquipmentSlot(str, Enum):
+    PRIMARY = "primary"
+    SECONDARY = "secondary"
+    HEAD = "head"
+    CHEST = "chest"
+    LEGS = "legs"
+    FEET = "feet"
+    TOOLS = "tools"
+    RING = "ring"
+    NECK = "neck"
+    CAPE = "cape"
+    BACK = "back"
+    HANDS = "hands"
+    UNKNOWN = "unknown"
+
+class SkillName(str, Enum):
+    AGILITY = "agility"
+    CARPENTRY = "carpentry"
+    COOKING = "cooking"
+    CRAFTING = "crafting"
+    FISHING = "fishing"
+    FORAGING = "foraging"
+    MINING = "mining"
+    SMITHING = "smithing"
+    TRINKETRY = "trinketry"
+    WOODCUTTING = "woodcutting"
+    TRAVELING = "traveling"
+    NONE = "none"
+
+# --- SKILL CATEGORIES ---
+GATHERING_SKILLS = {
+    "foraging", "mining", "woodcutting", "fishing"
+}
+
+ARTISAN_SKILLS = {
+    "smithing", "carpentry", "trinketry", "crafting", "cooking"
+}
+
+class ConditionType(str, Enum):
+    GLOBAL = "global"
+    LOCATION = "location"           
+    REGION = "region"               
+    SKILL_ACTIVITY = "skill_activity"    
+    SPECIFIC_ACTIVITY = "specific_activity" 
+    ACHIEVEMENT_POINTS = "achievement_points" 
+    ITEM_OWNERSHIP = "item_ownership"
+    SET_EQUIPPED = "set_equipped"
+    TOTAL_SKILL_LEVEL = "total_skill_level"
+    ACTIVITY_COMPLETION = "activity_completion"
+    REPUTATION = "reputation"
+
+
+class RequirementType(str, Enum):
+    SKILL_LEVEL = "skill_level"
+    QUEST_COMPLETED = "quest_completed"
+    REPUTATION = "reputation"
+    CHARACTER_LEVEL = "character_level"
+    KEYWORD_COUNT = "keyword_count"       
+    ACTIVITY_COMPLETION = "activity_completion" 
+    ACHIEVEMENT_POINTS = "achievement_points" 
+    TOOL_EQUIPPED = "tool_equipped"
+    UNIQUE_TOOLS = "unique_tools"
+    SPECIFIC_ACTIVITY = "specific_activity"
+
+class StatName(str, Enum):
+    # Core
+    WORK_EFFICIENCY = "work_efficiency"
+    DOUBLE_ACTION = "double_action"
+    DOUBLE_REWARDS = "double_rewards"
+    NO_MATERIALS_CONSUMED = "no_materials_consumed"
+    QUALITY_OUTCOME = "quality_outcome"
+    
+    # Steps
+    STEPS_ADD = "steps_add"
+    STEPS_PERCENT = "steps_percent"
+    XP_PERCENT = "xp_percent" 
+    
+    # XP (Legacy/Variations)
+    BONUS_XP_ADD = "bonus_xp_add"
+    BONUS_XP_PERCENT = "bonus_xp_percent"
+    
+    # Finding
+    CHEST_FINDING = "chest_finding"
+    FIND_BIRD_NESTS = "find_bird_nests"
+    FIND_COLLECTIBLES = "find_collectibles"
+    FIND_GEMS = "find_gems"
+    FINE_MATERIAL_FINDING = "fine_material_finding"
+    
+    # Finding Items
+    FIND_ADVENTURERS_GUILD_TOKEN = "find_adventurers_guild_token"
+    FIND_FISHING_BAIT = "find_fishing_bait"
+    FIND_CRUSTACEAN = "find_crustacean"
+    FIND_ECTOPLASM = "find_ectoplasm"
+    FIND_GOLD = "find_gold"
+    FIND_COIN_POUCH = "find_coin_pouch"
+    FIND_JUNK = "find_junk"
+    FIND_SEA_SHELLS = "find_sea_shells"
+    FIND_GOLD_NUGGET = "find_gold_nugget"
+    FIND_SKILL_CHEST = "find_skill_chest"
+    
+    INVENTORY_SPACE = "inventory_space"
+
+# --- Constants & Config ---
+RESTRICTED_TOOL_KEYWORDS = {
+    "Pickaxe", "Hatchet", "Fishing tool", "Fishing lure", "Foraging tool", "Basket", "Bellows",
+    "Bug catching net", "Chisel", "Climbing gear", "Cooking knife", "Cooking pan",
+    "Fishing cage", "Fishing net", "Fishing spear", "Gold pan", "Knife",
+    "Life vest", "Local map", "Log Splitter", "Magnetic", "Magnifying lens",
+    "Ruler", "Sander", "Saw", "Sickle", "Wrench", "Smithing hammer"
+}
+
+
+
+QUALITY_RANK = {
+    EquipmentQuality.NORMAL: 0, EquipmentQuality.GOOD: 1, EquipmentQuality.GREAT: 2,
+    EquipmentQuality.EXCELLENT: 3, EquipmentQuality.PERFECT: 4, EquipmentQuality.ETERNAL: 5,
+    EquipmentQuality.NONE: -1
+}
+
+OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET", ["reward_rolls", "xp", "chests", "materials_from_input", "fine", "quality", "collectibles"])
+
+# Correct Set Union Syntax using |
+REWARD_ROLL_STATS = {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT}
+
+TARGET_TO_STATS = {
+    OPTIMAZATION_TARGET.reward_rolls: REWARD_ROLL_STATS,
+    OPTIMAZATION_TARGET.xp: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.DOUBLE_ACTION, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT},
+    OPTIMAZATION_TARGET.chests: REWARD_ROLL_STATS | {StatName.CHEST_FINDING},
+    OPTIMAZATION_TARGET.materials_from_input: {StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
+    OPTIMAZATION_TARGET.fine: REWARD_ROLL_STATS | {StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.quality: {StatName.QUALITY_OUTCOME, StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
+    OPTIMAZATION_TARGET.collectibles: REWARD_ROLL_STATS | {StatName.FIND_COLLECTIBLES}
+}
+
+# Mapping StatName Enums to the keys output by GearSet.get_stats()
+STAT_ENUM_TO_KEY = {
+    StatName.STEPS_ADD: "flat_step_reduction",
+    StatName.STEPS_PERCENT: "percent_step_reduction",
+    StatName.BONUS_XP_ADD: "flat_xp",
+    StatName.BONUS_XP_PERCENT: "xp_percent",
+    StatName.XP_PERCENT: "xp_percent"
+}
+
+PERCENTAGE_STATS = {
+    StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS,
+    StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT,
+    StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
+    StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
+}

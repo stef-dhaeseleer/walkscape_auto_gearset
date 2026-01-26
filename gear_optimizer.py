@@ -1,58 +1,11 @@
 import itertools
 import math
-from typing import Dict, List, Set, Optional, Tuple, Counter
-from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, EquipmentQuality, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS
+from typing import Dict, List, Set, Optional, Tuple
+from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS
 from utils.utils import calculate_steps, calculate_quality_probabilities
-from enum import Enum
 from collections import Counter as PyCounter, defaultdict
+from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, TARGET_TO_STATS, STAT_ENUM_TO_KEY, QUALITY_RANK
 
-# --- Constants & Config ---
-RESTRICTED_TOOL_KEYWORDS = {
-    "Pickaxe", "Hatchet", "Fishing tool", "Fishing lure", "Foraging tool", "Basket", "Bellows",
-    "Bug catching net", "Chisel", "Climbing gear", "Cooking knife", "Cooking pan",
-    "Fishing cage", "Fishing net", "Fishing spear", "Gold pan", "Knife",
-    "Life vest", "Local map", "Log Splitter", "Magnetic", "Magnifying lens",
-    "Ruler", "Sander", "Saw", "Sickle", "Wrench", "Smithing hammer"
-}
-
-
-
-QUALITY_RANK = {
-    EquipmentQuality.NORMAL: 0, EquipmentQuality.GOOD: 1, EquipmentQuality.GREAT: 2,
-    EquipmentQuality.EXCELLENT: 3, EquipmentQuality.PERFECT: 4, EquipmentQuality.ETERNAL: 5,
-    EquipmentQuality.NONE: -1
-}
-
-OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET", ["reward_rolls", "xp", "chests", "materials_from_input", "fine", "quality", "collectibles"])
-
-# Correct Set Union Syntax using |
-REWARD_ROLL_STATS = {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT}
-
-TARGET_TO_STATS = {
-    OPTIMAZATION_TARGET.reward_rolls: REWARD_ROLL_STATS,
-    OPTIMAZATION_TARGET.xp: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.DOUBLE_ACTION, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT},
-    OPTIMAZATION_TARGET.chests: REWARD_ROLL_STATS | {StatName.CHEST_FINDING},
-    OPTIMAZATION_TARGET.materials_from_input: {StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
-    OPTIMAZATION_TARGET.fine: REWARD_ROLL_STATS | {StatName.FINE_MATERIAL_FINDING},
-    OPTIMAZATION_TARGET.quality: {StatName.QUALITY_OUTCOME, StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
-    OPTIMAZATION_TARGET.collectibles: REWARD_ROLL_STATS | {StatName.FIND_COLLECTIBLES}
-}
-
-# Mapping StatName Enums to the keys output by GearSet.get_stats()
-STAT_ENUM_TO_KEY = {
-    StatName.STEPS_ADD: "flat_step_reduction",
-    StatName.STEPS_PERCENT: "percent_step_reduction",
-    StatName.BONUS_XP_ADD: "flat_xp",
-    StatName.BONUS_XP_PERCENT: "xp_percent",
-    StatName.XP_PERCENT: "xp_percent"
-}
-
-PERCENTAGE_STATS = {
-    StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS,
-    StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT,
-    StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
-    StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
-}
 
 class GearOptimizer:
     def __init__(self, all_items: List[Equipment], all_locations: List[Location]):
@@ -68,6 +21,7 @@ class GearOptimizer:
                  optimazation_target: OPTIMAZATION_TARGET = OPTIMAZATION_TARGET.reward_rolls,
                  owned_item_counts: Optional[Dict[str, int]] = None,
                  achievement_points: int = 0,
+                 user_reputation: Optional[Dict[str, float]] = None,
                  owned_collectibles: Optional[List[Collectible]] = None,
                  extra_passive_stats: Optional[Dict[str, float]] = None,
                  context_override: Optional[Dict] = None):
@@ -118,7 +72,7 @@ class GearOptimizer:
 
         # 5. Get Candidates
         required_keywords = context.get("required_keywords", {})
-        candidates = self._get_candidates(activity, required_keywords, optimazation_target, context, player_skill_level, owned_item_counts)
+        candidates = self._get_candidates(activity, required_keywords, optimazation_target, context, player_skill_level, owned_item_counts, user_reputation)
         self.debug_candidates = candidates
 
         # 6. Generate Skeletons
@@ -472,7 +426,8 @@ class GearOptimizer:
 
     def _get_candidates(self, activity: Activity, required_keywords: Dict[str, int], 
                        target: OPTIMAZATION_TARGET, context: Dict, player_skill_level: int,
-                       owned_item_counts: Optional[Dict[str, int]] = None) -> Dict[str, List[Equipment]]:
+                       owned_item_counts: Optional[Dict[str, int]] = None,
+                       user_reputation: Optional[Dict[str, float]] = None) -> Dict[str, List[Equipment]]:
         raw_candidates = {}
         relevant_stats = TARGET_TO_STATS.get(target, set())
         dummy_set = GearSet()
@@ -486,15 +441,27 @@ class GearOptimizer:
                 if self._get_available_count(item, owned_item_counts) <= 0:
                     rejection_reason = "Not Owned"
             
-            # B. Check Requirements
-            provides_requirement = False
-            for kw in item.keywords:
-                norm = kw.lower().replace("_", " ").strip()
-                if norm in required_keywords:
-                    provides_requirement = True
-                    break
+            # B. Check Requirements (Item-level requirements like Reputation)
+            if not rejection_reason:
+                for req in item.requirements:
+                    if req.type == RequirementType.REPUTATION and user_reputation is not None:
+                        # Normalize target to lower case for lookup
+                        target_rep = req.target.lower() if req.target else ""
+                        current_val = user_reputation.get(target_rep, 0.0)
+                        if current_val < req.value:
+                            rejection_reason = f"Low Reputation ({req.target}: {current_val}/{req.value})"
+                            break
             
-            # C. Check Actual Stats Utility
+            # C. Check Activity Requirements (Keywords)
+            provides_requirement = False
+            if not rejection_reason:
+                for kw in item.keywords:
+                    norm = kw.lower().replace("_", " ").strip()
+                    if norm in required_keywords:
+                        provides_requirement = True
+                        break
+            
+            # D. Check Actual Stats Utility
             has_utility = False
             
             # Reset Dummy

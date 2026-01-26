@@ -95,6 +95,12 @@ def calculate_total_level(skills_data: Dict[str, int]) -> int:
         total += calculate_level_from_xp(xp)
     return total
 
+def extract_user_reputation(user_data: Dict) -> Dict[str, float]:
+    """Extracts reputation dictionary from user save data."""
+    if "reputation" in user_data and isinstance(user_data["reputation"], dict):
+        return {k.lower(): float(v) for k, v in user_data["reputation"].items()}
+    return {}
+
 def check_condition_details(cond: Condition, context: Dict, set_keyword_counts: Counter) -> Tuple[bool, str]:
     """
     Checks if a condition is met and returns (IsMet, ReasonString).
@@ -296,7 +302,7 @@ def main():
                 user_json_input = st.text_area(
                     "Paste User JSON", 
                     height=70, 
-                    placeholder='{"name": "...", "skills": {...}, "collectibles": [...]}'
+                    placeholder='{"name": "...", "skills": {...}, "collectibles": [...], "reputation": {...}}'
                 )
             
             user_data = None
@@ -307,6 +313,7 @@ def main():
             user_ap = 0
             user_total_level = 0
             owned_collectibles = []
+            user_reputation = {} # Initialize empty reputation
 
             if user_json_input.strip():
                 try:
@@ -317,6 +324,7 @@ def main():
                     user_skills_map = user_data.get("skills", {})
                     user_ap = user_data.get("achievement_points", 0)
                     item_counts = extract_user_counts(user_data)
+                    user_reputation = extract_user_reputation(user_data) # Extract reputation
                     
                     if user_skills_map:
                         user_total_level = calculate_total_level(user_skills_map)
@@ -324,7 +332,7 @@ def main():
                     if all_collectibles_raw:
                         owned_collectibles = get_user_collectibles(all_collectibles_raw, user_data)
                     
-                    st.success(f"Loaded: {user_data.get('name', 'Player')} | Items: {len(item_counts)} | AP: {user_ap} | Total Lvl: {user_total_level}")
+                    st.success(f"Loaded: {user_data.get('name', 'Player')} | Items: {len(item_counts)} | AP: {user_ap} | Total Lvl: {user_total_level} | Rep Factions: {len(user_reputation)}")
                 except json.JSONDecodeError:
                     st.error("Invalid JSON")
             
@@ -458,6 +466,7 @@ def main():
                     optimazation_target=selected_target,
                     owned_item_counts=item_counts if use_owned else None,
                     achievement_points=user_ap,
+                    user_reputation=user_reputation, # Added: Pass reputation data
                     owned_collectibles=owned_collectibles,
                     extra_passive_stats=service_modifiers_stats,
                     context_override=context 

@@ -331,7 +331,7 @@ class GearSet(BaseModel):
         active_skill = context.get("skill", "").lower() if context.get("skill") else None
         loc_id = context.get("location_id")
         loc_tags = set(t.lower() for t in context.get("location_tags", []))
-        act_id = context.get("activity_id")
+        activity_id = context.get("activity_id")
         
         user_ap = context.get("achievement_points", 0)
         total_lvl = context.get("total_skill_level", 0)
@@ -377,8 +377,8 @@ class GearSet(BaseModel):
                         elif c_target and c_target not in loc_tags: applies = False
 
                     elif c_type == ConditionType.SPECIFIC_ACTIVITY:
-                        if not act_id: applies = False
-                        elif c_target and c_target != act_id.lower(): applies = False
+                        if not activity_id: applies = False
+                        elif c_target and c_target != activity_id.lower(): applies = False
                     
                     elif c_type == ConditionType.ACHIEVEMENT_POINTS:
                         if user_ap < (c_val or 0): applies = False
@@ -392,6 +392,7 @@ class GearSet(BaseModel):
                             norm_target = c_target.replace("_", " ").strip()
                             if keyword_counts.get(norm_target, 0) < (c_val or 1): applies = False
 
+                        
                 if applies:
                     stat_enum = mod.stat
                     stat_key = stat_enum.value

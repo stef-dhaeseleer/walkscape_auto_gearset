@@ -1,7 +1,7 @@
 import itertools
 import math
 from typing import Dict, List, Set, Optional, Tuple
-from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS, Pet
+from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS, Pet, Consumable
 from utils.utils import calculate_steps, calculate_quality_probabilities
 from collections import Counter as PyCounter, defaultdict
 from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, TARGET_TO_STATS, STAT_ENUM_TO_KEY, QUALITY_RANK
@@ -13,9 +13,8 @@ class GearOptimizer:
         self.location_map = {loc.id: loc for loc in all_locations}
         self.restricted_keywords_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
         
-        # Debugging Storage
-        self.debug_candidates = {} # {slot: [items]}
-        self.debug_rejected = []   # List of dicts {name, reason, slot}
+        self.debug_candidates = {} 
+        self.debug_rejected = []   
 
     def optimize(self, activity: Activity, player_level: int, player_skill_level: int, 
                  optimazation_target: OPTIMAZATION_TARGET = OPTIMAZATION_TARGET.reward_rolls,
@@ -25,7 +24,8 @@ class GearOptimizer:
                  owned_collectibles: Optional[List[Collectible]] = None,
                  extra_passive_stats: Optional[Dict[str, float]] = None,
                  context_override: Optional[Dict] = None,
-                 pet: Optional[Pet] = None):
+                 pet: Optional[Pet] = None,
+                 consumable: Optional[Consumable] = None):
         
         # Reset Debug Info
         self.debug_candidates = {}
@@ -77,15 +77,14 @@ class GearOptimizer:
         self.debug_candidates = candidates
 
         # 6. Generate Skeletons
-        # We now generate simpler skeletons because the post-optimizer will fix bad choices
         skeletons = self._generate_skeletons(candidates, required_keywords)
         
         best_overall_set = GearSet()
-        best_overall_set.pet = pet # Inject pet
+        best_overall_set.pet = pet 
+        best_overall_set.consumable = consumable # Inject consumable
         best_overall_score = -float('inf')
 
         # 7. Main Optimization Loop
-        # We iterate skeletons to get decent starting points (e.g. 1 Light from Head, 1 from Chest vs 2 from Rings)
         for skeleton_set, locked_slots in skeletons:
             
             # Start with the skeleton
@@ -95,7 +94,8 @@ class GearOptimizer:
                 setattr(current_set, slot, getattr(skeleton_set, slot))
             current_set.rings = list(skeleton_set.rings)
             current_set.tools = list(skeleton_set.tools)
-            current_set.pet = pet # Ensure current working set has the pet
+            current_set.pet = pet 
+            current_set.consumable = consumable 
 
             # A. Standard Optimization (Fills empty slots)
             optimized_set = self._optimize_set(
@@ -111,14 +111,13 @@ class GearOptimizer:
                 passive_stats
             )
             
-            # B. Requirement Swapping (The Fix for Candlehat vs Sun Stone Ring)
-            # This attempts to move requirements to different slots to maximize global score
+            # B. Requirement Swapping
             final_set = self._optimize_requirements(
                 optimized_set,
                 candidates,
                 required_keywords,
                 activity,
-                player_skill_level,
+                player_skill_level, 
                 optimazation_target,
                 context,
                 tool_slots,
@@ -139,19 +138,14 @@ class GearOptimizer:
     def _optimize_requirements(self, current_set: GearSet, candidates: Dict[str, List[Equipment]], 
                                required_keywords: Dict[str, int], activity, lvl, target, context, 
                                tool_slots, owned_counts, passive_stats) -> GearSet:
-        """
-        Iteratively tries to satisfy requirements using different items to see if the overall score improves.
-        """
+        
         if not required_keywords:
             return current_set
 
-        # We do a few passes to allow complex shuffles (e.g. Ring -> Tool -> Head)
-        # But usually 1-2 passes is enough.
         best_local_set = current_set
         best_local_score = self.calculate_score(current_set, activity, lvl, target, context, passive_stats=passive_stats)
         
-        # Flatten candidates for easy searching
-        # We only care about items that provide ANY required keyword
+        # Flatten candidates
         provider_pool = []
         for slot, items in candidates.items():
             for item in items:
@@ -163,32 +157,24 @@ class GearOptimizer:
                 if provides_req:
                     provider_pool.append(item)
         
-        # Sort pool by raw utility (heuristic) so we try powerful items first (Gem Shield!)
         provider_pool = self._sort_items_by_utility(provider_pool, best_local_set, activity, lvl, target, context, passive_stats)
-        # Limit the pool to prevent slowdowns, but keep it generous (e.g., top 60 providers across all slots)
         provider_pool = provider_pool[:60]
 
-        # Get 'Best in Slot' items (Pure utility, ignoring requirements) to use as backfill
         best_fillers = {}
         for slot_key in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary", "ring", "tools"]:
             cands = candidates.get(EquipmentSlot(slot_key) if slot_key not in ["ring", "tools"] else (EquipmentSlot.RING if slot_key=="ring" else EquipmentSlot.TOOLS), [])
             sorted_cands = self._sort_items_by_utility(cands, best_local_set, activity, lvl, target, context, passive_stats)
-            best_fillers[slot_key] = sorted_cands[:3] # Keep top 3 to handle unique restrictions
+            best_fillers[slot_key] = sorted_cands[:3] 
 
-        # Try to swap requirement providers
-        # We identify which items currently provide requirements
-        
-        # Loop for improvement
         improved = True
         iterations = 0
         while improved and iterations < 3:
             improved = False
             iterations += 1
             
-            # Re-identify providers in the CURRENT best set
             active_providers = []
             for item in best_local_set.get_all_items():
-                if isinstance(item, Pet): continue # Skip Pet
+                if isinstance(item, Pet) or isinstance(item, Consumable): continue # Skip Static Buffs
                 is_prov = False
                 for k in item.keywords:
                     if k.lower().replace("_", " ").strip() in required_keywords:
@@ -196,64 +182,47 @@ class GearOptimizer:
                 if is_prov: active_providers.append(item)
 
             for provider_to_remove in active_providers:
-                # Try replacing this specific item with something else from the pool
-                # that fulfills at least ONE of the requirements this item was fulfilling.
-                
                 relevant_reqs = {k.lower().replace("_", " ").strip() for k in provider_to_remove.keywords if k.lower().replace("_", " ").strip() in required_keywords}
                 
                 for candidate in provider_pool:
-                    # Skip if same item
                     if candidate.id == provider_to_remove.id: continue
-                    
-                    # Skip if candidate is already equipped
                     if candidate in best_local_set.get_all_items(): continue
                     
-                    # Does this candidate provide a relevant requirement?
                     cand_reqs = {k.lower().replace("_", " ").strip() for k in candidate.keywords}
                     if not relevant_reqs.intersection(cand_reqs): continue
 
-                    # Ownership check (lazy)
                     if owned_counts:
                         needed = 1
                         if candidate in best_local_set.get_all_items(): needed += 1
                         if self._get_available_count(candidate, owned_counts) < needed: continue
 
-                    # --- SIMULATE SWAP ---
                     test_set = self._clone_set(best_local_set)
                     
-                    # 1. Remove the old provider
                     self._unequip_item(test_set, provider_to_remove)
                     
-                    # 2. Equip the new provider (Candidate)
                     if not self._equip_item(test_set, candidate, tool_slots):
-                        continue # Couldn't equip (e.g. slots full even after removal? shouldn't happen for tools/rings usually)
+                        continue 
 
-                    # 3. Backfill the slot we just emptied (if applicable)
-                    # If we removed Candlehat (Head) and added Sun Stone (Ring), Head is now empty. Fill it!
                     empty_slots = self._get_empty_slots(test_set, tool_slots)
                     for e_slot in empty_slots:
-                        # Find best filler
                         fillers = best_fillers.get(e_slot if "tool" not in e_slot and "ring" not in e_slot else ("tools" if "tool" in e_slot else "ring"), [])
                         for filler in fillers:
-                            # Ownership check
                             if owned_counts and self._get_available_count(filler, owned_counts) < 1: continue
-                            # Don't equip if already equipped (unless duplicate allowed/owned)
                             if filler in test_set.get_all_items():
                                  if owned_counts and self._get_available_count(filler, owned_counts) < 2: continue
-                                 elif not owned_counts: pass # allow duplicate logic if unbounded? usually standard unique constraint applies unless rings/tools
+                                 elif not owned_counts: pass 
                                  else: continue
                             
                             if self._equip_item(test_set, filler, tool_slots):
-                                break # Filled the slot
+                                break 
 
-                    # 4. Score
                     new_score = self.calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats)
                     
-                    if new_score > best_local_score + 0.0001: # Epsilon for floating point
+                    if new_score > best_local_score + 0.0001: 
                         best_local_score = new_score
                         best_local_set = test_set
                         improved = True
-                        break # Restart outer loop with new state
+                        break 
                 
                 if improved: break 
 
@@ -265,8 +234,9 @@ class GearOptimizer:
             setattr(new_set, slot, getattr(gs, slot))
         new_set.rings = list(gs.rings)
         new_set.tools = list(gs.tools)
-        # Ensure Pet is copied
+        # Ensure Static Buffs are copied
         new_set.pet = gs.pet
+        new_set.consumable = gs.consumable
         return new_set
 
     def _unequip_item(self, gs: GearSet, item: Equipment):
@@ -292,9 +262,8 @@ class GearOptimizer:
             return False
 
         # 2. Check if any currently equipped item shares a restricted keyword
-        # Note: We check ALL items, though restrictions are usually just on Tools.
         for existing in gs.get_all_items():
-            if isinstance(existing, Pet): continue # Skip Pet
+            if isinstance(existing, Pet) or isinstance(existing, Consumable): continue # Skip Static Buffs
             for k in existing.keywords:
                 if k.lower() in item_restricted_kws:
                     return True
@@ -650,13 +619,10 @@ class GearOptimizer:
     # --- Optimizer Logic ---
 
     def _optimize_set(self, current_set, locked_slots, candidates, activity, player_skill_level, target, context, tool_slots, owned_counts, passive_stats):
-        # 1. Capture Initial State (Skeleton items are "Fixed" for the purpose of this function)
+        # 1. Capture Initial State 
         initial_tools = list(current_set.tools)
         initial_rings = list(current_set.rings)
         
-        # 2. Multi-Pass Optimization Loop
-        # Pass 1: Optimize empty slots based on Skeleton + Candidates.
-        # Pass 2: Re-optimize with context from Pass 1 (enables synergies like NMC from Tools affecting Ring choice).
         for _ in range(2): 
             base_score = self.calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
             
@@ -698,21 +664,12 @@ class GearOptimizer:
                 if not changed: break
 
             # --- B. Rings ---
-            # Re-evaluate Rings
-            # For skeleton rings, we keep them unless they are not locked (skeleton logic usually implies requirement lock)
-            # But here we treat them as optimization targets if space allows
-            
             current_rings = list(current_set.rings)
-            # Identify fixed rings (from skeleton requirements) vs free slots
-            # For simplicity in this logic, we assume skeleton rings are 'suggested' but if we have free slots we fill them
-            
             if len(current_rings) < 2:
                 ring_cands = candidates.get(EquipmentSlot.RING, [])
                 if ring_cands:
-                    # Sort candidates in context of CURRENT gear (Main + Tools)
                     top_rings = self._sort_items_by_utility(ring_cands, current_set, activity, player_skill_level, target, context, passive_stats)[:10]
                     
-                    # Simple greedy fill for remaining slots
                     while len(current_rings) < 2:
                         best_r = None
                         max_r = base_score
@@ -720,7 +677,7 @@ class GearOptimizer:
                             if r in current_rings: 
                                 if owned_counts and self._get_available_count(r, owned_counts) < 2: continue
                                 elif not owned_counts: pass
-                                else: continue # assume unique otherwise
+                                else: continue 
 
                             current_set.rings = current_rings + [r]
                             score = self.calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
@@ -736,18 +693,14 @@ class GearOptimizer:
                     current_set.rings = current_rings
 
             # --- C. Tools ---
-            # Re-evaluate Tools
-            # Similar to rings, fill empty slots
             fixed_tools = list(current_set.tools)
             available_slots = tool_slots - len(fixed_tools)
             
             if available_slots > 0:
                 tool_cands = candidates.get(EquipmentSlot.TOOLS, [])
-                valid_cands = [t for t in tool_cands if t not in fixed_tools] # simple dedup
-                # Sort using CURRENT SET (Main + Rings)
+                valid_cands = [t for t in tool_cands if t not in fixed_tools] 
                 sorted_cands = self._sort_items_by_utility(valid_cands, current_set, activity, player_skill_level, target, context, passive_stats)
                 
-                # Use the fast brute force for tools
                 if len(sorted_cands) <= 40:
                     best_subset, new_score = self._optimized_brute_force_tools(
                         current_set, fixed_tools, sorted_cands, available_slots,
@@ -758,10 +711,8 @@ class GearOptimizer:
                         current_set.tools = fixed_tools + best_subset
                         base_score = new_score
                 else:
-                    # Greedy Fallback
                     current_subset = []
                     max_t = base_score
-                    
                     for t in sorted_cands:
                         if len(current_subset) >= available_slots: break
                         test_tools = fixed_tools + current_subset + [t]
@@ -771,7 +722,6 @@ class GearOptimizer:
                             if score >= max_t: 
                                 max_t = score
                                 current_subset.append(t)
-                    
                     current_set.tools = fixed_tools + current_subset
                     base_score = max_t
 
@@ -783,18 +733,15 @@ class GearOptimizer:
                                      slots_count: int, activity, skill_lvl: int, target: OPTIMAZATION_TARGET, context: Dict, 
                                      owned_counts, current_best_score: float, passive_stats: Dict[str, float]) -> Tuple[List[Equipment], float]:
         
-        # 1. Pre-calculate Base Stats (Current Set with Fixed Tools Only + Passive Stats)
         orig_tools = current_set.tools
         current_set.tools = fixed_tools
         base_stats_gear = current_set.get_stats(context)
-        current_set.tools = orig_tools # Restore just in case
+        current_set.tools = orig_tools 
 
-        # Merge passive stats into base stats
         base_stats = defaultdict(float, base_stats_gear)
         for k, v in passive_stats.items():
             base_stats[k] += v
 
-        # 2. Analyze Fixed Tools (Restrictions & Slugs)
         fixed_slugs = set()
         fixed_keywords = set()
         for t in fixed_tools:
@@ -804,15 +751,12 @@ class GearOptimizer:
                 if lk in self.restricted_keywords_lower:
                     fixed_keywords.add(lk)
         
-        # Get Context for conditional checks
         user_ap = context.get("achievement_points", 0)
         total_lvl = context.get("total_skill_level", 0)
 
-        # 3. Lightweight Candidate Conversion
-        light_candidates = [] # list of (item, base_stats_dict, cond_mods_list, slug, restricted_kw_set)
+        light_candidates = [] 
         
         for item in candidates:
-            # Immediate Pruning: Conflict with Fixed Tools
             if item.wiki_slug and item.wiki_slug in fixed_slugs: continue
             
             conflict = False
@@ -826,7 +770,6 @@ class GearOptimizer:
                     item_restr.add(lk)
             if conflict: continue
 
-            # Pre-calc Stats
             item_base_stats = defaultdict(float)
             item_cond_mods = []
             
@@ -838,7 +781,6 @@ class GearOptimizer:
                     c_type = cond.type
                     if c_type == ConditionType.GLOBAL: continue
                     
-                    # Eval static conditions now
                     if c_type in [ConditionType.SKILL_ACTIVITY, ConditionType.LOCATION, 
                                   ConditionType.REGION, ConditionType.SPECIFIC_ACTIVITY, 
                                   ConditionType.ACHIEVEMENT_POINTS, ConditionType.TOTAL_SKILL_LEVEL]:
@@ -855,36 +797,29 @@ class GearOptimizer:
                                 elif c_target == "gathering" and act_skill in GATHERING_SKILLS: pass
                                 elif c_target == "artisan" and act_skill in ARTISAN_SKILLS: pass
                                 else: applies_cond = False
-                        
                         elif c_type == ConditionType.LOCATION:
                             loc_id = context.get("location_id")
                             loc_tags = context.get("location_tags", set())
                             if not loc_id: applies_cond = False
                             else:
                                 if not (c_target == loc_id.lower() or c_target in loc_tags): applies_cond = False
-                        
                         elif c_type == ConditionType.REGION:
                             loc_tags = context.get("location_tags", set())
                             if not loc_tags or (c_target and c_target not in loc_tags): applies_cond = False
-                        
                         elif c_type == ConditionType.SPECIFIC_ACTIVITY:
                              act_id = context.get("activity_id")
                              if not act_id or (c_target and c_target != act_id.lower()): applies_cond = False
-
                         elif c_type == ConditionType.ACHIEVEMENT_POINTS:
                             if user_ap < (c_val or 0): applies_cond = False
-
                         elif c_type == ConditionType.TOTAL_SKILL_LEVEL:
                             if total_lvl < (c_val or 0): applies_cond = False
                         
                         if not applies_cond:
                             applies_always = False
                             break
-                    
                     elif c_type == ConditionType.SET_EQUIPPED:
                         applies_always = False
                         is_set_bonus = True 
-                    
                     else:
                         applies_always = False
                         is_set_bonus = True
@@ -919,18 +854,16 @@ class GearOptimizer:
                 "restricted": item_restr
             })
 
-        # 4. Fast Loop
         best_subset = None
         best_val = current_best_score
 
-        # Prepare context for set bonuses
+        # Fix keyword counts to include non-tool items + Pet + Consumable
         fixed_kw_counts = PyCounter()
         for t in fixed_tools:
             for k in t.keywords:
                 fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
         for item in current_set.get_all_items():
-            if isinstance(item, Pet): continue # Skip pet keywords
-            if item.slot != EquipmentSlot.TOOLS:
+            if isinstance(item, Pet) or isinstance(item, Consumable) or item.slot != EquipmentSlot.TOOLS:
                  for k in item.keywords:
                     fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
         
@@ -944,14 +877,11 @@ class GearOptimizer:
         elif target == OPTIMAZATION_TARGET.collectibles: t_id = 6
 
         act_base_xp = activity.base_xp or 0
-        
-        # Limit search size for speed
         search_cands = light_candidates[:32] 
 
         for r in range(1, slots_count + 1):
             for combo in itertools.combinations(search_cands, r):
                 
-                # A. Validity Check
                 valid_combo = True
                 seen_slugs = set()
                 seen_restr = set()
@@ -967,16 +897,11 @@ class GearOptimizer:
                 
                 if not valid_combo: continue
 
-                # B. Stats Summation
-                # Use defaultdict to handle missing keys gracefully
                 curr_stats = defaultdict(float, base_stats)
-                
-                # Sum unconditional item stats
                 for c in combo:
                     for k, v in c["stats"].items():
                         curr_stats[k] += v
 
-                # C. Conditional Mods (Set Bonuses)
                 has_cond = False
                 for c in combo:
                     if c["cond_mods"]: has_cond = True; break
@@ -1012,7 +937,6 @@ class GearOptimizer:
                                     val = -val
                                 curr_stats[stat_key] += val
 
-                # D. Calculate Score
                 steps = calculate_steps(
                     activity=activity,
                     player_skill_level=skill_lvl, 
@@ -1056,12 +980,10 @@ class GearOptimizer:
                     val = score_q * dr_mult * nmc_mult
 
                 if val > best_val:
-                    # E. Post-Check: Ownership (Lazy)
                     if owned_counts:
                          test_tools = [c["item"] for c in combo]
                          if not self._is_valid_tool_set(test_tools, owned_counts):
                              continue
-                    
                     best_val = val
                     best_subset = [c["item"] for c in combo]
 

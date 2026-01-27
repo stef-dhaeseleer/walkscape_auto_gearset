@@ -1,376 +1,306 @@
 #!/usr/bin/env python3
 """
-Scrape consumables data from Walkscape wiki and generate consumables.py.
-
-Consumables are temporary items (food, potions) that provide time-limited bonuses.
-Extracts attributes, duration, and value for both normal and fine versions.
+Scrape consumables data from Walkscape wiki and generate consumables.json
+Uses Pydantic models for strict schema validation.
 """
 
-# Third-party imports
-from bs4 import BeautifulSoup
-
-# Local imports
-from scraper_utils import *
+import json
 import re
+import sys
+from pathlib import Path
+from bs4 import BeautifulSoup
+from urllib.parse import unquote
 
-# ============================================================================
-# CONFIGURATION
-# ============================================================================
+# Add parent directory for imports
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
+from models import (
+    Consumable, Modifier, StatName, 
+    Condition, ConditionType
+)
+from scraper_utils import *
+
+# Configuration
 RESCRAPE = False
-SCAN_FOLDER_FOR_NEW_ITEMS = True  # Scan cache folder for additional items
 CONSUMABLES_URL = 'https://wiki.walkscape.app/wiki/Consumables'
 CACHE_DIR = get_cache_dir('consumables')
 CACHE_FILE = get_cache_file('consumables_cache.html')
+OUTPUT_FILE = get_output_file('consumables.json')
+SCAN_FOLDER_FOR_NEW_ITEMS = True
 
-# Create validator instance
 validator = ScraperValidator()
 
-# ============================================================================
-# HELPER FUNCTIONS
-# ============================================================================
+def normalize_id(text: str) -> str:
+    """Normalize text to snake_case ID."""
+    if not text: return "none"
+    text = unquote(text)
+    text = text.replace('Special:MyLanguage/', '')
+    return text.lower().replace("'", "").replace("-", "_").replace(" ", "_").strip()
 
-
-def download_consumable_page(consumable_url, cache_dir):
-    """Download individual consumable page using shared download function"""
-    filename = sanitize_filename(consumable_url.split('/')[-1]) + '.html'
-    cache_path = cache_dir / filename
+def extract_values_from_page(url, name):
+    """
+    Download individual consumable page to get its Coin Value.
+    Returns tuple (normal_value, fine_value)
+    """
+    slug = url.split('/')[-1]
+    cache_file = CACHE_DIR / (sanitize_filename(slug) + '.html')
+    html = download_page(url, cache_file, rescrape=RESCRAPE)
     
-    # Use shared download_with_retry for Lua error handling
-    return download_with_retry(consumable_url, cache_path, max_retries=3, delay=5)
-
-
-def extract_value_from_page(html_content):
-    """Extract value from consumable page"""
-    soup = BeautifulSoup(html_content, 'html.parser')
     value = 0
     fine_value = 0
     
-    infobox = soup.find('table', class_='ItemInfobox')
-    if infobox:
-        for row in infobox.find_all('tr'):
-            header = row.find('th')
-            if header:
-                header_text = header.get_text()
-                if 'Value' in header_text and 'Fine Value' not in header_text:
-                    value_cell = row.find('td')
-                    if value_cell:
-                        val_match = re.search(r'(\d+)', value_cell.get_text())
-                        if val_match:
-                            value = int(val_match.group(1))
-                elif 'Fine Value' in header_text:
-                    value_cell = row.find('td')
-                    if value_cell:
-                        val_match = re.search(r'(\d+)', value_cell.get_text())
-                        if val_match:
-                            fine_value = int(val_match.group(1))
-    
+    if html:
+        soup = BeautifulSoup(html, 'html.parser')
+        infobox = soup.find('table', class_='ItemInfobox')
+        if infobox:
+            for row in infobox.find_all('tr'):
+                header = row.find('th')
+                if not header: continue
+                text = header.get_text()
+                
+                # Check for Value
+                if 'Value' in text and 'Fine Value' not in text:
+                    val_cell = row.find('td')
+                    if val_cell:
+                        v_match = re.search(r'(\d+)', val_cell.get_text())
+                        if v_match: value = int(v_match.group(1))
+                        
+                # Check for Fine Value
+                elif 'Fine Value' in text:
+                    val_cell = row.find('td')
+                    if val_cell:
+                        v_match = re.search(r'(\d+)', val_cell.get_text())
+                        if v_match: fine_value = int(v_match.group(1))
+                        
     return value, fine_value
 
-
-def parse_attributes(html_text):
-    """Parse attributes from HTML text with skill context"""
-    skill_stats = {}
-    
-    # Extract all stat lines
-    lines = html_text.split('<br')
-    for line in lines:
-        # Remove HTML tags but keep text
-        clean_line = re.sub(r'<[^>]+>', '', line).strip()
-        if not clean_line or 'Attributes:' in clean_line:
+def parse_attribute_lines(lines) -> list[Modifier]:
+    """
+    Parse a list of attribute strings into Modifier objects.
+    Logic adapted from scrape_equipment to ensure consistency.
+    """
+    modifiers = []
+    i = 0
+    while i < len(lines):
+        line = lines[i].strip()
+        if not line or 'None' in line or 'Attributes:' in line:
+            i += 1
             continue
+
+        line_lower = line.lower()
+        conditions = []
         
-        # Determine skill using shared function
-        skill = extract_skill_from_text(clean_line)
+        # Consumables often list conditions inline or next line.
+        # Check next line for context
+        next_i = i + 1
         
-        # Extract value and stat name
-        value_match = re.search(r'([+-]?\d+(?:\.\d+)?)\s*%?\s+(.+?)(?:\s+while|$)', clean_line, re.IGNORECASE)
+        while next_i < len(lines):
+            next_line = lines[next_i].strip()
+            next_lower = next_line.lower()
+
+            # Location Check
+            loc_text, is_negated = extract_location_from_text(next_line)
+            if loc_text:
+                conditions.append(Condition(type=ConditionType.LOCATION, target=normalize_location_name(loc_text)))
+                next_i += 1
+                continue
+            
+            # Inline "While doing" check on next line
+            if next_lower.startswith('while doing'):
+                act_match = re.search(r'while doing\s+(\w+)', next_lower)
+                if act_match:
+                    activity = act_match.group(1).lower()
+                    if activity in ACTIVITY_KEYWORDS:
+                        conditions.append(Condition(type=ConditionType.SPECIFIC_ACTIVITY, target=activity))
+                    else:
+                        conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=activity))
+                next_i += 1
+                continue
+            
+            # Skill groupings
+            if 'gathering skills' in next_lower:
+                conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target='gathering'))
+                next_i += 1
+                continue
+            if 'artisan skills' in next_lower:
+                conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target='artisan'))
+                next_i += 1
+                continue
+            
+            # Generic "while doing X" on next line
+            skill_context = extract_skill_from_text(next_line)
+            if skill_context and skill_context != 'global' and len(next_line.split()) < 4:
+                 conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=skill_context))
+                 next_i += 1
+                 continue
+                 
+            break
+
+        # Check current line for conditions too
+        if 'while doing' in line_lower:
+            act_match = re.search(r'while doing\s+(\w+)', line_lower)
+            if act_match:
+                activity = act_match.group(1).lower()
+                if activity in ACTIVITY_KEYWORDS:
+                    conditions.append(Condition(type=ConditionType.SPECIFIC_ACTIVITY, target=activity))
+                else:
+                    conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=activity))
+
+        if 'gathering skills' in line_lower:
+            if not any(c.target == 'gathering' for c in conditions):
+                conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target='gathering'))
+        elif 'artisan skills' in line_lower:
+             if not any(c.target == 'artisan' for c in conditions):
+                conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target='artisan'))
+        else:
+             skill_context = extract_skill_from_text(line)
+             if skill_context and skill_context != 'global':
+                 if not any(c.type == ConditionType.SKILL_ACTIVITY and c.target == skill_context for c in conditions):
+                     conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=skill_context))
+
+        # Clean line for value parsing
+        clean_line = re.sub(r'while doing\s+\w+', '', line_lower)
+        clean_line = re.sub(r'while in\s+[\w\s]+', '', clean_line)
+        clean_line = re.sub(r'gathering skills', '', clean_line)
+        clean_line = re.sub(r'artisan skills', '', clean_line)
+        
+        value_match = re.search(r'([+-]?\d+(?:\.\d+)?)\s*(%?)', clean_line)
+        
         if value_match:
-            value_text = value_match.group(1)
-            stat_text = value_match.group(2).strip()
+            value_str = value_match.group(1)
+            is_percent = value_match.group(2) == '%'
             
-            # Add % back if it was in the original line for proper parsing
-            if '%' in clean_line:
-                value_text += '%'
+            stat_text = re.sub(r'[+-]?\d+(?:\.\d+)?%?', '', clean_line).strip()
+            raw_stat_name = normalize_stat_name(stat_text)
             
-            # Normalize the stat name using shared function
-            stat_name = normalize_stat_name(stat_text)
-            
-            if stat_name:
-                # Initialize skill dict with location nesting
-                if skill not in skill_stats:
-                    skill_stats[skill] = {}
-                if 'global' not in skill_stats[skill]:
-                    skill_stats[skill]['global'] = {}
-                
-                # Parse the value (handles steps/bonus_xp dual format automatically)
-                final_stat_name, final_value = parse_stat_value(value_text, stat_name)
-                skill_stats[skill]['global'][final_stat_name] = final_value
+            if raw_stat_name:
+                final_stat_key = raw_stat_name
+                if raw_stat_name in DUAL_FORMAT_STATS:
+                     final_stat_key = f"{raw_stat_name}_{'percent' if is_percent else 'add'}"
+
+                try:
+                    stat_enum = StatName(final_stat_key)
+                    if not conditions:
+                        conditions.append(Condition(type=ConditionType.GLOBAL))
+                    
+                    modifiers.append(Modifier(stat=stat_enum, value=float(value_str), conditions=conditions))
+                except ValueError:
+                    validator.add_unrecognized_stat("Parsing", f"Enum conversion failed: {final_stat_key}")
             else:
-                # Track unrecognized stat (we don't have item name here, will track as 'Unknown')
-                validator.add_unrecognized_stat('Unknown', clean_line)
+                if len(clean_line) > 3:
+                     validator.add_unrecognized_stat("Parsing", line)
+        
+        i = next_i
+        
+    return modifiers
+
+def parse_consumables_list():
+    """Parse the main consumables table."""
+    print("Downloading Consumables page...")
+    html = download_page(CONSUMABLES_URL, CACHE_FILE, rescrape=RESCRAPE)
+    if not html: return []
     
-    return skill_stats
-
-# ============================================================================
-# PARSING FUNCTIONS
-# ============================================================================
-
-def extract_consumables(html_content):
-    """Extract consumable names, keywords, and attributes from Consumables page"""
-    soup = BeautifulSoup(html_content, 'html.parser')
+    soup = BeautifulSoup(html, 'html.parser')
     consumables = []
     
-    # Create cache directory
-    cache_dir = get_cache_dir('consumables')
-    cache_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Find all wikitable tables
     tables = soup.find_all('table', class_='wikitable')
+    print(f"Found {len(tables)} tables.")
     
     for table in tables:
-        rows = table.find_all('tr')[1:]  # Skip header
-        
+        rows = table.find_all('tr')[1:] # Skip header
         for row in rows:
             cells = row.find_all('td')
-            if len(cells) >= 3:
-                # Consumable name and URL
-                name_link = cells[1].find('a')
-                if name_link:
-                    consumable_name = name_link.get_text().strip()
-                    consumable_url = 'https://wiki.walkscape.app' + name_link['href']
-                    
-                    print(f"  Processing: {consumable_name}")
-                    
-                    # Extract keywords (3rd cell)
-                    keywords = []
-                    if len(cells) >= 3:
-                        keyword_cell = cells[2]
-                        keyword_links = keyword_cell.find_all('a')
-                        for link in keyword_links:
-                            kw_text = link.get_text().strip()
-                            if kw_text and not kw_text.endswith('.svg') and 'Keyword' not in kw_text:
-                                keywords.append(kw_text)
-                    
-                    # Extract attributes, duration, and value
-                    normal_attrs = {}
-                    fine_attrs = {}
-                    duration = 0
-                    value = 0
-                    fine_value = 0
-                    
-                    if len(cells) >= 4:
-                        attr_cell = cells[3]
-                        attr_html = str(attr_cell)
-                        
-                        # Split by Normal/Fine sections
-                        normal_section = ""
-                        fine_section = ""
-                        
-                        if "Normal Attributes:" in attr_html:
-                            parts = attr_html.split("Fine Attributes:")
-                            normal_section = parts[0]
-                            fine_section = parts[1] if len(parts) > 1 else ""
-                        else:
-                            normal_section = attr_html
-                        
-                        # Parse normal attributes
-                        normal_attrs = parse_attributes(normal_section)
-                        
-                        # Parse fine attributes
-                        if fine_section:
-                            fine_attrs = parse_attributes(fine_section)
-                    
-                    # Extract duration (5th cell)
-                    if len(cells) >= 5:
-                        duration_text = cells[4].get_text()
-                        duration_match = re.search(r'(\d+)', duration_text)
-                        if duration_match:
-                            duration = int(duration_match.group(1))
-                    
-                    # Download consumable page to get value
-                    consumable_html = download_consumable_page(consumable_url, cache_dir)
-                    value, fine_value = extract_value_from_page(consumable_html) if consumable_html else (0, 0)
-                    
-                    # Validate normal attributes
-                    issues = validator.validate_item_stats(consumable_name, normal_attrs)
-                    if issues:
-                        validator.add_item_issue(consumable_name, issues)
-                    
-                    # Add regular consumable
-                    consumables.append({
-                        'name': consumable_name,
-                        'keywords': keywords,
-                        'attributes': normal_attrs,
-                        'duration': duration,
-                        'value': value if value else 0
-                    })
-                    
-                    # Only add fine version if fine attributes exist
-                    if fine_attrs:
-                        # Validate fine attributes
-                        fine_issues = validator.validate_item_stats(consumable_name + ' (Fine)', fine_attrs)
-                        if fine_issues:
-                            validator.add_item_issue(consumable_name + ' (Fine)', fine_issues)
-                        
-                        consumables.append({
-                            'name': consumable_name + ' (Fine)',
-                            'keywords': keywords,
-                            'attributes': fine_attrs,
-                            'duration': duration,
-                            'value': fine_value if fine_value else value
-                        })
-    
+            if len(cells) < 3: continue
+            
+            # 1. Name & Link
+            link = cells[1].find('a')
+            if not link: continue
+            
+            name = clean_text(link.get_text())
+            url = 'https://wiki.walkscape.app' + link.get('href', '')
+            slug = link.get('href', '').split('/')[-1]
+            
+            # 2. Keywords
+            keywords = []
+            kw_cell = cells[2]
+            for kw_link in kw_cell.find_all('a'):
+                if 'Keyword' in kw_link.get('title', ''):
+                    keywords.append(clean_text(kw_link.get_text()))
+            
+            # 3. Modifiers (Attributes)
+            # The cell might contain "Normal Attributes: ... Fine Attributes: ..."
+            attr_cell = cells[3]
+            for br in attr_cell.find_all('br'): br.replace_with('\n')
+            full_attr_text = attr_cell.get_text()
+            
+            normal_text = full_attr_text
+            fine_text = ""
+            
+            if "Fine Attributes:" in full_attr_text:
+                parts = full_attr_text.split("Fine Attributes:")
+                normal_text = parts[0].replace("Normal Attributes:", "")
+                fine_text = parts[1]
+            elif "Normal Attributes:" in full_attr_text:
+                normal_text = full_attr_text.replace("Normal Attributes:", "")
+
+            normal_lines = [l.strip() for l in normal_text.split('\n') if l.strip()]
+            fine_lines = [l.strip() for l in fine_text.split('\n') if l.strip()]
+            
+            normal_mods = parse_attribute_lines(normal_lines)
+            fine_mods = parse_attribute_lines(fine_lines)
+            
+            # 4. Duration
+            duration = 0
+            if len(cells) > 4:
+                dur_text = cells[4].get_text()
+                d_match = re.search(r'(\d+)', dur_text)
+                if d_match: duration = int(d_match.group(1))
+                
+            # 5. Value (Get from individual page)
+            val, fine_val = extract_values_from_page(url, name)
+            
+            # Create Normal Consumable
+            consumables.append(Consumable(
+                id=normalize_id(name),
+                wiki_slug=slug,
+                name=name,
+                value=val,
+                keywords=keywords,
+                modifiers=normal_mods,
+                duration=duration
+            ))
+            
+            # Create Fine Consumable (if differs)
+            if fine_mods:
+                consumables.append(Consumable(
+                    id=normalize_id(name + "_fine"),
+                    wiki_slug=slug,
+                    name=f"{name} (Fine)",
+                    value=fine_val if fine_val else val,
+                    keywords=keywords,
+                    modifiers=fine_mods,
+                    duration=duration
+                ))
+                
+            print(f"  Processed: {name}")
+
     return consumables
 
-# ============================================================================
-# MODULE GENERATION
-# ============================================================================
-
-def generate_consumables_py(consumables):
-    """Generate the consumables.py file"""
-    output_file = get_output_file('consumables.py')
-    
-    with open(output_file, 'w', encoding='utf-8') as f:
-        write_module_header(f, 'Auto-generated consumables data from Walkscape wiki', 'scrape_consumables.py')
-        write_imports(f, [
-            'from typing import List, Dict',
-            'from util.stats_mixin import StatsMixin'
-        ])
-        
-        lines = [
-        'class ConsumableItem(StatsMixin):',
-        '    """Base class for consumable instances"""',
-        '    def __init__(self, name: str, keywords: List[str], attributes: Dict, duration: int, value: int):',
-        '        self.name = name',
-        '        self.keywords = keywords',
-        '        self._stats = attributes  # Skill-nested dict like equipment',
-        '        self.duration = duration  # Duration in steps',
-        '        self.value = value  # Coin value',
-        '        self.gated_stats = {}  # Consumables don\'t have gated stats',
-        '    ',
-        '    # Keep attributes as an alias for backward compatibility',
-        '    @property',
-        '    def attributes(self):',
-        '        return self._stats',
-        '    ',
-        '    def __repr__(self):',
-        '        return f"Consumable({self.name})"',
-        '',
-        '',
-        'class Consumable:',
-        '    """All consumables"""',
-        '    ',
-        ]
-        
-        # Add consumables
-        for consumable in consumables:
-            const_name = consumable['name'].upper().replace(' ', '_').replace("'", '').replace('-', '_').replace('(', '').replace(')', '')
-            lines.extend([
-            f'    {const_name} = ConsumableItem(',
-            f'        name="{consumable["name"]}",',
-            f'        keywords={consumable["keywords"]},',
-            f'        attributes={consumable["attributes"]},',
-            f'        duration={consumable["duration"]},',
-            f'        value={consumable["value"]}',
-            '    )',
-            '',
-            ])
-        
-        lines.extend([
-        # Add lookup function
-        '    @classmethod',
-        '    def by_export_name(cls, export_name: str):',
-        '        """Look up consumable by export name"""',
-        '        const_name = export_name.upper()',
-        '        ',
-        '        if hasattr(cls, const_name):',
-        '            return getattr(cls, const_name)',
-        '        return None',
-        ])
-
-        write_lines(f, lines)
-    
-    print(f"✓ Generated {output_file} with {len(consumables)} consumables")
-
-# ============================================================================
-# MAIN LOGIC
-# ============================================================================
-
 def main():
-    """Main scraping logic"""
-    print("Step 1: Downloading Consumables page...")
-    html = download_page(CONSUMABLES_URL, CACHE_FILE, rescrape=RESCRAPE)
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
     
-    if not html:
-        print("Failed to download Consumables page")
-        return
+    consumables = parse_consumables_list()
     
-    print("\nStep 2: Extracting consumables...")
-    consumables = extract_consumables(html)
-    print(f"Found {len(consumables)} consumables from main page")
+    # Folder scanning logic if needed (skipped for now as main table covers most)
     
-    # Scan folder for additional consumables
-    if SCAN_FOLDER_FOR_NEW_ITEMS:
-        print("\nScanning cache folder for additional consumables...")
-        folder_consumables = scan_cache_folder_for_items(CACHE_DIR, CACHE_FILE)
-        if folder_consumables:
-            # Build set of existing consumable names (without " (Fine)" suffix)
-            existing_names = set()
-            for cons in consumables:
-                base_name = cons['name'].replace(' (Fine)', '')
-                existing_names.add(base_name)
-            
-            # Process folder consumables that aren't already in the list
-            added_count = 0
-            for item in folder_consumables:
-                consumable_name = item['name']
-                
-                # Skip if already in main list
-                if consumable_name in existing_names:
-                    continue
-                
-                print(f"  Processing: {consumable_name} (from folder)")
-                
-                # Read cached HTML
-                consumable_html = read_cached_html(item['cache_file'])
-                if consumable_html:
-                    value, fine_value = extract_value_from_page(consumable_html)
-                else:
-                    value, fine_value = 0, 0
-                
-                # Add regular consumable (no attributes from folder scan)
-                consumables.append({
-                    'name': consumable_name,
-                    'attributes': {},
-                    'duration': None,
-                    'value': value
-                })
-                
-                # Add fine version
-                consumables.append({
-                    'name': consumable_name + ' (Fine)',
-                    'attributes': {},
-                    'duration': None,
-                    'value': fine_value if fine_value else value
-                })
-                
-                added_count += 1
-            
-            if added_count > 0:
-                print(f"  Added {added_count * 2} consumables from folder (regular + fine)")
+    print(f"\nExporting {len(consumables)} consumables to {OUTPUT_FILE}...")
+    data = [c.model_dump(mode='json') for c in consumables]
     
-    print(f"\nTotal consumables: {len(consumables)}")
-    
-    print("\nStep 3: Generating consumables.py...")
-    generate_consumables_py(consumables)
-    
-    # Step 4: Report validation issues
-    validator.report()
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
-# ============================================================================
-# ENTRY POINT
-# ============================================================================
+    validator.report()
+    print("Done.")
 
 if __name__ == "__main__":
     main()

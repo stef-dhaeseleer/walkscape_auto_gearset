@@ -1,0 +1,3122 @@
+[
+  {
+    "id": "beer",
+    "wiki_slug": "Beer",
+    "name": "Beer",
+    "value": 1,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "beer_fine",
+    "wiki_slug": "Beer",
+    "name": "Beer (Fine)",
+    "value": 11,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fireball_wine",
+    "wiki_slug": "Fireball_wine",
+    "name": "Fireball wine",
+    "value": 11,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_collectibles",
+        "value": 80.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fireball_wine_fine",
+    "wiki_slug": "Fireball_wine",
+    "name": "Fireball wine (Fine)",
+    "value": 56,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_collectibles",
+        "value": 120.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fortified_wine",
+    "wiki_slug": "Fortified_wine",
+    "name": "Fortified wine",
+    "value": 8,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_collectibles",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fortified_wine_fine",
+    "wiki_slug": "Fortified_wine",
+    "name": "Fortified wine (Fine)",
+    "value": 40,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_collectibles",
+        "value": 60.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "moonshine",
+    "wiki_slug": "Moonshine",
+    "name": "Moonshine",
+    "value": 8,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -8.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "moonshine_fine",
+    "wiki_slug": "Moonshine",
+    "name": "Moonshine (Fine)",
+    "value": 40,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -8.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "wine",
+    "wiki_slug": "Wine",
+    "name": "Wine",
+    "value": 4,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_collectibles",
+        "value": 15.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "wine_fine",
+    "wiki_slug": "Wine",
+    "name": "Wine (Fine)",
+    "value": 24,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_collectibles",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "beef_stew",
+    "wiki_slug": "Beef_stew",
+    "name": "Beef stew",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "inventory_space",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 10000
+  },
+  {
+    "id": "beef_stew_fine",
+    "wiki_slug": "Beef_stew",
+    "name": "Beef stew (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "inventory_space",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 10000
+  },
+  {
+    "id": "mud_pie",
+    "wiki_slug": "Mud_pie",
+    "name": "Mud pie",
+    "value": 4,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "mud_pie_fine",
+    "wiki_slug": "Mud_pie",
+    "name": "Mud pie (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": -200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "roasted_bell_pepper",
+    "wiki_slug": "Roasted_bell_pepper",
+    "name": "Roasted bell pepper",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "roasted_bell_pepper_fine",
+    "wiki_slug": "Roasted_bell_pepper",
+    "name": "Roasted bell pepper (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -4.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "sweet_carrot_pie",
+    "wiki_slug": "Sweet_carrot_pie",
+    "name": "Sweet carrot pie",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "quality_outcome",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "sweet_carrot_pie_fine",
+    "wiki_slug": "Sweet_carrot_pie",
+    "name": "Sweet carrot pie (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "quality_outcome",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "tasty_breakfast",
+    "wiki_slug": "Tasty_breakfast",
+    "name": "Tasty breakfast",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "tasty_breakfast_fine",
+    "wiki_slug": "Tasty_breakfast",
+    "name": "Tasty breakfast (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "bagel",
+    "wiki_slug": "Bagel",
+    "name": "Bagel",
+    "value": 4,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "bagel_fine",
+    "wiki_slug": "Bagel",
+    "name": "Bagel (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "jelly_sandwich",
+    "wiki_slug": "Jelly_sandwich",
+    "name": "Jelly sandwich",
+    "value": 7,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "jelly_sandwich_fine",
+    "wiki_slug": "Jelly_sandwich",
+    "name": "Jelly sandwich (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "agility",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "agility_memosphere",
+    "wiki_slug": "Agility_memosphere",
+    "name": "Agility memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "bread",
+    "wiki_slug": "Bread",
+    "name": "Bread",
+    "value": 4,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "traveling",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "bread_fine",
+    "wiki_slug": "Bread",
+    "name": "Bread (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "traveling",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "cooked_squid",
+    "wiki_slug": "Cooked_squid",
+    "name": "Cooked squid",
+    "value": 4,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 8.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "traveling",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_squid_fine",
+    "wiki_slug": "Cooked_squid",
+    "name": "Cooked squid (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 16.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "traveling",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "chocolate_milk",
+    "wiki_slug": "Chocolate_milk",
+    "name": "Chocolate milk",
+    "value": 7,
+    "keywords": [
+      "Beverage"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "chocolate_milk_fine",
+    "wiki_slug": "Chocolate_milk",
+    "name": "Chocolate milk (Fine)",
+    "value": 38,
+    "keywords": [
+      "Beverage"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "nettle_tea",
+    "wiki_slug": "Nettle_tea",
+    "name": "Nettle tea",
+    "value": 4,
+    "keywords": [
+      "Beverage"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "nettle_tea_fine",
+    "wiki_slug": "Nettle_tea",
+    "name": "Nettle tea (Fine)",
+    "value": 24,
+    "keywords": [
+      "Beverage"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fried_noodles",
+    "wiki_slug": "Fried_noodles",
+    "name": "Fried noodles",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "fried_noodles_fine",
+    "wiki_slug": "Fried_noodles",
+    "name": "Fried noodles (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix_fine",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "cooked_jellyfish",
+    "wiki_slug": "Cooked_jellyfish",
+    "name": "Cooked jellyfish",
+    "value": 4,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_jellyfish_fine",
+    "wiki_slug": "Cooked_jellyfish",
+    "name": "Cooked jellyfish (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "carpentry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "carpentry_memosphere",
+    "wiki_slug": "Carpentry_memosphere",
+    "name": "Carpentry memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "fruit_cake",
+    "wiki_slug": "Fruit_cake",
+    "name": "Fruit cake",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 18.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "fruit_cake_fine",
+    "wiki_slug": "Fruit_cake",
+    "name": "Fruit cake (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 36.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix_fine",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "underwater_salad",
+    "wiki_slug": "Underwater_salad",
+    "name": "Underwater salad",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "underwater_salad_fine",
+    "wiki_slug": "Underwater_salad",
+    "name": "Underwater salad (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "cooked_shrimp",
+    "wiki_slug": "Cooked_shrimp",
+    "name": "Cooked shrimp",
+    "value": 1,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_shrimp_fine",
+    "wiki_slug": "Cooked_shrimp",
+    "name": "Cooked shrimp (Fine)",
+    "value": 11,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_trout",
+    "wiki_slug": "Cooked_trout",
+    "name": "Cooked trout",
+    "value": 2,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_trout_fine",
+    "wiki_slug": "Cooked_trout",
+    "name": "Cooked trout (Fine)",
+    "value": 15,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooking_memosphere",
+    "wiki_slug": "Cooking_memosphere",
+    "name": "Cooking memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "nut_mix",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix_fine",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "pickles",
+    "wiki_slug": "Pickles",
+    "name": "Pickles",
+    "value": 4,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "no_materials_consumed",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "pickles_fine",
+    "wiki_slug": "Pickles",
+    "name": "Pickles (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "no_materials_consumed",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "cooked_lobster",
+    "wiki_slug": "Cooked_lobster",
+    "name": "Cooked lobster",
+    "value": 6,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_lobster_fine",
+    "wiki_slug": "Cooked_lobster",
+    "name": "Cooked lobster (Fine)",
+    "value": 34,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_perch",
+    "wiki_slug": "Cooked_perch",
+    "name": "Cooked perch",
+    "value": 1,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_perch_fine",
+    "wiki_slug": "Cooked_perch",
+    "name": "Cooked perch (Fine)",
+    "value": 11,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "crafting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "crafting_memosphere",
+    "wiki_slug": "Crafting_memosphere",
+    "name": "Crafting memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "dried_fruit",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "dried_fruit_fine",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "trout_soup",
+    "wiki_slug": "Trout_soup",
+    "name": "Trout soup",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "trout_soup_fine",
+    "wiki_slug": "Trout_soup",
+    "name": "Trout soup (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 12.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "cooked_stingray",
+    "wiki_slug": "Cooked_stingray",
+    "name": "Cooked stingray",
+    "value": 10,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_stingray_fine",
+    "wiki_slug": "Cooked_stingray",
+    "name": "Cooked stingray (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "fried_fish_sandwich",
+    "wiki_slug": "Fried_fish_sandwich",
+    "name": "Fried fish sandwich",
+    "value": 10,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fried_fish_sandwich_fine",
+    "wiki_slug": "Fried_fish_sandwich",
+    "name": "Fried fish sandwich (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 8.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "fishing_memosphere",
+    "wiki_slug": "Fishing_memosphere",
+    "name": "Fishing memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "bug_bait",
+    "wiki_slug": "Bug_bait",
+    "name": "Bug bait",
+    "value": 4,
+    "keywords": [],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "bug_bait_fine",
+    "wiki_slug": "Bug_bait",
+    "name": "Bug bait (Fine)",
+    "value": 24,
+    "keywords": [],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "frozen_bait",
+    "wiki_slug": "Frozen_bait",
+    "name": "Frozen bait",
+    "value": 4,
+    "keywords": [],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "frozen_bait_fine",
+    "wiki_slug": "Frozen_bait",
+    "name": "Frozen bait (Fine)",
+    "value": 24,
+    "keywords": [],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 400.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "dried_fruit",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "dried_fruit_fine",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "kelp_rolls",
+    "wiki_slug": "Kelp_rolls",
+    "name": "Kelp rolls",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "kelp_rolls_fine",
+    "wiki_slug": "Kelp_rolls",
+    "name": "Kelp rolls (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "mushroom_curry",
+    "wiki_slug": "Mushroom_curry",
+    "name": "Mushroom curry",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "mushroom_curry_fine",
+    "wiki_slug": "Mushroom_curry",
+    "name": "Mushroom curry (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "porridge",
+    "wiki_slug": "Porridge",
+    "name": "Porridge",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "porridge_fine",
+    "wiki_slug": "Porridge",
+    "name": "Porridge (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "veggie_soup",
+    "wiki_slug": "Veggie_soup",
+    "name": "Veggie soup",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 300.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "veggie_soup_fine",
+    "wiki_slug": "Veggie_soup",
+    "name": "Veggie soup (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 500.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "foraging_memosphere",
+    "wiki_slug": "Foraging_memosphere",
+    "name": "Foraging memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "dried_fruit",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "dried_fruit_fine",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "jarvonian_pastry",
+    "wiki_slug": "Jarvonian_pastry",
+    "name": "Jarvonian pastry",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 300.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "jarvonian_pastry_fine",
+    "wiki_slug": "Jarvonian_pastry",
+    "name": "Jarvonian pastry (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 500.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "pancake",
+    "wiki_slug": "Pancake",
+    "name": "Pancake",
+    "value": 4,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "pancake_fine",
+    "wiki_slug": "Pancake",
+    "name": "Pancake (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "cooked_anglerfish",
+    "wiki_slug": "Cooked_anglerfish",
+    "name": "Cooked anglerfish",
+    "value": 32,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 8.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_anglerfish_fine",
+    "wiki_slug": "Cooked_anglerfish",
+    "name": "Cooked anglerfish (Fine)",
+    "value": 154,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 15.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "mining_memosphere",
+    "wiki_slug": "Mining_memosphere",
+    "name": "Mining memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "dynamite",
+    "wiki_slug": "Dynamite",
+    "name": "Dynamite",
+    "value": 10,
+    "keywords": [],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "dynamite_fine",
+    "wiki_slug": "Dynamite",
+    "name": "Dynamite (Fine)",
+    "value": 51,
+    "keywords": [],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 30.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "mining",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "spicy_pumpkin_juice",
+    "wiki_slug": "Spicy_pumpkin_juice",
+    "name": "Spicy pumpkin juice",
+    "value": 10,
+    "keywords": [
+      "Beverage"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 18.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "spicy_pumpkin_juice_fine",
+    "wiki_slug": "Spicy_pumpkin_juice",
+    "name": "Spicy pumpkin juice (Fine)",
+    "value": 51,
+    "keywords": [
+      "Beverage"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 36.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "saltrum",
+    "wiki_slug": "Saltrum",
+    "name": "Saltrum",
+    "value": 7,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "saltrum_fine",
+    "wiki_slug": "Saltrum",
+    "name": "Saltrum (Fine)",
+    "value": 38,
+    "keywords": [
+      "Beverage",
+      "Alcohol"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "nut_mix",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix_fine",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "cooked_pike",
+    "wiki_slug": "Cooked_pike",
+    "name": "Cooked pike",
+    "value": 2,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_pike_fine",
+    "wiki_slug": "Cooked_pike",
+    "name": "Cooked pike (Fine)",
+    "value": 15,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_percent",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_salmon",
+    "wiki_slug": "Cooked_salmon",
+    "name": "Cooked salmon",
+    "value": 3,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 3.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_salmon_fine",
+    "wiki_slug": "Cooked_salmon",
+    "name": "Cooked salmon (Fine)",
+    "value": 19,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "smithing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "smithing_memosphere",
+    "wiki_slug": "Smithing_memosphere",
+    "name": "Smithing memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "creme_brulee",
+    "wiki_slug": "Creme_brulee",
+    "name": "Creme brulee",
+    "value": 60,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "creme_brulee_fine",
+    "wiki_slug": "Creme_brulee",
+    "name": "Creme brulee (Fine)",
+    "value": 276,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "nut_mix_fine",
+    "wiki_slug": "Nut_mix",
+    "name": "Nut mix (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "artisan",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "cooked_largemouth_bass",
+    "wiki_slug": "Cooked_largemouth_bass",
+    "name": "Cooked largemouth bass",
+    "value": 15,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_largemouth_bass_fine",
+    "wiki_slug": "Cooked_largemouth_bass",
+    "name": "Cooked largemouth bass (Fine)",
+    "value": 74,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 8.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "trinketry_memosphere",
+    "wiki_slug": "Trinketry_memosphere",
+    "name": "Trinketry memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "dried_fruit",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit",
+    "value": 25,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "dried_fruit_fine",
+    "wiki_slug": "Dried_fruit",
+    "name": "Dried fruit (Fine)",
+    "value": 119,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_action",
+        "value": 9.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "gathering",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "salmon_pie",
+    "wiki_slug": "Salmon_pie",
+    "name": "Salmon pie",
+    "value": 7,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 7.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "salmon_pie_fine",
+    "wiki_slug": "Salmon_pie",
+    "name": "Salmon pie (Fine)",
+    "value": 38,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 14.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 1000
+  },
+  {
+    "id": "schnitzel",
+    "wiki_slug": "Schnitzel",
+    "name": "Schnitzel",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "chest_finding",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "schnitzel_fine",
+    "wiki_slug": "Schnitzel",
+    "name": "Schnitzel (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "chest_finding",
+        "value": 250.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "cooked_carp",
+    "wiki_slug": "Cooked_carp",
+    "name": "Cooked carp",
+    "value": 1,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_bird_nests",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_carp_fine",
+    "wiki_slug": "Cooked_carp",
+    "name": "Cooked carp (Fine)",
+    "value": 11,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_bird_nests",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_shark",
+    "wiki_slug": "Cooked_shark",
+    "name": "Cooked shark",
+    "value": 15,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": -1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_shark_fine",
+    "wiki_slug": "Cooked_shark",
+    "name": "Cooked shark (Fine)",
+    "value": 74,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 4.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": -2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_swordfish",
+    "wiki_slug": "Cooked_swordfish",
+    "name": "Cooked swordfish",
+    "value": 10,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_swordfish_fine",
+    "wiki_slug": "Cooked_swordfish",
+    "name": "Cooked swordfish (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food",
+      "Cooked fish"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "woodcutting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "woodcutting_memosphere",
+    "wiki_slug": "Woodcutting_memosphere",
+    "name": "Woodcutting memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  }
+]

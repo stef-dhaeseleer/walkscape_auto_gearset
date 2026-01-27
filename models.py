@@ -169,6 +169,13 @@ class Location(BaseEntity):
         use_enum_values = True
         frozen = True
 
+class Consumable(BaseItem):
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
+    duration: int
+
+    class Config:
+        use_enum_values = True
+        frozen = True
 # --- PETS ---
 
 class PetAbility(BaseModel):
@@ -235,8 +242,8 @@ class GearSet(BaseModel):
     secondary: Optional[Equipment] = None
     
     # Changed from Equipment to Pet
-    pet: Optional[Pet] = None          
-    consumable: Optional[Equipment] = None   
+    pet: Optional[Pet] = None      
+    consumable: Optional[Consumable] = None
 
     rings: List[Equipment] = Field(default_factory=list)
     tools: List[Equipment] = Field(default_factory=list)

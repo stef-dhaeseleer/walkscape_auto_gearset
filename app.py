@@ -15,7 +15,7 @@ from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET, PERCENTAGE_STATS,
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
     Requirement, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS,
-    Pet, PetLevel
+    Pet, PetLevel, Consumable
 )
 
 # --- Page Config ---
@@ -98,20 +98,15 @@ def calculate_total_level(skills_data: Dict[str, int]) -> int:
     return total
 
 def extract_user_reputation(user_data: Dict) -> Dict[str, float]:
-    """Extracts reputation dictionary from user save data."""
     if "reputation" in user_data and isinstance(user_data["reputation"], dict):
         return {k.lower(): float(v) for k, v in user_data["reputation"].items()}
     return {}
 
 def check_condition_details(cond: Condition, context: Dict, set_keyword_counts: Counter) -> Tuple[bool, str]:
-    """
-    Checks if a condition is met and returns (IsMet, ReasonString).
-    """
     c_type = cond.type
     c_target = cond.target.lower() if cond.target else None
     c_val = cond.value
     
-    # Extract context
     active_skill = context.get("skill", "").lower()
     loc_id = context.get("location_id")
     loc_tags = context.get("location_tags", set())
@@ -172,14 +167,12 @@ def load_data():
     services_path = f"{base_path}/services.json"
     collectibles_path = f"{base_path}/collectibles.json"
     
-    # Load Main Game Data
     items, activities, recipes, locations, services, collectibles = load_game_data(
         equipment_path, act_path, rec_path, loc_path, services_path, collectibles_path
     )
     
-    # Load Pets specific logic here or inside data_loader if moved later
-    pets_path = f"{base_path}/pets.json"
     pets = []
+    pets_path = f"{base_path}/pets.json"
     if os.path.exists(pets_path):
         try:
             with open(pets_path, "r", encoding="utf-8") as f:
@@ -188,8 +181,19 @@ def load_data():
                     pets.append(Pet(**p_data))
         except Exception as e:
             st.error(f"Error loading pets.json: {e}")
+
+    consumables = []
+    cons_path = f"{base_path}/consumables.json"
+    if os.path.exists(cons_path):
+        try:
+            with open(cons_path, "r", encoding="utf-8") as f:
+                cons_data = json.load(f)
+                for c_data in cons_data:
+                    consumables.append(Consumable(**c_data))
+        except Exception as e:
+            st.error(f"Error loading consumables.json: {e}")
             
-    return items, activities, recipes, locations, services, collectibles, pets
+    return items, activities, recipes, locations, services, collectibles, pets, consumables
 
 
 def extract_user_counts(user_data: Dict) -> Dict[str, int]:
@@ -304,16 +308,13 @@ def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:
 
 # --- Main App ---
 def main():
-    all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets = load_data()   
+    all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables = load_data()   
     
-    # Create a lookup map for locations to fix context generation
     loc_map = {loc.id: loc for loc in locations}
-
     WIKI_URL = "https://gear.walkscape.app"
 
     st.title("🛡️ WalkScape Gear Optimizer")
 
-    # --- Inputs ---
     with st.container():
         with st.expander("📂 User Save Data & Settings", expanded=True):
             col_json, col_opts = st.columns([3, 1])
@@ -359,11 +360,13 @@ def main():
                 st.write("")
                 use_owned = st.checkbox("Only use owned items", value=valid_json)
 
-        # --- PET SELECTION UI ---
-        with st.expander("🐾 Active Pet Selection", expanded=False):
-            st.caption("Select your active pet and its level. Stats will be treated as permanent modifiers.")
-            col_pet, col_lvl = st.columns([2, 1])
+        # --- ACTIVE BUFFS UI ---
+        with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):
+            st.caption("Select active buffs. These are treated as permanent stats during optimization.")
             
+            col_pet, col_lvl, col_cons = st.columns([2, 1, 2])
+            
+            # 1. Pet
             with col_pet:
                 pet_names = ["None"] + [p.name for p in all_pets]
                 selected_pet_name = st.selectbox("Select Pet", pet_names)
@@ -374,21 +377,14 @@ def main():
                 
             with col_lvl:
                 if selected_pet:
-                    # Get max level for this pet
                     max_lvl = max([l.level for l in selected_pet.levels]) if selected_pet.levels else 1
-                    # Ensure we have at least level 1
                     lvls = list(range(1, max_lvl + 1))
                     sel_level = st.selectbox("Pet Level", lvls, index=len(lvls)-1)
-                    
-                    # Update the Pet Object state
-                    # We create a COPY to avoid mutating the cached object 
                     selected_pet = selected_pet.copy(update={"active_level": sel_level})
                     
-                    # Display Modifiers Preview
                     st.caption(f"**Level {sel_level} Effects:**")
                     mods = selected_pet.modifiers
-                    if not mods:
-                        st.caption("No modifiers.")
+                    if not mods: st.caption("No modifiers.")
                     else:
                         html = ""
                         for mod in mods:
@@ -398,10 +394,26 @@ def main():
                         st.markdown(html, unsafe_allow_html=True)
                 else:
                     st.selectbox("Pet Level", ["-"], disabled=True)
+            
+            # 2. Consumable
+            with col_cons:
+                cons_names = ["None"] + sorted([c.name for c in all_consumables])
+                selected_cons_name = st.selectbox("Select Consumable", cons_names)
+            
+            selected_cons = None
+            if selected_cons_name != "None":
+                selected_cons = next((c for c in all_consumables if c.name == selected_cons_name), None)
+                if selected_cons and selected_cons.modifiers:
+                    st.caption(f"**{selected_cons.name} Effects:**")
+                    html = ""
+                    for mod in selected_cons.modifiers:
+                        val = mod.value
+                        if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
+                        html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
+                    st.markdown(html, unsafe_allow_html=True)
+
 
         c1, c2, c3 = st.columns([2, 1, 1])
-        
-        # Prepare Unified List
         act_map = {f"[Activity] {a.name}": a for a in activities}
         rec_map = {f"[Recipe] {r.name}": r for r in recipes}
         combined_map = {**act_map, **rec_map}
@@ -418,14 +430,12 @@ def main():
                 selected_obj = combined_map[selected_key]
                 if isinstance(selected_obj, Recipe):
                     is_recipe = True
-                    # Service Selector
                     compatible_services = get_compatible_services(selected_obj, services)
                     if compatible_services:
                         s_names = [f"{s.name} ({s.location})" for s in compatible_services]
                         s_idx = st.selectbox("Select Service", range(len(s_names)), format_func=lambda x: s_names[x])
                         selected_service = compatible_services[s_idx]
                         
-                        # Display Service Context
                         if selected_service.modifiers or selected_service.requirements:
                             st.caption("Service Effects:")
                             html = ""
@@ -448,22 +458,18 @@ def main():
         with c3:
             st.write("")
             st.write("")
-            # Disable if recipe selected but no service
             can_run = (selected_obj is not None)
             if is_recipe and not selected_service: can_run = False
-            
             run_opt = st.button("🚀 Optimize", type="primary", width="stretch", disabled=not can_run)
 
     st.divider()
 
     left_col, right_col = st.columns([1, 2.5])
 
-    # --- WIKI ---
     with right_col:
         st.subheader("Gear Tool Reference (fala's tool)")
         components.iframe(WIKI_URL, height=1200, scrolling=True)
 
-    # --- RESULTS & DEBUGGER ---
     with left_col:
         st.subheader("Results")
 
@@ -474,8 +480,6 @@ def main():
             item_counts = None
 
         if run_opt and selected_obj:
-            
-            # Prepare Activity Object
             final_activity = selected_obj
             service_modifiers_stats = {}
             
@@ -490,19 +494,14 @@ def main():
                 skill_xp = user_skills_map.get(skill_key, 0)
                 final_skill_lvl = calculate_level_from_xp(skill_xp)
             
-            # Recreate optimizer fresh each run
             optimizer = GearOptimizer(available_items, all_locations=locations)
             
-            # --- Optimize ---
             with st.spinner(f"Optimizing {final_activity.name}..."):
-                
-                # Rebuild context for session
                 req_kw = {} 
                 for req in final_activity.requirements:
                     if req.type == RequirementType.KEYWORD_COUNT and req.target:
                          req_kw[req.target.lower().replace("_", " ").strip()] = req.value
                 
-                # Determine correct location tags
                 current_loc_id = final_activity.locations[0] if final_activity.locations else None
                 current_tags = set()
                 if current_loc_id and current_loc_id in loc_map:
@@ -529,10 +528,10 @@ def main():
                     owned_collectibles=owned_collectibles,
                     extra_passive_stats=service_modifiers_stats,
                     context_override=context,
-                    pet=selected_pet # Pass the selected pet
+                    pet=selected_pet,
+                    consumable=selected_cons # Pass Consumable
                 )
 
-                # Save session state
                 st.session_state['best_gear'] = best_gear
                 st.session_state['final_skill_lvl'] = final_skill_lvl
                 st.session_state['selected_activity_obj'] = final_activity 
@@ -542,8 +541,8 @@ def main():
                 st.session_state['owned_collectibles'] = owned_collectibles
                 st.session_state['context'] = context
                 st.session_state['selected_pet'] = selected_pet
+                st.session_state['selected_cons'] = selected_cons
 
-        # --- Display Results ---
         if 'best_gear' in st.session_state:
             best_gear = st.session_state['best_gear']
             context = st.session_state['context']
@@ -552,11 +551,11 @@ def main():
             saved_collectibles = st.session_state.get('owned_collectibles', [])
             saved_service_stats = st.session_state.get('service_stats', {})
             saved_pet = st.session_state.get('selected_pet')
+            saved_cons = st.session_state.get('selected_cons')
 
             optimizer = GearOptimizer(available_items, all_locations=locations) 
 
             if saved_activity:
-                # Calculate full passive stats (Collectibles + Service)
                 passive_stats = optimizer._calculate_passive_stats(saved_collectibles, context)
                 for k,v in saved_service_stats.items():
                     passive_stats[k] = passive_stats.get(k, 0.0) + v
@@ -574,7 +573,6 @@ def main():
                     stats.get("percent_step_reduction", 0)
                 )
 
-                # --- Metrics ---
                 c1, c2 = st.columns(2)
                 c1.metric("Steps", final_steps, delta=f"{saved_activity.base_steps}", delta_color="inverse")
                 c1.caption(f"Score: {score:.5f}")
@@ -593,12 +591,12 @@ def main():
 
                 st.divider()
 
-                # --- Loadout ---
                 loadout_data = []
-                # Include Pet in loadout if active
                 if saved_pet:
                      loadout_data.append({"Slot": "🐾 Pet", "Item": f"{saved_pet.name} (Lvl {saved_pet.active_level})"})
-                     
+                if saved_cons:
+                     loadout_data.append({"Slot": "🧪 Consumable", "Item": saved_cons.name})
+
                 for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
                     item = getattr(best_gear, slot.lower())
                     loadout_data.append({"Slot": slot, "Item": item.name if item else "-"})
@@ -610,11 +608,9 @@ def main():
 
                 st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")
 
-                # --- Detailed Breakdown (New Feature) ---
                 with st.expander("🔍 Detailed Item Breakdown", expanded=False):
                     st.caption("Inspect active modifiers and conditions for each item.")
                     
-                    # 1. Gather all equipped items with slot names
                     equipped_items = []
                     for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
                         item = getattr(best_gear, slot.lower())
@@ -626,23 +622,19 @@ def main():
 
                     set_counts = best_gear.get_keyword_counts()
                     
-                    # --- Regular Items ---
                     for slot_name, item in equipped_items:
                         st.markdown(f"<div class='item-header'>{slot_name}: {item.name}</div>", unsafe_allow_html=True)
                         if not item.modifiers:
                             st.caption("No modifiers.")
                             continue
-                            
+                        
                         html_mods = ""
                         for mod in item.modifiers:
                             is_active = True
                             fail_reasons = []
-                            
                             for cond in mod.conditions:
                                 met, reason = check_condition_details(cond, context, set_counts)
-                                if not met:
-                                    is_active = False
-                                    fail_reasons.append(reason)
+                                if not met: is_active = False; fail_reasons.append(reason)
                             
                             val_str = f"{mod.value}"
                             if mod.stat in PERCENTAGE_STATS: val_str += "%"
@@ -652,13 +644,10 @@ def main():
                                 html_mods += f"<div class='mod-active'>✅ <b>{stat_name}</b>: +{val_str}</div>"
                             else:
                                 html_mods += f"<div class='mod-inactive'>❌ <b>{stat_name}</b>: +{val_str}</div>"
-                                for r in fail_reasons:
-                                    html_mods += f"<div class='mod-condition'>↳ {r}</div>"
-                        
+                                for r in fail_reasons: html_mods += f"<div class='mod-condition'>↳ {r}</div>"
                         st.markdown(html_mods, unsafe_allow_html=True)
                         st.markdown("---")
 
-                    # --- Permanent Modifiers (Pet / Collectibles) ---
                     st.markdown("### ♾️ Permanent Modifiers")
                     
                     # 1. Pet
@@ -673,22 +662,39 @@ def main():
                                 for cond in mod.conditions:
                                     met, reason = check_condition_details(cond, context, set_counts)
                                     if not met: is_active = False; fail_reasons.append(reason)
-                                
                                 val_str = f"{mod.value}"
                                 if mod.stat in PERCENTAGE_STATS: val_str += "%"
                                 stat_name = mod.stat.replace('_', ' ').title()
-                                
-                                if is_active:
-                                    html_mods += f"<div class='mod-active'>✅ <b>{stat_name}</b>: +{val_str}</div>"
+                                if is_active: html_mods += f"<div class='mod-active'>✅ <b>{stat_name}</b>: +{val_str}</div>"
                                 else:
                                     html_mods += f"<div class='mod-inactive'>❌ <b>{stat_name}</b>: +{val_str}</div>"
                                     for r in fail_reasons: html_mods += f"<div class='mod-condition'>↳ {r}</div>"
                             st.markdown(html_mods, unsafe_allow_html=True)
-                        else:
-                            st.caption("No modifiers for this level.")
+                        else: st.caption("No modifiers for this level.")
                         st.markdown("---")
                     
-                    # 2. Collectibles
+                    # 2. Consumable
+                    if saved_cons:
+                        st.markdown(f"<div class='item-header'>🧪 Consumable: {saved_cons.name}</div>", unsafe_allow_html=True)
+                        if saved_cons.modifiers:
+                            html_mods = ""
+                            for mod in saved_cons.modifiers:
+                                is_active = True
+                                fail_reasons = []
+                                for cond in mod.conditions:
+                                    met, reason = check_condition_details(cond, context, set_counts)
+                                    if not met: is_active = False; fail_reasons.append(reason)
+                                val_str = f"{mod.value}"
+                                if mod.stat in PERCENTAGE_STATS: val_str += "%"
+                                stat_name = mod.stat.replace('_', ' ').title()
+                                if is_active: html_mods += f"<div class='mod-active'>✅ <b>{stat_name}</b>: +{val_str}</div>"
+                                else:
+                                    html_mods += f"<div class='mod-inactive'>❌ <b>{stat_name}</b>: +{val_str}</div>"
+                                    for r in fail_reasons: html_mods += f"<div class='mod-condition'>↳ {r}</div>"
+                            st.markdown(html_mods, unsafe_allow_html=True)
+                        else: st.caption("No modifiers.")
+                        st.markdown("---")
+
                     if saved_collectibles:
                         st.markdown(f"<div class='item-header'>🏆 Collectibles ({len(saved_collectibles)})</div>", unsafe_allow_html=True)
                         active_coll_mods = []
@@ -698,8 +704,7 @@ def main():
                                 for cond in mod.conditions:
                                     met, _ = check_condition_details(cond, context, set_counts)
                                     if not met: is_active = False; break
-                                if is_active:
-                                    active_coll_mods.append((coll.name, mod))
+                                if is_active: active_coll_mods.append((coll.name, mod))
                         
                         if active_coll_mods:
                             html_coll = ""
@@ -708,15 +713,10 @@ def main():
                                  if mod.stat in PERCENTAGE_STATS: val_str += "%"
                                  html_coll += f"<div class='mod-active'>✅ <b>{mod.stat.replace('_',' ').title()}</b>: +{val_str} <span style='color:gray; font-size:0.8em'>({name})</span></div>"
                             st.markdown(html_coll, unsafe_allow_html=True)
-                        else:
-                            st.caption("No collectibles currently active.")
+                        else: st.caption("No collectibles currently active.")
 
-
-                # --- Export Section ---
                 st.success("✅ **Export Ready**")
-                
                 export_json = export_gearset(best_gear)
-                
                 st.caption("Hover over the top-right of the code block to copy!")
                 st.code(export_json, language="json")
                 
@@ -750,17 +750,12 @@ def main():
                 """
                 components.html(js_code, height=50)
 
-                # --- DEBUGGER TABS ---
                 st.markdown("---")
                 with st.expander("🧪 Laboratory / Debugger", expanded=False):
-                    
                     tab_exp, tab_cand = st.tabs(["Item Swapper", "🕵️ Candidate Inspector"])
-                    
-                    # TAB 1: Item Swapper
                     with tab_exp:
                         st.info("Manually swap an item to verify the calculation logic.")
                         d_col1, d_col2 = st.columns([1, 1])
-                        
                         with d_col1:
                             slot_options = ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary", "Ring 1", "Ring 2", "Tool 1", "Tool 2", "Tool 3", "Tool 4", "Tool 5", "Tool 6"]
                             edit_slot = st.selectbox("Select Slot to Swap", options=slot_options)
@@ -797,7 +792,8 @@ def main():
                                 test_gear = GearSet(**best_gear.dict())
                                 test_gear.rings = list(best_gear.rings)
                                 test_gear.tools = list(best_gear.tools)
-                                test_gear.pet = best_gear.pet # Ensure Pet is preserved in swap test
+                                test_gear.pet = best_gear.pet 
+                                test_gear.consumable = best_gear.consumable # Preserve Consumable
                                 
                                 if "Tool" in edit_slot:
                                     idx = int(edit_slot.split(" ")[1]) - 1
@@ -838,7 +834,7 @@ def main():
                                 st.text(f"New:      {test_formula}")
                                 
                                 st.markdown("---")
-                                st.caption("Detailed Stat Changes (Including Collectibles & Service):")
+                                st.caption("Detailed Stat Changes:")
                                 test_stats = analysis.get("stats", {})
                                 orig_stats = orig_analysis.get("stats", {})
                                 for k in ["fine_material_finding", "double_rewards", "double_action", "work_efficiency", "xp_percent", "percent_step_reduction"]:
@@ -847,7 +843,6 @@ def main():
                                     if abs(v1-v2) > 0.001:
                                         st.text(f"{k}: {v1:.2f} -> {v2:.2f}")
 
-                    # TAB 2: Candidate Inspector
                     with tab_cand:
                         st.write("Inspect which items passed the filter and their scores.")
                         insp_slot = st.selectbox("Inspect Slot", options=["tools", "ring", "head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"])
@@ -855,20 +850,17 @@ def main():
                         debug_candidates = st.session_state.get('debug_candidates', {})
                         debug_rejected = st.session_state.get('debug_rejected', [])
                         
-                        # Passed Items
                         items = debug_candidates.get(insp_slot, [])
                         if items:
                             st.markdown(f"**✅ Accepted Candidates ({len(items)})**")
-                            # Calculate scores for display
                             cand_data = []
                             for item in items:
-                                # Create dummy set
                                 d_set = GearSet()
-                                d_set.pet = best_gear.pet # Use same pet context
+                                d_set.pet = best_gear.pet
+                                d_set.consumable = best_gear.consumable # Preserve Consumable
                                 if insp_slot == "tools": d_set.tools = [item]
                                 elif insp_slot == "ring": d_set.rings = [item]
-                                else: 
-                                    setattr(d_set, insp_slot, item)
+                                else: setattr(d_set, insp_slot, item)
                                 
                                 s = optimizer.calculate_score(d_set, saved_activity, saved_skill_lvl, selected_target, context, ignore_requirements=True)
                                 cand_data.append({"Name": item.name, "Score": s, "ID": item.id})
@@ -878,15 +870,13 @@ def main():
                         else:
                             st.warning("No candidates found for this slot.")
 
-                        # Rejected Items
                         st.markdown("---")
                         st.markdown("**❌ Rejected Items (Sample)**")
                         rejected_in_slot = [r for r in debug_rejected if r['slot'] == insp_slot]
                         if rejected_in_slot:
                              df_rej = pd.DataFrame(rejected_in_slot)
                              st.dataframe(df_rej, width="stretch")
-                        else:
-                            st.write("No items specifically rejected (all processed items passed or none checked).")
+                        else: st.write("No items specifically rejected.")
 
         elif not selected_obj:
             st.info("👈 Select an activity or recipe to start.")

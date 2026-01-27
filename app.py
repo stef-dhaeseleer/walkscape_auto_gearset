@@ -4,7 +4,7 @@ import json
 import math
 import os
 import pandas as pd
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Set
 from collections import Counter, defaultdict
 
 # Updated imports
@@ -15,7 +15,7 @@ from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET, PERCENTAGE_STATS,
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
     Requirement, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS,
-    Pet, PetLevel, Consumable
+    Pet, PetLevel, Consumable, EquipmentSlot
 )
 
 # --- Page Config ---
@@ -308,6 +308,11 @@ def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:
 
 # --- Main App ---
 def main():
+    if 'locked_items_state' not in st.session_state:
+        st.session_state['locked_items_state'] = {}
+    if 'blacklist_state' not in st.session_state:
+        st.session_state['blacklist_state'] = []
+
     all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables = load_data()   
     
     loc_map = {loc.id: loc for loc in locations}
@@ -359,6 +364,151 @@ def main():
             with col_opts:
                 st.write("")
                 use_owned = st.checkbox("Only use owned items", value=valid_json)
+
+        # --- ADVANCED CONFIG (Locks & Blacklist) ---
+        with st.expander("⚙️ Advanced Configuration (Locks & Blacklist)", expanded=False):
+            st.caption("Manually lock items to slots (bypasses ownership checks) or blacklist items from results.")
+            
+            tab_locks, tab_blacklist = st.tabs(["🔒 Locked Slots", "🚫 Blacklist"])
+            
+            # --- LOCKS ---
+            with tab_locks:
+                # Group 1: Standard Slots
+                st.markdown("**Standard Slots**")
+                cols_std = st.columns(5)
+                std_slots = [
+                    "Head", "Chest", "Legs", "Feet", 
+                    "Back", "Cape", "Neck", "Hands", 
+                    "Primary", "Secondary"
+                ]
+                
+                # We need all items sorted for dropdowns
+                all_sorted = sorted(all_items_raw, key=lambda x: x.name)
+                
+                # Helper to filter items by slot
+                items_by_slot = defaultdict(list)
+                for item in all_sorted:
+                    items_by_slot[item.slot].append(item)
+                
+                slot_enum_map = {
+                    "Head": EquipmentSlot.HEAD, "Chest": EquipmentSlot.CHEST, "Legs": EquipmentSlot.LEGS,
+                    "Feet": EquipmentSlot.FEET, "Back": EquipmentSlot.BACK, "Cape": EquipmentSlot.CAPE,
+                    "Neck": EquipmentSlot.NECK, "Hands": EquipmentSlot.HANDS, 
+                    "Primary": EquipmentSlot.PRIMARY, "Secondary": EquipmentSlot.SECONDARY
+                }
+
+                for i, slot_name in enumerate(std_slots):
+                    with cols_std[i % 5]:
+                        enum_type = slot_enum_map[slot_name]
+                        opts = ["None"] + [it.name for it in items_by_slot[enum_type]]
+                        
+                        # Session state key
+                        ss_key = f"lock_{slot_name.lower()}"
+                        
+                        # Callback to store ID in main lock dict
+                        def update_lock(s_key=ss_key, s_name=slot_name.lower(), s_enum=enum_type):
+                            val = st.session_state[s_key]
+                            if val == "None":
+                                st.session_state['locked_items_state'].pop(s_name, None)
+                            else:
+                                # Find item
+                                found = next((x for x in items_by_slot[s_enum] if x.name == val), None)
+                                if found: st.session_state['locked_items_state'][s_name] = found
+                        
+                        # Pre-select if exists
+                        idx = 0
+                        current_locked = st.session_state['locked_items_state'].get(slot_name.lower())
+                        if current_locked:
+                            try: idx = opts.index(current_locked.name)
+                            except: idx = 0
+
+                        st.selectbox(slot_name, opts, index=idx, key=ss_key, on_change=update_lock)
+
+                st.markdown("**Rings & Tools**")
+                c_ring, c_tool = st.columns([1, 2])
+                
+                with c_ring:
+                    ring_opts = ["None"] + [it.name for it in items_by_slot[EquipmentSlot.RING]]
+                    for i in range(2):
+                        r_key = f"ring_{i}"
+                        ss_key = f"lock_{r_key}"
+                        
+                        def update_ring(s_key=ss_key, r_k=r_key):
+                            val = st.session_state[s_key]
+                            if val == "None":
+                                st.session_state['locked_items_state'].pop(r_k, None)
+                            else:
+                                found = next((x for x in items_by_slot[EquipmentSlot.RING] if x.name == val), None)
+                                if found: st.session_state['locked_items_state'][r_k] = found
+
+                        curr = st.session_state['locked_items_state'].get(r_key)
+                        idx = 0
+                        if curr:
+                             try: idx = ring_opts.index(curr.name)
+                             except: idx = 0
+                        st.selectbox(f"Ring {i+1}", ring_opts, index=idx, key=ss_key, on_change=update_ring)
+                
+                with c_tool:
+                    tool_opts = ["None"] + [it.name for it in items_by_slot[EquipmentSlot.TOOLS]]
+                    
+                    # 2 rows of 3
+                    t_cols = st.columns(3)
+                    for i in range(6):
+                        t_key = f"tool_{i}"
+                        ss_key = f"lock_{t_key}"
+                        
+                        def update_tool(s_key=ss_key, t_k=t_key):
+                            val = st.session_state[s_key]
+                            if val == "None":
+                                st.session_state['locked_items_state'].pop(t_k, None)
+                            else:
+                                found = next((x for x in items_by_slot[EquipmentSlot.TOOLS] if x.name == val), None)
+                                if found: st.session_state['locked_items_state'][t_k] = found
+
+                        curr = st.session_state['locked_items_state'].get(t_key)
+                        idx = 0
+                        if curr:
+                             try: idx = tool_opts.index(curr.name)
+                             except: idx = 0
+                        
+                        with t_cols[i % 3]:
+                            st.selectbox(f"Tool {i+1}", tool_opts, index=idx, key=ss_key, on_change=update_tool)
+
+            # --- BLACKLIST ---
+            with tab_blacklist:
+                st.caption("Select items to exclude from optimization.")
+                # We need a list of unique names to display, but map back to IDs?
+                # Actually, duplicate names exist (different qualities). 
+                # User probably wants to blacklist by Name (all qualities).
+                # Let's show "Name (Quality)"
+                
+                def get_display_name(item):
+                    return f"{item.name} ({item.quality})"
+                
+                all_display_map = {get_display_name(i): i for i in all_sorted}
+                all_display_names = list(all_display_map.keys())
+                
+                # Current selection
+                current_blacklist_ids = set(st.session_state['blacklist_state'])
+                default_selection = []
+                for name, item in all_display_map.items():
+                    if item.id in current_blacklist_ids:
+                        default_selection.append(name)
+                
+                selected_names = st.multiselect(
+                    "Blacklisted Items", 
+                    options=all_display_names, 
+                    default=default_selection,
+                    placeholder="Search and add items to blacklist..."
+                )
+                
+                # Update state
+                new_ids = []
+                for name in selected_names:
+                    item = all_display_map[name]
+                    new_ids.append(item.id)
+                st.session_state['blacklist_state'] = new_ids
+
 
         # --- ACTIVE BUFFS UI ---
         with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):
@@ -517,7 +667,10 @@ def main():
                     "total_skill_level": user_total_level
                 }
 
-                best_gear = optimizer.optimize(
+                locked_items_map = st.session_state.get('locked_items_state', {})
+                blacklist_set = set(st.session_state.get('blacklist_state', []))
+
+                best_gear, error_msg = optimizer.optimize(
                     final_activity, 
                     player_level=player_lvl, 
                     player_skill_level=final_skill_lvl,
@@ -529,19 +682,24 @@ def main():
                     extra_passive_stats=service_modifiers_stats,
                     context_override=context,
                     pet=selected_pet,
-                    consumable=selected_cons # Pass Consumable
+                    consumable=selected_cons,
+                    locked_items=locked_items_map,
+                    blacklisted_ids=blacklist_set
                 )
 
-                st.session_state['best_gear'] = best_gear
-                st.session_state['final_skill_lvl'] = final_skill_lvl
-                st.session_state['selected_activity_obj'] = final_activity 
-                st.session_state['service_stats'] = service_modifiers_stats
-                st.session_state['debug_candidates'] = optimizer.debug_candidates
-                st.session_state['debug_rejected'] = optimizer.debug_rejected
-                st.session_state['owned_collectibles'] = owned_collectibles
-                st.session_state['context'] = context
-                st.session_state['selected_pet'] = selected_pet
-                st.session_state['selected_cons'] = selected_cons
+                if error_msg:
+                    st.error(error_msg)
+                else:
+                    st.session_state['best_gear'] = best_gear
+                    st.session_state['final_skill_lvl'] = final_skill_lvl
+                    st.session_state['selected_activity_obj'] = final_activity 
+                    st.session_state['service_stats'] = service_modifiers_stats
+                    st.session_state['debug_candidates'] = optimizer.debug_candidates
+                    st.session_state['debug_rejected'] = optimizer.debug_rejected
+                    st.session_state['owned_collectibles'] = owned_collectibles
+                    st.session_state['context'] = context
+                    st.session_state['selected_pet'] = selected_pet
+                    st.session_state['selected_cons'] = selected_cons
 
         if 'best_gear' in st.session_state:
             best_gear = st.session_state['best_gear']

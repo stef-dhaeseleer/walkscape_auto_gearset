@@ -1,5 +1,5 @@
-
 import itertools
+
 import math
 from typing import Dict, List, Set, Optional, Tuple, Any
 from models import Equipment, Activity, GearSet, EquipmentSlot, Location, StatName, RequirementType, ConditionType, Collectible, GATHERING_SKILLS, ARTISAN_SKILLS, Pet, Consumable
@@ -200,7 +200,7 @@ class GearOptimizer:
                 required_keywords,
                 activity,
                 player_skill_level, 
-                optimazation_target,
+                optimazation_target, 
                 context,
                 tool_slots,
                 owned_item_counts,
@@ -229,19 +229,7 @@ class GearOptimizer:
         if not required_keywords:
             return current_set
 
-        best_local_set = current_set
-        best_local_score = self.calculate_score(current_set, activity, lvl, target, context, passive_stats=passive_stats)
-        
-        # Helper to check availability
-        def can_equip(item, current_gear):
-            if item in locked_item_objects: return True # Locked items always available
-            if not owned_counts: return True
-            
-            needed = 1
-            if item in current_gear.get_all_items(): needed += 1
-            return self._get_available_count(item, owned_counts) >= needed
-
-        # Flatten candidates
+        # 1. Flatten candidates into a pool of "Keyword Providers"
         provider_pool = []
         for slot, items in candidates.items():
             for item in items:
@@ -253,6 +241,102 @@ class GearOptimizer:
                 if provides_req:
                     provider_pool.append(item)
         
+        # Helper to check ownership/availability
+        def can_equip(item, current_gear):
+            if item in locked_item_objects: return True
+            if not owned_counts: return True
+            needed = 1
+            if item in current_gear.get_all_items(): needed += 1
+            return self._get_available_count(item, owned_counts) >= needed
+
+        # Sort pool by raw utility to try best items first
+        provider_pool = self._sort_items_by_utility(provider_pool, current_set, activity, lvl, target, context, passive_stats)
+        
+        # --- PHASE 1: FILL MISSING REQUIREMENTS ---
+        # The main optimizer might have discarded requirement items (like nets) in favor of raw stats.
+        # We must force-insert them, potentially displacing high-stat items.
+        
+        max_fill_attempts = 10 
+        for _ in range(max_fill_attempts):
+            current_counts = current_set.get_keyword_counts()
+            missing_reqs = []
+            for req, count in required_keywords.items():
+                if current_counts.get(req, 0) < count:
+                    missing_reqs.append(req)
+            
+            if not missing_reqs:
+                break
+                
+            # Pick the first missing requirement to solve
+            target_req = missing_reqs[0]
+            
+            # Find best candidate for this specific requirement
+            best_filler = None
+            for cand in provider_pool:
+                # Skip items already equipped
+                if cand in current_set.get_all_items(): continue
+                
+                cand_kws = {k.lower().replace("_", " ").strip() for k in cand.keywords}
+                if target_req in cand_kws:
+                    if can_equip(cand, current_set):
+                        best_filler = cand
+                        break # Already sorted by utility
+            
+            if not best_filler:
+                break # Cannot fulfill this requirement, stop trying
+            
+            # Try to equip the filler
+            # Scenario A: Empty slot exists (easy fit)
+            temp_set = self._clone_set(current_set)
+            if self._equip_item(temp_set, best_filler, tool_slots):
+                current_set = temp_set
+                continue
+            
+            # Scenario B: Slots full, must replace a non-locked item
+            # We iterate through all "victims" in that slot and find the swap that results in the highest score.
+            best_swap_set = None
+            best_swap_score = -float('inf')
+            
+            victims = []
+            if best_filler.slot == EquipmentSlot.TOOLS:
+                victims = current_set.tools
+            elif best_filler.slot == EquipmentSlot.RING:
+                victims = current_set.rings
+            else:
+                # Single slots
+                item_in_slot = getattr(current_set, best_filler.slot)
+                if item_in_slot: victims = [item_in_slot]
+            
+            swap_occurred = False
+            for v in victims:
+                if v in locked_item_objects: continue
+                
+                test_set = self._clone_set(current_set)
+                self._unequip_item(test_set, v)
+                
+                if self._equip_item(test_set, best_filler, tool_slots):
+                    # Check score. This will likely be lower than the original purely stat-based score,
+                    # but higher than the penalty score of -10000 (because we filled a req).
+                    s = self.calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats)
+                    if s > best_swap_score:
+                        best_swap_score = s
+                        best_swap_set = test_set
+                        swap_occurred = True
+            
+            if swap_occurred and best_swap_set:
+                current_set = best_swap_set
+            else:
+                # If we couldn't swap (e.g., all items in that slot are locked), we can't solve this req.
+                break 
+
+
+        # --- PHASE 2: OPTIMIZE/SWAP EXISTING REQUIREMENTS ---
+        # (Original Logic: Improve the quality of items meeting requirements)
+        
+        best_local_set = current_set
+        best_local_score = self.calculate_score(current_set, activity, lvl, target, context, passive_stats=passive_stats)
+
+        # Re-sort pool based on the new baseline
         provider_pool = self._sort_items_by_utility(provider_pool, best_local_set, activity, lvl, target, context, passive_stats)
         provider_pool = provider_pool[:60]
 
@@ -273,7 +357,7 @@ class GearOptimizer:
             active_providers = []
             for item in best_local_set.get_all_items():
                 if isinstance(item, Pet) or isinstance(item, Consumable): continue 
-                if item in locked_item_objects: continue # CANNOT REMOVE LOCKED ITEMS
+                if item in locked_item_objects: continue 
                 
                 is_prov = False
                 for k in item.keywords:
@@ -286,7 +370,7 @@ class GearOptimizer:
                 
                 for candidate in provider_pool:
                     if candidate.id == provider_to_remove.id: continue
-                    if candidate in best_local_set.get_all_items(): continue # Simplification: don't swap in equipped items
+                    if candidate in best_local_set.get_all_items(): continue
                     
                     cand_reqs = {k.lower().replace("_", " ").strip() for k in candidate.keywords}
                     # Only useful if it provides the SAME requirement or helps overlapping ones
@@ -303,7 +387,6 @@ class GearOptimizer:
                     # Fill holes
                     empty_slots = self._get_empty_slots(test_set, tool_slots)
                     for e_slot in empty_slots:
-                        # Don't fill a slot if it was supposed to be locked (though unequip shouldn't touch locks)
                         fillers = best_fillers.get(e_slot if "tool" not in e_slot and "ring" not in e_slot else ("tools" if "tool" in e_slot else "ring"), [])
                         for filler in fillers:
                             if can_equip(filler, test_set):
@@ -739,117 +822,62 @@ class GearOptimizer:
 
             # --- B. Rings ---
             # fixed_rings contains items that must stay.
-            # current_set.rings contains those + potentially skeleton items.
-            # We can remove skeleton items if something better is found, but NOT fixed ones.
             
-            # Start fresh with fixed rings
+            # 1. Capture the state before we start tampering. 
+            # If we don't find a better combo, we MUST revert to this.
+            original_rings = list(current_set.rings)
+            
             available_ring_slots = 2 - len(fixed_rings)
             
             if available_ring_slots > 0:
-                current_rings = list(current_set.rings)
-                # Keep fixed rings
-                working_rings = list(fixed_rings)
-                
-                # Add existing non-fixed rings if they fit (prioritizing current state)
-                for r in current_rings:
-                    if len(working_rings) < 2 and r not in working_rings:
-                        working_rings.append(r)
-                
-                current_set.rings = working_rings
-                
+                # Get candidates
                 ring_cands = candidates.get(EquipmentSlot.RING, [])
+                
                 if ring_cands:
-                    top_rings = self._sort_items_by_utility(ring_cands, current_set, activity, player_skill_level, target, context, passive_stats)[:10]
-                    
-                    # Fill / Swap free slots
-                    # Simple approach: If < 2 rings, try adding. Then try swapping the NON-FIXED ring.
-                    
-                    # 1. Fill empty
-                    while len(current_set.rings) < 2:
-                        best_r = None
-                        max_r = base_score
-                        for r in top_rings:
-                            if r in current_set.rings: 
-                                if owned_counts:
-                                    # If fixed ring uses 1, we need 2 total
-                                    needed = current_set.rings.count(r) + 1
-                                    if self._get_available_count(r, owned_counts) < needed: continue
-                                else:
-                                    if current_set.rings.count(r) >= 2: continue
+                    # Sort candidates by utility to check the best ones first
+                    top_rings = self._sort_items_by_utility(
+                        ring_cands, current_set, activity, player_skill_level, 
+                        target, context, passive_stats
+                    )[:12] # Top 12 is sufficient
 
-                            current_set.rings.append(r)
-                            score = self.calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
-                            if score > max_r:
-                                max_r = score
-                                best_r = r
-                            current_set.rings.pop()
-                        
-                        if best_r:
-                            current_set.rings.append(best_r)
-                            base_score = max_r
-                        else:
-                            break
+                    best_ring_set = list(original_rings)
+                    # We start with base_score. We only change rings if we beat this.
+                    max_ring_score = base_score
                     
-                    # 2. Swap non-fixed rings (if any)
-                    # Identify indices of fixed rings to skip
-                    # It's easier to iterate slots 0, 1. If slot i is fixed, skip.
+                    # We use combinations_with_replacement to allow 2 of the same ring
+                    # We iterate range(1, ...) to try filling 1 slot OR both slots
+                    from itertools import combinations_with_replacement
                     
-                    # Since rings is a list, and order doesn't matter, 
-                    # we just iterate the Non-Fixed portion.
-                    # Re-detect fixed items in current list (by ID match)
-                    
-                    # Construct a list of indices we can modify
-                    fixed_ids = [fr.id for fr in fixed_rings]
-                    modifiable_indices = []
-                    for i, r in enumerate(current_set.rings):
-                        # Simple logic: if we have 1 fixed ring, find it and mark used. The other is modifiable.
-                        # Handle duplicate items correctly.
-                        if r in fixed_rings:
-                            # If duplicate fixed items, we need to be careful.
-                            # Just rebuild: fixed rings + free rings.
-                            pass
-                    
-                    # Easier: Always optimize by rebuilding: Fixed + Best Combo of (2 - len(Fixed))
-                    # Brute force standard rings is cheap (max 10 choose 2 = 45)
-                    
-                    best_combo = []
-                    if available_ring_slots == 1:
-                        # Find 1 best ring to add to Fixed
-                        max_r = -float('inf')
-                        for r in top_rings:
-                            test_rings = fixed_rings + [r]
-                            current_set.rings = test_rings
-                            score = self.calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
-                            if score > max_r:
-                                if self._is_valid_ring_set(test_rings, owned_counts, fixed_rings):
-                                    max_r = score
-                                    best_combo = [r]
-                        if best_combo:
-                            current_set.rings = fixed_rings + best_combo
-                            base_score = max_r
+                    found_better = False
+
+                    for r_cnt in range(1, available_ring_slots + 1):
+                        for combo in combinations_with_replacement(top_rings, r_cnt):
+                            # Construct the test set: Fixed Locks + New Candidates
+                            test_rings = fixed_rings + list(combo)
                             
-                    elif available_ring_slots == 2:
-                        # Find 2 best rings
-                        max_r = -float('inf')
-                        # Try empty (if allowed? usually we want rings)
-                        # Try 1 ring
-                        # Try 2 rings
-                        import itertools
-                        # Add None as option for combinations?
-                        # Just iterate combinations of top_rings
-                        for r_cnt in range(1, 3):
-                            for combo in itertools.combinations(top_rings, r_cnt):
-                                test_rings = fixed_rings + list(combo)
+                            # Check Valid (Ownership)
+                            if self._is_valid_ring_set(test_rings, owned_counts, fixed_rings):
                                 current_set.rings = test_rings
-                                score = self.calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
-                                if score > max_r:
-                                    if self._is_valid_ring_set(test_rings, owned_counts, fixed_rings):
-                                        max_r = score
-                                        best_combo = list(combo)
-                        if best_combo:
-                            current_set.rings = fixed_rings + best_combo
-                            base_score = max_r
-
+                                score = self.calculate_score(
+                                    current_set, activity, player_skill_level, 
+                                    target, context, passive_stats=passive_stats
+                                )
+                                
+                                if score > max_ring_score + 0.00001: # Use epsilon for float comparison
+                                    max_ring_score = score
+                                    best_ring_set = list(test_rings)
+                                    found_better = True
+                    
+                    # Apply the best result (either the new combo, or revert to original)
+                    current_set.rings = best_ring_set
+                    base_score = max_ring_score
+                else:
+                    # No candidates, revert to original
+                    current_set.rings = original_rings
+            else:
+                # No slots available (all locked), keep as is
+                current_set.rings = original_rings
+            
             # --- C. Tools ---
             # Same logic: Fixed tools stay. Optimize the rest.
             
@@ -1336,114 +1364,27 @@ class GearOptimizer:
         return [x[1] for x in scored]
 
     def _is_valid_ring_set(self, rings: List[Equipment], owned_counts: Dict[str, int], fixed_rings: List[Equipment]) -> bool:
-        # Check ownership validity
         if not owned_counts: return True
-        counts = PyCounter()
+        
+        # 1. Count total needs for this proposed set
+        total_needed_counts = PyCounter()
         for r in rings:
-            counts[r.id.lower()] += 1
-        
-        # NOTE: Fixed rings bypass ownership checks.
-        # So we only check if available count (from user) >= needed count (total - fixed matches)
-        # But simply: If user forced a lock, we assume they have it (or want to sim it).
-        # We only check validity for the NEWLY added items.
-        
-        # However, if user owns 1 ring, locks it, and we try to add a 2nd identical ring,
-        # we must check if they own 2.
-        
-        # Correct logic:
-        # User owned: X
-        # Locked: L (Assume infinite supply for L, OR assume L consumes X?)
-        # Standard: User locks items they have.
-        # But simulation mode: User locks items they DON'T have.
-        
-        # Implementation:
-        # For each unique item ID in 'rings':
-        #   total_needed = count in 'rings'
-        #   locked_count = count in 'fixed_rings'
-        #   freely_added = total_needed - locked_count
-        #   if freely_added > available_owned: return False
-        
-        # But wait, if I have 1 ring, lock it. freely_added = 0. OK.
-        # If I have 1 ring, don't lock. freely_added = 1. OK.
-        # If I have 1 ring, lock it, and opt tries to add another. freely_added = 1.
-        #   User has 1. Locked uses 1 (bypassed). 
-        #   Does user have 1 *remaining*? 
-        #   The standard `_get_available_count` returns TOTAL owned.
-        #   So we should check: owned >= freely_added + locked_real_owned?
-        
-        # SIMPLIFIED LOGIC per requirements: "manual lock will bypass the user owned items"
-        # This implies locked items are "free".
-        # So we only validate the items that are NOT locked.
-        
-        # We need to map object instances to know which are fixed.
-        # Since 'rings' is a new list, we match by ID? Or object identity if preserved.
-        # Object identity is preserved in my logic.
-        
-        non_locked_items = []
-        # Create a copy of fixed rings to match against
-        temp_fixed = list(fixed_rings)
-        
-        for r in rings:
-            if r in temp_fixed:
-                temp_fixed.remove(r)
-            else:
-                non_locked_items.append(r)
-        
-        if not non_locked_items: return True
-        
-        # Now check if we own the non-locked items
-        needed_counts = PyCounter()
-        for x in non_locked_items: needed_counts[x.id.lower()] += 1
-        
-        # We must also account for the fact that we might own the locked item, 
-        # and using it in lock shouldn't consume it from the pool available for non-locked spots?
-        # Actually, if I have 1 ring, lock it. I shouldn't be able to equip a 2nd one in free slot.
-        # So Locked Items MUST consume ownership if they exist in ownership.
-        
-        # Re-eval:
-        # Total Needed = Count in Ring Set
-        # Total Owned = User Inventory
-        # Locked Items = Bypass Ownership (count as Owned even if 0)
-        
-        # Effective Owned = max(Real Owned, Count of Locked instances of this item)
-        # Wait, if I have 0, lock 1. Effective = 1.
-        # If I have 1, lock 1. Effective = 1.
-        
-        # Logic:
-        # For each item ID:
-        #   User Owned = N
-        #   Locked Count = L
-        #   Total Equipped = T
-        #   If T <= L: Valid (all covered by locks)
-        #   Else: (T - L) must be <= (N - L_real_owned) ??? No.
-        
-        #   Let's assume Locks provide "Virtual Copies".
-        #   If I lock 1 Ring, I have a virtual copy.
-        #   If I want to equip a 2nd Ring (same ID), I need a Real Copy that isn't the Virtual One?
-        #   Or does the Virtual Copy consume the Real Copy?
-        
-        #   Standard Interpretation:
-        #   Locks consume real items first. If run out, they use magic.
-        #   So Remaining Owned = max(0, Owned - Locked Count).
-        #   Free Slots must be filled using Remaining Owned.
-        
-        id_counts = PyCounter()
-        for r in rings: id_counts[r.id.lower()] += 1
-        
-        fixed_counts = PyCounter()
-        for r in fixed_rings: fixed_counts[r.id.lower()] += 1
-        
-        for item_id, total_needed in id_counts.items():
-            locked_c = fixed_counts[item_id]
+            total_needed_counts[r.id.lower()] += 1
             
-            # We only need to validate the amount EXCEEDING the locked amount
-            extra_needed = total_needed - locked_c
-            if extra_needed > 0:
-                # We need 'extra_needed' more copies from inventory.
-                # Does inventory have them?
-                # We assume locks consume inventory.
+        # 2. Count what is provided "free" by locks (Locks bypass ownership)
+        locked_provided_counts = PyCounter()
+        for r in fixed_rings:
+            locked_provided_counts[r.id.lower()] += 1
+            
+        # 3. Check if inventory satisfies the difference
+        for item_id, total_needed in total_needed_counts.items():
+            locked_amount = locked_provided_counts[item_id]
+            needed_from_inventory = total_needed - locked_amount
+            
+            if needed_from_inventory > 0:
                 owned = owned_counts.get(item_id, 0)
-                # Suffix check
+                
+                # Suffix fallback (e.g. matching "ring_common" to "ring")
                 if owned == 0:
                      suffixes = ["_common", "_uncommon", "_rare", "_epic", "_legendary", "_ethereal", "_normal"]
                      for s in suffixes:
@@ -1452,11 +1393,12 @@ class GearOptimizer:
                             if base in owned_counts: 
                                 owned = owned_counts[base]; break
                 
-                remaining_owned = max(0, owned - locked_c)
-                if extra_needed > remaining_owned:
+                if owned < needed_from_inventory:
                     return False
+        
         return True
-
+    
+    
     def _is_valid_tool_set(self, tools: List[Equipment], owned_counts: Optional[Dict[str, int]], fixed_tools: List[Equipment]) -> bool:
         seen_slugs = set()
         seen_keywords = set()

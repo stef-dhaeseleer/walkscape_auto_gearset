@@ -474,42 +474,141 @@ def main():
                         with t_cols[i % 3]:
                             st.selectbox(f"Tool {i+1}", tool_opts, index=idx, key=ss_key, on_change=update_tool)
 
-            # --- BLACKLIST ---
+        # --- BLACKLIST ---
             with tab_blacklist:
-                st.caption("Select items to exclude from optimization.")
-                # We need a list of unique names to display, but map back to IDs?
-                # Actually, duplicate names exist (different qualities). 
-                # User probably wants to blacklist by Name (all qualities).
-                # Let's show "Name (Quality)"
+                # 1. Controls & Filter Row
+                b_col1, b_col2 = st.columns([5, 1])
+                with b_col1:
+                    # Updated Filters: Split Jewelry into Rings/Necklaces
+                    filter_opts = ["All", "Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Rings", "Primary & Secondary", "Tools"]
+                    active_filter = st.segmented_control(
+                        "Filter by Slot",
+                        options=filter_opts,
+                        selection_mode="single",
+                        default="All",
+                        label_visibility="collapsed"
+                    )
+                with b_col2:
+                    if st.button("🗑️ Clear All", help="Remove all items from blacklist"):
+                        st.session_state['blacklist_state'] = []
+                        st.rerun()
+
+                # 2. Prepare Data
+                current_blacklist_ids = set(st.session_state.get('blacklist_state', []))
+                all_sorted = sorted(all_items_raw, key=lambda x: x.name)
                 
-                def get_display_name(item):
-                    return f"{item.name} ({item.quality})"
+                available_rows = []
+                blacklisted_rows = []
                 
-                all_display_map = {get_display_name(i): i for i in all_sorted}
-                all_display_names = list(all_display_map.keys())
-                
-                # Current selection
-                current_blacklist_ids = set(st.session_state['blacklist_state'])
-                default_selection = []
-                for name, item in all_display_map.items():
+                # Updated Helper: Separate Rings and Necklaces
+                def get_filter_cat(item):
+                    s = item.slot.lower()
+                    if s in ["head", "chest", "legs", "feet", "back"]: return s.title()
+                    if s in ["neck"]: return "Neck"
+                    if s in ["ring"]: return "Rings"
+                    if s in ["cape"]: return "Cape" # Group capes with back or separate if preferred
+                    if s in ["primary", "secondary"]: return "Primary & Secondary"
+                    if s in ["tools"]: return "Tools"
+                    return "Other"
+
+                for item in all_sorted:
+                    # Create row data
+                    row = {
+                        "Item Name": item.name,
+                        "Select": False,
+                        "id": item.id     # Hidden ID
+                    }
+                    
                     if item.id in current_blacklist_ids:
-                        default_selection.append(name)
-                
-                selected_names = st.multiselect(
-                    "Blacklisted Items", 
-                    options=all_display_names, 
-                    default=default_selection,
-                    placeholder="Search and add items to blacklist..."
-                )
-                
-                # Update state
-                new_ids = []
-                for name in selected_names:
-                    item = all_display_map[name]
-                    new_ids.append(item.id)
-                st.session_state['blacklist_state'] = new_ids
+                        # ALWAYS add to blacklisted list (ignore filter)
+                        blacklisted_rows.append(row)
+                    else:
+                        # ONLY add to available if it matches filter
+                        cat = get_filter_cat(item)
+                        if active_filter == "All" or cat == active_filter:
+                            available_rows.append(row)
 
+                # 3. Render Columns
+                c_avail, c_mid, c_black = st.columns([5, 0.5, 5])
+                
+                # --- AVAILABLE ITEMS (Filtered) ---
+                with c_avail:
+                    st.markdown(f"**Available** ({len(available_rows)})")
+                    if available_rows:
+                        df_avail = pd.DataFrame(available_rows).set_index("id")
+                        
+                        edited_avail = st.data_editor(
+                            df_avail,
+                            column_config={
+                                "Select": st.column_config.CheckboxColumn("Mark", width="small", default=False),
+                                "Item Name": st.column_config.TextColumn("Item", width="large", disabled=True),
+                            },
+                            use_container_width=True,
+                            height=450,
+                            key="editor_avail_new"
+                        )
+                    else:
+                        st.info("No items match filter.")
+                        edited_avail = pd.DataFrame()
 
+                # --- ACTION BUTTONS (Middle) ---
+                with c_mid:
+                    st.write("")
+                    st.write("")
+                    st.write("")
+                    st.write("")
+                    st.write("")
+                    
+                    # BLOCK BUTTON
+                    if st.button("➡", use_container_width=True, help="Block Checked Items"):
+                        if not edited_avail.empty:
+                            to_block = edited_avail[edited_avail["Select"] == True].index.tolist()
+                            if to_block:
+                                new_set = current_blacklist_ids.union(set(to_block))
+                                st.session_state['blacklist_state'] = list(new_set)
+                                st.rerun()
+
+                    st.write("")
+
+                    # UNBLOCK BUTTON
+                    do_restore = st.button("⬅", use_container_width=True, help="Restore Checked Items")
+
+                # --- BLACKLISTED ITEMS (Unfiltered) ---
+                with c_black:
+                    st.markdown(f"**Blacklisted** ({len(blacklisted_rows)})")
+                    if blacklisted_rows:
+                        df_black = pd.DataFrame(blacklisted_rows).set_index("id")
+                        
+                        edited_black = st.data_editor(
+                            df_black,
+                            column_config={
+                                "Select": st.column_config.CheckboxColumn("Mark", width="small", default=False),
+                                "Item Name": st.column_config.TextColumn("Item", width="large", disabled=True),
+                            },
+                            use_container_width=True,
+                            height=450,
+                            key="editor_black_new"
+                        )
+                        
+                        if do_restore:
+                            to_restore = edited_black[edited_black["Select"] == True].index.tolist()
+                            if to_restore:
+                                new_set = current_blacklist_ids.difference(set(to_restore))
+                                st.session_state['blacklist_state'] = list(new_set)
+                                st.rerun()
+                    else:
+                        st.info("Blacklist empty.")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         # --- ACTIVE BUFFS UI ---
         with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):
             st.caption("Select active buffs. These are treated as permanent stats during optimization.")

@@ -572,7 +572,7 @@ def main():
                                 "Select": st.column_config.CheckboxColumn("Mark", width="small", default=False),
                                 "Item Name": st.column_config.TextColumn("Item", width="large", disabled=True),
                             },
-                            use_container_width=True,
+                            width="stretch",
                             height=450,
                             key="editor_avail_new"
                         )
@@ -589,7 +589,7 @@ def main():
                     st.write("")
                     
                     # BLOCK BUTTON
-                    if st.button("➡", use_container_width=True, help="Block Checked Items"):
+                    if st.button("➡", width="stretch", help="Block Checked Items"):
                         if not edited_avail.empty:
                             to_block = edited_avail[edited_avail["Select"] == True].index.tolist()
                             if to_block:
@@ -600,7 +600,7 @@ def main():
                     st.write("")
 
                     # UNBLOCK BUTTON
-                    do_restore = st.button("⬅", use_container_width=True, help="Restore Checked Items")
+                    do_restore = st.button("⬅", width="stretch", help="Restore Checked Items")
 
                 # --- BLACKLISTED ITEMS (Unfiltered) ---
                 with c_black:
@@ -614,7 +614,7 @@ def main():
                                 "Select": st.column_config.CheckboxColumn("Mark", width="small", default=False),
                                 "Item Name": st.column_config.TextColumn("Item", width="large", disabled=True),
                             },
-                            use_container_width=True,
+                            width="stretch",
                             height=450,
                             key="editor_black_new"
                         )

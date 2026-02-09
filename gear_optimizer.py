@@ -107,6 +107,41 @@ class GearOptimizer:
         )
         self.debug_candidates = candidates
 
+        # --- PRE-FILL SECONDARY SLOT PATCH ---
+        # "Option A: Yes equip it... Option B: Only if contributes to target... Happen at the start"
+        # We add it to base_locked_set but NOT fixed_single_slots. 
+        # This acts as a default that gets overwritten only if a Skeleton (requirement solver) needs the slot.
+        
+        pre_fill_item = None
+        if "secondary" not in fixed_single_slots:
+            sec_candidates = candidates.get(EquipmentSlot.SECONDARY, [])
+            
+            # Simple sorting by "utility" to pick a reasonable "first" one if multiple exist
+            # Uses a dummy set to check scores
+            dummy_sort_set = GearSet()
+            sorted_sec = self._sort_items_by_utility(sec_candidates, dummy_sort_set, activity, player_skill_level, optimazation_target, context, passive_stats)
+            
+            for item in sorted_sec:
+                # Check 1: Does it have a required keyword?
+                has_req_kw = False
+                for k in item.keywords:
+                    if k.lower().replace("_", " ").strip() in required_keywords:
+                        has_req_kw = True
+                        break
+                
+                # Check 2: Does it contribute to score?
+                contributes_score = False
+                # We can reuse the sort utility check, or re-calculate explicitly
+                dummy_sort_set.secondary = item
+                s = self.calculate_score(dummy_sort_set, activity, player_skill_level, optimazation_target, context, ignore_requirements=True, passive_stats=passive_stats)
+                if s > 0.000001: 
+                    contributes_score = True
+                dummy_sort_set.secondary = None # Reset
+
+                if has_req_kw or contributes_score:
+                    pre_fill_item = item
+                    break # "Just the first one that comes"
+
         # 6. Generate Skeletons
         skeletons = self._generate_skeletons(candidates, required_keywords)
         
@@ -122,6 +157,10 @@ class GearOptimizer:
         base_locked_set.rings = list(fixed_rings)
         base_locked_set.tools = list(fixed_tools)
 
+        # Apply Pre-fill Patch
+        if pre_fill_item:
+            base_locked_set.secondary = pre_fill_item
+
         # Optimization Loop
         for skeleton_set, skel_locked_slots in skeletons:
             
@@ -135,6 +174,7 @@ class GearOptimizer:
                 skel_item = getattr(skeleton_set, slot)
                 if skel_item:
                     if slot not in fixed_single_slots:
+                        # This will OVERWRITE our pre-filled secondary if the skeleton needs the slot
                         setattr(current_set, slot, skel_item)
                         skel_locked_slots.add(slot)
             

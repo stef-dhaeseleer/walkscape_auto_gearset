@@ -18,6 +18,9 @@ from models import (
     Pet, PetLevel, Consumable, EquipmentSlot
 )
 
+# --- NEW IMPORT ---
+from streamlit_js_eval import streamlit_js_eval
+
 # --- Page Config ---
 st.set_page_config(
     page_title="WalkScape Gear Optimizer",
@@ -312,6 +315,20 @@ def main():
         st.session_state['locked_items_state'] = {}
     if 'blacklist_state' not in st.session_state:
         st.session_state['blacklist_state'] = []
+    if 'user_json_text' not in st.session_state:
+        st.session_state['user_json_text'] = ""
+    if 'ls_loaded' not in st.session_state:
+        st.session_state['ls_loaded'] = False
+
+    # --- LOCAL STORAGE: LOAD ---
+    # Attempt to read 'WALKSCAPE_USER_DATA' from the browser
+    stored_json = streamlit_js_eval(js_expressions="localStorage.getItem('WALKSCAPE_USER_DATA')", key="ls_loader")
+    
+    # If we find data and haven't loaded it into session state yet, do it now.
+    if stored_json and not st.session_state['ls_loaded']:
+        st.session_state['user_json_text'] = stored_json
+        st.session_state['ls_loaded'] = True
+        st.rerun() # Refresh so the text area shows the loaded data immediately
 
     all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables = load_data()   
     
@@ -324,11 +341,23 @@ def main():
         with st.expander("📂 User Save Data & Settings", expanded=True):
             col_json, col_opts = st.columns([3, 1])
             with col_json:
+                # We use session state key 'user_json_text' to persist values
                 user_json_input = st.text_area(
                     "Paste User JSON", 
                     height=70, 
-                    placeholder='{"name": "...", "skills": {...}, "collectibles": [...], "reputation": {...}}'
+                    placeholder='{"name": "...", "skills": {...}, "collectibles": [...], "reputation": {...}}',
+                    key="user_json_text"
                 )
+
+                # --- LOCAL STORAGE: SAVE ---
+                # Whenever the input isn't empty, update LocalStorage
+                if user_json_input:
+                    # We use json.dumps to ensure the string is safely escaped for JS
+                    safe_js_string = json.dumps(user_json_input)
+                    streamlit_js_eval(
+                        js_expressions=f"localStorage.setItem('WALKSCAPE_USER_DATA', {safe_js_string})",
+                        key="ls_saver" # Unique key ensures it runs
+                    )
             
             user_data = None
             calculated_char_lvl = 99
@@ -598,16 +627,6 @@ def main():
                                 st.rerun()
                     else:
                         st.info("Blacklist empty.")
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         # --- ACTIVE BUFFS UI ---
         with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):

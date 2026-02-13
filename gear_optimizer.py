@@ -188,7 +188,9 @@ class GearOptimizer:
             skel_tools_to_add = skeleton_set.tools[:current_tool_slots_left]
             current_set.tools.extend(skel_tools_to_add)
 
-            optimizer_locked_slots = set(fixed_single_slots.keys())
+            # Union of User Locks and Skeleton Locks
+            # If we are testing a Set Skeleton, we want the Set items to persist through the first greedy pass
+            optimizer_locked_slots = set(fixed_single_slots.keys()).union(skel_locked_slots)
             
             # A. Standard Optimization
             optimized_set = self._optimize_set(
@@ -730,94 +732,145 @@ class GearOptimizer:
     # --- Skeleton Logic ---
 
     def _generate_skeletons(self, candidates, required_keywords) -> List[Tuple[GearSet, Set[str]]]:
+        # Part A: Requirement-based Skeletons (Existing Logic)
         if not required_keywords:
-            return [(GearSet(), set())]
+            results = [(GearSet(), set())]
+        else:
+            providers = {k: [] for k in required_keywords}
+            attr_map = {
+                EquipmentSlot.HEAD: "head", EquipmentSlot.CHEST: "chest", EquipmentSlot.LEGS: "legs", 
+                EquipmentSlot.FEET: "feet", EquipmentSlot.BACK: "back", EquipmentSlot.CAPE: "cape", 
+                EquipmentSlot.NECK: "neck", EquipmentSlot.HANDS: "hands",
+                EquipmentSlot.PRIMARY: "primary", EquipmentSlot.SECONDARY: "secondary",
+                EquipmentSlot.TOOLS: "tools", EquipmentSlot.RING: "rings"
+            }
 
-        providers = {k: [] for k in required_keywords}
-        attr_map = {
+            for slot, items in candidates.items():
+                attr_name = attr_map.get(slot)
+                if not attr_name: continue
+                for item in items:
+                    for k in item.keywords:
+                        norm = k.lower().replace("_", " ").strip()
+                        if norm in required_keywords:
+                            providers[norm].append((item, attr_name))
+
+            req_list = []
+            for k, v in required_keywords.items():
+                for _ in range(v):
+                    req_list.append(k)
+            
+            results = []
+            unique_signatures = set()
+
+            def solve(index, current_map, locked_slots):
+                if index >= len(req_list):
+                    gs = GearSet()
+                    for attr, val in current_map.items():
+                        if attr == "tools":
+                            gs.tools = list(val)
+                        elif attr == "rings":
+                            gs.rings = list(val)
+                        else:
+                            setattr(gs, attr, val)
+                    all_ids = []
+                    for i in gs.get_all_items():
+                        if isinstance(i, Pet): continue
+                        all_ids.append(i.id)
+                    sig = tuple(sorted(all_ids))
+                    if sig not in unique_signatures:
+                        unique_signatures.add(sig)
+                        results.append((gs, locked_slots.copy()))
+                    return
+
+                req = req_list[index]
+                options = providers.get(req, [])
+                found_existing = False
+                
+                seen_slots = set()
+                diverse_options = []
+                
+                for item, attr in options:
+                    if attr not in seen_slots or attr in ["tools", "rings"]:
+                        diverse_options.append((item, attr))
+                        if attr not in ["tools", "rings"]: seen_slots.add(attr)
+                
+                valid_options = diverse_options[:15]
+
+                for item, attr in valid_options:
+                    if len(results) > 20: return 
+                    
+                    if attr == "tools":
+                        current_tools = current_map.get("tools", [])
+                        if item not in current_tools:
+                            new_map = current_map.copy()
+                            new_map["tools"] = current_tools + [item]
+                            solve(index + 1, new_map, locked_slots)
+                    elif attr == "rings":
+                        current_rings = current_map.get("rings", [])
+                        if len(current_rings) < 2 and item not in current_rings:
+                            new_map = current_map.copy()
+                            new_map["rings"] = current_rings + [item]
+                            solve(index + 1, new_map, locked_slots)
+                    else:
+                        if attr not in current_map:
+                            new_map = current_map.copy()
+                            new_map[attr] = item
+                            new_locked = locked_slots.copy()
+                            new_locked.add(attr)
+                            solve(index + 1, new_map, new_locked)
+
+            solve(0, {}, set())
+        
+        if not results: results = [(GearSet(), set())]
+
+        # Part B: Set Skeletons (New Logic)
+        # Scan candidates for implicit sets
+        set_groups = defaultdict(list)
+        for slot, items in candidates.items():
+            if slot == EquipmentSlot.TOOLS: continue # Ignore tool sets for now
+            
+            for item in items:
+                # Check for set_equipped modifiers
+                found_set = False
+                for mod in item.modifiers:
+                    for cond in mod.conditions:
+                        if cond.type == ConditionType.SET_EQUIPPED and cond.target:
+                            t = cond.target.lower().replace("_", " ").strip()
+                            set_groups[t].append(item)
+                            found_set = True; break
+                    if found_set: break
+        
+        attr_map_simple = {
             EquipmentSlot.HEAD: "head", EquipmentSlot.CHEST: "chest", EquipmentSlot.LEGS: "legs", 
             EquipmentSlot.FEET: "feet", EquipmentSlot.BACK: "back", EquipmentSlot.CAPE: "cape", 
             EquipmentSlot.NECK: "neck", EquipmentSlot.HANDS: "hands",
             EquipmentSlot.PRIMARY: "primary", EquipmentSlot.SECONDARY: "secondary",
-            EquipmentSlot.TOOLS: "tools", EquipmentSlot.RING: "rings"
+            EquipmentSlot.RING: "rings"
         }
 
-        for slot, items in candidates.items():
-            attr_name = attr_map.get(slot)
-            if not attr_name: continue
-            for item in items:
-                for k in item.keywords:
-                    norm = k.lower().replace("_", " ").strip()
-                    if norm in required_keywords:
-                        providers[norm].append((item, attr_name))
-
-        req_list = []
-        for k, v in required_keywords.items():
-            for _ in range(v):
-                req_list.append(k)
-        
-        results = []
-        unique_signatures = set()
-
-        def solve(index, current_map, locked_slots):
-            if index >= len(req_list):
-                gs = GearSet()
-                for attr, val in current_map.items():
-                    if attr == "tools":
-                        gs.tools = list(val)
-                    elif attr == "rings":
-                        gs.rings = list(val)
-                    else:
-                        setattr(gs, attr, val)
-                all_ids = []
-                for i in gs.get_all_items():
-                    if isinstance(i, Pet): continue
-                    all_ids.append(i.id)
-                sig = tuple(sorted(all_ids))
-                if sig not in unique_signatures:
-                    unique_signatures.add(sig)
-                    results.append((gs, locked_slots.copy()))
-                return
-
-            req = req_list[index]
-            options = providers.get(req, [])
-            found_existing = False
+        for set_name, set_items in set_groups.items():
+            # Build a skeleton equipping all available items of this set
+            gs = GearSet()
+            locked = set()
             
-            seen_slots = set()
-            diverse_options = []
-            
-            for item, attr in options:
-                if attr not in seen_slots or attr in ["tools", "rings"]:
-                    diverse_options.append((item, attr))
-                    if attr not in ["tools", "rings"]: seen_slots.add(attr)
-            
-            valid_options = diverse_options[:15]
-
-            for item, attr in valid_options:
-                if len(results) > 20: return 
+            # Group by slot to avoid duplicate equips (though candidates usually handled this, safeguards help)
+            # Just take the first valid item per slot for this set
+            for item in set_items:
+                attr = attr_map_simple.get(item.slot)
+                if not attr: continue
                 
-                if attr == "tools":
-                    current_tools = current_map.get("tools", [])
-                    if item not in current_tools:
-                        new_map = current_map.copy()
-                        new_map["tools"] = current_tools + [item]
-                        solve(index + 1, new_map, locked_slots)
-                elif attr == "rings":
-                    current_rings = current_map.get("rings", [])
-                    if len(current_rings) < 2 and item not in current_rings:
-                        new_map = current_map.copy()
-                        new_map["rings"] = current_rings + [item]
-                        solve(index + 1, new_map, locked_slots)
+                if attr == "rings":
+                    if len(gs.rings) < 2 and item not in gs.rings:
+                        gs.rings.append(item)
                 else:
-                    if attr not in current_map:
-                        new_map = current_map.copy()
-                        new_map[attr] = item
-                        new_locked = locked_slots.copy()
-                        new_locked.add(attr)
-                        solve(index + 1, new_map, new_locked)
+                    if getattr(gs, attr) is None:
+                        setattr(gs, attr, item)
+                        locked.add(attr)
+            
 
-        solve(0, {}, set())
-        if not results: return [(GearSet(), set())]
+            if locked or gs.rings:
+                results.append((gs, locked))
+
         return results
 
     # --- Optimizer Logic ---

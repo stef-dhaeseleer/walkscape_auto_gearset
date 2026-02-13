@@ -1139,7 +1139,7 @@ def main():
                                 elif insp_slot == "ring": d_set.rings = [item]
                                 else: setattr(d_set, insp_slot, item)
                                 
-                                s = optimizer.calculate_score(d_set, saved_activity, saved_skill_lvl, selected_target, context, ignore_requirements=True)
+                                s = calculate_score(d_set, saved_activity, saved_skill_lvl, selected_target, context, ignore_requirements=True)
                                 cand_data.append({"Name": item.name, "Score": s, "ID": item.id})
                             
                             df_cand = pd.DataFrame(cand_data).sort_values(by="Score", ascending=False)

@@ -1,7 +1,10 @@
-from typing import List, Optional, Dict, Set, Tuple
+from typing import List, Optional, Dict, Set, Tuple, Any
 from collections import defaultdict, Counter
 from pydantic import BaseModel, Field
-from utils.constants import ConditionType, RequirementType, EquipmentSlot, EquipmentQuality, SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS
+from utils.constants import (
+    ConditionType, RequirementType, EquipmentSlot, EquipmentQuality, 
+    SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS, RESTRICTED_TOOL_KEYWORDS
+)
 
 # ============================================================================
 # MODELS
@@ -241,15 +244,93 @@ class GearSet(BaseModel):
     primary: Optional[Equipment] = None
     secondary: Optional[Equipment] = None
     
-    # Changed from Equipment to Pet
     pet: Optional[Pet] = None      
     consumable: Optional[Consumable] = None
 
     rings: List[Equipment] = Field(default_factory=list)
     tools: List[Equipment] = Field(default_factory=list)
 
-    def get_all_items(self) -> List[any]:
-        """Returns all equipped items AND the pet if present."""
+    # --- Logic Methods ---
+
+    def clone(self) -> 'GearSet':
+        """Creates a deep copy of the gear set."""
+        new_set = GearSet()
+        for slot in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"]:
+            setattr(new_set, slot, getattr(self, slot))
+        new_set.rings = list(self.rings)
+        new_set.tools = list(self.tools)
+        new_set.pet = self.pet
+        new_set.consumable = self.consumable
+        return new_set
+
+    def equip(self, item: Equipment, max_tools: int = 6) -> bool:
+        """Attempts to equip an item. Returns True if successful."""
+        if self.violates_restrictions(item):
+            return False
+
+        if item.slot == EquipmentSlot.TOOLS:
+            if len(self.tools) < max_tools:
+                self.tools.append(item)
+                return True
+            return False
+        elif item.slot == EquipmentSlot.RING:
+            if len(self.rings) < 2:
+                self.rings.append(item)
+                return True
+            return False
+        else:
+            attr = item.slot
+            if hasattr(self, attr):
+                # Only equip if empty (caller must unequip first if swapping)
+                if getattr(self, attr) is None:
+                    setattr(self, attr, item)
+                    return True
+            return False
+
+    def unequip(self, item: Equipment):
+        """Removes an item from the set."""
+        if item in self.rings:
+            self.rings.remove(item)
+        elif item in self.tools:
+            self.tools.remove(item)
+        else:
+            for slot in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"]:
+                current = getattr(self, slot)
+                if current and current.id == item.id:
+                    setattr(self, slot, None)
+                    break
+
+    def violates_restrictions(self, new_item: Equipment) -> bool:
+        """Checks if the item conflicts with restricted keywords (e.g. multiple tools of same type)."""
+        restricted_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
+        
+        item_restricted_kws = set()
+        for k in new_item.keywords:
+            lk = k.lower()
+            if lk in restricted_lower:
+                item_restricted_kws.add(lk)
+        
+        if not item_restricted_kws: return False
+
+        for existing in self.get_all_items():
+            if isinstance(existing, Pet) or isinstance(existing, Consumable): continue 
+            for k in existing.keywords:
+                if k.lower() in item_restricted_kws:
+                    return True
+        return False
+
+    def get_empty_slots(self, max_tools: int) -> List[str]:
+        empty = []
+        for slot in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"]:
+            if getattr(self, slot) is None: empty.append(slot)
+        if len(self.rings) < 2: 
+             for _ in range(2 - len(self.rings)): empty.append("ring")
+        if len(self.tools) < max_tools:
+             for _ in range(max_tools - len(self.tools)):
+                 empty.append("tools")
+        return empty
+
+    def get_all_items(self) -> List[Any]:
         items = [
             self.head, self.chest, self.legs, self.feet,
             self.back, self.cape, self.neck, self.hands,
@@ -267,15 +348,12 @@ class GearSet(BaseModel):
                 counts[norm_kw] += 1
         return counts
 
-    def get_stats(self, context: Dict[str, any] = None) -> Dict[str, float]:
-        if context is None:
-            context = {}
-
+    def get_stats(self, context: Dict[str, Any] = None) -> Dict[str, float]:
+        if context is None: context = {}
         active_skill = context.get("skill", "").lower() if context.get("skill") else None
         loc_id = context.get("location_id")
         loc_tags = set(t.lower() for t in context.get("location_tags", []))
         activity_id = context.get("activity_id")
-        
         user_ap = context.get("achievement_points", 0)
         total_lvl = context.get("total_skill_level", 0)
 
@@ -289,18 +367,15 @@ class GearSet(BaseModel):
             StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
         }
 
-        # Iterate over all items AND the Pet
         for item in self.get_all_items():
             for mod in item.modifiers:
                 applies = True
-                
                 for condition in mod.conditions:
                     c_type = condition.type
                     c_target = condition.target.lower() if condition.target else None
                     c_val = condition.value
                     
                     if c_type == ConditionType.GLOBAL: continue 
-
                     elif c_type == ConditionType.SKILL_ACTIVITY:
                         if not active_skill: applies = False 
                         elif c_target:
@@ -308,50 +383,37 @@ class GearSet(BaseModel):
                             elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
                             elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
                             else: applies = False
-
                     elif c_type == ConditionType.LOCATION:
                         if not loc_id: applies = False
                         else:
-                            is_id_match = (c_target == loc_id.lower())
-                            is_tag_match = (c_target in loc_tags)
-                            if not (is_id_match or is_tag_match): applies = False
-                            
+                            if not (c_target == loc_id.lower() or c_target in loc_tags): applies = False
                     elif c_type == ConditionType.REGION:
                         if not loc_tags: applies = False
                         elif c_target and c_target not in loc_tags: applies = False
-
                     elif c_type == ConditionType.SPECIFIC_ACTIVITY:
                         if not activity_id: applies = False
                         elif c_target and c_target != activity_id.lower(): applies = False
-                    
                     elif c_type == ConditionType.ACHIEVEMENT_POINTS:
                         if user_ap < (c_val or 0): applies = False
-                    
                     elif c_type == ConditionType.TOTAL_SKILL_LEVEL:
                         if total_lvl < (c_val or 0): applies = False
-
                     elif c_type == ConditionType.SET_EQUIPPED:
                         if not c_target: applies = False
                         else:
                             norm_target = c_target.replace("_", " ").strip()
                             if keyword_counts.get(norm_target, 0) < (c_val or 1): applies = False
 
-                        
                 if applies:
-                    stat_enum = mod.stat
-                    stat_key = stat_enum.value
+                    stat_key = mod.stat.value
                     value = mod.value
-
-                    if stat_enum in PERCENTAGE_STATS: value = value / 100.0
+                    if mod.stat in PERCENTAGE_STATS: value = value / 100.0
 
                     if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
                     elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"
                     elif stat_key == StatName.XP_PERCENT.value: stat_key = "xp_percent"
-                    
                     elif stat_key == StatName.STEPS_ADD.value: 
                         stat_key = "flat_step_reduction"
                         value = -value 
-
                     elif stat_key == StatName.STEPS_PERCENT.value: 
                         stat_key = "percent_step_reduction"
                         value = -value

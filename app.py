@@ -11,6 +11,7 @@ from collections import Counter, defaultdict
 from utils.data_loader import load_game_data
 from utils.utils import calculate_steps
 from utils.export import export_gearset
+from calculations import calculate_passive_stats, calculate_score
 from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET, PERCENTAGE_STATS, StatName
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -832,11 +833,11 @@ def main():
             optimizer = GearOptimizer(available_items, all_locations=locations) 
 
             if saved_activity:
-                passive_stats = optimizer._calculate_passive_stats(saved_collectibles, context)
+                passive_stats = calculate_passive_stats(saved_collectibles, context)
                 for k,v in saved_service_stats.items():
                     passive_stats[k] = passive_stats.get(k, 0.0) + v
 
-                score = optimizer.calculate_score(best_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
+                score = calculate_score(best_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
                 
                 stats = best_gear.get_stats(context)
                 for k, v in passive_stats.items():

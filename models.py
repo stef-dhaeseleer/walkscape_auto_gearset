@@ -1,6 +1,6 @@
 from typing import List, Optional, Dict, Set, Tuple, Any
 from collections import defaultdict, Counter
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from utils.constants import (
     ConditionType, RequirementType, EquipmentSlot, EquipmentQuality, 
     SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS, RESTRICTED_TOOL_KEYWORDS
@@ -11,76 +11,72 @@ from utils.constants import (
 # ============================================================================
 
 class Condition(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     type: ConditionType
     target: Optional[str] = None 
     value: Optional[int] = None
-    
-    class Config:
-        frozen = True
 
 class Modifier(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     stat: StatName
     value: float
     conditions: Tuple[Condition, ...] = Field(default_factory=tuple)
 
-    class Config:
-        frozen = True
-
 class Requirement(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     type: RequirementType
     target: Optional[str] = None     
     value: int             
 
-    class Config:
-        frozen = True
-
 class DropEntry(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     item_id: str          
     min_quantity: int
     max_quantity: int
     chance: Optional[float] = None 
-    
-    class Config:
-        frozen = True
 
 class FactionReward(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     faction_id: str       
     amount: float
 
-    class Config:
-        frozen = True
-
 class BaseEntity(BaseModel):
+    # Set to False so 'Pet' (which inherits from this) can be mutable.
+    # We explicitly freeze the other subclasses below.
+    model_config = ConfigDict(frozen=False)
+    
     id: str
     wiki_slug: str
     name: str
 
-    class Config:
-        frozen = True
-
-class BaseItem(BaseEntity):      
+class BaseItem(BaseEntity):
+    model_config = ConfigDict(frozen=True)
+    
     value: int          
     keywords: Tuple[str, ...] = Field(default_factory=tuple)
 
 class Collectible(BaseEntity):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
 
-    class Config:
-        use_enum_values = True
-        frozen = True
-
 class Service(BaseEntity):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     skill: SkillName
     tier: str
     location: str
     requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
-
-    class Config:
-        use_enum_values = True
-        frozen = True
  
 class Equipment(BaseItem):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     uuid: str = ""
     slot: EquipmentSlot
     quality: EquipmentQuality
@@ -114,11 +110,9 @@ class Equipment(BaseItem):
     def clean_item_name(self) -> str:
         return self.name
 
-    class Config:
-        use_enum_values = True
-        frozen = True
-
 class Activity(BaseEntity):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     primary_skill: SkillName
     locations: Tuple[str, ...] = Field(default_factory=tuple) 
     base_steps: int = 0
@@ -139,18 +133,15 @@ class Activity(BaseEntity):
                     return req.value
         return 1 
 
-    class Config:
-        use_enum_values = True
-        frozen = True
-
 class RecipeMaterial(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     item_id: str
     amount: int
-    
-    class Config:
-        frozen = True
 
 class Recipe(BaseEntity):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     skill: SkillName
     level: int
     service: str 
@@ -161,47 +152,41 @@ class Recipe(BaseEntity):
     base_steps: int = 0
     max_efficiency: float = 0.0
 
-    class Config:
-        use_enum_values = True
-        frozen = True
-
 class Location(BaseEntity):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     tags: Tuple[str, ...] = Field(default_factory=tuple)
 
-    class Config:
-        use_enum_values = True
-        frozen = True
-
 class Consumable(BaseItem):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
     duration: int
 
-    class Config:
-        use_enum_values = True
-        frozen = True
 # --- PETS ---
 
 class PetAbility(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
     name: str
     effect: str
     requirements: Optional[str] = None
     cooldown: Optional[str] = None
     charges: Optional[int] = None
 
-    class Config:
-        frozen = True
-
 class PetLevel(BaseModel):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+    
     level: int
     total_xp: int
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
     abilities: Tuple[PetAbility, ...] = Field(default_factory=tuple)
 
-    class Config:
-        use_enum_values = True
-        frozen = True
-
 class Pet(BaseEntity):
+    # Explicitly mutable (frozen=False is default, but explicit helps clarity here)
+    # allowing active_level to be changed
+    model_config = ConfigDict(use_enum_values=True, frozen=False)
+    
     egg_item_id: Optional[str] = None
     xp_requirement_desc: Optional[str] = None
     levels: Tuple[PetLevel, ...] = Field(default_factory=tuple)
@@ -222,11 +207,6 @@ class Pet(BaseEntity):
     def keywords(self) -> Tuple[str, ...]:
         """Pets don't typically have keywords like 'Pickaxe', but we return empty for compatibility."""
         return tuple()
-
-    class Config:
-        use_enum_values = True
-        # Not frozen so we can set active_level, or use copy(update={}) pattern
-        frozen = False 
 
 # ============================================================================
 # GEARSET

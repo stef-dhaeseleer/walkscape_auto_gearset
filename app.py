@@ -11,7 +11,7 @@ from collections import Counter, defaultdict
 from utils.data_loader import load_game_data
 from utils.utils import calculate_steps
 from utils.export import export_gearset
-from calculations import calculate_passive_stats, calculate_score
+from calculations import calculate_passive_stats, calculate_score, analyze_score
 from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET, PERCENTAGE_STATS, StatName
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -322,14 +322,12 @@ def main():
         st.session_state['ls_loaded'] = False
 
     # --- LOCAL STORAGE: LOAD ---
-    # Attempt to read 'WALKSCAPE_USER_DATA' from the browser
     stored_json = streamlit_js_eval(js_expressions="localStorage.getItem('WALKSCAPE_USER_DATA')", key="ls_loader")
     
-    # If we find data and haven't loaded it into session state yet, do it now.
     if stored_json and not st.session_state['ls_loaded']:
         st.session_state['user_json_text'] = stored_json
         st.session_state['ls_loaded'] = True
-        st.rerun() # Refresh so the text area shows the loaded data immediately
+        st.rerun()
 
     all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables = load_data()   
     
@@ -342,7 +340,6 @@ def main():
         with st.expander("📂 User Save Data & Settings", expanded=True):
             col_json, col_opts = st.columns([3, 1])
             with col_json:
-                # We use session state key 'user_json_text' to persist values
                 user_json_input = st.text_area(
                     "Paste User JSON", 
                     height=70, 
@@ -350,14 +347,11 @@ def main():
                     key="user_json_text"
                 )
 
-                # --- LOCAL STORAGE: SAVE ---
-                # Whenever the input isn't empty, update LocalStorage
                 if user_json_input:
-                    # We use json.dumps to ensure the string is safely escaped for JS
                     safe_js_string = json.dumps(user_json_input)
                     streamlit_js_eval(
                         js_expressions=f"localStorage.setItem('WALKSCAPE_USER_DATA', {safe_js_string})",
-                        key="ls_saver" # Unique key ensures it runs
+                        key="ls_saver"
                     )
             
             user_data = None
@@ -401,9 +395,7 @@ def main():
             
             tab_locks, tab_blacklist = st.tabs(["🔒 Locked Slots", "🚫 Blacklist"])
             
-            # --- LOCKS ---
             with tab_locks:
-                # Group 1: Standard Slots
                 st.markdown("**Standard Slots**")
                 cols_std = st.columns(5)
                 std_slots = [
@@ -412,10 +404,7 @@ def main():
                     "Primary", "Secondary"
                 ]
                 
-                # We need all items sorted for dropdowns
                 all_sorted = sorted(all_items_raw, key=lambda x: x.name)
-                
-                # Helper to filter items by slot
                 items_by_slot = defaultdict(list)
                 for item in all_sorted:
                     items_by_slot[item.slot].append(item)
@@ -431,21 +420,16 @@ def main():
                     with cols_std[i % 5]:
                         enum_type = slot_enum_map[slot_name]
                         opts = ["None"] + [it.name for it in items_by_slot[enum_type]]
-                        
-                        # Session state key
                         ss_key = f"lock_{slot_name.lower()}"
                         
-                        # Callback to store ID in main lock dict
                         def update_lock(s_key=ss_key, s_name=slot_name.lower(), s_enum=enum_type):
                             val = st.session_state[s_key]
                             if val == "None":
                                 st.session_state['locked_items_state'].pop(s_name, None)
                             else:
-                                # Find item
                                 found = next((x for x in items_by_slot[s_enum] if x.name == val), None)
                                 if found: st.session_state['locked_items_state'][s_name] = found
                         
-                        # Pre-select if exists
                         idx = 0
                         current_locked = st.session_state['locked_items_state'].get(slot_name.lower())
                         if current_locked:
@@ -481,7 +465,6 @@ def main():
                 with c_tool:
                     tool_opts = ["None"] + [it.name for it in items_by_slot[EquipmentSlot.TOOLS]]
                     
-                    # 2 rows of 3
                     t_cols = st.columns(3)
                     for i in range(6):
                         t_key = f"tool_{i}"
@@ -504,12 +487,9 @@ def main():
                         with t_cols[i % 3]:
                             st.selectbox(f"Tool {i+1}", tool_opts, index=idx, key=ss_key, on_change=update_tool)
 
-        # --- BLACKLIST ---
             with tab_blacklist:
-                # 1. Controls & Filter Row
                 b_col1, b_col2 = st.columns([5, 1])
                 with b_col1:
-                    # Updated Filters: Split Jewelry into Rings/Necklaces
                     filter_opts = ["All", "Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Rings", "Primary & Secondary", "Tools"]
                     active_filter = st.segmented_control(
                         "Filter by Slot",
@@ -523,50 +503,41 @@ def main():
                         st.session_state['blacklist_state'] = []
                         st.rerun()
 
-                # 2. Prepare Data
                 current_blacklist_ids = set(st.session_state.get('blacklist_state', []))
                 all_sorted = sorted(all_items_raw, key=lambda x: x.name)
                 
                 available_rows = []
                 blacklisted_rows = []
                 
-                # Updated Helper: Separate Rings and Necklaces
                 def get_filter_cat(item):
                     s = item.slot.lower()
                     if s in ["head", "chest", "legs", "feet", "back"]: return s.title()
                     if s in ["neck"]: return "Neck"
                     if s in ["ring"]: return "Rings"
-                    if s in ["cape"]: return "Cape" # Group capes with back or separate if preferred
+                    if s in ["cape"]: return "Cape"
                     if s in ["primary", "secondary"]: return "Primary & Secondary"
                     if s in ["tools"]: return "Tools"
                     return "Other"
 
                 for item in all_sorted:
-                    # Create row data
                     row = {
                         "Item Name": item.name,
                         "Select": False,
-                        "id": item.id     # Hidden ID
+                        "id": item.id
                     }
-                    
                     if item.id in current_blacklist_ids:
-                        # ALWAYS add to blacklisted list (ignore filter)
                         blacklisted_rows.append(row)
                     else:
-                        # ONLY add to available if it matches filter
                         cat = get_filter_cat(item)
                         if active_filter == "All" or cat == active_filter:
                             available_rows.append(row)
 
-                # 3. Render Columns
                 c_avail, c_mid, c_black = st.columns([5, 0.5, 5])
                 
-                # --- AVAILABLE ITEMS (Filtered) ---
                 with c_avail:
                     st.markdown(f"**Available** ({len(available_rows)})")
                     if available_rows:
                         df_avail = pd.DataFrame(available_rows).set_index("id")
-                        
                         edited_avail = st.data_editor(
                             df_avail,
                             column_config={
@@ -581,15 +552,8 @@ def main():
                         st.info("No items match filter.")
                         edited_avail = pd.DataFrame()
 
-                # --- ACTION BUTTONS (Middle) ---
                 with c_mid:
-                    st.write("")
-                    st.write("")
-                    st.write("")
-                    st.write("")
-                    st.write("")
-                    
-                    # BLOCK BUTTON
+                    st.write(""); st.write(""); st.write(""); st.write(""); st.write("")
                     if st.button("➡", width="stretch", help="Block Checked Items"):
                         if not edited_avail.empty:
                             to_block = edited_avail[edited_avail["Select"] == True].index.tolist()
@@ -599,16 +563,12 @@ def main():
                                 st.rerun()
 
                     st.write("")
-
-                    # UNBLOCK BUTTON
                     do_restore = st.button("⬅", width="stretch", help="Restore Checked Items")
 
-                # --- BLACKLISTED ITEMS (Unfiltered) ---
                 with c_black:
                     st.markdown(f"**Blacklisted** ({len(blacklisted_rows)})")
                     if blacklisted_rows:
                         df_black = pd.DataFrame(blacklisted_rows).set_index("id")
-                        
                         edited_black = st.data_editor(
                             df_black,
                             column_config={
@@ -619,7 +579,6 @@ def main():
                             height=450,
                             key="editor_black_new"
                         )
-                        
                         if do_restore:
                             to_restore = edited_black[edited_black["Select"] == True].index.tolist()
                             if to_restore:
@@ -629,13 +588,10 @@ def main():
                     else:
                         st.info("Blacklist empty.")
         
-        # --- ACTIVE BUFFS UI ---
         with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):
             st.caption("Select active buffs. These are treated as permanent stats during optimization.")
-            
             col_pet, col_lvl, col_cons = st.columns([2, 1, 2])
             
-            # 1. Pet
             with col_pet:
                 pet_names = ["None"] + [p.name for p in all_pets]
                 selected_pet_name = st.selectbox("Select Pet", pet_names)
@@ -664,7 +620,6 @@ def main():
                 else:
                     st.selectbox("Pet Level", ["-"], disabled=True)
             
-            # 2. Consumable
             with col_cons:
                 cons_names = ["None"] + sorted([c.name for c in all_consumables])
                 selected_cons_name = st.selectbox("Select Consumable", cons_names)
@@ -701,11 +656,14 @@ def main():
                     is_recipe = True
                     compatible_services = get_compatible_services(selected_obj, services)
                     if compatible_services:
+                        # Fix: Use string names directly for Selectbox to avoid AppTest issues
                         s_names = [f"{s.name} ({s.location})" for s in compatible_services]
-                        s_idx = st.selectbox("Select Service", range(len(s_names)), format_func=lambda x: s_names[x])
-                        selected_service = compatible_services[s_idx]
+                        selected_s_name = st.selectbox("Select Service", s_names)
                         
-                        if selected_service.modifiers or selected_service.requirements:
+                        # Resolve service object from name
+                        selected_service = next((s for s in compatible_services if f"{s.name} ({s.location})" == selected_s_name), None)
+                        
+                        if selected_service and (selected_service.modifiers or selected_service.requirements):
                             st.caption("Service Effects:")
                             html = ""
                             for mod in selected_service.modifiers:
@@ -927,7 +885,6 @@ def main():
 
                     st.markdown("### ♾️ Permanent Modifiers")
                     
-                    # 1. Pet
                     if saved_pet:
                         st.markdown(f"<div class='item-header'>🐾 Pet: {saved_pet.name} (Lvl {saved_pet.active_level})</div>", unsafe_allow_html=True)
                         mods = saved_pet.modifiers
@@ -950,7 +907,6 @@ def main():
                         else: st.caption("No modifiers for this level.")
                         st.markdown("---")
                     
-                    # 2. Consumable
                     if saved_cons:
                         st.markdown(f"<div class='item-header'>🧪 Consumable: {saved_cons.name}</div>", unsafe_allow_html=True)
                         if saved_cons.modifiers:
@@ -1066,7 +1022,7 @@ def main():
 
                         with d_col2:
                             if swap_item_obj:
-                                test_gear = GearSet(**best_gear.dict())
+                                test_gear = GearSet(**best_gear.model_dump())
                                 test_gear.rings = list(best_gear.rings)
                                 test_gear.tools = list(best_gear.tools)
                                 test_gear.pet = best_gear.pet 
@@ -1085,12 +1041,12 @@ def main():
                                 else:
                                     setattr(test_gear, edit_slot.lower(), swap_item_obj)
 
-                                analysis = optimizer.analyze_score(test_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
+                                analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
                                 test_score = analysis.get("score", 0)
                                 test_steps = analysis.get("denominator", 0)
                                 test_formula = analysis.get("formula", "")
 
-                                orig_analysis = optimizer.analyze_score(best_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
+                                orig_analysis = analyze_score(best_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
                                 orig_score = orig_analysis.get("score", 0)
                                 orig_steps = orig_analysis.get("denominator", 0)
                                 orig_formula = orig_analysis.get("formula", "")

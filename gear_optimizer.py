@@ -274,7 +274,7 @@ class GearOptimizer:
             elif best_filler.slot == EquipmentSlot.RING:
                 victims = current_set.rings
             else:
-                item_in_slot = getattr(current_set, best_filler.slot.value)
+                item_in_slot = getattr(current_set, best_filler.slot)
                 if item_in_slot: victims = [item_in_slot]
             
             swap_occurred = False

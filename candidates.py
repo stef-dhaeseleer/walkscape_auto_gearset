@@ -1,6 +1,6 @@
 from typing import List, Dict, Set, Optional, Any
 from collections import defaultdict
-from models import Equipment, Activity, GearSet, EquipmentSlot, RequirementType 
+from models import Equipment, Activity, GearSet, EquipmentSlot, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS
 from calculations import calculate_score
 from utils.constants import TARGET_TO_STATS, STAT_ENUM_TO_KEY, OPTIMAZATION_TARGET, QUALITY_RANK
 
@@ -8,6 +8,8 @@ class CandidateSelector:
     def __init__(self, all_items: List[Equipment]):
         self.all_items = all_items
         self.debug_rejected = []
+        # Cache restricted keywords for fast lookup
+        self.restricted_keywords_lower = set() # Populated or used if needed, currently handling in loop
 
     def get_candidates(self, 
                        activity: Activity, 
@@ -28,6 +30,14 @@ class CandidateSelector:
         if locked_item_objects is None: locked_item_objects = set()
 
         dummy_set = GearSet() # For utility checking
+
+        # Context Unpacking for Condition Checks
+        active_skill = context.get("skill", "").lower() if context.get("skill") else None
+        loc_id = context.get("location_id")
+        loc_tags = context.get("location_tags", set())
+        act_id = context.get("activity_id")
+        user_ap = context.get("achievement_points", 0)
+        total_lvl = context.get("total_skill_level", 0)
 
         for item in self.all_items:
             rejection_reason = None
@@ -75,6 +85,7 @@ class CandidateSelector:
                 attr_name = item.slot
                 if hasattr(dummy_set, attr_name): setattr(dummy_set, attr_name, item)
 
+            # 1. Standard Check (Isolation)
             stats = dummy_set.get_stats(context)
             for s_enum in relevant_stats:
                 s_key = STAT_ENUM_TO_KEY.get(s_enum, s_enum.value)
@@ -82,6 +93,53 @@ class CandidateSelector:
                 if abs(val) > 0.0001:
                     has_utility = True
                     break
+
+            # 2. Set Bonus Check (If standard check failed)
+            if not has_utility and not rejection_reason:
+                for mod in item.modifiers:
+                    if mod.stat not in relevant_stats: continue
+                    
+                    has_set_cond = False
+                    other_conds_met = True
+                    
+                    for condition in mod.conditions:
+                        c_type = condition.type
+                        if c_type == ConditionType.SET_EQUIPPED:
+                            has_set_cond = True
+                            continue # Assume we can meet this
+                        
+                        # Validate other conditions against context
+                        c_target = condition.target.lower() if condition.target else None
+                        c_val = condition.value
+                        
+                        if c_type == ConditionType.GLOBAL: continue 
+                        elif c_type == ConditionType.SKILL_ACTIVITY:
+                            if not active_skill: other_conds_met = False 
+                            elif c_target:
+                                if c_target == active_skill: pass
+                                elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
+                                elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                                else: other_conds_met = False
+                        elif c_type == ConditionType.LOCATION:
+                            if not loc_id: other_conds_met = False
+                            else:
+                                if not (c_target == loc_id.lower() or c_target in loc_tags): other_conds_met = False
+                        elif c_type == ConditionType.REGION:
+                            if not loc_tags: other_conds_met = False
+                            elif c_target and c_target not in loc_tags: other_conds_met = False
+                        elif c_type == ConditionType.SPECIFIC_ACTIVITY:
+                            if not act_id: other_conds_met = False
+                            elif c_target and c_target != act_id.lower(): other_conds_met = False
+                        elif c_type == ConditionType.ACHIEVEMENT_POINTS:
+                            if user_ap < (c_val or 0): other_conds_met = False
+                        elif c_type == ConditionType.TOTAL_SKILL_LEVEL:
+                            if total_lvl < (c_val or 0): other_conds_met = False
+                        
+                        if not other_conds_met: break
+                    
+                    if has_set_cond and other_conds_met:
+                        has_utility = True
+                        break
 
             if rejection_reason:
                 if provides_requirement or has_utility:

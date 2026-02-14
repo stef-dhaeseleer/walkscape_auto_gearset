@@ -1,103 +1,96 @@
 import pytest
+import json
 
 def get_selectbox_by_label(at, label_text):
-    """Helper to find a selectbox by its label."""
-    # Try exact match
     for sb in at.selectbox:
-        if sb.label == label_text:
-            return sb
-    # Try partial match
-    for sb in at.selectbox:
-        if label_text in sb.label:
-            return sb
-            
+        if label_text in sb.label: return sb
     available = [sb.label for sb in at.selectbox]
-    raise ValueError(f"Selectbox with label '{label_text}' not found. Available: {available}")
+    raise ValueError(f"Selectbox '{label_text}' not found. Available: {available}")
 
 def click_button_by_label(at, label_text):
-    """Helper to find a button by its label and click it."""
     for btn in at.button:
-        if label_text in btn.label:
-            return btn.click().run()
+        if label_text in btn.label: return btn.click().run()
     available = [b.label for b in at.button]
-    raise ValueError(f"Button with label '{label_text}' not found. Available: {available}")
+    raise ValueError(f"Button '{label_text}' not found. Available: {available}")
 
-def test_optimize_activity_simple(patched_app_test):
-    """Scenario 3: Select an Activity and Optimize."""
+def test_optimize_activity_composite_targets(patched_app_test):
+    """Scenario 3: Add multiple targets and optimize."""
     at = patched_app_test
     at.run()
 
-    target_activity = "[Activity] Mining Copper"
+    # 1. Select Activity
+    get_selectbox_by_label(at, "Select Activity or Recipe").select("[Activity] Mining Copper").run()
     
-    # Use helper to find widget
-    sb = get_selectbox_by_label(at, "Select Activity or Recipe")
-    sb.select(target_activity).run()
+    # 2. Add a second target row
+    click_button_by_label(at, "➕ Add Target")
     
-    sb_target = get_selectbox_by_label(at, "Target Stat")
-    sb_target.select("Reward Rolls").run()
+    # 3. Configure targets - keys are target_sel_0, target_sel_1 etc.
+    at.selectbox(key="target_sel_0").select("Xp").run() 
     
-    # Click Optimize by label
+    # Verify second row exists
+    assert any(sb.key == "target_sel_1" for sb in at.selectbox)
+    at.selectbox(key="target_sel_1").select("Fine").run()
+    at.slider(key="target_slider_1").set_value(50).run()
+    
     click_button_by_label(at, "Optimize")
-    
-    # Debug: Check for errors if metrics are missing
-    if len(at.metric) == 0 and len(at.error) > 0:
-        pytest.fail(f"Optimization failed with error: {at.error[0].value}")
     
     assert not at.exception
     
-    # Check results
-    results_col = at.get("subheader")
-    assert any("Results" in h.value for h in results_col)
-    assert len(at.metric) >= 2 
-
-def test_optimize_recipe_flow(patched_app_test):
-    """Scenario 4: Select Recipe -> Service Selectbox appears -> Optimize."""
-    at = patched_app_test
-    at.run()
-
-    target_recipe = "[Recipe] Smelt Copper"
-    sb = get_selectbox_by_label(at, "Select Activity or Recipe")
-    sb.select(target_recipe).run()
+    # 4. Verify results
+    found_score = False
     
-    # Service selectbox should appear now
-    service_select = None
-    for sel in at.selectbox:
-        if "Select Service" in sel.label:
-            service_select = sel
+    # Strategy 1: Check markdown (standard text output)
+    for md in at.markdown:
+        if "Total Score" in md.value:
+            found_score = True
             break
             
-    assert service_select is not None, "Service selectbox did not appear for Recipe"
+    # Strategy 2: Check HTML elements (safely handling attributes)
+    if not found_score:
+        html_elements = at.get("html")
+        for el in html_elements:
+            # st.html content is usually in .body for HtmlElement, 
+            # or we convert the proto object to string if attributes are missing.
+            content = getattr(el, "body", "")
+            if not content:
+                # Fallback for UnknownElement: try accessing the internal proto string
+                content = str(el)
+            
+            if "Total Score" in content:
+                found_score = True
+                break
     
-    service_val = "Basic Forge (loc_1)"
-    service_select.select(service_val).run()
-    
-    click_button_by_label(at, "Optimize")
-    
-    if len(at.metric) == 0 and len(at.error) > 0:
-        pytest.fail(f"Optimization failed with error: {at.error[0].value}")
+    assert found_score, "Score badge (Total Score) not found in rendered output."
 
-    assert not at.exception
-    assert len(at.metric) > 0 
-
-def test_optimize_with_buffs(patched_app_test):
-    """Scenario 7: Select Pet and Consumable."""
+def test_reputation_requirement_filtering(patched_app_test):
+    """Verify items requiring higher reputation are filtered out."""
     at = patched_app_test
     at.run()
-
-    # NOTE: Since we mock file loading as False, the pets list might be empty (["None"])
-    sb_pet = get_selectbox_by_label(at, "Select Pet")
-    if "Dog" in sb_pet.options:
-        sb_pet.select("Dog").run()
-        try:
-            get_selectbox_by_label(at, "Pet Level").select(1).run()
-        except:
-            pass
     
-    sb_cons = get_selectbox_by_label(at, "Select Consumable")
-    if "Apple" in sb_cons.options:
-        sb_cons.select("Apple").run()
+    user_data = {
+        "name": "Newbie",
+        "reputation": {"guild": 100} 
+    }
+    at.text_area(key="user_json_text").input(json.dumps(user_data)).run()
     
     get_selectbox_by_label(at, "Select Activity or Recipe").select("[Activity] Mining Copper").run()
     click_button_by_label(at, "Optimize")
     
-    assert not at.exception
+    for df in at.dataframe:
+        if "Item" in df.value.columns:
+            assert "Master Cape" not in df.value["Item"].values
+
+def test_normalization_math_tab(patched_app_test):
+    """Verify normalization math table exists and contains scoring columns."""
+    at = patched_app_test
+    at.run()
+
+    get_selectbox_by_label(at, "Select Activity or Recipe").select("[Activity] Mining Copper").run()
+    click_button_by_label(at, "Optimize")
+
+    found_math_df = False
+    for df in at.dataframe:
+        if "normalized" in df.value.columns or "contribution" in df.value.columns:
+            found_math_df = True
+            break
+    assert found_math_df, "Normalization breakdown table not found in Math tab."

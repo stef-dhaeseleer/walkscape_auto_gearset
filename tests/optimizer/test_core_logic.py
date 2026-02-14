@@ -1,173 +1,120 @@
 import pytest
-from typing import List
-from models import Equipment, Activity, Location, Modifier, Requirement, Condition
+from gear_optimizer import GearOptimizer
+from models import Activity, Equipment, Modifier
 from utils.constants import (
-    EquipmentSlot, EquipmentQuality, StatName, ConditionType, 
-    RequirementType, SkillName, OPTIMAZATION_TARGET
+    OPTIMAZATION_TARGET, StatName, EquipmentSlot, EquipmentQuality
 )
 
-@pytest.fixture
-def basic_context():
-    return {
-        "skill": "mining",
-        "location_id": "loc_test",
-        "location_tags": {"surface"},
-        "activity_id": "mining_copper",
-        "required_keywords": {},
-        "achievement_points": 0,
-        "total_skill_level": 100
-    }
-
-@pytest.fixture
-def mock_locations():
-    return [
-        Location(id="loc_test", wiki_slug="loc_test", name="Test Location", tags=("surface",))
-    ]
-
-@pytest.fixture
-def mock_activity():
+def test_basic_optimization_reward_rolls(mock_items, mock_locations, mock_activity):
     """
-    Standard Mining Activity with max_efficiency set to 2.0.
+    Scenario: Optimize for Reward Rolls (Speed).
+    Expected: 'Helm Miner' (+10 Conditional) is chosen over 'Helm Pro' (+5).
+    The optimizer should correctly evaluate that the 'mining' condition applies.
     """
-    return Activity(
-        id="mining_copper", 
-        wiki_slug="mining_copper", 
-        name="Mining",
-        primary_skill="mining", 
-        locations=("loc_test",), 
-        base_steps=100,
-        max_efficiency=2.0
+    optimizer = GearOptimizer(mock_items, mock_locations)
+    
+    best_set, error = optimizer.optimize(
+        activity=mock_activity,
+        player_level=99,
+        player_skill_level=50,
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls
     )
 
-@pytest.fixture
-def mock_activity_light_req():
+    assert error is None
+    assert best_set.head is not None
+    # Helm Miner provides +10 WE (conditional) vs Helm Pro +5 WE.
+    # Since activity is mining, Helm Miner wins.
+    assert best_set.head.id == "helm_miner"
+
+def test_composite_target_structure(mock_items, mock_locations, mock_activity):
     """
-    Mining Activity that requires a Light Source.
+    Scenario: Use a composite target list (Weighted Multi-Objective).
+    Expected: Optimizer runs successfully and returns a valid set.
     """
-    return Activity(
-        id="cave_mining", 
-        wiki_slug="cave", 
-        name="Cave", 
-        primary_skill="mining",
-        locations=("loc_test",),
-        base_steps=100,
-        max_efficiency=2.0,
-        requirements=[Requirement(type=RequirementType.KEYWORD_COUNT, target="Light Source", value=1)]
+    optimizer = GearOptimizer(mock_items, mock_locations)
+    
+    targets = [
+        (OPTIMAZATION_TARGET.reward_rolls, 1.0), 
+        (OPTIMAZATION_TARGET.chests, 0.5)
+    ]
+
+    best_set, error = optimizer.optimize(
+        activity=mock_activity,
+        player_level=99,
+        player_skill_level=50,
+        optimazation_target=targets
     )
 
-@pytest.fixture
-def mock_items() -> List[Equipment]:
-    return [
-        # --- HEAD ---
-        Equipment(
-            id="helm_basic", wiki_slug="helm_basic", name="Basic Helm", 
-            slot=EquipmentSlot.HEAD, quality=EquipmentQuality.NORMAL, value=10,
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="helm_pro", wiki_slug="helm_pro", name="Pro Helm", 
-            slot=EquipmentSlot.HEAD, quality=EquipmentQuality.EXCELLENT, value=100,
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=5)]
-        ),
-        Equipment(
-            id="helm_miner", wiki_slug="helm_miner", name="Miner Helm", 
-            slot=EquipmentSlot.HEAD, quality=EquipmentQuality.GOOD, value=50,
-            modifiers=[
-                Modifier(stat=StatName.WORK_EFFICIENCY, value=10, 
-                         conditions=[Condition(type=ConditionType.SKILL_ACTIVITY, target="mining")])
-            ]
-        ),
+    assert error is None
+    assert best_set.head.id == "helm_miner"
 
-        # --- CHEST ---
-        Equipment(
-            id="chest_weak", wiki_slug="chest_weak", name="Weak Chest", 
-            slot=EquipmentSlot.CHEST, quality=EquipmentQuality.NORMAL, value=10,
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="chest_strong_req", wiki_slug="chest_strong_req", name="Strong Chest (High Lvl)", 
-            slot=EquipmentSlot.CHEST, quality=EquipmentQuality.NORMAL, value=100,
-            requirements=[Requirement(type=RequirementType.SKILL_LEVEL, target="mining", value=80)],
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=20)]
-        ),
+def test_stat_calculations_integration(mock_items, mock_locations, mock_activity):
+    """
+    Scenario: Verify that the optimizer correctly aggregates stats in the result.
+    Note: Percentage stats like Work Efficiency are divided by 100 in the output dictionary.
+    """
+    optimizer = GearOptimizer(mock_items, mock_locations)
+    
+    # We force a specific item by locking it to ensure we know the expected stats
+    helm_basic = next(i for i in mock_items if i.id == "helm_basic") # +2 WE
+    locks = {"head": helm_basic}
 
-        # --- RINGS ---
-        Equipment(
-            id="ring_gold", wiki_slug="ring_gold", name="Gold Ring", 
-            slot=EquipmentSlot.RING, quality=EquipmentQuality.NORMAL, value=50,
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=3)] # Buffed 2 -> 3
-        ),
-        Equipment(
-            id="ring_silver", wiki_slug="ring_silver", name="Silver Ring", 
-            slot=EquipmentSlot.RING, quality=EquipmentQuality.NORMAL, value=20,
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)] # Buffed 1 -> 2
-        ),
-        Equipment(
-            id="ring_trash", wiki_slug="ring_trash", name="Trash Ring", 
-            slot=EquipmentSlot.RING, quality=EquipmentQuality.NORMAL, value=1,
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=0.5)]
-        ),
+    best_set, _ = optimizer.optimize(
+        activity=mock_activity,
+        player_level=99,
+        player_skill_level=50,
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls,
+        locked_items=locks
+    )
 
-        # --- TOOLS ---
-        Equipment(
-            id="pickaxe_iron", wiki_slug="pickaxe_iron", name="Iron Pickaxe", 
-            slot=EquipmentSlot.TOOLS, quality=EquipmentQuality.NORMAL, value=20,
-            keywords=("Pickaxe",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="hammer_iron", wiki_slug="hammer_iron", name="Iron Hammer", 
-            slot=EquipmentSlot.TOOLS, quality=EquipmentQuality.NORMAL, value=20,
-            keywords=("Hammer",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="tool_generic_a", wiki_slug="tool_generic_a", name="Generic Tool A", 
-            slot=EquipmentSlot.TOOLS, quality=EquipmentQuality.NORMAL, value=10,
-            keywords=("GenericA",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="tool_generic_b", wiki_slug="tool_generic_b", name="Generic Tool B", 
-            slot=EquipmentSlot.TOOLS, quality=EquipmentQuality.NORMAL, value=10,
-            keywords=("GenericB",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="pickaxe_bronze", wiki_slug="pickaxe_bronze", name="Bronze Pickaxe", 
-            slot=EquipmentSlot.TOOLS, quality=EquipmentQuality.NORMAL, value=10,
-            keywords=("Pickaxe",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=1)]
-        ),
+    stats = best_set.get_stats()
+    # Helm Basic gives +2 Work Efficiency. 
+    # In get_stats(), percentage stats are normalized (val / 100).
+    # So we expect >= 0.02, not 2.0.
+    assert stats.get("work_efficiency") >= 0.02
 
-        # --- SET ITEMS ---
-        Equipment(
-            id="set_boots", wiki_slug="set_boots", name="Miner Boots", 
-            slot=EquipmentSlot.FEET, quality=EquipmentQuality.NORMAL, value=50,
-            keywords=("Miner Set",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-        Equipment(
-            id="set_gloves", wiki_slug="set_gloves", name="Miner Gloves", 
-            slot=EquipmentSlot.HANDS, quality=EquipmentQuality.NORMAL, value=50,
-            keywords=("Miner Set",),
-            modifiers=[
-                Modifier(stat=StatName.WORK_EFFICIENCY, value=10, 
-                         conditions=[Condition(type=ConditionType.SET_EQUIPPED, target="Miner Set", value=2)])
-            ]
-        ),
-        
-        # --- KEYWORD ITEMS ---
-        Equipment(
-            id="lantern_offhand", wiki_slug="lantern", name="Lantern", 
-            slot=EquipmentSlot.SECONDARY, quality=EquipmentQuality.NORMAL, value=50,
-            keywords=("Light Source",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=2)]
-        ),
-         Equipment(
-            id="torch_mainhand", wiki_slug="torch", name="Torch", 
-            slot=EquipmentSlot.PRIMARY, quality=EquipmentQuality.NORMAL, value=10,
-            keywords=("Light Source",),
-            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=1)]
-        )
+def test_normalization_logic_sanity(mock_locations, mock_activity):
+    """
+    Scenario: Create two items.
+    Item A: Huge Efficiency (Good for Reward Rolls)
+    Item B: Huge Chest Finding (Good for Chests)
+    
+    Target: 100% Chests, 1% Reward Rolls.
+    Expected: Item B should be picked despite Item A having 'higher' raw numbers 
+    if the normalization handles the scale difference correctly.
+    """
+    item_speed = Equipment(
+        id="speed_king", wiki_slug="speed", name="Speed King",
+        slot=EquipmentSlot.HEAD, quality=EquipmentQuality.NORMAL, value=10,
+        modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=50)]
+    )
+    item_chest = Equipment(
+        id="chest_king", wiki_slug="chest", name="Chest King",
+        slot=EquipmentSlot.HEAD, quality=EquipmentQuality.NORMAL, value=10,
+        modifiers=[Modifier(stat=StatName.CHEST_FINDING, value=50)] 
+    )
+    
+    optimizer = GearOptimizer([item_speed, item_chest], mock_locations)
+
+    # 1. Test Single Target: Chests
+    set_chest, _ = optimizer.optimize(
+        mock_activity, 99, 99, OPTIMAZATION_TARGET.chests
+    )
+    assert set_chest.head.id == "chest_king"
+
+    # 2. Test Single Target: Reward Rolls
+    set_speed, _ = optimizer.optimize(
+        mock_activity, 99, 99, OPTIMAZATION_TARGET.reward_rolls
+    )
+    assert set_speed.head.id == "speed_king"
+
+    # 3. Test Composite: Heavy weight on Chests
+    targets = [
+        (OPTIMAZATION_TARGET.chests, 10.0),
+        (OPTIMAZATION_TARGET.reward_rolls, 1.0)
     ]
+    
+    set_composite, _ = optimizer.optimize(
+        mock_activity, 99, 99, targets
+    )
+    assert set_composite.head.id == "chest_king"

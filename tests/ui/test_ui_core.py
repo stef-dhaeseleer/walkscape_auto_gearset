@@ -13,15 +13,13 @@ def test_user_json_input_valid(patched_app_test):
     at = patched_app_test
     at.run()
     
-    # Create valid dummy JSON
     valid_data = {
         "name": "TestPlayer",
         "steps": 10000,
         "skills": {"mining": 5000},
-        "inventory": {"bronze_sword": 1}
+        "inventory": {"pickaxe": 1}
     }
     
-    # Find text area by key
     at.text_area(key="user_json_text").input(json.dumps(valid_data)).run()
     
     assert not at.exception

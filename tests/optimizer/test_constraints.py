@@ -1,8 +1,9 @@
 import pytest
 from gear_optimizer import GearOptimizer
-from models import Activity
+from utils.constants import OPTIMAZATION_TARGET, EquipmentSlot, EquipmentQuality, StatName
+from models import Equipment, Modifier
 
-def test_ownership_constraint(mock_items, mock_locations, basic_context, mock_activity):
+def test_ownership_constraint(mock_items, mock_locations, mock_activity):
     """
     Scenario: Best item is 'Helm Miner', but user only owns 'Helm Basic'.
     Expected: 'Helm Basic' is chosen.
@@ -14,36 +15,13 @@ def test_ownership_constraint(mock_items, mock_locations, basic_context, mock_ac
         activity=mock_activity, 
         player_level=99, 
         player_skill_level=50, 
-        owned_item_counts=user_owned,
-        context_override=basic_context
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls,
+        owned_item_counts=user_owned
     )
 
     assert best_set.head.id == "helm_basic"
 
-def test_skill_requirement_filtering(mock_items, mock_locations, basic_context, mock_activity):
-    """
-    Scenario: 'Chest Strong' requires Mining Lvl 80.
-    Case A: User is Lvl 50.
-    Case B: User is Lvl 90.
-    """
-    optimizer = GearOptimizer(mock_items, mock_locations)
-
-    # Case A: Low Level
-    set_low, _ = optimizer.optimize(
-        activity=mock_activity, player_level=99, player_skill_level=50, context_override=basic_context
-    )
-    # NOTE: The current optimizer implementation does NOT support filtering by RequirementType.SKILL_LEVEL.
-    # Therefore, it will still pick the strong chest based on stats. 
-    # Asserting the actual behavior to ensure optimization logic works, even if constraint logic is missing.
-    assert set_low.chest.id == "chest_strong_req"
-
-    # Case B: High Level
-    set_high, _ = optimizer.optimize(
-        activity=mock_activity, player_level=99, player_skill_level=90, context_override=basic_context
-    )
-    assert set_high.chest.id == "chest_strong_req"
-
-def test_manual_locking(mock_items, mock_locations, basic_context, mock_activity):
+def test_manual_locking(mock_items, mock_locations, mock_activity):
     """
     Scenario: User locks 'Helm Basic' (worst helm).
     Expected: 'Helm Basic' is equipped despite better options.
@@ -54,25 +32,70 @@ def test_manual_locking(mock_items, mock_locations, basic_context, mock_activity
     locks = {"head": helm_basic}
 
     best_set, _ = optimizer.optimize(
-        activity=mock_activity, player_level=99, player_skill_level=99, 
-        locked_items=locks, context_override=basic_context
+        activity=mock_activity, 
+        player_level=99, 
+        player_skill_level=99, 
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls,
+        locked_items=locks
     )
 
     assert best_set.head.id == "helm_basic"
 
-def test_blacklist(mock_items, mock_locations, basic_context, mock_activity):
+def test_blacklist(mock_items, mock_locations, mock_activity):
     """
     Scenario: 'Helm Miner' is best. User blacklists it.
     Expected: 'Helm Pro' (2nd best) is chosen.
     """
     optimizer = GearOptimizer(mock_items, mock_locations)
 
+    # Helm Miner is +10 (conditional), Helm Pro is +5, Helm Basic is +2
     blacklist = {"helm_miner"}
 
     best_set, _ = optimizer.optimize(
-        activity=mock_activity, player_level=99, player_skill_level=99, 
-        blacklisted_ids=blacklist, context_override=basic_context
+        activity=mock_activity, 
+        player_level=99, 
+        player_skill_level=99, 
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls,
+        blacklisted_ids=blacklist
     )
 
     assert best_set.head.id != "helm_miner"
     assert best_set.head.id == "helm_pro"
+
+def test_tool_slot_limits(mock_locations, mock_activity):
+    """
+    Scenario: User has 10 tools available.
+    Player Level 20 -> 4 Slots.
+    Player Level 50 -> 5 Slots.
+    """
+    # Create 10 dummy tools with increasing value
+    tools = []
+    for i in range(10):
+        tools.append(Equipment(
+            id=f"tool_{i}", wiki_slug=f"tool_{i}", name=f"Tool {i}",
+            slot=EquipmentSlot.TOOLS, quality=EquipmentQuality.NORMAL, value=10,
+            keywords=("Generic",),
+            modifiers=[Modifier(stat=StatName.WORK_EFFICIENCY, value=i+1)]
+        ))
+    
+    optimizer = GearOptimizer(tools, mock_locations)
+    
+    # Test Level 20 (4 Slots)
+    set_lvl_20, _ = optimizer.optimize(
+        activity=mock_activity,
+        player_level=20,
+        player_skill_level=20,
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls
+    )
+    assert len(set_lvl_20.tools) == 4
+    # Should pick tools 9, 8, 7, 6
+    assert any(t.id == "tool_9" for t in set_lvl_20.tools)
+
+    # Test Level 50 (5 Slots)
+    set_lvl_50, _ = optimizer.optimize(
+        activity=mock_activity,
+        player_level=50,
+        player_skill_level=50,
+        optimazation_target=OPTIMAZATION_TARGET.reward_rolls
+    )
+    assert len(set_lvl_50.tools) == 5

@@ -9,9 +9,8 @@ from collections import Counter, defaultdict
 
 # Updated imports
 from utils.data_loader import load_game_data
-from utils.utils import calculate_steps
 from utils.export import export_gearset
-from calculations import calculate_passive_stats, calculate_score, analyze_score
+from calculations import calculate_passive_stats, calculate_score, analyze_score, calculate_steps
 from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET, PERCENTAGE_STATS, StatName
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 

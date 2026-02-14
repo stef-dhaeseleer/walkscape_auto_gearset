@@ -70,6 +70,32 @@ st.markdown("""
             margin-top: 0.5rem;
             margin-bottom: 0.2rem;
         }
+        /* Style for the target rows to align vertically */
+        .stSelectbox, .stSlider {
+            margin-bottom: 0px !important;
+        }
+        
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        .score-badge-label {
+            color: #94a3b8;
+            margin-right: 6px;
+            font-weight: 500;
+        }
+        .score-badge-val {
+            font-weight: 700;
+            color: #60a5fa;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -319,6 +345,11 @@ def main():
         st.session_state['user_json_text'] = ""
     if 'ls_loaded' not in st.session_state:
         st.session_state['ls_loaded'] = False
+
+    # Initialize dynamic target list if not present
+    if 'opt_targets_list' not in st.session_state:
+        st.session_state['opt_targets_list'] = [{"id": 0, "target": "Reward Rolls", "weight": 100}]
+        st.session_state['next_target_id'] = 1
 
     # --- LOCAL STORAGE: LOAD ---
     stored_json = streamlit_js_eval(js_expressions="localStorage.getItem('WALKSCAPE_USER_DATA')", key="ls_loader")
@@ -636,7 +667,7 @@ def main():
                     st.markdown(html, unsafe_allow_html=True)
 
 
-        c1, c2, c3 = st.columns([2, 1, 1])
+        c1, c2, c3 = st.columns([2, 2, 1])
         act_map = {f"[Activity] {a.name}": a for a in activities}
         rec_map = {f"[Recipe] {r.name}": r for r in recipes}
         combined_map = {**act_map, **rec_map}
@@ -655,11 +686,8 @@ def main():
                     is_recipe = True
                     compatible_services = get_compatible_services(selected_obj, services)
                     if compatible_services:
-                        # Fix: Use string names directly for Selectbox to avoid AppTest issues
                         s_names = [f"{s.name} ({s.location})" for s in compatible_services]
                         selected_s_name = st.selectbox("Select Service", s_names)
-                        
-                        # Resolve service object from name
                         selected_service = next((s for s in compatible_services if f"{s.name} ({s.location})" == selected_s_name), None)
                         
                         if selected_service and (selected_service.modifiers or selected_service.requirements):
@@ -677,14 +705,73 @@ def main():
                         st.error("No compatible services found for this recipe!")
         
         with c2:
-            target_options = {t.name.replace('_', ' ').title(): t for t in OPTIMAZATION_TARGET}
-            selected_target_key = st.selectbox("Target Stat", options=list(target_options.keys()))
-            selected_target = target_options[selected_target_key]
+            st.write("🎯 **Optimization Targets**")
+            
+            # --- DYNAMIC TARGETS UI ---
+            targets_to_remove = []
+            
+            # Header Row
+            h_col1, h_col2, h_col3 = st.columns([3, 4, 1])
+            with h_col1: st.caption("Target")
+            with h_col2: st.caption("Weight (%)")
+
+            # Iterate through session state targets
+            for index, item in enumerate(st.session_state['opt_targets_list']):
+                row_cols = st.columns([3, 4, 1])
+                
+                with row_cols[0]:
+                    # Target Selector
+                    options = [t.name.replace('_', ' ').title() for t in OPTIMAZATION_TARGET]
+                    current_val = item['target']
+                    try: sel_idx = options.index(current_val)
+                    except ValueError: sel_idx = 0
+                        
+                    new_target = st.selectbox(
+                        "Target", options, index=sel_idx, 
+                        key=f"target_sel_{item['id']}", label_visibility="collapsed"
+                    )
+                    item['target'] = new_target
+
+                with row_cols[1]:
+                    # Weight Slider
+                    new_weight = st.slider(
+                        "Weight", min_value=1, max_value=100, 
+                        value=int(item['weight']), format="%d%%",
+                        key=f"target_slider_{item['id']}", label_visibility="collapsed"
+                    )
+                    item['weight'] = new_weight
+
+                with row_cols[2]:
+                    # Remove Button
+                    if st.button("❌", key=f"target_rem_{item['id']}", help="Remove target"):
+                        targets_to_remove.append(index)
+
+            # Process Removal
+            if targets_to_remove:
+                for i in sorted(targets_to_remove, reverse=True):
+                    del st.session_state['opt_targets_list'][i]
+                st.rerun()
+
+            # Add Button
+            if st.button("➕ Add Target", key="add_target_btn", help="Add a new optimization target row"):
+                new_id = st.session_state.get('next_target_id', 1)
+                st.session_state['opt_targets_list'].append({"id": new_id, "target": "Reward Rolls", "weight": 100})
+                st.session_state['next_target_id'] = new_id + 1
+                st.rerun()
+
+           
+            # Prepare list for optimizer
+            weighted_targets = []
+            for item in st.session_state['opt_targets_list']:
+                t_enum = next((t for t in OPTIMAZATION_TARGET if t.name.replace('_', ' ').title() == item["target"]), None)
+                if t_enum and item['weight'] > 0:
+                    weighted_targets.append((t_enum, float(item["weight"])))
         
         with c3:
             st.write("")
             st.write("")
-            can_run = (selected_obj is not None)
+            st.write("")
+            can_run = (selected_obj is not None) and (len(weighted_targets) > 0)
             if is_recipe and not selected_service: can_run = False
             run_opt = st.button("🚀 Optimize", type="primary", width="stretch", disabled=not can_run)
 
@@ -750,7 +837,7 @@ def main():
                     final_activity, 
                     player_level=player_lvl, 
                     player_skill_level=final_skill_lvl,
-                    optimazation_target=selected_target,
+                    optimazation_target=weighted_targets, # Pass list
                     owned_item_counts=item_counts if use_owned else None,
                     achievement_points=user_ap,
                     user_reputation=user_reputation,
@@ -776,6 +863,9 @@ def main():
                     st.session_state['context'] = context
                     st.session_state['selected_pet'] = selected_pet
                     st.session_state['selected_cons'] = selected_cons
+                    st.session_state['selected_target_list'] = weighted_targets
+                    # Store normalization context for math display
+                    st.session_state['normalization_context'] = optimizer.last_normalization_context
 
         if 'best_gear' in st.session_state:
             best_gear = st.session_state['best_gear']
@@ -786,6 +876,8 @@ def main():
             saved_service_stats = st.session_state.get('service_stats', {})
             saved_pet = st.session_state.get('selected_pet')
             saved_cons = st.session_state.get('selected_cons')
+            weighted_targets_saved = st.session_state.get('selected_target_list', [])
+            norm_context_saved = st.session_state.get('normalization_context', {})
 
             optimizer = GearOptimizer(available_items, all_locations=locations) 
 
@@ -794,36 +886,61 @@ def main():
                 for k,v in saved_service_stats.items():
                     passive_stats[k] = passive_stats.get(k, 0.0) + v
 
-                score = calculate_score(best_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
+                # Use first target for debug/display if list, or list itself
+                display_target = weighted_targets_saved if weighted_targets_saved else OPTIMAZATION_TARGET.reward_rolls
                 
-                stats = best_gear.get_stats(context)
-                for k, v in passive_stats.items():
-                    stats[k] = stats.get(k, 0.0) + v
-
-                final_steps = calculate_steps(
-                    saved_activity, saved_skill_lvl, 
-                    stats.get("work_efficiency", 0), 
-                    stats.get("flat_step_reduction", 0), 
-                    stats.get("percent_step_reduction", 0)
-                )
-
-                c1, c2 = st.columns(2)
-                c1.metric("Steps", final_steps, delta=f"{saved_activity.base_steps}", delta_color="inverse")
-                c1.caption(f"Score: {score:.5f}")
+                # Get full analysis (now includes breakdown)
+                analysis_result = analyze_score(best_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
                 
-                val_fmt = ""
-                if selected_target.name == "fine":
-                    val = stats.get('fine_material_finding', 0) * 100
-                    val_fmt = f"{val:.1f}% Fine"
-                elif selected_target.name == "xp":
-                    val = stats.get('xp_percent', 0) * 100
-                    val_fmt = f"{val:.1f}% XP"
-                elif selected_target.name == "quality":
-                    val = stats.get('quality_outcome', 0)
-                    val_fmt = f"{val} Quality"
-                c2.metric("Target Stat", val_fmt)
+                score = analysis_result["score"]
+                stats = analysis_result["stats"]
+                final_steps = analysis_result["steps"]
 
-                st.divider()
+                # --- NEW COMPACT SUMMARY ---
+                badges_html = ""
+                # Generate badges for active stats
+                # Common stats to highlight
+                badge_stats = [
+                    ('double_action', 'DA', True), 
+                    ('double_rewards', 'DR', True), 
+                    ('work_efficiency', 'Eff', True), 
+                    ('xp_percent', 'XP', True),
+                    ('fine_material_finding', 'Fine', True),
+                    ('chest_finding', 'Chest', True),
+                    ('find_collectibles', 'Collectible', True)
+                ]
+                
+                for key, label, is_percent in badge_stats:
+                    val = stats.get(key, 0)
+                    if val > 0.001:
+                        fmt_val = f"{val*100:.1f}%" if is_percent else f"{val:.2f}"
+                        badges_html += f"""
+                        <div class="score-badge">
+                            <span class="score-badge-label">{label}</span>
+                            <span class="score-badge-val">+{fmt_val}</span>
+                        </div>
+                        """
+
+                st.html(f"""
+                <div style="background-color: #0e1117; padding: 15px; border-radius: 10px; border: 1px solid #30363d;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 2.2em; font-weight: 700; color: #4ade80;">{score:.4f}</span>
+                            <span style="font-size: 1em; color: #94a3b8; margin-left: 10px;">Total Score</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 1.1em; font-weight: 600;">{final_steps} Steps</div>
+                            <div style="font-size: 0.9em; color: #64748b;">Base: {saved_activity.base_steps}</div>
+                        </div>
+                    </div>
+                    <hr style="margin: 10px 0; border-color: #30363d;">
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                         {badges_html}
+                    </div>
+                </div>
+                """)
+                
+                st.write("") # Spacer
 
                 loadout_data = []
                 if saved_pet:
@@ -984,7 +1101,42 @@ def main():
 
                 st.markdown("---")
                 with st.expander("🧪 Laboratory / Debugger", expanded=False):
-                    tab_exp, tab_cand = st.tabs(["Item Swapper", "🕵️ Candidate Inspector"])
+                    tab_exp, tab_cand, tab_math = st.tabs(["Item Swapper", "🕵️ Candidate Inspector", "🧮 Score Math"])
+                    
+                    # --- MATH TAB ---
+                    with tab_math:
+                        breakdown = analysis_result.get("target_breakdown", [])
+                        if breakdown:
+                            st.markdown("### Normalization & Scoring Breakdown")
+                            st.caption("Each target is normalized between 0.0 (Baseline) and 1.0 (Approx Max) before weighting.")
+                            st.caption("Formula: `Contribution = ((Raw - Baseline) / Range) * Weight`")
+                            
+                            df_math = pd.DataFrame(breakdown)
+                            # Formatting
+                            df_math['weight'] = df_math['weight'].apply(lambda x: f"{int(x)}%")
+                            df_math['raw_value'] = df_math['raw_value'].apply(lambda x: f"{x:.4f}")
+                            df_math['baseline'] = df_math['baseline'].apply(lambda x: f"{x:.4f}")
+                            df_math['max_val'] = df_math['max_val'].apply(lambda x: f"{x:.4f}")
+                            df_math['normalized'] = df_math['normalized'].apply(lambda x: f"{x:.4f}")
+                            df_math['contribution'] = df_math['contribution'].apply(lambda x: f"{x:.4f}")
+                            
+                            st.dataframe(
+                                df_math, 
+                                column_config={
+                                    "target": "Target",
+                                    "weight": "Weight",
+                                    "raw_value": "Raw Value",
+                                    "baseline": "Baseline (0%)",
+                                    "max_val": "Max (100%)",
+                                    "normalized": "Norm. Score",
+                                    "contribution": "Points Added"
+                                },
+                                hide_index=True,
+                                width="stretch"
+                            )
+                        else:
+                            st.info("No composite score breakdown available (Single target or no normalization context).")
+
                     with tab_exp:
                         st.info("Manually swap an item to verify the calculation logic.")
                         d_col1, d_col2 = st.columns([1, 1])
@@ -1040,16 +1192,14 @@ def main():
                                 else:
                                     setattr(test_gear, edit_slot.lower(), swap_item_obj)
 
-                                analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
+                                analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
                                 test_score = analysis.get("score", 0)
                                 test_steps = analysis.get("denominator", 0)
-                                test_formula = analysis.get("formula", "")
-
-                                orig_analysis = analyze_score(best_gear, saved_activity, saved_skill_lvl, selected_target, context, passive_stats=passive_stats)
+                                
+                                orig_analysis = analyze_score(best_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
                                 orig_score = orig_analysis.get("score", 0)
                                 orig_steps = orig_analysis.get("denominator", 0)
-                                orig_formula = orig_analysis.get("formula", "")
-
+                                
                                 st.markdown("##### Comparison")
                                 def show_diff(label, orig, new, is_good_up=True):
                                     diff = new - orig
@@ -1060,10 +1210,6 @@ def main():
 
                                 show_diff("Score", orig_score, test_score, True)
                                 show_diff("Steps", orig_steps, test_steps, False)
-                                
-                                st.markdown("**Formula Breakdown**")
-                                st.text(f"Original: {orig_formula}")
-                                st.text(f"New:      {test_formula}")
                                 
                                 st.markdown("---")
                                 st.caption("Detailed Stat Changes:")
@@ -1094,7 +1240,8 @@ def main():
                                 elif insp_slot == "ring": d_set.rings = [item]
                                 else: setattr(d_set, insp_slot, item)
                                 
-                                s = calculate_score(d_set, saved_activity, saved_skill_lvl, selected_target, context, ignore_requirements=True)
+                                # Use simplified non-normalized score for raw power check
+                                s = calculate_score(d_set, saved_activity, saved_skill_lvl, display_target, context, ignore_requirements=True)
                                 cand_data.append({"Name": item.name, "Score": s, "ID": item.id})
                             
                             df_cand = pd.DataFrame(cand_data).sort_values(by="Score", ascending=False)

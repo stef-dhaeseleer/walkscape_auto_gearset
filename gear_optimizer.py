@@ -1,10 +1,10 @@
 import itertools
-from typing import Dict, List, Set, Optional, Tuple, Any
+from typing import Dict, List, Set, Optional, Tuple, Any, Union
 from collections import Counter as PyCounter, defaultdict
 
 from models import Equipment, Activity, GearSet, EquipmentSlot, Location, RequirementType, ConditionType, Collectible, Pet, Consumable
 from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, StatName
-from calculations import calculate_score, calculate_steps, calculate_passive_stats, calculate_quality_probabilities
+from calculations import calculate_score, calculate_steps, calculate_passive_stats, calculate_quality_probabilities, _calculate_single_target_score
 from candidates import CandidateSelector
 
 class GearOptimizer:
@@ -16,9 +16,10 @@ class GearOptimizer:
         
         self.debug_candidates = {} 
         self.debug_rejected = []   
-
+        self.last_normalization_context = {}
+    
     def optimize(self, activity: Activity, player_level: int, player_skill_level: int, 
-                 optimazation_target: OPTIMAZATION_TARGET = OPTIMAZATION_TARGET.reward_rolls,
+                 optimazation_target: Union[OPTIMAZATION_TARGET, List[Tuple[OPTIMAZATION_TARGET, float]]],
                  owned_item_counts: Optional[Dict[str, int]] = None,
                  achievement_points: int = 0,
                  user_reputation: Optional[Dict[str, float]] = None,
@@ -33,6 +34,7 @@ class GearOptimizer:
         # Reset Debug
         self.debug_candidates = {}
         self.debug_rejected = []
+        self.last_normalization_context = {}
         
         if locked_items is None: locked_items = {}
         if blacklisted_ids is None: blacklisted_ids = set()
@@ -97,6 +99,7 @@ class GearOptimizer:
         # 5. Get Candidates
         required_keywords = context.get("required_keywords", {})
         
+        # NOTE: get_candidates does filtering. It supports weighted target via union of relevant stats.
         candidates = self.candidate_selector.get_candidates(
             activity, required_keywords, optimazation_target, context, player_skill_level, 
             owned_item_counts, user_reputation, 
@@ -104,29 +107,19 @@ class GearOptimizer:
         )
         self.debug_candidates = candidates
         self.debug_rejected = self.candidate_selector.debug_rejected
-
-        # --- PRE-FILL SECONDARY SLOT PATCH ---
-        pre_fill_item = None
-        if "secondary" not in fixed_single_slots:
-            sec_candidates = candidates.get(EquipmentSlot.SECONDARY, [])
-            
-            dummy_sort_set = GearSet()
-            sorted_sec = self.candidate_selector.sort_items_by_utility(
-                sec_candidates, dummy_sort_set, activity, player_skill_level, optimazation_target, context, passive_stats
+        
+        # 6. Normalization Calculation (New Feature)
+        normalization_context = {}
+        if isinstance(optimazation_target, list):
+            normalization_context = self._calculate_normalization_factors(
+                optimazation_target, candidates, activity, player_skill_level, context,
+                tool_slots, owned_item_counts, passive_stats, 
+                fixed_single_slots, fixed_rings, fixed_tools, locked_item_objects,
+                pet, consumable
             )
-            
-            for item in sorted_sec:
-                has_req_kw = any(k.lower().replace("_", " ").strip() in required_keywords for k in item.keywords)
-                
-                dummy_sort_set.secondary = item
-                s = calculate_score(dummy_sort_set, activity, player_skill_level, optimazation_target, context, ignore_requirements=True, passive_stats=passive_stats)
-                dummy_sort_set.secondary = None 
+            self.last_normalization_context = normalization_context
 
-                if has_req_kw or s > 0.000001:
-                    pre_fill_item = item
-                    break 
-
-        # 6. Generate Skeletons
+        # 7. Generate Skeletons
         skeletons = self._generate_skeletons(candidates, required_keywords)
         
         best_overall_set = GearSet()
@@ -140,11 +133,28 @@ class GearOptimizer:
             setattr(base_locked_set, slot, item)
         base_locked_set.rings = list(fixed_rings)
         base_locked_set.tools = list(fixed_tools)
+        
+        # --- Pre-fill Secondary Patch ---
+        # (Simplified to use the new sorting which handles composite scores)
+        if "secondary" not in fixed_single_slots:
+            sec_candidates = candidates.get(EquipmentSlot.SECONDARY, [])
+            dummy_sort_set = GearSet()
+            # Sort using composite score
+            sorted_sec = self.candidate_selector.sort_items_by_utility(
+                sec_candidates, dummy_sort_set, activity, player_skill_level, 
+                optimazation_target, context, passive_stats, normalization_context
+            )
+            for item in sorted_sec:
+                 has_req_kw = any(k.lower().replace("_", " ").strip() in required_keywords for k in item.keywords)
+                 dummy_sort_set.secondary = item
+                 s = calculate_score(dummy_sort_set, activity, player_skill_level, optimazation_target, context, 
+                                     ignore_requirements=True, passive_stats=passive_stats, normalization_context=normalization_context)
+                 dummy_sort_set.secondary = None 
+                 if has_req_kw or s > 0.000001:
+                    base_locked_set.secondary = item
+                    break
 
-        if pre_fill_item:
-            base_locked_set.secondary = pre_fill_item
-
-        # 7. Optimization Loop
+        # 8. Optimization Loop
         for skeleton_set, skel_locked_slots in skeletons:
             
             current_set = base_locked_set.clone()
@@ -178,7 +188,8 @@ class GearOptimizer:
                 context,
                 tool_slots,
                 owned_item_counts,
-                passive_stats
+                passive_stats,
+                normalization_context
             )
             
             # B. Requirement Swapping
@@ -193,10 +204,11 @@ class GearOptimizer:
                 context,
                 tool_slots,
                 owned_item_counts,
-                passive_stats
+                passive_stats,
+                normalization_context
             )
             
-            score = calculate_score(final_set, activity, player_skill_level, optimazation_target, context, passive_stats=passive_stats)
+            score = calculate_score(final_set, activity, player_skill_level, optimazation_target, context, passive_stats=passive_stats, normalization_context=normalization_context)
             
             if score > best_overall_score:
                 best_overall_score = score
@@ -205,16 +217,144 @@ class GearOptimizer:
         if best_overall_score < -1000:
              return None, "Requirements could not be met with the current locked items."
 
-        return best_overall_set, None
+        return best_overall_set, None 
 
     # =========================================================================
-    # OPTIMIZATION SUB-ROUTINES
+    # NORMALIZATION & DUMB MAX
+    # =========================================================================
+
+    def _calculate_normalization_factors(self, weighted_targets, candidates, activity, lvl, context, 
+                                         tool_slots, owned_counts, passive_stats, 
+                                         fixed_single_slots, fixed_rings, fixed_tools, locked_item_objects,
+                                         pet, consumable):
+        
+        normalization = {}
+        
+        # 1. Calculate Baseline (Empty Gear + Locked Items Only)
+        # Why locked items? Because the user effectively "starts" with them. 
+        # Actually user spec: "without any equipment (still taking into account consumables, pets, collectibles)"
+        # But we must respect locks for the *Max* calculation. For Baseline, if we lock a strong item, the range is smaller.
+        # Let's follow strict instruction: "0% = 1.1 (Empty Set)"
+        baseline_set = GearSet()
+        baseline_set.pet = pet
+        baseline_set.consumable = consumable
+        # Note: We do NOT include fixed_tools/rings/slots in baseline to establish the absolute 0% of the activity itself.
+        # Wait, if constraints (like underwater) require gear to function at all, empty set might score very low/zero.
+        # This is correct. The improvement from "Cannot do it" to "Can do it" is massive.
+        
+        for t, _ in weighted_targets:
+            # We ignore requirements for baseline scoring to get the raw stat output (e.g. XP per step)
+            # regardless of whether the activity is "completable" or not. 
+            # Otherwise baseline is -10000 due to missing reqs.
+            baseline_score = calculate_score(baseline_set, activity, lvl, t, context, 
+                                             ignore_requirements=True, passive_stats=passive_stats)
+            
+            # 2. Calculate Dumb Max (Greedy Valid Set)
+            max_set = self._get_dumb_max_set(
+                t, candidates, activity, lvl, context, tool_slots, owned_counts, passive_stats,
+                fixed_single_slots, fixed_rings, fixed_tools, locked_item_objects, pet, consumable
+            )
+            max_score = calculate_score(max_set, activity, lvl, t, context, 
+                                        ignore_requirements=True, passive_stats=passive_stats) # Ignore reqs for score value, but set is valid
+            
+            range_val = max_score - baseline_score
+            if range_val < 0.0001: range_val = 1.0 # Avoid division by zero
+            
+            normalization[t] = (baseline_score, range_val)
+            
+        return normalization
+
+    def _get_dumb_max_set(self, target, candidates, activity, lvl, context, tool_slots, owned_counts, passive_stats,
+                          fixed_single, fixed_rings, fixed_tools, locked_objs, pet, consumable):
+        """Generates a local maximum gearset for a SINGLE target using greedy logic."""
+        
+        dummy_set = GearSet()
+        dummy_set.pet = pet
+        dummy_set.consumable = consumable
+        for slot, item in fixed_single.items(): setattr(dummy_set, slot, item)
+        dummy_set.rings = list(fixed_rings)
+        dummy_set.tools = list(fixed_tools)
+
+        required_keywords = context.get("required_keywords", {})
+        
+        def can_equip(item, current_gear):
+            if item in locked_objs: return True
+            if not owned_counts: return True
+            needed = 1
+            if item in current_gear.get_all_items(): needed += 1
+            return self.candidate_selector._get_available_count(item, owned_counts) >= needed
+
+        # 1. Fill Requirements Greedily
+        # Sort ALL candidates by target utility
+        all_candidates = []
+        for items in candidates.values(): all_candidates.extend(items)
+        
+        # Sort once by the single target utility
+        all_candidates = self.candidate_selector.sort_items_by_utility(
+            all_candidates, dummy_set, activity, lvl, target, context, passive_stats
+        )
+        
+        # Fill missing requirements
+        current_counts = dummy_set.get_keyword_counts()
+        for req_kw, req_count in required_keywords.items():
+            needed = req_count - current_counts.get(req_kw, 0)
+            if needed <= 0: continue
+            
+            for item in all_candidates:
+                if needed <= 0: break
+                if item in dummy_set.get_all_items(): continue
+                
+                # Check if item provides keyword
+                if any(k.lower().replace("_", " ").strip() == req_kw for k in item.keywords):
+                    if dummy_set.equip(item, tool_slots):
+                        needed -= 1
+        
+        # 2. Fill Empty Slots Greedily
+        empty_slots = dummy_set.get_empty_slots(tool_slots)
+        # Note: get_empty_slots returns ["head", "tools", "tools"...]
+        
+        # We need to be careful with sorting again because equipping items changes the set stats (e.g. set bonuses)
+        # But for "Dumb Max", a static sort or simple update is enough.
+        
+        for slot_type in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary", "ring", "tools"]:
+            # Check if this slot type is in empty_slots
+            count_needed = empty_slots.count(slot_type)
+            if count_needed == 0: continue
+            
+            slot_enum = None
+            if slot_type == "ring": slot_enum = EquipmentSlot.RING
+            elif slot_type == "tools": slot_enum = EquipmentSlot.TOOLS
+            else: 
+                # Map string back to enum
+                for e in EquipmentSlot: 
+                    if e.value == slot_type: slot_enum = e; break
+            
+            if not slot_enum: continue
+            
+            slot_cands = candidates.get(slot_enum, [])
+            # Sort specifically for this slot state
+            sorted_cands = self.candidate_selector.sort_items_by_utility(
+                slot_cands, dummy_set, activity, lvl, target, context, passive_stats
+            )
+            
+            equipped_count = 0
+            for item in sorted_cands:
+                if equipped_count >= count_needed: break
+                if item in dummy_set.get_all_items(): continue
+                if can_equip(item, dummy_set):
+                    if dummy_set.equip(item, tool_slots):
+                        equipped_count += 1
+
+        return dummy_set
+
+    # =========================================================================
+    # OPTIMIZATION SUB-ROUTINES (Updated for Normalization)
     # =========================================================================
 
     def _optimize_requirements(self, current_set: GearSet, locked_item_objects: Set[Equipment],
                                candidates: Dict[str, List[Equipment]], 
                                required_keywords: Dict[str, int], activity, lvl, target, context, 
-                               tool_slots, owned_counts, passive_stats) -> GearSet:
+                               tool_slots, owned_counts, passive_stats, normalization_context) -> GearSet:
         
         # Flatten candidates
         provider_pool = []
@@ -232,7 +372,7 @@ class GearOptimizer:
 
         # Initial Sort
         provider_pool = self.candidate_selector.sort_items_by_utility(
-            provider_pool, current_set, activity, lvl, target, context, passive_stats
+            provider_pool, current_set, activity, lvl, target, context, passive_stats, normalization_context
         )
         
         # --- PHASE 1: FILL MISSING REQS ---
@@ -283,7 +423,7 @@ class GearOptimizer:
                 test_set = current_set.clone()
                 test_set.unequip(v)
                 if test_set.equip(best_filler, tool_slots):
-                    s = calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats, ignore_requirements=True) 
+                    s = calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats, ignore_requirements=True, normalization_context=normalization_context) 
                     if s > best_swap_score:
                         best_swap_score = s
                         best_swap_set = test_set
@@ -296,10 +436,10 @@ class GearOptimizer:
 
         # --- PHASE 2: OPTIMIZE/SWAP EXISTING REQUIREMENTS ---
         best_local_set = current_set
-        best_local_score = calculate_score(current_set, activity, lvl, target, context, passive_stats=passive_stats)
+        best_local_score = calculate_score(current_set, activity, lvl, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
 
         provider_pool = self.candidate_selector.sort_items_by_utility(
-            provider_pool, best_local_set, activity, lvl, target, context, passive_stats
+            provider_pool, best_local_set, activity, lvl, target, context, passive_stats, normalization_context
         )
         provider_pool = provider_pool[:60]
 
@@ -338,7 +478,7 @@ class GearOptimizer:
                     
                     if not test_set.equip(candidate, tool_slots): continue 
 
-                    new_score = calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats)
+                    new_score = calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
                     if new_score > best_local_score + 0.0001: 
                         best_local_score = new_score
                         best_local_set = test_set
@@ -380,7 +520,7 @@ class GearOptimizer:
                 if not slot_candidates: continue
 
                 best_candidates = self.candidate_selector.sort_items_by_utility(
-                    slot_candidates, best_local_set, activity, lvl, target, context, passive_stats
+                    slot_candidates, best_local_set, activity, lvl, target, context, passive_stats, normalization_context
                 )
                 best_candidates = best_candidates[:20]
 
@@ -405,7 +545,7 @@ class GearOptimizer:
                         if curr_item: test_set.unequip(curr_item)
                         
                         if test_set.equip(cand, tool_slots):
-                            new_score = calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats)
+                            new_score = calculate_score(test_set, activity, lvl, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
                             
                             if new_score > best_local_score + 0.00001:
                                 best_local_score = new_score
@@ -419,10 +559,10 @@ class GearOptimizer:
         return best_local_set
 
     def _optimize_set(self, current_set, locked_slots, fixed_rings, fixed_tools, 
-                      candidates, activity, player_skill_level, target, context, tool_slots, owned_counts, passive_stats):
+                      candidates, activity, player_skill_level, target, context, tool_slots, owned_counts, passive_stats, normalization_context):
         
         for _ in range(2): 
-            base_score = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
+            base_score = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
             
             # A. Main Slots
             main_slots = [
@@ -444,7 +584,7 @@ class GearOptimizer:
                     cands = candidates.get(slot_enum, [])
                     
                     setattr(current_set, attr, None)
-                    score_none = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
+                    score_none = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
                     if score_none > max_s:
                         max_s = score_none
                         best_item = None
@@ -452,7 +592,7 @@ class GearOptimizer:
 
                     for item in cands:
                         setattr(current_set, attr, item)
-                        score = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
+                        score = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
                         if score > max_s:
                             max_s = score
                             best_item = item
@@ -470,7 +610,7 @@ class GearOptimizer:
                 if ring_cands:
                     top_rings = self.candidate_selector.sort_items_by_utility(
                         ring_cands, current_set, activity, player_skill_level, 
-                        target, context, passive_stats
+                        target, context, passive_stats, normalization_context
                     )[:12] 
 
                     best_ring_set = list(original_rings)
@@ -485,7 +625,7 @@ class GearOptimizer:
                                 current_set.rings = test_rings
                                 score = calculate_score(
                                     current_set, activity, player_skill_level, 
-                                    target, context, passive_stats=passive_stats
+                                    target, context, passive_stats=passive_stats, normalization_context=normalization_context
                                 )
                                 if score > max_ring_score + 0.00001: 
                                     max_ring_score = score
@@ -508,14 +648,14 @@ class GearOptimizer:
                     if t not in fixed_tools: valid_cands.append(t)
                 
                 sorted_cands = self.candidate_selector.sort_items_by_utility(
-                    valid_cands, current_set, activity, player_skill_level, target, context, passive_stats
+                    valid_cands, current_set, activity, player_skill_level, target, context, passive_stats, normalization_context
                 )
                 
                 if len(sorted_cands) <= 40:
                     best_subset, new_score = self._optimized_brute_force_tools(
                         current_set, fixed_tools, sorted_cands, available_tool_slots,
                         activity, player_skill_level, target, context, owned_counts, base_score,
-                        passive_stats=passive_stats
+                        passive_stats=passive_stats, normalization_context=normalization_context
                     )
                     if best_subset is not None and new_score > base_score:
                         current_set.tools = fixed_tools + best_subset
@@ -528,7 +668,7 @@ class GearOptimizer:
                         test_tools = fixed_tools + current_subset + [t]
                         if self._is_valid_tool_set(test_tools, owned_counts, fixed_tools):
                             current_set.tools = test_tools
-                            score = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
+                            score = calculate_score(current_set, activity, player_skill_level, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
                             if score >= max_t: 
                                 max_t = score
                                 current_subset.append(t)
@@ -538,12 +678,13 @@ class GearOptimizer:
         return current_set
 
     # =========================================================================
-    # BRUTE FORCE TOOLS (Pre-calculated for speed)
+    # BRUTE FORCE TOOLS (Updated for Composite)
     # =========================================================================
 
     def _optimized_brute_force_tools(self, current_set: GearSet, fixed_tools: List[Equipment], candidates: List[Equipment], 
-                                     slots_count: int, activity, skill_lvl: int, target: OPTIMAZATION_TARGET, context: Dict, 
-                                     owned_counts, current_best_score: float, passive_stats: Dict[str, float]) -> Tuple[List[Equipment], float]:
+                                     slots_count: int, activity, skill_lvl: int, target: Any, context: Dict, 
+                                     owned_counts, current_best_score: float, passive_stats: Dict[str, float],
+                                     normalization_context=None) -> Tuple[List[Equipment], float]:
         
         # Snapshot current stats
         orig_tools = current_set.tools
@@ -562,13 +703,13 @@ class GearOptimizer:
             if t.wiki_slug: fixed_slugs.add(t.wiki_slug)
             for k in t.keywords:
                 lk = k.lower()
-                if lk in self.candidate_selector.restricted_keywords_lower if hasattr(self.candidate_selector, 'restricted_keywords_lower') else set(): # Fallback check, usually handled in validation
+                if lk in self.candidate_selector.restricted_keywords_lower if hasattr(self.candidate_selector, 'restricted_keywords_lower') else set():
                     fixed_keywords.add(lk)
         
         user_ap = context.get("achievement_points", 0)
         total_lvl = context.get("total_skill_level", 0)
 
-        # Create Light Candidates (Pre-calculate stat contribution)
+        # Create Light Candidates
         light_candidates = [] 
         
         restricted_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
@@ -686,18 +827,8 @@ class GearOptimizer:
                  for k in item.keywords:
                     fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
         
-        t_id = 0
-        if target == OPTIMAZATION_TARGET.reward_rolls: t_id = 0
-        elif target == OPTIMAZATION_TARGET.xp: t_id = 1
-        elif target == OPTIMAZATION_TARGET.chests: t_id = 2
-        elif target == OPTIMAZATION_TARGET.materials_from_input: t_id = 3
-        elif target == OPTIMAZATION_TARGET.fine: t_id = 4
-        elif target == OPTIMAZATION_TARGET.quality: t_id = 5
-        elif target == OPTIMAZATION_TARGET.collectibles: t_id = 6
-
-        act_base_xp = activity.base_xp or 0
         search_cands = light_candidates[:32] 
-
+        
         # Iterate Combinations
         for r in range(1, slots_count + 1):
             for combo in itertools.combinations(search_cands, r):
@@ -757,48 +888,17 @@ class GearOptimizer:
                                     val = -val
                                 curr_stats[stat_key] += val
 
-                # Steps & Scoring (Inline for speed)
-                steps = calculate_steps(
-                    activity=activity,
-                    player_skill_level=skill_lvl, 
-                    player_work_efficiency=curr_stats.get("work_efficiency", 0),
-                    player_minus_steps=curr_stats.get("flat_step_reduction", 0),
-                    player_minus_steps_percent=curr_stats.get("percent_step_reduction", 0)
-                )
-                steps = max(1, steps)
-
-                da_val = min(1.0, curr_stats.get("double_action", 0))
-                dr_val = curr_stats.get("double_rewards", 0) 
-                nmc_val = min(0.99, curr_stats.get("no_materials_consumed", 0)) 
-                
-                da_mult = 1.0 + da_val
-                dr_mult = 1.0 + dr_val
-                nmc_mult = 1.0 / (1.0 - nmc_val)
-                
+                # --- SCORING (COMPOSITE AWARE) ---
                 val = 0.0
-                if t_id == 0:
-                    val = (da_mult * dr_mult) / steps
-                elif t_id == 1:
-                    xp_mult = 1.0 + curr_stats.get("xp_percent", 0)
-                    flat_xp = curr_stats.get("flat_xp", 0)
-                    val = ((act_base_xp * xp_mult + flat_xp) * da_mult) / steps
-                elif t_id == 2:
-                    val = ((1.0 + curr_stats.get("chest_finding", 0)) * da_mult * dr_mult) / steps
-                elif t_id == 3:
-                    val = (dr_mult * nmc_mult)
-                elif t_id == 4:
-                    val = ((1.0 + curr_stats.get("fine_material_finding", 0)) * da_mult * dr_mult) / steps
-                elif t_id == 6:
-                    val = ((1.0 + curr_stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
-                elif t_id == 5:
-                    flat_q = curr_stats.get("quality_outcome", 0)
-                    probs = calculate_quality_probabilities(
-                        activity_min_level=activity.level, 
-                        player_skill_level=skill_lvl,
-                        quality_bonus=flat_q
-                    )
-                    score_q = probs.get("Eternal", 0.0) * 1000 + probs.get("Perfect", 0.0) * 10 + probs.get("Excellent", 0.0)
-                    val = score_q * dr_mult * nmc_mult
+                if isinstance(target, list):
+                    for sub_target, weight in target:
+                        raw_score = _calculate_single_target_score(sub_target, activity, skill_lvl, curr_stats)
+                        baseline, range_val = normalization_context.get(sub_target, (0.0, 1.0))
+                        if range_val == 0: normalized = 0.0
+                        else: normalized = (raw_score - baseline) / range_val
+                        val += normalized * weight
+                else:
+                    val = _calculate_single_target_score(target, activity, skill_lvl, curr_stats)
 
                 if val > best_val:
                     if owned_counts:

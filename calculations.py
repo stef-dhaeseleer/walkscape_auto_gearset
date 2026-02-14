@@ -1,5 +1,5 @@
 import math
-from typing import Dict, List, Optional, Any, Set
+from typing import Dict, List, Optional, Any, Set, Tuple, Union
 from collections import defaultdict
 from models import Activity, GearSet, Collectible, ConditionType, StatName, GATHERING_SKILLS, ARTISAN_SKILLS
 from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS
@@ -17,7 +17,6 @@ def calculate_steps(
 ) -> int:
     """
     Calculates steps based on the Wiki Formula.
-    Future Optimization: Vectorize this for Numpy.
     """
     level_diff = max(0, player_skill_level - activity.level)
     level_eff = min(0.25, level_diff * 0.0125)
@@ -81,14 +80,16 @@ def calculate_score(
     gear_set: GearSet, 
     activity: Activity, 
     player_skill_level: int, 
-    target: OPTIMAZATION_TARGET, 
+    target: Union[OPTIMAZATION_TARGET, List[Tuple[OPTIMAZATION_TARGET, float]]], 
     context: Dict, 
     ignore_requirements: bool = False, 
-    passive_stats: Dict[str, float] = None
+    passive_stats: Dict[str, float] = None,
+    normalization_context: Dict[OPTIMAZATION_TARGET, Tuple[float, float]] = None
 ) -> float:
     """
     The Master Score Function.
     Calculates the 'Utility Value' of a gear set based on the optimization target.
+    Supports single OPTIMAZATION_TARGET or a list of weighted targets for composite scoring.
     """
     # 1. Check Requirements
     if not ignore_requirements:
@@ -109,7 +110,38 @@ def calculate_score(
         for k, v in passive_stats.items():
             stats[k] = stats.get(k, 0.0) + v
 
-    # 3. Calculate Steps
+    # 3. Handle Composite Scoring
+    if isinstance(target, list):
+        if not normalization_context:
+            # Fallback: Treat as sum of raw scores (not recommended due to magnitude mismatch)
+            total_score = 0.0
+            for sub_target, weight in target:
+                raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats)
+                total_score += raw_score * weight
+            return total_score
+        
+        composite_score = 0.0
+        for sub_target, weight in target:
+            raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats)
+            baseline, range_val = normalization_context.get(sub_target, (0.0, 1.0))
+            
+            # Normalize: (Score - Baseline) / (Max - Baseline)
+            # 0% = Baseline, 100% = Max
+            if range_val == 0: normalized = 0.0
+            else: normalized = (raw_score - baseline) / range_val
+            
+            composite_score += normalized * weight
+            
+        return composite_score
+
+    # 4. Handle Single Target Scoring
+    else:
+        return _calculate_single_target_score(target, activity, player_skill_level, stats)
+
+def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activity, player_skill_level: int, stats: Dict[str, float]) -> float:
+    """Helper to calculate raw score for a single target from stats."""
+    
+    # Calculate Steps
     steps = calculate_steps(
         activity=activity,
         player_skill_level=player_skill_level, 
@@ -119,7 +151,7 @@ def calculate_score(
     )
     steps = max(1, steps)
 
-    # 4. Multipliers
+    # Multipliers
     da_val = min(1.0, stats.get("double_action", 0))
     dr_val = stats.get("double_rewards", 0) 
     nmc_val = min(0.99, stats.get("no_materials_consumed", 0)) 
@@ -128,7 +160,6 @@ def calculate_score(
     dr_mult = 1.0 + dr_val
     nmc_mult = 1.0 / (1.0 - nmc_val)
     
-    # 5. Target Logic
     val = 0.0
     if target == OPTIMAZATION_TARGET.reward_rolls:
         val = (da_mult * dr_mult) / steps
@@ -157,9 +188,9 @@ def calculate_score(
     
     return val
 
-def analyze_score(gear_set: GearSet, activity, player_skill_level, target, context, passive_stats: Dict[str, float] = None):
+def analyze_score(gear_set: GearSet, activity, player_skill_level, target, context, passive_stats: Dict[str, float] = None, normalization_context=None):
     """Debug helper to explain the score."""
-    val = calculate_score(gear_set, activity, player_skill_level, target, context, passive_stats=passive_stats)
+    val = calculate_score(gear_set, activity, player_skill_level, target, context, passive_stats=passive_stats, normalization_context=normalization_context)
     stats = gear_set.get_stats(context)
     if passive_stats:
         for k,v in passive_stats.items(): stats[k] = stats.get(k, 0.0) + v
@@ -171,10 +202,35 @@ def analyze_score(gear_set: GearSet, activity, player_skill_level, target, conte
         player_minus_steps=stats.get("flat_step_reduction", 0),
         player_minus_steps_percent=stats.get("percent_step_reduction", 0)
     )
+    
+    target_breakdown = []
+    
+    if isinstance(target, list) and normalization_context:
+        for sub_target, weight in target:
+            raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats)
+            baseline, range_val = normalization_context.get(sub_target, (0.0, 1.0))
+            
+            # Normalize
+            if range_val == 0: normalized = 0.0
+            else: normalized = (raw_score - baseline) / range_val
+            
+            contribution = normalized * weight
+            
+            target_breakdown.append({
+                "target": sub_target.name.replace("_", " ").title(),
+                "weight": weight,
+                "raw_value": raw_score,
+                "baseline": baseline,
+                "max_val": baseline + range_val,
+                "normalized": normalized,
+                "contribution": contribution
+            })
+    
     return {
         "score": val,
         "steps": steps,
-        "stats": stats
+        "stats": stats,
+        "target_breakdown": target_breakdown
     }
 
 def calculate_passive_stats(collectibles: List[Collectible], context: Dict) -> Dict[str, float]:

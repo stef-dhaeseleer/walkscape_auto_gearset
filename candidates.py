@@ -1,4 +1,4 @@
-from typing import List, Dict, Set, Optional, Any
+from typing import List, Dict, Set, Optional, Any, Union, Tuple
 from collections import defaultdict
 from models import Equipment, Activity, GearSet, EquipmentSlot, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS
 from calculations import calculate_score
@@ -8,13 +8,12 @@ class CandidateSelector:
     def __init__(self, all_items: List[Equipment]):
         self.all_items = all_items
         self.debug_rejected = []
-        # Cache restricted keywords for fast lookup
-        self.restricted_keywords_lower = set() # Populated or used if needed, currently handling in loop
+        self.restricted_keywords_lower = set() 
 
     def get_candidates(self, 
                        activity: Activity, 
                        required_keywords: Dict[str, int], 
-                       target: OPTIMAZATION_TARGET, 
+                       target: Union[OPTIMAZATION_TARGET, List[Tuple[OPTIMAZATION_TARGET, float]]], 
                        context: Dict, 
                        player_skill_level: int,
                        owned_item_counts: Optional[Dict[str, int]] = None,
@@ -24,14 +23,21 @@ class CandidateSelector:
         
         self.debug_rejected = []
         raw_candidates = {}
-        relevant_stats = TARGET_TO_STATS.get(target, set())
+        
+        # Determine Relevant Stats Union
+        relevant_stats = set()
+        if isinstance(target, list):
+            for t, _ in target:
+                relevant_stats.update(TARGET_TO_STATS.get(t, set()))
+        else:
+            relevant_stats = TARGET_TO_STATS.get(target, set())
         
         if blacklisted_ids is None: blacklisted_ids = set()
         if locked_item_objects is None: locked_item_objects = set()
 
         dummy_set = GearSet() # For utility checking
 
-        # Context Unpacking for Condition Checks
+        # Context Unpacking
         active_skill = context.get("skill", "").lower() if context.get("skill") else None
         loc_id = context.get("location_id")
         loc_tags = context.get("location_tags", set())
@@ -155,6 +161,11 @@ class CandidateSelector:
 
         # Phase 2: Refined filtering (Best Quality Versions)
         final_candidates = {}
+        # NOTE: If we are doing composite optimization, calculating a single "score" for ranking 
+        # is tricky without normalization context. However, getting "candidates" is mostly about filtering.
+        # We will use a simplified greedy approach here: If target is list, just sum raw scores for ranking.
+        # This is not perfect but sufficient to keep the top 10 versions of an item.
+        
         for slot, items in raw_candidates.items():
             grouped_candidates = defaultdict(list)
 
@@ -171,6 +182,7 @@ class CandidateSelector:
                     attr_name = item.slot
                     if hasattr(dummy_set, attr_name): setattr(dummy_set, attr_name, item)
                 
+                # Use simplified scoring for filtering duplicates (ignore requirements/normalization here)
                 score = calculate_score(dummy_set, activity, player_skill_level, target, context, ignore_requirements=True)
                 q_rank = QUALITY_RANK.get(item.quality, -1)
                 grouped_candidates[identity].append((score, q_rank, item))
@@ -200,7 +212,7 @@ class CandidateSelector:
         return final_candidates
 
     def sort_items_by_utility(self, items: List[Equipment], current_set: GearSet, 
-                              activity, player_skill_level, target, context, passive_stats) -> List[Equipment]:
+                              activity, player_skill_level, target, context, passive_stats, normalization_context=None) -> List[Equipment]:
         """Sorts a list of items based on how much they improve the CURRENT set's score."""
         scored = []
         for item in items:
@@ -220,7 +232,9 @@ class CandidateSelector:
                     old_val = getattr(current_set, attr_name)
                     setattr(current_set, attr_name, item)
             
-            score = calculate_score(current_set, activity, player_skill_level, target, context, ignore_requirements=True, passive_stats=passive_stats)
+            score = calculate_score(current_set, activity, player_skill_level, target, context, 
+                                    ignore_requirements=True, passive_stats=passive_stats, 
+                                    normalization_context=normalization_context)
             scored.append((score, item))
             
             # Revert

@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import json
 import math
 import os
+import time
 import pandas as pd
 from typing import List, Dict, Optional, Tuple, Set
 from collections import Counter, defaultdict
@@ -833,6 +834,8 @@ def main():
                 locked_items_map = st.session_state.get('locked_items_state', {})
                 blacklist_set = set(st.session_state.get('blacklist_state', []))
 
+                start_time = time.time()
+                
                 best_gear, error_msg = optimizer.optimize(
                     final_activity, 
                     player_level=player_lvl, 
@@ -849,6 +852,11 @@ def main():
                     locked_items=locked_items_map,
                     blacklisted_ids=blacklist_set
                 )
+                
+                # --- TIMING END ---
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                st.session_state['opt_duration'] = elapsed_time
 
                 if error_msg:
                     st.error(error_msg)
@@ -878,10 +886,14 @@ def main():
             saved_cons = st.session_state.get('selected_cons')
             weighted_targets_saved = st.session_state.get('selected_target_list', [])
             norm_context_saved = st.session_state.get('normalization_context', {})
+            
+            opt_duration = st.session_state.get('opt_duration', 0.0)
 
             optimizer = GearOptimizer(available_items, all_locations=locations) 
 
             if saved_activity:
+                st.caption(f"Optimization completed in **{opt_duration:.4f} seconds**")
+                
                 passive_stats = calculate_passive_stats(saved_collectibles, context)
                 for k,v in saved_service_stats.items():
                     passive_stats[k] = passive_stats.get(k, 0.0) + v

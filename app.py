@@ -1199,7 +1199,7 @@ def main():
                         d_col1, d_col2 = st.columns([1, 1])
                         with d_col1:
                             slot_options = ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary", "Ring 1", "Ring 2", "Tool 1", "Tool 2", "Tool 3", "Tool 4", "Tool 5", "Tool 6"]
-                            edit_slot = st.selectbox("Select Slot to Swap", options=slot_options)
+                            edit_slot = st.selectbox("Select Slot to Swap", options=slot_options, key="lab_slot_select")
                             
                             current_item_name = "-"
                             if "Tool" in edit_slot:
@@ -1222,10 +1222,23 @@ def main():
                             }
                             target_enum = slot_enum_map.get(edit_slot.split(" ")[0])
                             
-                            valid_swap_items = [i for i in available_items if i.slot == target_enum]
+                            show_unowned = st.checkbox("Show only unowned items", key="lab_show_unowned")
+
+                            if show_unowned:
+                                all_slot_items = [i for i in all_items_raw if i.slot == target_enum]
+                                
+                                if user_data:
+                                    owned_objs = filter_user_items(all_items_raw, user_data)
+                                    owned_ids = set(i.id for i in owned_objs)
+                                    valid_swap_items = [i for i in all_slot_items if i.id not in owned_ids]
+                                else:
+                                    valid_swap_items = all_slot_items
+                            else:
+                                valid_swap_items = [i for i in available_items if i.slot == target_enum]
+                            
                             valid_swap_items.sort(key=lambda x: x.name)
                             
-                            swap_item_name = st.selectbox("Swap with:", options=[i.name for i in valid_swap_items], index=None)
+                            swap_item_name = st.selectbox("Swap with:", options=[i.name for i in valid_swap_items], index=None, key="lab_swap_select")
                             swap_item_obj = next((i for i in valid_swap_items if i.name == swap_item_name), None)
 
                         with d_col2:

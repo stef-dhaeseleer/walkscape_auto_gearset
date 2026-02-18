@@ -1,9 +1,11 @@
 from typing import List, Optional, Dict, Set, Tuple, Any
 from collections import defaultdict, Counter
+from enum import Enum
 from pydantic import BaseModel, Field, ConfigDict
 from utils.constants import (
     ConditionType, RequirementType, EquipmentSlot, EquipmentQuality, 
-    SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS, RESTRICTED_TOOL_KEYWORDS
+    SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS, RESTRICTED_TOOL_KEYWORDS,
+    ActivityLootTableType, ChestTableCategory
 )
 
 # ============================================================================
@@ -38,6 +40,7 @@ class DropEntry(BaseModel):
     min_quantity: int
     max_quantity: int
     chance: Optional[float] = None 
+    category: Optional[ChestTableCategory] = None 
 
 class FactionReward(BaseModel):
     model_config = ConfigDict(frozen=True)
@@ -46,8 +49,6 @@ class FactionReward(BaseModel):
     amount: float
 
 class BaseEntity(BaseModel):
-    # Set to False so 'Pet' (which inherits from this) can be mutable.
-    # We explicitly freeze the other subclasses below.
     model_config = ConfigDict(frozen=False)
     
     id: str
@@ -59,6 +60,23 @@ class BaseItem(BaseEntity):
     
     value: int          
     keywords: Tuple[str, ...] = Field(default_factory=tuple)
+
+class SpecialShopSell(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
+    item_id: str 
+    amount: int  
+
+class Material(BaseItem):
+    model_config = ConfigDict(frozen=True)
+    
+    special_sell: Optional[SpecialShopSell] = None
+
+class Container(BaseEntity):
+    model_config = ConfigDict(frozen=True)
+    
+    type: str # "skill_chest" or "unique_openable"
+    drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
 
 class Collectible(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
@@ -110,6 +128,13 @@ class Equipment(BaseItem):
     def clean_item_name(self) -> str:
         return self.name
 
+class LootTable(BaseModel):
+    """Represents a specific drop table for an activity (Main, Gem, Secondary)."""
+    model_config = ConfigDict(frozen=True)
+    
+    type: ActivityLootTableType
+    drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
+
 class Activity(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
     
@@ -121,10 +146,11 @@ class Activity(BaseEntity):
     max_efficiency: float = 0.0 
     requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
     faction_rewards: Tuple[FactionReward, ...] = Field(default_factory=tuple)
-    drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
-    secondary_drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
-    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple) # Support for synthesized activities
     
+    loot_tables: Tuple[LootTable, ...] = Field(default_factory=tuple) # Consolidated drops
+    
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple) 
+
     @property
     def level(self) -> int:
         for req in self.requirements:
@@ -183,21 +209,16 @@ class PetLevel(BaseModel):
     abilities: Tuple[PetAbility, ...] = Field(default_factory=tuple)
 
 class Pet(BaseEntity):
-    # Explicitly mutable (frozen=False is default, but explicit helps clarity here)
-    # allowing active_level to be changed
     model_config = ConfigDict(use_enum_values=True, frozen=False)
     
     egg_item_id: Optional[str] = None
     xp_requirement_desc: Optional[str] = None
     levels: Tuple[PetLevel, ...] = Field(default_factory=tuple)
     
-    # State for the active level chosen by the user
     active_level: int = 1
 
     @property
     def modifiers(self) -> Tuple[Modifier, ...]:
-        """Returns modifiers for the CURRENT active level only."""
-        # Find the level object
         for lvl in self.levels:
             if lvl.level == self.active_level:
                 return lvl.modifiers
@@ -205,7 +226,6 @@ class Pet(BaseEntity):
 
     @property
     def keywords(self) -> Tuple[str, ...]:
-        """Pets don't typically have keywords like 'Pickaxe', but we return empty for compatibility."""
         return tuple()
 
 # ============================================================================
@@ -230,10 +250,7 @@ class GearSet(BaseModel):
     rings: List[Equipment] = Field(default_factory=list)
     tools: List[Equipment] = Field(default_factory=list)
 
-    # --- Logic Methods ---
-
     def clone(self) -> 'GearSet':
-        """Creates a deep copy of the gear set."""
         new_set = GearSet()
         for slot in ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"]:
             setattr(new_set, slot, getattr(self, slot))
@@ -244,7 +261,6 @@ class GearSet(BaseModel):
         return new_set
 
     def equip(self, item: Equipment, max_tools: int = 6) -> bool:
-        """Attempts to equip an item. Returns True if successful."""
         if self.violates_restrictions(item):
             return False
 
@@ -261,14 +277,12 @@ class GearSet(BaseModel):
         else:
             attr = item.slot
             if hasattr(self, attr):
-                # Only equip if empty (caller must unequip first if swapping)
                 if getattr(self, attr) is None:
                     setattr(self, attr, item)
                     return True
             return False
 
     def unequip(self, item: Equipment):
-        """Removes an item from the set."""
         if item in self.rings:
             self.rings.remove(item)
         elif item in self.tools:
@@ -281,7 +295,6 @@ class GearSet(BaseModel):
                     break
 
     def violates_restrictions(self, new_item: Equipment) -> bool:
-        """Checks if the item conflicts with restricted keywords (e.g. multiple tools of same type)."""
         restricted_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
         
         item_restricted_kws = set()

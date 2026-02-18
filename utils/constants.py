@@ -108,7 +108,7 @@ class StatName(str, Enum):
     FIND_SEA_SHELLS = "find_sea_shells"
     FIND_GOLD_NUGGET = "find_gold_nugget"
     FIND_SKILL_CHEST = "find_skill_chest"
-    
+    CHANCE_TO_FIND_BIRD_NEST = "chance_to_find_bird_nest"
     INVENTORY_SPACE = "inventory_space"
 
 # --- Constants & Config ---
@@ -158,3 +158,69 @@ PERCENTAGE_STATS = {
     StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
     StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
 }
+class ActivityLootTableType(str, Enum):
+    MAIN = "main"
+    SECONDARY = "secondary"
+    GEM = "gem"
+    # Fallback for unknown tables
+    OTHER = "other"
+
+
+
+
+FISHING_BAIT_TABLE = [
+    ("bug_bait", 0.50),
+    ("frozen_bait", 0.50)
+]
+
+GEM_TABLE = [
+    ("rough_opal", 0.29851),
+    ("rough_star_pearl", 0.29851),
+    ("rough_topaz", 0.14925),
+    ("rough_wrentmarine", 0.14925),
+    ("rough_jade", 0.04975),
+    ("rough_ruby", 0.02985),
+    ("rough_sun_stone", 0.01990),
+    ("rough_ethernite", 0.00498)
+]
+
+JUNK_TABLE = [
+    ("trash", 0.51546),
+    ("fishbone", 0.10309),
+    ("grass", 0.07732),
+    ("mud", 0.07732),
+    ("milkweed", 0.05155),
+    ("moondaisy", 0.05155),
+    ("sea_shell", 0.05155),
+    ("birch_skis", 0.01546),
+    ("clay_skydisc", 0.01546),
+    ("rough_opal", 0.01546),
+    ("simple_torch", 0.01546),
+    ("rusty_chest", 0.00515),
+    ("sunken_chest", 0.00515)
+]
+
+# Mapping from Stat Key to Item ID (or Table)
+SPECIAL_FIND_MAP = {
+    "chance_to_find_bird_nest": "bird_nest",
+    "find_coin_pouch": "coin_pouch",
+    "find_gold_nugget": "gold_nugget",
+    "find_adventurers_guild_token": "adventurers_guild_token",
+    "find_ectoplasm": "ectoplasm",
+    "find_sea_shells": "sea_shell",
+    "find_fishing_bait": FISHING_BAIT_TABLE,
+    "find_junk": JUNK_TABLE,
+}
+
+
+class ChestTableCategory(str, Enum):
+    """Categories for Container/Chest drops."""
+    MAIN = "Main"
+    VALUABLES = "Valuables"
+    COMMON = "Common"
+    UNCOMMON = "Uncommon"
+    RARE = "Rare"
+    EPIC = "Epic"
+    LEGENDARY = "Legendary"
+    ETHEREAL = "Ethereal"
+    OTHER = "Other"

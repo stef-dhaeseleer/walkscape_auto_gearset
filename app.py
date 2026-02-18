@@ -21,7 +21,7 @@ from models import (
 
 # --- NEW IMPORT ---
 from streamlit_js_eval import streamlit_js_eval
-
+from drop_calculator import DropCalculator
 # --- Page Config ---
 st.set_page_config(
     page_title="WalkScape Gear Optimizer",
@@ -970,6 +970,38 @@ def main():
                     loadout_data.append({"Slot": f"Tool {i+1}", "Item": tool.name})
 
                 st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")
+
+# --- NEW DROP CALCULATOR SECTION ---
+                st.markdown("### 🎲 Drop Calculator")
+                st.caption(f"Based on **{final_steps} steps per action** (Optimized).")
+                st.caption("Includes effects of Double Action (Frequency) and Double Rewards (Quantity).")
+                
+                drop_calc = DropCalculator()
+                
+                # Use the stats dictionary we already calculated for analysis
+                drop_rows = drop_calc.get_drop_table(saved_activity, stats, saved_skill_lvl)
+                
+                if drop_rows:
+                    df_drops = pd.DataFrame(drop_rows)
+                    
+                    
+                    st.dataframe(
+                        df_drops,
+                        column_config={
+                            "Item": st.column_config.TextColumn("Item", width="medium"),
+                            "Steps": st.column_config.NumberColumn(
+                                "Expected Steps", 
+                                help="Average steps required to obtain 1 unit of this item.",
+                                format="%.2f"
+                            ),
+                        },
+                        hide_index=True,
+                        width="stretch",
+                    )
+                else:
+                    st.info("No drop data available for this activity.")
+                
+                st.markdown("---")
 
                 with st.expander("🔍 Detailed Item Breakdown", expanded=False):
                     st.caption("Inspect active modifiers and conditions for each item.")

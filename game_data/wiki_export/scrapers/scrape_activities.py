@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 from models import (
     Activity, Requirement, RequirementType, DropEntry, 
-    FactionReward, SkillName
+    FactionReward, SkillName, LootTable, ActivityLootTableType
 )
 from scraper_utils import *
 
@@ -56,8 +56,25 @@ def parse_number(text: str) -> float:
     except ValueError:
         return 0.0
 
+def map_loot_table_type(header_text: str) -> ActivityLootTableType:
+    """Map wiki header text to ActivityLootTableType enum."""
+    lower = header_text.lower()
+    if 'main' in lower: return ActivityLootTableType.MAIN
+    if 'secondary' in lower: return ActivityLootTableType.SECONDARY
+    if 'gem' in lower: return ActivityLootTableType.GEM
+    return ActivityLootTableType.OTHER
+
+def get_next_content_sibling(element):
+    """
+    Get the next sibling, handling MediaWiki 1.44+ header wrappers.
+    If the element is a header wrapped in a div.mw-heading, return the div's sibling.
+    """
+    if element.parent and 'mw-heading' in element.parent.get('class', []):
+        return element.parent.find_next_sibling()
+    return element.find_next_sibling()
+
 # ============================================================================
-# ORIGINAL SCRAPER PARSING LOGIC
+# PARSING LOGIC
 # ============================================================================
 
 def parse_activities_list():
@@ -94,7 +111,7 @@ def parse_activities_list():
     return activities
 
 def parse_infobox(infobox, activity_data):
-    """Parse an infobox table for activity details (Original Logic)."""
+    """Parse an infobox table for activity details."""
     rows = infobox.find_all('tr')
     
     for row in rows:
@@ -119,7 +136,6 @@ def parse_infobox(infobox, activity_data):
                     activity_data['locations'].append(loc_name)
         
         elif 'Skill' in header_text and 'Level' in header_text:
-             # Skill requirements logic
             skill_links = data.find_all('a', href=re.compile(r'/wiki/(Agility|Carpentry|Cooking|Crafting|Fishing|Foraging|Mining|Smithing|Trinketry|Woodcutting)'))
             for link in skill_links:
                 skill_name = link.get('title', '').strip()
@@ -132,8 +148,6 @@ def parse_infobox(infobox, activity_data):
                         activity_data['skill_requirements'][skill_name] = int(level_match.group(1))
 
         elif 'Requirements' in header_text or 'Requirement' in header_text:
-            # Note: The original scraper called a function that crashed here for dicts.
-            # We fix it by parsing the text into the dict structure.
             parse_requirements_text(data_text, activity_data)
         
         elif 'Base Steps' in header_text or 'Steps' in header_text:
@@ -169,13 +183,11 @@ def parse_requirements_text(req_text, activity_data):
     """Parse text requirements into the dict structure."""
     if not req_text or req_text == 'None': return
 
-    # Diving gear
     if 'diving gear' in req_text.lower():
         match = re.search(r'(\d+)\s+diving gear', req_text, re.IGNORECASE)
         count = int(match.group(1)) if match else 1
         activity_data['requirements']['keyword_counts']['diving_gear'] = count
     
-    # Tools
     if 'tool' in req_text.lower():
         tool_match = re.search(r'Have\s+(\w+)\s+tool\s+equipped', req_text, re.IGNORECASE)
         if tool_match:
@@ -184,19 +196,16 @@ def parse_requirements_text(req_text, activity_data):
         if unique_match:
             activity_data['requirements']['unique_tools'] = int(unique_match.group(1))
     
-    # Light sources
     light_match = re.search(r'(\d+)\s+(?:unique\s+)?light\s+sources?', req_text, re.IGNORECASE)
     if light_match:
         activity_data['requirements']['keyword_counts']['light_source'] = int(light_match.group(1))
     
-    # Reputation
     rep_match = re.search(r'(\d+)\s+reputation\s+with\s+([^,\.]+)', req_text, re.IGNORECASE)
     if rep_match:
         amount = int(rep_match.group(1))
         faction = clean_text(rep_match.group(2))
         activity_data['requirements']['reputation'][faction] = amount
     
-    # Activity completions
     completion_match = re.search(r'completed?\s+(?:the\s+)?(.+?)\s+activity\s+\((\d+)\)\s+times', req_text, re.IGNORECASE)
     if completion_match:
         activity = clean_text(completion_match.group(1))
@@ -204,14 +213,14 @@ def parse_requirements_text(req_text, activity_data):
         activity_data['requirements']['activity_completions'][activity] = count
 
 def parse_locations_section(soup, activity_data):
-    """Parse locations from the Location/Locations section (Original Logic)."""
+    """Parse locations from the Location section."""
     content = soup.find('div', class_='mw-parser-output')
     if not content: return
     
     location_heading = content.find('h1', id='Location') or content.find('h1', id='Locations')
     if not location_heading: return
     
-    next_elem = location_heading.parent.find_next_sibling()
+    next_elem = get_next_content_sibling(location_heading)
     while next_elem:
         if next_elem.name == 'ul':
             for li in next_elem.find_all('li'):
@@ -225,25 +234,23 @@ def parse_locations_section(soup, activity_data):
         next_elem = next_elem.find_next_sibling()
 
 def parse_requirements_section(soup, activity_data):
-    """Parse requirements section (Original Logic)."""
+    """Parse requirements section."""
     content = soup.find('div', class_='mw-parser-output')
     if not content: return
     
     req_heading = content.find('h1', id='Requirement') or content.find('h1', id='Requirements')
     if not req_heading: return
     
-    next_elem = req_heading.parent.find_next_sibling()
+    next_elem = get_next_content_sibling(req_heading)
     while next_elem:
         if next_elem.name in ['h1', 'h2']: break
         
         text = next_elem.get_text()
         
-        # Skill Levels
         skill_matches = re.findall(r'At least.*?(\w+)\s+lvl?\.\s*(\d+)', text, re.IGNORECASE)
         for skill_name, level in skill_matches:
             activity_data['skill_requirements'][skill_name] = int(level)
         
-        # Keyword Counts (ul)
         if next_elem.name == 'ul':
             for li in next_elem.find_all('li'):
                 li_text = li.get_text()
@@ -252,7 +259,7 @@ def parse_requirements_section(soup, activity_data):
                     if '/wiki/File:' in keyword_link.get('href', ''): continue
                     keyword_name = clean_text(keyword_link.get_text())
                     if keyword_name:
-                        keyword_lower = normalize_id(keyword_name) # Internal ID use
+                        keyword_lower = normalize_id(keyword_name)
                         count_match = re.search(r'\[(\d+)\].*?' + re.escape(keyword_name), li_text, re.IGNORECASE)
                         count = int(count_match.group(1)) if count_match else 1
                         
@@ -264,7 +271,6 @@ def parse_requirements_section(soup, activity_data):
                     if ap_match:
                         activity_data['requirements']['achievement_points'] = int(ap_match.group(1))
 
-        # Light sources in text
         if 'light source' in text.lower():
             match = re.search(r'\[(\d+)\].*?light\s+sources?', text, re.IGNORECASE)
             if match:
@@ -272,14 +278,12 @@ def parse_requirements_section(soup, activity_data):
                 current = activity_data['requirements']['keyword_counts'].get('light_source', 0)
                 activity_data['requirements']['keyword_counts']['light_source'] = max(current, count)
 
-        # Reputation
         rep_match = re.search(r'(\d+)\s+reputation\s+with\s+([^,\.]+)', text, re.IGNORECASE)
         if rep_match:
             amount = int(rep_match.group(1))
             faction = clean_text(rep_match.group(2))
             activity_data['requirements']['reputation'][faction] = amount
         
-        # Activity completion
         completion_match = re.search(r'completed?\s+(?:the\s+)?(.+?)\s+activity\s+\((\d+)\)\s+times', text, re.IGNORECASE)
         if completion_match:
             activity_name = clean_text(completion_match.group(1))
@@ -289,14 +293,14 @@ def parse_requirements_section(soup, activity_data):
         next_elem = next_elem.find_next_sibling()
 
 def parse_experience_table(soup, activity_data):
-    """Parse base XP and steps from Experience Information table (Original Logic)."""
+    """Parse base XP and steps from Experience Information table."""
     content = soup.find('div', class_='mw-parser-output')
     if not content: return
     
     exp_heading = content.find('h1', id='Experience_Information')
     if not exp_heading: return
     
-    next_elem = exp_heading.parent.find_next_sibling()
+    next_elem = get_next_content_sibling(exp_heading)
     while next_elem:
         if next_elem.name == 'table' and 'wikitable' in next_elem.get('class', []):
             rows = next_elem.find_all('tr')
@@ -338,18 +342,16 @@ def parse_experience_table(soup, activity_data):
         next_elem = next_elem.find_next_sibling()
 
 def parse_faction_reputation(soup, activity_data):
-    """Parse faction reputation from headers (Original Logic)."""
+    """Parse faction reputation from headers."""
     content = soup.find('div', class_='mw-parser-output')
     if not content: return
     
-    # Try different heading levels
     rep_heading = None
     for level in ['h3', 'h2', 'h1']:
         rep_heading = content.find(level, id='Faction_Reputation_Reward')
         if rep_heading: break
     
     if not rep_heading:
-        # Fuzzy match
         all_headings = content.find_all(['h1', 'h2', 'h3'])
         for heading in all_headings:
             if 'faction' in heading.get_text().lower() and 'reward' in heading.get_text().lower():
@@ -358,7 +360,7 @@ def parse_faction_reputation(soup, activity_data):
     
     if not rep_heading: return
     
-    next_elem = rep_heading.parent.find_next_sibling()
+    next_elem = get_next_content_sibling(rep_heading)
     while next_elem:
         if next_elem.name == 'table' and 'wikitable' in next_elem.get('class', []):
             rows = next_elem.find_all('tr')
@@ -378,49 +380,119 @@ def parse_faction_reputation(soup, activity_data):
         next_elem = next_elem.find_next_sibling()
 
 def parse_drop_tables(soup, activity_data):
-    """Parse drop tables (Original Logic + Heuristic Fix)."""
+    """Dynamically parse all drop tables based on headers."""
     content = soup.find('div', class_='mw-parser-output')
     if not content: return
     
-    tables = content.find_all('table', class_='wikitable')
-    faction_names = ['Erdwise', 'Halfling Rebels', 'Jarvonia', 'Syrenthia', 'Trellin']
-    skill_names = [s.value.capitalize() for s in SkillName]
+    # Find all headers containing "Drop" or "Drops" (case insensitive)
+    drop_headers = soup.find_all(lambda tag: tag.name in ['h2', 'h3', 'h4'] and 'Drop' in tag.get_text())
     
-    for table in tables:
-        caption = table.find('caption')
-        caption_text = clean_text(caption.get_text()) if caption else ""
-        if not caption:
-            prev = table.find_previous(['h2', 'h3', 'h4'])
-            caption_text = clean_text(prev.get_text()) if prev else ""
-            
-        if 'reputation' in caption_text.lower() and 'reward' in caption_text.lower(): continue
+    skill_names = [s.value.capitalize() for s in SkillName]
+    faction_names = ['Erdwise', 'Halfling Rebels', 'Jarvonia', 'Syrenthia', 'Trellin']
+
+    for header in drop_headers:
+        header_text = clean_text(header.get_text())
+        if 'Drop Tables' in header_text: continue 
+
+        table_type = map_loot_table_type(header_text)
         
-        is_secondary = 'secondary' in caption_text.lower() or 'rare' in caption_text.lower()
-        rows = table.find_all('tr')[1:]
+        # Use get_next_content_sibling to handle wrapped headers
+        next_elem = get_next_content_sibling(header)
+        target_table = None
+        
+        while next_elem:
+            if next_elem.name == 'table' and 'wikitable' in next_elem.get('class', []):
+                target_table = next_elem
+                break
+            if next_elem.name in ['h1', 'h2', 'h3', 'h4']: break 
+            next_elem = next_elem.find_next_sibling()
+            
+        if not target_table: continue
+
+        # Calculate actual column indices based on header colspan
+        header_row = target_table.find('tr')
+        if not header_row: continue
+        
+        th_elements = header_row.find_all('th')
+        col_map = {}
+        current_idx = 0
+        
+        for th in th_elements:
+            text = th.get_text().strip()
+            col_map[text] = current_idx
+            
+            # Check colspan (default 1)
+            colspan = int(th.get('colspan', 1))
+            current_idx += colspan
+            
+        # Helper to find index by exact or partial name
+        def get_column_index(target_names, exclude_substrings=None):
+            if exclude_substrings is None: exclude_substrings = []
+            
+            # 1. Exact match attempt
+            for name, idx in col_map.items():
+                if name.lower() in [t.lower() for t in target_names]:
+                    return idx
+            
+            # 2. Substring match attempt
+            for name, idx in col_map.items():
+                name_lower = name.lower()
+                # Check if any target is in the name
+                if any(t.lower() in name_lower for t in target_names):
+                    # Check if any exclusion is in the name
+                    if not any(ex.lower() in name_lower for ex in exclude_substrings):
+                        return idx
+            return -1
+
+        # Find Quantity and Chance indices
+        
+        # Quantity
+        qty_idx = get_column_index(['Quantity', 'Qty'])
+
+        # Chance logic:
+        # 1. Prioritize "Final Chance" (max skill level values)
+        chance_idx = get_column_index(['Final Chance'])
+        
+        # 2. Fallback to generic "Chance", but strictly exclude "Level" (e.g., "Max Chance Level")
+        if chance_idx == -1:
+            chance_idx = get_column_index(['Chance'], exclude_substrings=['Level', 'Max', 'Initial'])
+
+        # 3. Last resort fallback: Allow "Initial" if "Final" didn't exist, but still avoid "Level"
+        if chance_idx == -1:
+             chance_idx = get_column_index(['Chance'], exclude_substrings=['Level', 'Max'])
+
+        # Fallback if headers aren't standard text (e.g. secondary tables sometimes vary)
+        if qty_idx == -1 or chance_idx == -1:
+            if table_type == ActivityLootTableType.SECONDARY:
+                # Icon(0), Name(1), Type(2), Qty(3), Chance(4)
+                if qty_idx == -1: qty_idx = 3
+                if chance_idx == -1: chance_idx = 4
+            else:
+                # Icon+Name(0,1), Qty(2), Chance(3)
+                if qty_idx == -1: qty_idx = 2
+                if chance_idx == -1: chance_idx = 3
+
+        # Parse table rows
+        rows = target_table.find_all('tr')[1:] # Skip header
+        current_drops = []
         
         for row in rows:
             cols = row.find_all('td')
-            if len(cols) < 3: continue
+            # Check we have enough columns for the indices we found
+            if len(cols) <= max(qty_idx, chance_idx): continue
+
+            # Name is usually at index 1 (0 is Icon)
+            name_idx = 1
             
-            item_link = cols[1].find('a')
-            item_name = clean_text(item_link.get_text()) if item_link else clean_text(cols[1].get_text())
+            item_link = cols[name_idx].find('a')
+            item_name = clean_text(item_link.get_text()) if item_link else clean_text(cols[name_idx].get_text())
             
-            if not item_name: continue
-            if item_name in skill_names: continue
-            if item_name in faction_names: continue
+            if not item_name or item_name in skill_names or item_name in faction_names: continue
+            if item_name.endswith('%') or re.match(r'^\d', item_name): continue 
             
-            # --- FIX: Filter out lines that look like percentages (e.g. "0.411%") ---
-            if item_name.endswith('%') or re.match(r'^\d', item_name):
-                continue
+            qty_text = clean_text(cols[qty_idx].get_text())
+            chance_text = clean_text(cols[chance_idx].get_text())
             
-            if is_secondary and len(cols) >= 4:
-                qty_text = clean_text(cols[3].get_text())
-                chance_text = clean_text(cols[4].get_text()) if len(cols) > 4 else None
-            else:
-                qty_text = clean_text(cols[2].get_text())
-                chance_text = clean_text(cols[3].get_text()) if len(cols) > 3 else None
-            
-            # Helper logic for quantity
             min_q, max_q = 0, 0
             if qty_text and qty_text != 'N/A':
                 range_match = re.match(r'(\d+)-(\d+)', qty_text)
@@ -429,24 +501,24 @@ def parse_drop_tables(soup, activity_data):
                 else:
                     num_match = re.match(r'(\d+)', qty_text)
                     if num_match: min_q, max_q = int(num_match.group(1)), int(num_match.group(1))
-            
-            # Helper logic for chance
+
             chance_val = None
             if chance_text:
                 try: chance_val = float(chance_text.strip().replace('%', ''))
                 except: pass
             
-            drop_entry = DropEntry(
+            current_drops.append(DropEntry(
                 item_id=normalize_id(item_name),
                 min_quantity=min_q,
                 max_quantity=max_q,
                 chance=chance_val
-            )
+            ))
             
-            if is_secondary:
-                activity_data['secondary_drop_table'].append(drop_entry)
-            else:
-                activity_data['drop_table'].append(drop_entry)
+        if current_drops:
+            activity_data['loot_tables'].append(LootTable(
+                type=table_type,
+                drops=current_drops
+            ))
 
 # ============================================================================
 # MAIN PARSING LOOP
@@ -463,7 +535,6 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
     
     soup = BeautifulSoup(html, 'html.parser')
     
-    # Initialize dictionary exactly like original script
     data = {
         'name': name,
         'primary_skill': None,
@@ -477,8 +548,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
             'tool_equipped': None,
             'unique_tools': 0
         },
-        'drop_table': [],
-        'secondary_drop_table': [],
+        'loot_tables': [], 
         'base_steps': 0,
         'base_xp': 0.0,
         'secondary_xp': {},
@@ -486,7 +556,6 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         'faction_reputation': {}
     }
     
-    # 1. Primary Skill from First Paragraph (Original Logic)
     content = soup.find('div', class_='mw-parser-output')
     if content:
         paragraphs = content.find_all('p')
@@ -498,57 +567,42 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
                     data['primary_skill'] = skill_match.group(1)
                 break
     
-    # 2. Infobox Parsing
     infobox = soup.find('table', class_='ItemInfobox')
     if infobox:
         parse_infobox(infobox, data)
         
-    # 3. Sections Parsing
     parse_locations_section(soup, data)
     parse_requirements_section(soup, data)
     parse_experience_table(soup, data)
     parse_faction_reputation(soup, data)
     parse_drop_tables(soup, data)
     
-    # ========================================================================
-    # CONVERT TO MODEL
-    # ========================================================================
-    
-    # Convert Requirements Dict -> List[Requirement]
     reqs_list = []
     
-    # Skill Levels
     for sname, level in data['skill_requirements'].items():
         reqs_list.append(Requirement(type=RequirementType.SKILL_LEVEL, target=sname.lower(), value=level))
     
-    # Keywords
     for kw, count in data['requirements']['keyword_counts'].items():
         reqs_list.append(Requirement(type=RequirementType.KEYWORD_COUNT, target=kw, value=count))
         
-    # AP
     if data['requirements']['achievement_points'] > 0:
         reqs_list.append(Requirement(type=RequirementType.ACHIEVEMENT_POINTS, value=data['requirements']['achievement_points']))
         
-    # Reputation
     for fac, amt in data['requirements']['reputation'].items():
         reqs_list.append(Requirement(type=RequirementType.REPUTATION, target=normalize_id(fac), value=amt))
         
-    # Activity Completions
     for act, count in data['requirements']['activity_completions'].items():
         reqs_list.append(Requirement(type=RequirementType.ACTIVITY_COMPLETION, target=normalize_id(act), value=count))
         
-    # Tools
     if data['requirements']['tool_equipped']:
         reqs_list.append(Requirement(type=RequirementType.TOOL_EQUIPPED, target=data['requirements']['tool_equipped'].lower(), value=1))
     if data['requirements']['unique_tools'] > 0:
         reqs_list.append(Requirement(type=RequirementType.UNIQUE_TOOLS, value=data['requirements']['unique_tools']))
 
-    # Convert Faction Rewards
     rewards_list = []
     for fac, amt in data['faction_reputation'].items():
         rewards_list.append(FactionReward(faction_id=normalize_id(fac), amount=amt))
         
-    # Convert Secondary XP
     sec_xp_enum = {}
     for sname, xp in data['secondary_xp'].items():
         sec_xp_enum[parse_skill_enum(sname)] = float(xp)
@@ -557,7 +611,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         id=normalize_id(name),
         wiki_slug=slug,
         name=name,
-        value=0, # BaseItem requires value, implies coin value which is 0
+        value=0, 
         primary_skill=parse_skill_enum(data['primary_skill'] or "none"),
         locations=[normalize_id(l) for l in data['locations']],
         base_steps=data['base_steps'] or 0,
@@ -566,8 +620,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         max_efficiency=data['max_efficiency'] or 0.0,
         requirements=reqs_list,
         faction_rewards=rewards_list,
-        drops=data['drop_table'],
-        secondary_drops=data['secondary_drop_table']
+        loot_tables=data['loot_tables'] 
     )
 
 def main():
@@ -585,6 +638,9 @@ def main():
             activity = parse_activity_page(item)
             if activity:
                 all_data.append(activity)
+                tables_found = [t.type.value for t in activity.loot_tables]
+                if tables_found:
+                    print(f"  -> Found tables: {', '.join(tables_found)}")
         except Exception as e:
             print(f"  Error parsing {item['name']}: {e}")
 

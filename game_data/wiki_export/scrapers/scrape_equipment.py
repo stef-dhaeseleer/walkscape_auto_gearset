@@ -223,7 +223,13 @@ def parse_attribute_lines(lines) -> list[Modifier]:
         if value_match:
             value_str = value_match.group(1)
             is_percent = value_match.group(2) == '%'
-            raw_stat_name = normalize_stat_name(clean_line)
+            
+            # --- CUSTOM: Override for "Chance to find X bird nest" ---
+            # Handles: "+5% Chance to find 1 bird nest"
+            if 'chance to find' in clean_line and 'bird nest' in clean_line:
+                raw_stat_name = "chance_to_find_bird_nest"
+            else:
+                raw_stat_name = normalize_stat_name(clean_line)
             
             if raw_stat_name:
                 final_stat_key = raw_stat_name

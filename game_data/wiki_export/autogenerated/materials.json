@@ -1,0 +1,3245 @@
+[
+  {
+    "id": "adamant_bar",
+    "wiki_slug": "Adamant_bar",
+    "name": "Adamant bar",
+    "value": 11,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "adamant_bar_fine",
+    "wiki_slug": "Adamant_bar",
+    "name": "Adamant bar (Fine)",
+    "value": 60,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bronze_bar",
+    "wiki_slug": "Bronze_bar",
+    "name": "Bronze bar",
+    "value": 1,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bronze_bar_fine",
+    "wiki_slug": "Bronze_bar",
+    "name": "Bronze bar (Fine)",
+    "value": 11,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "copper_bar",
+    "wiki_slug": "Copper_bar",
+    "name": "Copper bar",
+    "value": 1,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "copper_bar_fine",
+    "wiki_slug": "Copper_bar",
+    "name": "Copper bar (Fine)",
+    "value": 11,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "farganite_bar",
+    "wiki_slug": "Farganite_bar",
+    "name": "Farganite bar",
+    "value": 8,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "farganite_bar_fine",
+    "wiki_slug": "Farganite_bar",
+    "name": "Farganite bar (Fine)",
+    "value": 45,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "gold_bar",
+    "wiki_slug": "Gold_bar",
+    "name": "Gold bar",
+    "value": 10,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "gold_bar_fine",
+    "wiki_slug": "Gold_bar",
+    "name": "Gold bar (Fine)",
+    "value": 51,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hydrilium_bar",
+    "wiki_slug": "Hydrilium_bar",
+    "name": "Hydrilium bar",
+    "value": 10,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hydrilium_bar_fine",
+    "wiki_slug": "Hydrilium_bar",
+    "name": "Hydrilium bar (Fine)",
+    "value": 51,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "iron_bar",
+    "wiki_slug": "Iron_bar",
+    "name": "Iron bar",
+    "value": 2,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "iron_bar_fine",
+    "wiki_slug": "Iron_bar",
+    "name": "Iron bar (Fine)",
+    "value": 15,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "silver_bar",
+    "wiki_slug": "Silver_bar",
+    "name": "Silver bar",
+    "value": 7,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "silver_bar_fine",
+    "wiki_slug": "Silver_bar",
+    "name": "Silver bar (Fine)",
+    "value": 38,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "steel_bar",
+    "wiki_slug": "Steel_bar",
+    "name": "Steel bar",
+    "value": 4,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "steel_bar_fine",
+    "wiki_slug": "Steel_bar",
+    "name": "Steel bar (Fine)",
+    "value": 24,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tarsilium_bar",
+    "wiki_slug": "Tarsilium_bar",
+    "name": "Tarsilium bar",
+    "value": 4,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tarsilium_bar_fine",
+    "wiki_slug": "Tarsilium_bar",
+    "name": "Tarsilium bar (Fine)",
+    "value": 24,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "violite_bar",
+    "wiki_slug": "Violite_bar",
+    "name": "Violite bar",
+    "value": 14,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "violite_bar_fine",
+    "wiki_slug": "Violite_bar",
+    "name": "Violite bar (Fine)",
+    "value": 76,
+    "keywords": [
+      "Bar"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_fish",
+    "wiki_slug": "Ectoplasm_fish",
+    "name": "Ectoplasm fish",
+    "value": 0,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_fish_fine",
+    "wiki_slug": "Ectoplasm_fish",
+    "name": "Ectoplasm fish (Fine)",
+    "value": 0,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_anglerfish",
+    "wiki_slug": "Raw_anglerfish",
+    "name": "Raw anglerfish",
+    "value": 25,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_anglerfish_fine",
+    "wiki_slug": "Raw_anglerfish",
+    "name": "Raw anglerfish (Fine)",
+    "value": 119,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_carp",
+    "wiki_slug": "Raw_carp",
+    "name": "Raw carp",
+    "value": 0,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_carp_fine",
+    "wiki_slug": "Raw_carp",
+    "name": "Raw carp (Fine)",
+    "value": 6,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_jellyfish",
+    "wiki_slug": "Raw_jellyfish",
+    "name": "Raw jellyfish",
+    "value": 3,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_jellyfish_fine",
+    "wiki_slug": "Raw_jellyfish",
+    "name": "Raw jellyfish (Fine)",
+    "value": 19,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_largemouth_bass",
+    "wiki_slug": "Raw_largemouth_bass",
+    "name": "Raw largemouth bass",
+    "value": 10,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_largemouth_bass_fine",
+    "wiki_slug": "Raw_largemouth_bass",
+    "name": "Raw largemouth bass (Fine)",
+    "value": 51,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_lobster",
+    "wiki_slug": "Raw_lobster",
+    "name": "Raw lobster",
+    "value": 4,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_lobster_fine",
+    "wiki_slug": "Raw_lobster",
+    "name": "Raw lobster (Fine)",
+    "value": 24,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_moray",
+    "wiki_slug": "Raw_moray",
+    "name": "Raw moray",
+    "value": 13,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_moray_fine",
+    "wiki_slug": "Raw_moray",
+    "name": "Raw moray (Fine)",
+    "value": 66,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_perch",
+    "wiki_slug": "Raw_perch",
+    "name": "Raw perch",
+    "value": 0,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_perch_fine",
+    "wiki_slug": "Raw_perch",
+    "name": "Raw perch (Fine)",
+    "value": 6,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_pike",
+    "wiki_slug": "Raw_pike",
+    "name": "Raw pike",
+    "value": 1,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_pike_fine",
+    "wiki_slug": "Raw_pike",
+    "name": "Raw pike (Fine)",
+    "value": 11,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_salmon",
+    "wiki_slug": "Raw_salmon",
+    "name": "Raw salmon",
+    "value": 2,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_salmon_fine",
+    "wiki_slug": "Raw_salmon",
+    "name": "Raw salmon (Fine)",
+    "value": 15,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_shark",
+    "wiki_slug": "Raw_shark",
+    "name": "Raw shark",
+    "value": 10,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_shark_fine",
+    "wiki_slug": "Raw_shark",
+    "name": "Raw shark (Fine)",
+    "value": 51,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_shrimp",
+    "wiki_slug": "Raw_shrimp",
+    "name": "Raw shrimp",
+    "value": 0,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_shrimp_fine",
+    "wiki_slug": "Raw_shrimp",
+    "name": "Raw shrimp (Fine)",
+    "value": 6,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_squid",
+    "wiki_slug": "Raw_squid",
+    "name": "Raw squid",
+    "value": 2,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_squid_fine",
+    "wiki_slug": "Raw_squid",
+    "name": "Raw squid (Fine)",
+    "value": 15,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_stingray",
+    "wiki_slug": "Raw_stingray",
+    "name": "Raw stingray",
+    "value": 7,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_stingray_fine",
+    "wiki_slug": "Raw_stingray",
+    "name": "Raw stingray (Fine)",
+    "value": 38,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_stream_eel",
+    "wiki_slug": "Raw_stream_eel",
+    "name": "Raw stream eel",
+    "value": 12,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_stream_eel_fine",
+    "wiki_slug": "Raw_stream_eel",
+    "name": "Raw stream eel (Fine)",
+    "value": 61,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_swordfish",
+    "wiki_slug": "Raw_swordfish",
+    "name": "Raw swordfish",
+    "value": 7,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_swordfish_fine",
+    "wiki_slug": "Raw_swordfish",
+    "name": "Raw swordfish (Fine)",
+    "value": 38,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_trout",
+    "wiki_slug": "Raw_trout",
+    "name": "Raw trout",
+    "value": 1,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "raw_trout_fine",
+    "wiki_slug": "Raw_trout",
+    "name": "Raw trout (Fine)",
+    "value": 11,
+    "keywords": [
+      "Fish"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ethernite",
+    "wiki_slug": "Ethernite",
+    "name": "Ethernite",
+    "value": 108,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ethernite_fine",
+    "wiki_slug": "Ethernite",
+    "name": "Ethernite (Fine)",
+    "value": 502,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "jade",
+    "wiki_slug": "Jade",
+    "name": "Jade",
+    "value": 76,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "jade_fine",
+    "wiki_slug": "Jade",
+    "name": "Jade (Fine)",
+    "value": 353,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "opal",
+    "wiki_slug": "Opal",
+    "name": "Opal",
+    "value": 40,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "opal_fine",
+    "wiki_slug": "Opal",
+    "name": "Opal (Fine)",
+    "value": 186,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ruby",
+    "wiki_slug": "Ruby",
+    "name": "Ruby",
+    "value": 84,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ruby_fine",
+    "wiki_slug": "Ruby",
+    "name": "Ruby (Fine)",
+    "value": 390,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "star_pearl",
+    "wiki_slug": "Star_pearl",
+    "name": "Star pearl",
+    "value": 52,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "star_pearl_fine",
+    "wiki_slug": "Star_pearl",
+    "name": "Star pearl (Fine)",
+    "value": 241,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sun_stone",
+    "wiki_slug": "Sun_stone",
+    "name": "Sun stone",
+    "value": 92,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sun_stone_fine",
+    "wiki_slug": "Sun_stone",
+    "name": "Sun stone (Fine)",
+    "value": 427,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "topaz",
+    "wiki_slug": "Topaz",
+    "name": "Topaz",
+    "value": 68,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "topaz_fine",
+    "wiki_slug": "Topaz",
+    "name": "Topaz (Fine)",
+    "value": 316,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wrentmarine",
+    "wiki_slug": "Wrentmarine",
+    "name": "Wrentmarine",
+    "value": 60,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wrentmarine_fine",
+    "wiki_slug": "Wrentmarine",
+    "name": "Wrentmarine (Fine)",
+    "value": 279,
+    "keywords": [
+      "Gem",
+      "Cut gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "crystal_coal",
+    "wiki_slug": "Crystal_coal",
+    "name": "Crystal coal",
+    "value": 9,
+    "keywords": [
+      "Gem",
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "crystal_coal_fine",
+    "wiki_slug": "Crystal_coal",
+    "name": "Crystal coal (Fine)",
+    "value": 45,
+    "keywords": [
+      "Gem",
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pearls",
+    "wiki_slug": "Pearls",
+    "name": "Pearls",
+    "value": 22,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pearls_fine",
+    "wiki_slug": "Pearls",
+    "name": "Pearls (Fine)",
+    "value": 112,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_ethernite",
+    "wiki_slug": "Rough_ethernite",
+    "name": "Rough ethernite",
+    "value": 67,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_ethernite_fine",
+    "wiki_slug": "Rough_ethernite",
+    "name": "Rough ethernite (Fine)",
+    "value": 321,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_jade",
+    "wiki_slug": "Rough_jade",
+    "name": "Rough jade",
+    "value": 47,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_jade_fine",
+    "wiki_slug": "Rough_jade",
+    "name": "Rough jade (Fine)",
+    "value": 226,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_opal",
+    "wiki_slug": "Rough_opal",
+    "name": "Rough opal",
+    "value": 25,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_opal_fine",
+    "wiki_slug": "Rough_opal",
+    "name": "Rough opal (Fine)",
+    "value": 119,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_ruby",
+    "wiki_slug": "Rough_ruby",
+    "name": "Rough ruby",
+    "value": 52,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_ruby_fine",
+    "wiki_slug": "Rough_ruby",
+    "name": "Rough ruby (Fine)",
+    "value": 249,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_star_pearl",
+    "wiki_slug": "Rough_star_pearl",
+    "name": "Rough star pearl",
+    "value": 32,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_star_pearl_fine",
+    "wiki_slug": "Rough_star_pearl",
+    "name": "Rough star pearl (Fine)",
+    "value": 154,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_sun_stone",
+    "wiki_slug": "Rough_sun_stone",
+    "name": "Rough sun stone",
+    "value": 57,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_sun_stone_fine",
+    "wiki_slug": "Rough_sun_stone",
+    "name": "Rough sun stone (Fine)",
+    "value": 273,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_topaz",
+    "wiki_slug": "Rough_topaz",
+    "name": "Rough topaz",
+    "value": 42,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_topaz_fine",
+    "wiki_slug": "Rough_topaz",
+    "name": "Rough topaz (Fine)",
+    "value": 202,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_wrentmarine",
+    "wiki_slug": "Rough_wrentmarine",
+    "name": "Rough wrentmarine",
+    "value": 37,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rough_wrentmarine_fine",
+    "wiki_slug": "Rough_wrentmarine",
+    "name": "Rough wrentmarine (Fine)",
+    "value": 178,
+    "keywords": [
+      "Gem",
+      "Rough gem"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "chocolate",
+    "wiki_slug": "Chocolate",
+    "name": "Chocolate",
+    "value": 2,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "chocolate_fine",
+    "wiki_slug": "Chocolate",
+    "name": "Chocolate (Fine)",
+    "value": 15,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "crystallized_flame",
+    "wiki_slug": "Crystallized_flame",
+    "name": "Crystallized flame",
+    "value": 5,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "crystallized_flame_fine",
+    "wiki_slug": "Crystallized_flame",
+    "name": "Crystallized flame (Fine)",
+    "value": 30,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "egg",
+    "wiki_slug": "Egg",
+    "name": "Egg",
+    "value": 2,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "egg_fine",
+    "wiki_slug": "Egg",
+    "name": "Egg (Fine)",
+    "value": 15,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "honeycomb",
+    "wiki_slug": "Honeycomb",
+    "name": "Honeycomb",
+    "value": 2,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "honeycomb_fine",
+    "wiki_slug": "Honeycomb",
+    "name": "Honeycomb (Fine)",
+    "value": 15,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "milk",
+    "wiki_slug": "Milk",
+    "name": "Milk",
+    "value": 2,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "milk_fine",
+    "wiki_slug": "Milk",
+    "name": "Milk (Fine)",
+    "value": 15,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mud",
+    "wiki_slug": "Mud",
+    "name": "Mud",
+    "value": 0,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mud_fine",
+    "wiki_slug": "Mud",
+    "name": "Mud (Fine)",
+    "value": 6,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "salt_crystal",
+    "wiki_slug": "Salt_crystal",
+    "name": "Salt crystal",
+    "value": 1,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "salt_crystal_fine",
+    "wiki_slug": "Salt_crystal",
+    "name": "Salt crystal (Fine)",
+    "value": 11,
+    "keywords": [
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mushroom",
+    "wiki_slug": "Mushroom",
+    "name": "Mushroom",
+    "value": 2,
+    "keywords": [
+      "Ingredient",
+      "Mushroom"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mushroom_fine",
+    "wiki_slug": "Mushroom",
+    "name": "Mushroom (Fine)",
+    "value": 15,
+    "keywords": [
+      "Ingredient",
+      "Mushroom"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bamboo_logs",
+    "wiki_slug": "Bamboo_logs",
+    "name": "Bamboo logs",
+    "value": 4,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bamboo_logs_fine",
+    "wiki_slug": "Bamboo_logs",
+    "name": "Bamboo logs (Fine)",
+    "value": 24,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "birch_logs",
+    "wiki_slug": "Birch_logs",
+    "name": "Birch logs",
+    "value": 0,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "birch_logs_fine",
+    "wiki_slug": "Birch_logs",
+    "name": "Birch logs (Fine)",
+    "value": 6,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "coral",
+    "wiki_slug": "Coral",
+    "name": "Coral",
+    "value": 4,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "coral_fine",
+    "wiki_slug": "Coral",
+    "name": "Coral (Fine)",
+    "value": 24,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_logs",
+    "wiki_slug": "Ectoplasm_logs",
+    "name": "Ectoplasm logs",
+    "value": 0,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_logs_fine",
+    "wiki_slug": "Ectoplasm_logs",
+    "name": "Ectoplasm logs (Fine)",
+    "value": 0,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mangrove_logs",
+    "wiki_slug": "Mangrove_logs",
+    "name": "Mangrove logs",
+    "value": 5,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mangrove_logs_fine",
+    "wiki_slug": "Mangrove_logs",
+    "name": "Mangrove logs (Fine)",
+    "value": 31,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "maple_logs",
+    "wiki_slug": "Maple_logs",
+    "name": "Maple logs",
+    "value": 2,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "maple_logs_fine",
+    "wiki_slug": "Maple_logs",
+    "name": "Maple logs (Fine)",
+    "value": 15,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "oak_logs",
+    "wiki_slug": "Oak_logs",
+    "name": "Oak logs",
+    "value": 2,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "oak_logs_fine",
+    "wiki_slug": "Oak_logs",
+    "name": "Oak logs (Fine)",
+    "value": 15,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pine_logs",
+    "wiki_slug": "Pine_logs",
+    "name": "Pine logs",
+    "value": 1,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pine_logs_fine",
+    "wiki_slug": "Pine_logs",
+    "name": "Pine logs (Fine)",
+    "value": 11,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "spruce_logs",
+    "wiki_slug": "Spruce_logs",
+    "name": "Spruce logs",
+    "value": 1,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "spruce_logs_fine",
+    "wiki_slug": "Spruce_logs",
+    "name": "Spruce logs (Fine)",
+    "value": 11,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "teak_logs",
+    "wiki_slug": "Teak_logs",
+    "name": "Teak logs",
+    "value": 3,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "teak_logs_fine",
+    "wiki_slug": "Teak_logs",
+    "name": "Teak logs (Fine)",
+    "value": 21,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "willow_logs",
+    "wiki_slug": "Willow_logs",
+    "name": "Willow logs",
+    "value": 4,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "willow_logs_fine",
+    "wiki_slug": "Willow_logs",
+    "name": "Willow logs (Fine)",
+    "value": 24,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "yew_logs",
+    "wiki_slug": "Yew_logs",
+    "name": "Yew logs",
+    "value": 6,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "yew_logs_fine",
+    "wiki_slug": "Yew_logs",
+    "name": "Yew logs (Fine)",
+    "value": 36,
+    "keywords": [
+      "Log"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bones",
+    "wiki_slug": "Bones",
+    "name": "Bones",
+    "value": 1,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bones_fine",
+    "wiki_slug": "Bones",
+    "name": "Bones (Fine)",
+    "value": 11,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "clam_shell",
+    "wiki_slug": "Clam_shell",
+    "name": "Clam shell",
+    "value": 8,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "clam_shell_fine",
+    "wiki_slug": "Clam_shell",
+    "name": "Clam shell (Fine)",
+    "value": 50,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "fishbone",
+    "wiki_slug": "Fishbone",
+    "name": "Fishbone",
+    "value": 0,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "fishbone_fine",
+    "wiki_slug": "Fishbone",
+    "name": "Fishbone (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "stone",
+    "wiki_slug": "Stone",
+    "name": "Stone",
+    "value": 0,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "stone_fine",
+    "wiki_slug": "Stone",
+    "name": "Stone (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "volcanic_ash",
+    "wiki_slug": "Volcanic_ash",
+    "name": "Volcanic ash",
+    "value": 7,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "volcanic_ash_fine",
+    "wiki_slug": "Volcanic_ash",
+    "name": "Volcanic ash (Fine)",
+    "value": 38,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wooden_stick",
+    "wiki_slug": "Wooden_stick",
+    "name": "Wooden stick",
+    "value": 0,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wooden_stick_fine",
+    "wiki_slug": "Wooden_stick",
+    "name": "Wooden stick (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "large_stone",
+    "wiki_slug": "Large_stone",
+    "name": "Large stone",
+    "value": 1,
+    "keywords": [
+      "Misc.",
+      "Heavy"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "large_stone_fine",
+    "wiki_slug": "Large_stone",
+    "name": "Large stone (Fine)",
+    "value": 11,
+    "keywords": [
+      "Misc.",
+      "Heavy"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sturdy_branch",
+    "wiki_slug": "Sturdy_branch",
+    "name": "Sturdy branch",
+    "value": 1,
+    "keywords": [
+      "Misc.",
+      "Heavy"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sturdy_branch_fine",
+    "wiki_slug": "Sturdy_branch",
+    "name": "Sturdy branch (Fine)",
+    "value": 11,
+    "keywords": [
+      "Misc.",
+      "Heavy"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "unidentified_remains",
+    "wiki_slug": "Unidentified_remains",
+    "name": "Unidentified remains",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Heavy"
+    ],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 20
+    }
+  },
+  {
+    "id": "unidentified_remains_fine",
+    "wiki_slug": "Unidentified_remains",
+    "name": "Unidentified remains (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc.",
+      "Heavy"
+    ],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 100
+    }
+  },
+  {
+    "id": "adventurers_enamel_pin",
+    "wiki_slug": "Adventurers%27_enamel_pin",
+    "name": "Adventurers' enamel pin",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 2
+    }
+  },
+  {
+    "id": "adventurers_enamel_pin_fine",
+    "wiki_slug": "Adventurers%27_enamel_pin",
+    "name": "Adventurers' enamel pin (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 10
+    }
+  },
+  {
+    "id": "name_tag",
+    "wiki_slug": "Name_tag",
+    "name": "Name tag",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 10
+    }
+  },
+  {
+    "id": "name_tag_fine",
+    "wiki_slug": "Name_tag",
+    "name": "Name tag (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 50
+    }
+  },
+  {
+    "id": "sea_shell",
+    "wiki_slug": "Sea_shell",
+    "name": "Sea shell",
+    "value": 5,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sea_shell_fine",
+    "wiki_slug": "Sea_shell",
+    "name": "Sea shell (Fine)",
+    "value": 31,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "special_sell": {
+      "item_id": "sea_shell",
+      "amount": 10
+    }
+  },
+  {
+    "id": "ectoplasm",
+    "wiki_slug": "Ectoplasm",
+    "name": "Ectoplasm",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Ultra light",
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_fine",
+    "wiki_slug": "Ectoplasm",
+    "name": "Ectoplasm (Fine)",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Ultra light",
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "gold_nugget",
+    "wiki_slug": "Gold_nugget",
+    "name": "Gold nugget",
+    "value": 8,
+    "keywords": [
+      "Nugget",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "gold_nugget_fine",
+    "wiki_slug": "Gold_nugget",
+    "name": "Gold nugget (Fine)",
+    "value": 45,
+    "keywords": [
+      "Nugget",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "silver_nugget",
+    "wiki_slug": "Silver_nugget",
+    "name": "Silver nugget",
+    "value": 4,
+    "keywords": [
+      "Nugget",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "silver_nugget_fine",
+    "wiki_slug": "Silver_nugget",
+    "name": "Silver nugget (Fine)",
+    "value": 28,
+    "keywords": [
+      "Nugget",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "metal_scrap",
+    "wiki_slug": "Metal_scrap",
+    "name": "Metal scrap",
+    "value": 0,
+    "keywords": [
+      "Offcut",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "metal_scrap_fine",
+    "wiki_slug": "Metal_scrap",
+    "name": "Metal scrap (Fine)",
+    "value": 6,
+    "keywords": [
+      "Offcut",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wood_scrap",
+    "wiki_slug": "Wood_scrap",
+    "name": "Wood scrap",
+    "value": 0,
+    "keywords": [
+      "Offcut",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wood_scrap_fine",
+    "wiki_slug": "Wood_scrap",
+    "name": "Wood scrap (Fine)",
+    "value": 6,
+    "keywords": [
+      "Offcut",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "adamant_ore",
+    "wiki_slug": "Adamant_ore",
+    "name": "Adamant ore",
+    "value": 8,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "adamant_ore_fine",
+    "wiki_slug": "Adamant_ore",
+    "name": "Adamant ore (Fine)",
+    "value": 45,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "coal",
+    "wiki_slug": "Coal",
+    "name": "Coal",
+    "value": 2,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "coal_fine",
+    "wiki_slug": "Coal",
+    "name": "Coal (Fine)",
+    "value": 15,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "copper_ore",
+    "wiki_slug": "Copper_ore",
+    "name": "Copper ore",
+    "value": 0,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "copper_ore_fine",
+    "wiki_slug": "Copper_ore",
+    "name": "Copper ore (Fine)",
+    "value": 6,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_rock",
+    "wiki_slug": "Ectoplasm_rock",
+    "name": "Ectoplasm rock",
+    "value": 0,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_rock_fine",
+    "wiki_slug": "Ectoplasm_rock",
+    "name": "Ectoplasm rock (Fine)",
+    "value": 0,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "farganite_ore",
+    "wiki_slug": "Farganite_ore",
+    "name": "Farganite ore",
+    "value": 5,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "farganite_ore_fine",
+    "wiki_slug": "Farganite_ore",
+    "name": "Farganite ore (Fine)",
+    "value": 30,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "gold_ore",
+    "wiki_slug": "Gold_ore",
+    "name": "Gold ore",
+    "value": 10,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "gold_ore_fine",
+    "wiki_slug": "Gold_ore",
+    "name": "Gold ore (Fine)",
+    "value": 51,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "iron_ore",
+    "wiki_slug": "Iron_ore",
+    "name": "Iron ore",
+    "value": 1,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "iron_ore_fine",
+    "wiki_slug": "Iron_ore",
+    "name": "Iron ore (Fine)",
+    "value": 11,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "silver_ore",
+    "wiki_slug": "Silver_ore",
+    "name": "Silver ore",
+    "value": 7,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "silver_ore_fine",
+    "wiki_slug": "Silver_ore",
+    "name": "Silver ore (Fine)",
+    "value": 38,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tarsilium_ore",
+    "wiki_slug": "Tarsilium_ore",
+    "name": "Tarsilium ore",
+    "value": 3,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tarsilium_ore_fine",
+    "wiki_slug": "Tarsilium_ore",
+    "name": "Tarsilium ore (Fine)",
+    "value": 21,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tin_ore",
+    "wiki_slug": "Tin_ore",
+    "name": "Tin ore",
+    "value": 0,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tin_ore_fine",
+    "wiki_slug": "Tin_ore",
+    "name": "Tin ore (Fine)",
+    "value": 6,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "violite_ore",
+    "wiki_slug": "Violite_ore",
+    "name": "Violite ore",
+    "value": 10,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "violite_ore_fine",
+    "wiki_slug": "Violite_ore",
+    "name": "Violite ore (Fine)",
+    "value": 51,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "volcanic_rock",
+    "wiki_slug": "Volcanic_rock",
+    "name": "Volcanic rock",
+    "value": 4,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "volcanic_rock_fine",
+    "wiki_slug": "Volcanic_rock",
+    "name": "Volcanic rock (Fine)",
+    "value": 24,
+    "keywords": [
+      "Ore"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bamboo_plank",
+    "wiki_slug": "Bamboo_plank",
+    "name": "Bamboo plank",
+    "value": 4,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bamboo_plank_fine",
+    "wiki_slug": "Bamboo_plank",
+    "name": "Bamboo plank (Fine)",
+    "value": 26,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "birch_plank",
+    "wiki_slug": "Birch_plank",
+    "name": "Birch plank",
+    "value": 1,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "birch_plank_fine",
+    "wiki_slug": "Birch_plank",
+    "name": "Birch plank (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "coral_plank",
+    "wiki_slug": "Coral_plank",
+    "name": "Coral plank",
+    "value": 7,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "coral_plank_fine",
+    "wiki_slug": "Coral_plank",
+    "name": "Coral plank (Fine)",
+    "value": 38,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mahogany_plank",
+    "wiki_slug": "Mahogany_plank",
+    "name": "Mahogany plank",
+    "value": 10,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mahogany_plank_fine",
+    "wiki_slug": "Mahogany_plank",
+    "name": "Mahogany plank (Fine)",
+    "value": 51,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mangrove_plank",
+    "wiki_slug": "Mangrove_plank",
+    "name": "Mangrove plank",
+    "value": 7,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "mangrove_plank_fine",
+    "wiki_slug": "Mangrove_plank",
+    "name": "Mangrove plank (Fine)",
+    "value": 38,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "maple_plank",
+    "wiki_slug": "Maple_plank",
+    "name": "Maple plank",
+    "value": 3,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "maple_plank_fine",
+    "wiki_slug": "Maple_plank",
+    "name": "Maple plank (Fine)",
+    "value": 22,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "oak_plank",
+    "wiki_slug": "Oak_plank",
+    "name": "Oak plank",
+    "value": 4,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "oak_plank_fine",
+    "wiki_slug": "Oak_plank",
+    "name": "Oak plank (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pine_plank",
+    "wiki_slug": "Pine_plank",
+    "name": "Pine plank",
+    "value": 1,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pine_plank_fine",
+    "wiki_slug": "Pine_plank",
+    "name": "Pine plank (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "spruce_plank",
+    "wiki_slug": "Spruce_plank",
+    "name": "Spruce plank",
+    "value": 2,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "spruce_plank_fine",
+    "wiki_slug": "Spruce_plank",
+    "name": "Spruce plank (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "teak_plank",
+    "wiki_slug": "Teak_plank",
+    "name": "Teak plank",
+    "value": 5,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "teak_plank_fine",
+    "wiki_slug": "Teak_plank",
+    "name": "Teak plank (Fine)",
+    "value": 30,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "willow_plank",
+    "wiki_slug": "Willow_plank",
+    "name": "Willow plank",
+    "value": 6,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "willow_plank_fine",
+    "wiki_slug": "Willow_plank",
+    "name": "Willow plank (Fine)",
+    "value": 34,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "yew_plank",
+    "wiki_slug": "Yew_plank",
+    "name": "Yew plank",
+    "value": 8,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "yew_plank_fine",
+    "wiki_slug": "Yew_plank",
+    "name": "Yew plank (Fine)",
+    "value": 40,
+    "keywords": [
+      "Plank"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cattail",
+    "wiki_slug": "Cattail",
+    "name": "Cattail",
+    "value": 4,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cattail_fine",
+    "wiki_slug": "Cattail",
+    "name": "Cattail (Fine)",
+    "value": 30,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "flax",
+    "wiki_slug": "Flax",
+    "name": "Flax",
+    "value": 1,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "flax_fine",
+    "wiki_slug": "Flax",
+    "name": "Flax (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hemp",
+    "wiki_slug": "Hemp",
+    "name": "Hemp",
+    "value": 0,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hemp_fine",
+    "wiki_slug": "Hemp",
+    "name": "Hemp (Fine)",
+    "value": 6,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "highwater_lotus",
+    "wiki_slug": "Highwater_lotus",
+    "name": "Highwater lotus",
+    "value": 6,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "highwater_lotus_fine",
+    "wiki_slug": "Highwater_lotus",
+    "name": "Highwater lotus (Fine)",
+    "value": 40,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ironweed",
+    "wiki_slug": "Ironweed",
+    "name": "Ironweed",
+    "value": 5,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ironweed_fine",
+    "wiki_slug": "Ironweed",
+    "name": "Ironweed (Fine)",
+    "value": 30,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "kelp",
+    "wiki_slug": "Kelp",
+    "name": "Kelp",
+    "value": 4,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "kelp_fine",
+    "wiki_slug": "Kelp",
+    "name": "Kelp (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "loverose",
+    "wiki_slug": "Loverose",
+    "name": "Loverose",
+    "value": 6,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "loverose_fine",
+    "wiki_slug": "Loverose",
+    "name": "Loverose (Fine)",
+    "value": 36,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "moondaisy",
+    "wiki_slug": "Moondaisy",
+    "name": "Moondaisy",
+    "value": 1,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "moondaisy_fine",
+    "wiki_slug": "Moondaisy",
+    "name": "Moondaisy (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "snowdrop",
+    "wiki_slug": "Snowdrop",
+    "name": "Snowdrop",
+    "value": 2,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "snowdrop_fine",
+    "wiki_slug": "Snowdrop",
+    "name": "Snowdrop (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sunblossom",
+    "wiki_slug": "Sunblossom",
+    "name": "Sunblossom",
+    "value": 1,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sunblossom_fine",
+    "wiki_slug": "Sunblossom",
+    "name": "Sunblossom (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "thistle",
+    "wiki_slug": "Thistle",
+    "name": "Thistle",
+    "value": 0,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "thistle_fine",
+    "wiki_slug": "Thistle",
+    "name": "Thistle (Fine)",
+    "value": 6,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "widows_kiss",
+    "wiki_slug": "Widow%27s_kiss",
+    "name": "Widow's kiss",
+    "value": 5,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "widows_kiss_fine",
+    "wiki_slug": "Widow%27s_kiss",
+    "name": "Widow's kiss (Fine)",
+    "value": 30,
+    "keywords": [
+      "Plant"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bell_pepper",
+    "wiki_slug": "Bell_pepper",
+    "name": "Bell pepper",
+    "value": 4,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bell_pepper_fine",
+    "wiki_slug": "Bell_pepper",
+    "name": "Bell pepper (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "berries",
+    "wiki_slug": "Berries",
+    "name": "Berries",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "berries_fine",
+    "wiki_slug": "Berries",
+    "name": "Berries (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "carrot",
+    "wiki_slug": "Carrot",
+    "name": "Carrot",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "carrot_fine",
+    "wiki_slug": "Carrot",
+    "name": "Carrot (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cucumber",
+    "wiki_slug": "Cucumber",
+    "name": "Cucumber",
+    "value": 4,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cucumber_fine",
+    "wiki_slug": "Cucumber",
+    "name": "Cucumber (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "grass",
+    "wiki_slug": "Grass",
+    "name": "Grass",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "grass_fine",
+    "wiki_slug": "Grass",
+    "name": "Grass (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "milkweed",
+    "wiki_slug": "Milkweed",
+    "name": "Milkweed",
+    "value": 4,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "milkweed_fine",
+    "wiki_slug": "Milkweed",
+    "name": "Milkweed (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "nettle",
+    "wiki_slug": "Nettle",
+    "name": "Nettle",
+    "value": 0,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "nettle_fine",
+    "wiki_slug": "Nettle",
+    "name": "Nettle (Fine)",
+    "value": 6,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "potato",
+    "wiki_slug": "Potato",
+    "name": "Potato",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "potato_fine",
+    "wiki_slug": "Potato",
+    "name": "Potato (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "root",
+    "wiki_slug": "Root",
+    "name": "Root",
+    "value": 4,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "root_fine",
+    "wiki_slug": "Root",
+    "name": "Root (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rotbud",
+    "wiki_slug": "Rotbud",
+    "name": "Rotbud",
+    "value": 7,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "rotbud_fine",
+    "wiki_slug": "Rotbud",
+    "name": "Rotbud (Fine)",
+    "value": 38,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "salty_hops",
+    "wiki_slug": "Salty_hops",
+    "name": "Salty hops",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "salty_hops_fine",
+    "wiki_slug": "Salty_hops",
+    "name": "Salty hops (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sea_cabbage",
+    "wiki_slug": "Sea_cabbage",
+    "name": "Sea cabbage",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sea_cabbage_fine",
+    "wiki_slug": "Sea_cabbage",
+    "name": "Sea cabbage (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sea_spinach",
+    "wiki_slug": "Sea_spinach",
+    "name": "Sea spinach",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sea_spinach_fine",
+    "wiki_slug": "Sea_spinach",
+    "name": "Sea spinach (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sweet_kelp",
+    "wiki_slug": "Sweet_kelp",
+    "name": "Sweet kelp",
+    "value": 6,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "sweet_kelp_fine",
+    "wiki_slug": "Sweet_kelp",
+    "name": "Sweet kelp (Fine)",
+    "value": 34,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tomato",
+    "wiki_slug": "Tomato",
+    "name": "Tomato",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tomato_fine",
+    "wiki_slug": "Tomato",
+    "name": "Tomato (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "underwater_lotus",
+    "wiki_slug": "Underwater_lotus",
+    "name": "Underwater lotus",
+    "value": 4,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "underwater_lotus_fine",
+    "wiki_slug": "Underwater_lotus",
+    "name": "Underwater lotus (Fine)",
+    "value": 24,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wheat",
+    "wiki_slug": "Wheat",
+    "name": "Wheat",
+    "value": 2,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "wheat_fine",
+    "wiki_slug": "Wheat",
+    "name": "Wheat (Fine)",
+    "value": 15,
+    "keywords": [
+      "Plant",
+      "Ingredient"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pepper",
+    "wiki_slug": "Pepper",
+    "name": "Pepper",
+    "value": 1,
+    "keywords": [
+      "Plant",
+      "Ingredient",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pepper_fine",
+    "wiki_slug": "Pepper",
+    "name": "Pepper (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plant",
+      "Ingredient",
+      "Light"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "fishing_line",
+    "wiki_slug": "Fishing_line",
+    "name": "Fishing line",
+    "value": 1,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "fishing_line_fine",
+    "wiki_slug": "Fishing_line",
+    "name": "Fishing line (Fine)",
+    "value": 11,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hardened_kelp",
+    "wiki_slug": "Hardened_kelp",
+    "name": "Hardened kelp",
+    "value": 7,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hardened_kelp_fine",
+    "wiki_slug": "Hardened_kelp",
+    "name": "Hardened kelp (Fine)",
+    "value": 38,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hydrilium",
+    "wiki_slug": "Hydrilium",
+    "name": "Hydrilium",
+    "value": 10,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hydrilium_fine",
+    "wiki_slug": "Hydrilium",
+    "name": "Hydrilium (Fine)",
+    "value": 51,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ironweed_twine",
+    "wiki_slug": "Ironweed_twine",
+    "name": "Ironweed twine",
+    "value": 8,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ironweed_twine_fine",
+    "wiki_slug": "Ironweed_twine",
+    "name": "Ironweed twine (Fine)",
+    "value": 48,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "kelp_twine",
+    "wiki_slug": "Kelp_twine",
+    "name": "Kelp twine",
+    "value": 4,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "kelp_twine_fine",
+    "wiki_slug": "Kelp_twine",
+    "name": "Kelp twine (Fine)",
+    "value": 24,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "twine",
+    "wiki_slug": "Twine",
+    "name": "Twine",
+    "value": 0,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "twine_fine",
+    "wiki_slug": "Twine",
+    "name": "Twine (Fine)",
+    "value": 6,
+    "keywords": [
+      "Processed"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "trash",
+    "wiki_slug": "Trash",
+    "name": "Trash",
+    "value": 0,
+    "keywords": [
+      "Trash",
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "trash_fine",
+    "wiki_slug": "Trash",
+    "name": "Trash (Fine)",
+    "value": 6,
+    "keywords": [
+      "Trash",
+      "Misc."
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bat_trinket",
+    "wiki_slug": "Bat_trinket",
+    "name": "Bat trinket",
+    "value": 84,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bat_trinket_fine",
+    "wiki_slug": "Bat_trinket",
+    "name": "Bat trinket (Fine)",
+    "value": 386,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "beaver_trinket",
+    "wiki_slug": "Beaver_trinket",
+    "name": "Beaver trinket",
+    "value": 200,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "beaver_trinket_fine",
+    "wiki_slug": "Beaver_trinket",
+    "name": "Beaver trinket (Fine)",
+    "value": 912,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "circular_root_trinket",
+    "wiki_slug": "Circular_root_trinket",
+    "name": "Circular root trinket",
+    "value": 140,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "circular_root_trinket_fine",
+    "wiki_slug": "Circular_root_trinket",
+    "name": "Circular root trinket (Fine)",
+    "value": 638,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "compass_trinket",
+    "wiki_slug": "Compass_trinket",
+    "name": "Compass trinket",
+    "value": 108,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "compass_trinket_fine",
+    "wiki_slug": "Compass_trinket",
+    "name": "Compass trinket (Fine)",
+    "value": 496,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cooling_icicle_trinket",
+    "wiki_slug": "Cooling_icicle_trinket",
+    "name": "Cooling icicle trinket",
+    "value": 120,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cooling_icicle_trinket_fine",
+    "wiki_slug": "Cooling_icicle_trinket",
+    "name": "Cooling icicle trinket (Fine)",
+    "value": 547,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "eel_trinket",
+    "wiki_slug": "Eel_trinket",
+    "name": "Eel trinket",
+    "value": 60,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "eel_trinket_fine",
+    "wiki_slug": "Eel_trinket",
+    "name": "Eel trinket (Fine)",
+    "value": 276,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "heron_trinket",
+    "wiki_slug": "Heron_trinket",
+    "name": "Heron trinket",
+    "value": 72,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "heron_trinket_fine",
+    "wiki_slug": "Heron_trinket",
+    "name": "Heron trinket (Fine)",
+    "value": 331,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "lucky_rabbit_foot_trinket",
+    "wiki_slug": "Lucky_rabbit_foot_trinket",
+    "name": "Lucky rabbit foot trinket",
+    "value": 180,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "lucky_rabbit_foot_trinket_fine",
+    "wiki_slug": "Lucky_rabbit_foot_trinket",
+    "name": "Lucky rabbit foot trinket (Fine)",
+    "value": 820,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "measuring_spoons_trinket",
+    "wiki_slug": "Measuring_spoons_trinket",
+    "name": "Measuring spoons trinket",
+    "value": 108,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "measuring_spoons_trinket_fine",
+    "wiki_slug": "Measuring_spoons_trinket",
+    "name": "Measuring spoons trinket (Fine)",
+    "value": 496,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pink_pearl_trinket",
+    "wiki_slug": "Pink_pearl_trinket",
+    "name": "Pink pearl trinket",
+    "value": 120,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "pink_pearl_trinket_fine",
+    "wiki_slug": "Pink_pearl_trinket",
+    "name": "Pink pearl trinket (Fine)",
+    "value": 547,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "shark_tooth_trinket",
+    "wiki_slug": "Shark_tooth_trinket",
+    "name": "Shark tooth trinket",
+    "value": 96,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "shark_tooth_trinket_fine",
+    "wiki_slug": "Shark_tooth_trinket",
+    "name": "Shark tooth trinket (Fine)",
+    "value": 441,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "shrimp_trinket",
+    "wiki_slug": "Shrimp_trinket",
+    "name": "Shrimp trinket",
+    "value": 150,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "shrimp_trinket_fine",
+    "wiki_slug": "Shrimp_trinket",
+    "name": "Shrimp trinket (Fine)",
+    "value": 684,
+    "keywords": [
+      "Trinket"
+    ],
+    "special_sell": null
+  }
+]

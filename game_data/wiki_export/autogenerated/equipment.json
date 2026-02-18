@@ -27290,7 +27290,7 @@
         ]
       },
       {
-        "stat": "find_bird_nests",
+        "stat": "chance_to_find_bird_nest",
         "value": 5.0,
         "conditions": [
           {

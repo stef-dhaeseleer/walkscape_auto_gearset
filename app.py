@@ -955,19 +955,32 @@ def main():
                 st.write("") # Spacer
 
                 loadout_data = []
+                
+                pet_str = "-"
                 if saved_pet:
-                     loadout_data.append({"Slot": "🐾 Pet", "Item": f"{saved_pet.name} (Lvl {saved_pet.active_level})"})
+                    pet_str = f"{saved_pet.name} (Lvl {saved_pet.active_level})"
+                loadout_data.append({"Slot": "🐾 Pet", "Item": pet_str})
+
+                cons_str = "-"
                 if saved_cons:
-                     loadout_data.append({"Slot": "🧪 Consumable", "Item": saved_cons.name})
+                    cons_str = saved_cons.name
+                loadout_data.append({"Slot": "🧪 Consumable", "Item": cons_str})
 
                 for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
                     item = getattr(best_gear, slot.lower())
                     loadout_data.append({"Slot": slot, "Item": item.name if item else "-"})
                 
-                for i, ring in enumerate(best_gear.rings):
-                    loadout_data.append({"Slot": f"Ring {i+1}", "Item": ring.name})
-                for i, tool in enumerate(best_gear.tools):
-                    loadout_data.append({"Slot": f"Tool {i+1}", "Item": tool.name})
+                for i in range(2):
+                    r_name = "-"
+                    if i < len(best_gear.rings) and best_gear.rings[i]:
+                        r_name = best_gear.rings[i].name
+                    loadout_data.append({"Slot": f"Ring {i+1}", "Item": r_name})
+
+                for i in range(6):
+                    t_name = "-"
+                    if i < len(best_gear.tools) and best_gear.tools[i]:
+                        t_name = best_gear.tools[i].name
+                    loadout_data.append({"Slot": f"Tool {i+1}", "Item": t_name})
 
                 st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")
 

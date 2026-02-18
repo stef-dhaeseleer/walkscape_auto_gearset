@@ -427,6 +427,43 @@ def main():
             tab_locks, tab_blacklist = st.tabs(["🔒 Locked Slots", "🚫 Blacklist"])
             
             with tab_locks:
+                if 'best_gear' in st.session_state:
+                    if st.button("📍 Lock Current Optimized Set", help="Overwrite all locks with the current best gear results"):
+                        bg = st.session_state['best_gear']
+                        new_locks = {}
+                        
+                        std_slots_to_sync = [
+                            "head", "chest", "legs", "feet", "back", 
+                            "cape", "neck", "hands", "primary", "secondary"
+                        ]
+                        for slot in std_slots_to_sync:
+                            item = getattr(bg, slot)
+                            if item:
+                                new_locks[slot] = item
+                                st.session_state[f"lock_{slot}"] = item.name
+                            else:
+                                st.session_state[f"lock_{slot}"] = "None"
+                        
+                        for i in range(2):
+                            item = bg.rings[i] if i < len(bg.rings) else None
+                            if item:
+                                new_locks[f"ring_{i}"] = item
+                                st.session_state[f"lock_ring_{i}"] = item.name
+                            else:
+                                st.session_state[f"lock_ring_{i}"] = "None"
+                                
+                        for i in range(6):
+                            item = bg.tools[i] if i < len(bg.tools) else None
+                            if item:
+                                new_locks[f"tool_{i}"] = item
+                                st.session_state[f"lock_tool_{i}"] = item.name
+                            else:
+                                st.session_state[f"lock_tool_{i}"] = "None"
+                        
+                        st.session_state['locked_items_state'] = new_locks
+                        st.rerun()
+                elif not use_owned:
+                    st.info("💡 Run an optimization first to lock the results here.")
                 st.markdown("**Standard Slots**")
                 cols_std = st.columns(5)
                 std_slots = [

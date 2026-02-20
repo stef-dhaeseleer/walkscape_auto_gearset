@@ -181,7 +181,7 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
             player_skill_level=player_skill_level,
             quality_bonus=flat_quality_bonus
         )
-        score_q = probs.get("Eternal", 0.0) * 1000 + probs.get("Perfect", 0.0) * 10 + probs.get("Excellent", 0.0)
+        score_q = probs.get("Eternal", 0.0)
         val = score_q * dr_mult * nmc_mult
     elif target == OPTIMAZATION_TARGET.collectibles:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps

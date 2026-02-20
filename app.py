@@ -10,6 +10,7 @@ from collections import Counter, defaultdict
 
 # Updated imports
 from utils.data_loader import load_game_data
+from utils.constants import StatName, PERCENTAGE_STATS
 from utils.export import export_gearset
 from calculations import calculate_passive_stats, calculate_score, analyze_score, calculate_steps
 from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET, PERCENTAGE_STATS, StatName
@@ -944,22 +945,26 @@ def main():
                 score = analysis_result["score"]
                 stats = analysis_result["stats"]
                 final_steps = analysis_result["steps"]
+                breakdown = analysis_result.get("target_breakdown", [])
 
-                # --- NEW COMPACT SUMMARY ---
                 badges_html = ""
                 # Generate badges for active stats
                 # Common stats to highlight
                 badge_stats = [
-                    ('double_action', 'DA', True), 
-                    ('double_rewards', 'DR', True), 
-                    ('work_efficiency', 'Eff', True), 
-                    ('xp_percent', 'XP', True),
-                    ('fine_material_finding', 'Fine', True),
-                    ('chest_finding', 'Chest', True),
-                    ('find_collectibles', 'Collectible', True)
+                    # Core
+                    (StatName.WORK_EFFICIENCY, 'WE'),
+                    (StatName.DOUBLE_ACTION, 'DA'),
+                    (StatName.DOUBLE_REWARDS, 'DR'),
+                    (StatName.NO_MATERIALS_CONSUMED, 'NMC'),
+                    (StatName.QUALITY_OUTCOME, 'QO'),
+                    (StatName.CHEST_FINDING, 'CF'),
+                    (StatName.FIND_COLLECTIBLES, 'Collectibles'),
+                    (StatName.FINE_MATERIAL_FINDING, 'FMF'),
+                
                 ]
                 
-                for key, label, is_percent in badge_stats:
+                for key, label in badge_stats:
+                    is_percent = key in PERCENTAGE_STATS
                     val = stats.get(key, 0)
                     if val > 0.001:
                         fmt_val = f"{val*100:.1f}%" if is_percent else f"{val:.2f}"
@@ -969,6 +974,38 @@ def main():
                             <span class="score-badge-val">+{fmt_val}</span>
                         </div>
                         """
+                
+                raw_scores_html = ""
+                if breakdown:
+                    raw_scores_html = "<div style='margin-top: 12px; padding-top: 12px; border-top: 1px dashed #30363d; display: flex; gap: 18px; flex-wrap: wrap;'>"
+                    for item in breakdown:
+                        t_name = item["target"]
+                        raw_val = item["raw_value"]
+                        t_name_lower = t_name.lower()
+                        
+                        if "reward rolls" in t_name_lower:
+                            human_val = 1.0 / raw_val if raw_val > 0 else 0
+                            display_text = f"{human_val:.2f} Steps/Roll"
+                        elif "xp" in t_name_lower:
+                            display_text = f"{raw_val:.2f} XP/Step"
+                        elif "chests" in t_name_lower:
+                            human_val = 250.0 / raw_val if raw_val > 0 else 0
+                            display_text = f"{human_val:.1f} Steps/Chest"
+                        elif "materials from input" in t_name_lower:
+                            display_text = f"{raw_val:.3f} Output/Input"
+                        elif "fine" in t_name_lower:
+                            human_val = 100.0 / raw_val if raw_val > 0 else 0
+                            display_text = f"{human_val:.1f} Steps/Fine"
+                        elif "quality" in t_name_lower:
+                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+                            display_text = f"{human_val:.1f} Inputs/Eternal" if human_val != float('inf') else "∞ Inputs/Eternal"
+                        elif "collectibles" in t_name_lower:
+                            display_text = f"{raw_val:.4f} Mult/Step"
+                        else:
+                            display_text = f"{raw_val:.4f}"
+
+                        raw_scores_html += f"<div style='font-size: 0.95rem; color: #e2e8f0;'><span style='color: #94a3b8;'>{t_name}:</span> <span style='font-weight: 600; color: #93c5fd;'>{display_text}</span></div>"
+                    raw_scores_html += "</div>"
 
                 st.html(f"""
                 <div style="background-color: #0e1117; padding: 15px; border-radius: 10px; border: 1px solid #30363d;">
@@ -982,6 +1019,7 @@ def main():
                             <div style="font-size: 0.9em; color: #64748b;">Base: {saved_activity.base_steps}</div>
                         </div>
                     </div>
+                        {raw_scores_html}
                     <hr style="margin: 10px 0; border-color: #30363d;">
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                          {badges_html}
@@ -1021,37 +1059,6 @@ def main():
 
                 st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")
 
-# --- NEW DROP CALCULATOR SECTION ---
-                st.markdown("### 🎲 Drop Calculator")
-                st.caption(f"Based on **{final_steps} steps per action** (Optimized).")
-                st.caption("Includes effects of Double Action (Frequency) and Double Rewards (Quantity).")
-                
-                drop_calc = DropCalculator()
-                
-                # Use the stats dictionary we already calculated for analysis
-                drop_rows = drop_calc.get_drop_table(saved_activity, stats, saved_skill_lvl)
-                
-                if drop_rows:
-                    df_drops = pd.DataFrame(drop_rows)
-                    
-                    
-                    st.dataframe(
-                        df_drops,
-                        column_config={
-                            "Item": st.column_config.TextColumn("Item", width="medium"),
-                            "Steps": st.column_config.NumberColumn(
-                                "Expected Steps", 
-                                help="Average steps required to obtain 1 unit of this item.",
-                                format="%.2f"
-                            ),
-                        },
-                        hide_index=True,
-                        width="stretch",
-                    )
-                else:
-                    st.info("No drop data available for this activity.")
-                
-                st.markdown("---")
 
                 with st.expander("🔍 Detailed Item Breakdown", expanded=False):
                     st.caption("Inspect active modifiers and conditions for each item.")
@@ -1193,6 +1200,37 @@ def main():
                 """
                 components.html(js_code, height=50)
 
+                st.markdown("---")
+                # --- NEW DROP CALCULATOR SECTION ---
+                st.markdown("### 🎲 Drop Calculator")
+                st.caption(f"Based on **{final_steps} steps per action** (Optimized).")
+                st.caption("Includes effects of Double Action (Frequency) and Double Rewards (Quantity).")
+                
+                drop_calc = DropCalculator()
+                
+                # Use the stats dictionary we already calculated for analysis
+                drop_rows = drop_calc.get_drop_table(saved_activity, stats, saved_skill_lvl)
+                
+                if drop_rows:
+                    df_drops = pd.DataFrame(drop_rows)
+                    
+                    
+                    st.dataframe(
+                        df_drops,
+                        column_config={
+                            "Item": st.column_config.TextColumn("Item", width="medium"),
+                            "Steps": st.column_config.NumberColumn(
+                                "Expected Steps", 
+                                help="Average steps required to obtain 1 unit of this item.",
+                                format="%.2f"
+                            ),
+                        },
+                        hide_index=True,
+                        width="stretch",
+                    )
+                else:
+                    st.info("No drop data available for this activity.")
+                
                 st.markdown("---")
                 with st.expander("🧪 Laboratory / Debugger", expanded=False):
                     tab_exp, tab_cand, tab_math = st.tabs(["Item Swapper", "🕵️ Candidate Inspector", "🧮 Score Math"])

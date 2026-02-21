@@ -750,7 +750,7 @@ def main():
             targets_to_remove = []
             
             # Header Row
-            h_col1, h_col2, h_col3 = st.columns([3, 4, 1])
+            h_col1, h_col2, h_col3 = st.columns([5, 3, 1])
             with h_col1: st.caption("Target")
             with h_col2: st.caption("Weight (%)")
 

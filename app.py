@@ -362,7 +362,7 @@ def main():
         st.rerun()
 
     all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables = load_data()   
-    
+    drop_calc = DropCalculator()
     loc_map = {loc.id: loc for loc in locations}
     WIKI_URL = "https://gear.walkscape.app"
 
@@ -866,7 +866,8 @@ def main():
                     "activity_id": final_activity.id,
                     "required_keywords": req_kw,
                     "achievement_points": user_ap,
-                    "total_skill_level": user_total_level
+                    "total_skill_level": user_total_level,
+                    "special_ev_map": drop_calc.get_special_ev_map()
                 }
 
                 locked_items_map = st.session_state.get('locked_items_state', {})
@@ -1210,7 +1211,6 @@ def main():
                 st.caption(f"Based on **{final_steps} steps per action** (Optimized).")
                 st.caption("Includes effects of Double Action (Frequency) and Double Rewards (Quantity).")
                 
-                drop_calc = DropCalculator()
                 
                 # Use the stats dictionary we already calculated for analysis
                 drop_rows = drop_calc.get_drop_table(saved_activity, stats, saved_skill_lvl)

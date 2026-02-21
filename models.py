@@ -156,6 +156,7 @@ class Activity(BaseEntity):
     normal_roll_worth: float = 0.0
     chest_roll_worth: float = 0.0
     fine_roll_worth: float = 0.0
+    bird_nest_roll_worth: float = 0.0
 
     @property
     def level(self) -> int:

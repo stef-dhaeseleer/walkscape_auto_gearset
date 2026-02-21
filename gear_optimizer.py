@@ -892,13 +892,13 @@ class GearOptimizer:
                 val = 0.0
                 if isinstance(target, list):
                     for sub_target, weight in target:
-                        raw_score = _calculate_single_target_score(sub_target, activity, skill_lvl, curr_stats)
+                        raw_score = _calculate_single_target_score(sub_target, activity, skill_lvl, curr_stats, context)
                         baseline, range_val = normalization_context.get(sub_target, (0.0, 1.0))
                         if range_val == 0: normalized = 0.0
                         else: normalized = (raw_score - baseline) / range_val
                         val += normalized * weight
                 else:
-                    val = _calculate_single_target_score(target, activity, skill_lvl, curr_stats)
+                    val = _calculate_single_target_score(target, activity, skill_lvl, curr_stats, context)
 
                 if val > best_val:
                     if owned_counts:

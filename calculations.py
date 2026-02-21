@@ -116,13 +116,13 @@ def calculate_score(
             # Fallback: Treat as sum of raw scores (not recommended due to magnitude mismatch)
             total_score = 0.0
             for sub_target, weight in target:
-                raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats)
+                raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats,context)
                 total_score += raw_score * weight
             return total_score
         
         composite_score = 0.0
         for sub_target, weight in target:
-            raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats)
+            raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats, context)
             baseline, range_val = normalization_context.get(sub_target, (0.0, 1.0))
             
             # Normalize: (Score - Baseline) / (Max - Baseline)
@@ -136,11 +136,11 @@ def calculate_score(
 
     # 4. Handle Single Target Scoring
     else:
-        return _calculate_single_target_score(target, activity, player_skill_level, stats)
+        return _calculate_single_target_score(target, activity, player_skill_level, stats, context)
 
-def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activity, player_skill_level: int, stats: Dict[str, float]) -> float:
+def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activity, player_skill_level: int, stats: Dict[str, float], context: Dict = None) -> float:
     """Helper to calculate raw score for a single target from stats."""
-    
+    if context is None: context = {}
     # Calculate Steps
     steps = calculate_steps(
         activity=activity,
@@ -207,13 +207,30 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
             ev_normal = base_normal * (1.0 - fine_conversion_rate)
             ev_fine = base_fine * fine_conversion_rate
         else:
+            fine_conversion_rate = 0.0
             ev_normal = base_normal
             ev_fine = 0.0
             
         ev_chest = (base_chest * (1.0 + chest_bonus)) if allow_chests else 0.0
             
-        ev_special = (find_gold_chance * 5.5) + (find_pouch_chance * 101.52)
+        ev_special = 0.0
+        special_ev_map = context.get("special_ev_map", {})
         
+        for stat_key, ev_data in special_ev_map.items():
+            chance = stats.get(stat_key, 0.0) / 100.0
+            if chance <= 0: continue
+            
+            is_chest = stat_key in ["chance_to_find_bird_nest", "find_coin_pouch", "find_skill_chest"]
+            if is_chest and not allow_chests:
+                continue
+                
+            if allow_fines and not is_chest:
+                ev_special += chance * (ev_data["normal"] * (1.0 - fine_conversion_rate) + ev_data["fine"] * fine_conversion_rate)
+            else:
+                ev_special += chance * ev_data["normal"]
+        
+        # Total EV per activity roll
+        total_ev_per_roll = ev_normal + ev_fine + ev_chest + ev_special        
         total_ev_per_roll = ev_normal + ev_fine + ev_chest + ev_special
         
         val = (total_ev_per_roll * da_mult * dr_mult) / steps
@@ -239,7 +256,7 @@ def analyze_score(gear_set: GearSet, activity, player_skill_level, target, conte
     
     if isinstance(target, list) and normalization_context:
         for sub_target, weight in target:
-            raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats)
+            raw_score = _calculate_single_target_score(sub_target, activity, player_skill_level, stats, context)
             baseline, range_val = normalization_context.get(sub_target, (0.0, 1.0))
             
             # Normalize

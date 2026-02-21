@@ -185,6 +185,38 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         val = score_q * dr_mult * nmc_mult
     elif target == OPTIMAZATION_TARGET.collectibles:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
+        
+
+    elif target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_chests, 
+                    OPTIMAZATION_TARGET.coins_no_fines, OPTIMAZATION_TARGET.coins_no_chests_no_fines]:
+        
+        base_normal = getattr(activity, 'normal_roll_worth', 0.0)
+        base_chest = getattr(activity, 'chest_roll_worth', 0.0)
+        base_fine = getattr(activity, 'fine_roll_worth', 0.0)
+        
+        allow_chests = target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_fines]
+        allow_fines = target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_chests]
+        
+        fine_bonus = stats.get("fine_material_finding", 0.0)
+        chest_bonus = stats.get("chest_finding", 0.0)
+        find_gold_chance = stats.get("find_gold", 0.0) / 100.0        # E.g., 5.0 -> 0.05
+        find_pouch_chance = stats.get("find_coin_pouch", 0.0) / 100.0 # E.g., 2.0 -> 0.02
+
+        if allow_fines:
+            fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))
+            ev_normal = base_normal * (1.0 - fine_conversion_rate)
+            ev_fine = base_fine * fine_conversion_rate
+        else:
+            ev_normal = base_normal
+            ev_fine = 0.0
+            
+        ev_chest = (base_chest * (1.0 + chest_bonus)) if allow_chests else 0.0
+            
+        ev_special = (find_gold_chance * 5.5) + (find_pouch_chance * 101.52)
+        
+        total_ev_per_roll = ev_normal + ev_fine + ev_chest + ev_special
+        
+        val = (total_ev_per_roll * da_mult * dr_mult) / steps
     
     return val
 

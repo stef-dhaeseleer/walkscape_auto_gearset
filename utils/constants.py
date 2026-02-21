@@ -128,11 +128,11 @@ QUALITY_RANK = {
     EquipmentQuality.NONE: -1
 }
 
-OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET", ["reward_rolls", "xp", "chests", "materials_from_input", "fine", "quality", "collectibles"])
+OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET", ["reward_rolls", "xp", "chests", "materials_from_input", "fine", "quality", "collectibles", "coins", "coins_no_chests", "coins_no_fines", "coins_no_chests_no_fines"])
 
 # Correct Set Union Syntax using |
 REWARD_ROLL_STATS = {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT}
-
+COIN_BASE_STATS = REWARD_ROLL_STATS | {StatName.FIND_GOLD, StatName.FIND_COIN_POUCH}
 TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.reward_rolls: REWARD_ROLL_STATS,
     OPTIMAZATION_TARGET.xp: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.DOUBLE_ACTION, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT},
@@ -140,7 +140,12 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.materials_from_input: {StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
     OPTIMAZATION_TARGET.fine: REWARD_ROLL_STATS | {StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.quality: {StatName.QUALITY_OUTCOME, StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
-    OPTIMAZATION_TARGET.collectibles: REWARD_ROLL_STATS | {StatName.FIND_COLLECTIBLES}
+    OPTIMAZATION_TARGET.collectibles: REWARD_ROLL_STATS | {StatName.FIND_COLLECTIBLES},
+    
+    OPTIMAZATION_TARGET.coins: COIN_BASE_STATS | {StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.coins_no_chests: COIN_BASE_STATS | {StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},
+    OPTIMAZATION_TARGET.coins_no_chests_no_fines: COIN_BASE_STATS
 }
 
 # Mapping StatName Enums to the keys output by GearSet.get_stats()

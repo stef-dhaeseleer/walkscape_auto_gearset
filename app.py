@@ -960,6 +960,7 @@ def main():
                     (StatName.CHEST_FINDING, 'CF'),
                     (StatName.FIND_COLLECTIBLES, 'Collectibles'),
                     (StatName.FINE_MATERIAL_FINDING, 'FMF'),
+                    (StatName.FIND_GOLD, 'Gold Drops'),
                 
                 ]
                 
@@ -1001,6 +1002,9 @@ def main():
                             display_text = f"{human_val:.1f} Inputs/Eternal" if human_val != float('inf') else "∞ Inputs/Eternal"
                         elif "collectibles" in t_name_lower:
                             display_text = f"{raw_val:.4f} Mult/Step"
+                        elif "coins" in t_name_lower:
+                            human_val = raw_val * 1000.0
+                            display_text = f"{human_val:.1f} Coins/1k Steps"
                         else:
                             display_text = f"{raw_val:.4f}"
 

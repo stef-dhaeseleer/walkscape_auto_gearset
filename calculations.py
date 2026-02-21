@@ -174,7 +174,7 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         val = (dr_mult * nmc_mult)
     elif target == OPTIMAZATION_TARGET.fine:
         val = ((1.0 + stats.get("fine_material_finding", 0)) * da_mult * dr_mult) / steps
-    elif target == OPTIMAZATION_TARGET.quality:
+    elif target == OPTIMAZATION_TARGET.eternal_per_input:
         flat_quality_bonus = stats.get("quality_outcome", 0)
         probs = calculate_quality_probabilities(
             activity_min_level=activity.level, 
@@ -183,9 +183,42 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         )
         score_q = probs.get("Eternal", 0.0)
         val = score_q * dr_mult * nmc_mult
+        
+    elif target in [OPTIMAZATION_TARGET.good_per_step, OPTIMAZATION_TARGET.great_per_step, 
+                    OPTIMAZATION_TARGET.excellent_per_step, OPTIMAZATION_TARGET.perfect_per_step, 
+                    OPTIMAZATION_TARGET.eternal_per_step]:
+        flat_quality_bonus = stats.get("quality_outcome", 0)
+        probs = calculate_quality_probabilities(
+            activity_min_level=activity.level, 
+            player_skill_level=player_skill_level,
+            quality_bonus=flat_quality_bonus
+        )
+        
+        if target == OPTIMAZATION_TARGET.good_per_step:
+            score_q = probs.get("Good", 0.0)
+        elif target == OPTIMAZATION_TARGET.great_per_step:
+            score_q = probs.get("Great", 0.0)
+        elif target == OPTIMAZATION_TARGET.excellent_per_step:
+            score_q = probs.get("Excellent", 0.0)
+        elif target == OPTIMAZATION_TARGET.perfect_per_step:
+            score_q = probs.get("Perfect", 0.0)
+        elif target == OPTIMAZATION_TARGET.eternal_per_step:
+            score_q = probs.get("Eternal", 0.0)
+            
+        val = (score_q * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.tokens_per_step:
+        chance = stats.get("find_adventurers_guild_token", 0) / 100.0
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.ectoplasm_per_step:
+        chance = stats.get("find_ectoplasm", 0) / 100.0
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.gems:
+        val = ((1.0 + stats.get("find_gems", 0)) * da_mult * dr_mult) / steps
+
     elif target == OPTIMAZATION_TARGET.collectibles:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
-        
+ 
 
     elif target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_chests, 
                     OPTIMAZATION_TARGET.coins_no_fines, OPTIMAZATION_TARGET.coins_no_chests_no_fines]:

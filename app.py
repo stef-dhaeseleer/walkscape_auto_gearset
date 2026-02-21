@@ -987,28 +987,41 @@ def main():
                         
                         if "reward rolls" in t_name_lower:
                             human_val = 1.0 / raw_val if raw_val > 0 else 0
-                            display_text = f"{human_val:.2f} Steps/Roll"
+                            display_text = f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
                         elif "xp" in t_name_lower:
                             display_text = f"{raw_val:.2f} XP/Step"
                         elif "chests" in t_name_lower:
                             human_val = 250.0 / raw_val if raw_val > 0 else 0
-                            display_text = f"{human_val:.1f} Steps/Chest"
+                            display_text = f"{human_val:.1f} Steps/Chest" if raw_val > 0 else "∞ Steps/Chest"
                         elif "materials from input" in t_name_lower:
                             display_text = f"{raw_val:.3f} Output/Input"
                         elif "fine" in t_name_lower:
                             human_val = 100.0 / raw_val if raw_val > 0 else 0
-                            display_text = f"{human_val:.1f} Steps/Fine"
-                        elif "quality" in t_name_lower:
-                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-                            display_text = f"{human_val:.1f} Inputs/Eternal" if human_val != float('inf') else "∞ Inputs/Eternal"
+                            display_text = f"{human_val:.1f} Steps/Fine Roll" if raw_val > 0 else "∞ Steps/Fine Roll"
                         elif "collectibles" in t_name_lower:
-                            display_text = f"{raw_val:.4f} Mult/Step"
+                            relative_mult = raw_val * saved_activity.base_steps
+                            display_text = f"{relative_mult:.2f}x Collectibles Base Drop Rate"
+                        elif "gems" in t_name_lower:
+                            relative_mult = raw_val * saved_activity.base_steps
+                            display_text = f"{relative_mult:.2f}x Gems Base Drop Rate"
                         elif "coins" in t_name_lower:
                             human_val = raw_val * 1000.0
-                            display_text = f"{human_val:.1f} Coins/1k Steps"
+                            display_text = f"{human_val:.2f} Coins/1k Steps"
+                        elif "eternal per input" in t_name_lower:
+                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+                            display_text = f"{human_val:.2f} Inputs/Eternal" if raw_val > 0 else "∞ Inputs/Eternal"
+                        elif any(q in t_name_lower for q in ["good per step", "great per step", "excellent per step", "perfect per step", "eternal per step"]):
+                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+                            display_tier_name = t_name.split()[0].title()
+                            display_text = f"{human_val:.2f} Steps/{display_tier_name}" if raw_val > 0 else f"∞ Steps/{display_tier_name}"
+                        elif "tokens" in t_name_lower:
+                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+                            display_text = f"{human_val:.2f} Steps/Adventuring Token" if raw_val > 0 else "∞ Steps/Token"
+                        elif "ectoplasm" in t_name_lower:
+                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+                            display_text = f"{human_val:.2f} Steps/Ecto" if raw_val > 0 else "∞ Steps/Ecto"
                         else:
                             display_text = f"{raw_val:.4f}"
-
                         raw_scores_html += f"<div style='font-size: 0.95rem; color: #e2e8f0;'><span style='color: #94a3b8;'>{t_name}:</span> <span style='font-weight: 600; color: #93c5fd;'>{display_text}</span></div>"
                     raw_scores_html += "</div>"
 

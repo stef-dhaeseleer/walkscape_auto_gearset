@@ -128,7 +128,12 @@ QUALITY_RANK = {
     EquipmentQuality.NONE: -1
 }
 
-OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET", ["reward_rolls", "xp", "chests", "materials_from_input", "fine", "quality", "collectibles", "coins", "coins_no_chests", "coins_no_fines", "coins_no_chests_no_fines"])
+OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET",
+ [  "reward_rolls", "xp", "chests", "materials_from_input", "fine",
+    "eternal_per_input", "good_per_step", "great_per_step","excellent_per_step",
+    "perfect_per_step", "eternal_per_step","tokens_per_step",
+    "ectoplasm_per_step", "gems", "collectibles", "coins",
+    "coins_no_chests", "coins_no_fines", "coins_no_chests_no_fines"])
 
 # Correct Set Union Syntax using |
 REWARD_ROLL_STATS = {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT}
@@ -139,9 +144,17 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.chests: REWARD_ROLL_STATS | {StatName.CHEST_FINDING},
     OPTIMAZATION_TARGET.materials_from_input: {StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
     OPTIMAZATION_TARGET.fine: REWARD_ROLL_STATS | {StatName.FINE_MATERIAL_FINDING},
-    OPTIMAZATION_TARGET.quality: {StatName.QUALITY_OUTCOME, StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
     OPTIMAZATION_TARGET.collectibles: REWARD_ROLL_STATS | {StatName.FIND_COLLECTIBLES},
+    OPTIMAZATION_TARGET.eternal_per_input: {StatName.QUALITY_OUTCOME, StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED},
+    OPTIMAZATION_TARGET.good_per_step: REWARD_ROLL_STATS | {StatName.QUALITY_OUTCOME},
+    OPTIMAZATION_TARGET.great_per_step: REWARD_ROLL_STATS | {StatName.QUALITY_OUTCOME},
+    OPTIMAZATION_TARGET.excellent_per_step: REWARD_ROLL_STATS | {StatName.QUALITY_OUTCOME},
+    OPTIMAZATION_TARGET.perfect_per_step: REWARD_ROLL_STATS | {StatName.QUALITY_OUTCOME},
+    OPTIMAZATION_TARGET.eternal_per_step: REWARD_ROLL_STATS | {StatName.QUALITY_OUTCOME},
     
+    OPTIMAZATION_TARGET.tokens_per_step: REWARD_ROLL_STATS | {StatName.FIND_ADVENTURERS_GUILD_TOKEN},
+    OPTIMAZATION_TARGET.ectoplasm_per_step: REWARD_ROLL_STATS | {StatName.FIND_ECTOPLASM},
+    OPTIMAZATION_TARGET.gems: REWARD_ROLL_STATS | {StatName.FIND_GEMS},
     OPTIMAZATION_TARGET.coins: COIN_BASE_STATS | {StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_chests: COIN_BASE_STATS | {StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},

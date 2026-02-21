@@ -131,7 +131,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 65.66667679999999,
+    "materials_expected_value": 55.186676799999994
   },
   {
     "id": "carpentry_chest",
@@ -314,7 +316,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 100.90685559999999,
+    "materials_expected_value": 89.2068556
   },
   {
     "id": "cooking_chest",
@@ -497,7 +501,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 70.61480159999998,
+    "materials_expected_value": 62.05100159999999
   },
   {
     "id": "crafting_chest",
@@ -687,7 +693,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 102.11601959999999,
+    "materials_expected_value": 91.0602996
   },
   {
     "id": "fishing_chest",
@@ -849,7 +857,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 72.3799726,
+    "materials_expected_value": 61.47821259999999
   },
   {
     "id": "foraging_chest",
@@ -1032,7 +1042,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 78.36600399999999,
+    "materials_expected_value": 68.146844
   },
   {
     "id": "mining_chest",
@@ -1194,7 +1206,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 88.57015379999997,
+    "materials_expected_value": 77.6581538
   },
   {
     "id": "smithing_chest",
@@ -1363,7 +1377,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 96.323185,
+    "materials_expected_value": 83.40938499999999
   },
   {
     "id": "trinketry_chest",
@@ -1574,7 +1590,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 316.2521022384281,
+    "materials_expected_value": 304.139622238428
   },
   {
     "id": "woodcutting_chest",
@@ -1736,7 +1754,9 @@
         "chance": 0.1,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 82.72643139999995,
+    "materials_expected_value": 69.12519139999999
   },
   {
     "id": "adventuring_guild_chest",
@@ -1933,7 +1953,9 @@
         "chance": 0.05,
         "category": "Legendary"
       }
-    ]
+    ],
+    "total_expected_value": 48.69507999999997,
+    "materials_expected_value": 42.967079999999974
   },
   {
     "id": "bird_nest",
@@ -1955,7 +1977,9 @@
         "chance": 20.0,
         "category": "Main"
       }
-    ]
+    ],
+    "total_expected_value": 86.052,
+    "materials_expected_value": 86.052
   },
   {
     "id": "chest_of_erdwise",
@@ -2103,7 +2127,9 @@
         "chance": 0.01,
         "category": "Ethereal"
       }
-    ]
+    ],
+    "total_expected_value": 107.30744160000002,
+    "materials_expected_value": 96.3045616
   },
   {
     "id": "chest_of_jarvonia",
@@ -2237,7 +2263,9 @@
         "chance": 0.01,
         "category": "Ethereal"
       }
-    ]
+    ],
+    "total_expected_value": 71.4579258,
+    "materials_expected_value": 60.7250458
   },
   {
     "id": "chest_of_syrenthia",
@@ -2364,7 +2392,9 @@
         "chance": 0.01,
         "category": "Ethereal"
       }
-    ]
+    ],
+    "total_expected_value": 123.21953140000002,
+    "materials_expected_value": 113.3716514
   },
   {
     "id": "chest_of_trellin",
@@ -2498,7 +2528,9 @@
         "chance": 0.01,
         "category": "Ethereal"
       }
-    ]
+    ],
+    "total_expected_value": 38.50199379999999,
+    "materials_expected_value": 27.235513800000003
   },
   {
     "id": "chest_of_the_halfling_rebels",
@@ -2632,7 +2664,9 @@
         "chance": 0.01,
         "category": "Ethereal"
       }
-    ]
+    ],
+    "total_expected_value": 61.89142999999999,
+    "materials_expected_value": 50.888549999999995
   },
   {
     "id": "coin_pouch",
@@ -2682,7 +2716,9 @@
         "chance": 0.2,
         "category": "Main"
       }
-    ]
+    ],
+    "total_expected_value": 101.52000000000001,
+    "materials_expected_value": 101.52000000000001
   },
   {
     "id": "coral_chest",
@@ -2732,7 +2768,9 @@
         "chance": 5.0,
         "category": "Uncommon"
       }
-    ]
+    ],
+    "total_expected_value": 97.63477060000001,
+    "materials_expected_value": 96.2347706
   },
   {
     "id": "gem_pouch",
@@ -2796,7 +2834,9 @@
         "chance": 0.498,
         "category": "Main"
       }
-    ]
+    ],
+    "total_expected_value": 141.84697720000003,
+    "materials_expected_value": 141.84697720000003
   },
   {
     "id": "rusty_chest",
@@ -2895,7 +2935,9 @@
         "chance": 4.0,
         "category": "Common"
       }
-    ]
+    ],
+    "total_expected_value": 11.292159999999999,
+    "materials_expected_value": 4.8921600000000005
   },
   {
     "id": "sunken_chest",
@@ -2973,6 +3015,8 @@
         "chance": 1.25,
         "category": "Rare"
       }
-    ]
+    ],
+    "total_expected_value": 72.33191039999998,
+    "materials_expected_value": 60.381910399999995
   }
 ]

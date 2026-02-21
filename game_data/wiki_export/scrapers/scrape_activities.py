@@ -622,7 +622,84 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         faction_rewards=rewards_list,
         loot_tables=data['loot_tables'] 
     )
+def load_ev_values() -> tuple[dict[str, int], dict[str, float]]:
+    """Loads item base values and pre-calculated container EVs."""
+    item_values = {"coins": 1}
+    container_evs = {}
+    
+    # 1. Load Standard Items
+    files_to_load = ["materials.json", "consumables.json", "equipment.json"]
+    for filename in files_to_load:
+        path = Path(get_output_file(filename))
+        if path.exists():
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    for item in data:
+                        i_id = item.get("id")
+                        if i_id:
+                            val = item.get("value", 0)
+                            item_values[i_id] = val
+                            # Equipment ID Aliases
+                            if i_id.endswith("_common"):
+                                item_values[i_id.replace("_common", "")] = val
+                            elif i_id.isupper():
+                                item_values[i_id.lower()] = val
+            except Exception as e:
+                print(f"Warning: Could not load {filename}: {e}")
 
+    # 2. Load Containers
+    cont_path = Path(get_output_file("containers.json"))
+    if cont_path.exists():
+        try:
+            with open(cont_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                for c in data:
+                    c_id = c.get("id")
+                    if c_id:
+                        container_evs[c_id] = c.get("total_expected_value", 0.0)
+        except Exception as e:
+            print(f"Warning: Could not load containers.json: {e}")
+
+    return item_values, container_evs
+
+def calculate_activity_evs(activities: list[Activity], item_values: dict[str, int], container_evs: dict[str, float]) -> list[Activity]:
+    """Calculates normal, chest, and fine roll worths for activities."""
+    updated_activities = []
+    
+    for act in activities:
+        normal_worth = 0.0
+        chest_worth = 0.0
+        fine_worth = 0.0
+
+        for table in act.loot_tables:
+            for drop in table.drops:
+                chance = (drop.chance or 0.0) / 100.0
+                avg_qty = (drop.min_quantity + drop.max_quantity) / 2.0
+                item_id = drop.item_id
+                
+                # 1. Chests & Containers
+                if item_id in container_evs:
+                    chest_worth += chance * avg_qty * container_evs[item_id]
+                
+                # 2. Standard Items
+                else:
+                    base_val = float(item_values.get(item_id, 0))
+                    fine_id = f"{item_id}_fine"
+                    fine_val = float(item_values.get(fine_id, base_val)) 
+
+                    normal_worth += chance * avg_qty * base_val
+                    fine_worth += chance * avg_qty * fine_val
+        
+        # Rebuild frozen Activity model with new EV values
+        act_dict = act.model_dump()
+        act_dict["normal_roll_worth"] = normal_worth
+        act_dict["chest_roll_worth"] = chest_worth
+        act_dict["fine_roll_worth"] = fine_worth
+        
+        updated_activities.append(Activity(**act_dict))
+        
+    return updated_activities
 def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     
@@ -643,7 +720,11 @@ def main():
                     print(f"  -> Found tables: {', '.join(tables_found)}")
         except Exception as e:
             print(f"  Error parsing {item['name']}: {e}")
-
+    
+    print("\nStep 2: Calculating Activity Expected Values...")
+    item_vals, container_evs = load_ev_values()
+    all_data = calculate_activity_evs(all_data, item_vals, container_evs=container_evs)
+    
     print(f"\nStep 2: Exporting {len(all_data)} activities to {OUTPUT_FILE}...")
     
     data = [a.model_dump(mode='json') for a in all_data]

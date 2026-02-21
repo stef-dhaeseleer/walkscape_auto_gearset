@@ -113,7 +113,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 26.009070000000005,
+    "chest_roll_worth": 2.2384763177537126,
+    "fine_roll_worth": 98.07812
   },
   {
     "id": "apprentice_for_loif",
@@ -161,7 +164,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.5,
+    "chest_roll_worth": 0.40846407839999993,
+    "fine_roll_worth": 5.5
   },
   {
     "id": "bodysurfing",
@@ -258,7 +264,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.13245,
+    "chest_roll_worth": 0.5519943487999999,
+    "fine_roll_worth": 7.326395
   },
   {
     "id": "bog_fishing_(net)",
@@ -351,7 +360,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.66664,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 18.110930000000003
   },
   {
     "id": "bog_fishing_(spear)",
@@ -449,7 +461,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.6666300000000005,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 22.999770000000005
   },
   {
     "id": "branch_trimming",
@@ -520,7 +535,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.05722000000000001,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 6.52952
   },
   {
     "id": "brig_repair",
@@ -622,7 +640,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.73418,
+    "chest_roll_worth": 1.1950001624,
+    "fine_roll_worth": 7.210500000000001
   },
   {
     "id": "butterfly_catching",
@@ -738,7 +759,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.9313899999999995,
+    "chest_roll_worth": 0.5761307231999999,
+    "fine_roll_worth": 26.042745
   },
   {
     "id": "cave_diving",
@@ -910,7 +934,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 25.129459999999998,
+    "chest_roll_worth": 1.3209504208,
+    "fine_roll_worth": 143.03596000000002
   },
   {
     "id": "classic_skiing",
@@ -963,7 +990,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "cleaning_the_holy_fountain",
@@ -1049,7 +1079,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.45831500000000003,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 1.4583350000000002
   },
   {
     "id": "cliff_foraging",
@@ -1140,7 +1173,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.4979400000000003,
+    "chest_roll_worth": 0.5761307231999999,
+    "fine_roll_worth": 18.133950000000002
   },
   {
     "id": "coral_cutting",
@@ -1224,7 +1260,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.5,
+    "chest_roll_worth": 0.7214448079999999,
+    "fine_roll_worth": 27.1
   },
   {
     "id": "cut_bamboo",
@@ -1291,7 +1330,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.02312,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 24.10438
   },
   {
     "id": "cut_birch_trees",
@@ -1366,7 +1408,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.045,
+    "chest_roll_worth": 0.7315745255999998,
+    "fine_roll_worth": 6.045
   },
   {
     "id": "cut_ectoplasm_trees",
@@ -1426,7 +1471,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "cut_mangrove_trees",
@@ -1493,7 +1541,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.0378,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 31.16996
   },
   {
     "id": "cut_maple_trees",
@@ -1560,7 +1611,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.02208,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 15.09968
   },
   {
     "id": "cut_oak_trees",
@@ -1621,7 +1675,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.0,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 15.0
   },
   {
     "id": "cut_pine_trees",
@@ -1689,7 +1746,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.045,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 11.045
   },
   {
     "id": "cut_spruce_trees",
@@ -1751,7 +1811,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.0,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 11.0
   },
   {
     "id": "cut_teak_trees",
@@ -1818,7 +1881,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.0394,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 21.1782
   },
   {
     "id": "cut_willow_trees",
@@ -1893,7 +1959,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.0176799999999995,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 24.079819999999998
   },
   {
     "id": "cut_yew_trees",
@@ -1953,7 +2022,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 6.0,
+    "chest_roll_worth": 0.6751137255999998,
+    "fine_roll_worth": 36.0
   },
   {
     "id": "dragonfly_catching",
@@ -2062,7 +2134,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.34971,
+    "chest_roll_worth": 0.5761307231999999,
+    "fine_roll_worth": 20.64921
   },
   {
     "id": "ectoplasm_fishing",
@@ -2115,7 +2190,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "emergency_darkness_escape_(swamp)",
@@ -2155,7 +2233,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.0,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "emergency_desert_escape",
@@ -2192,7 +2273,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.0,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "emergency_swim_escape",
@@ -2233,7 +2317,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.0,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "emergency_swim_escape_(swamp)",
@@ -2269,7 +2356,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.0,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "erdwise_dumpster_diving",
@@ -2415,7 +2505,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.671770000000001,
+    "chest_roll_worth": 0.5761307231999999,
+    "fine_roll_worth": 12.99031
   },
   {
     "id": "explore_bog_bottom",
@@ -2473,7 +2566,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "explore_underwater_cave",
@@ -2538,7 +2634,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "firewood_making",
@@ -2619,7 +2718,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.04908,
+    "chest_roll_worth": 0.5935724327999998,
+    "fine_roll_worth": 6.177299999999999
   },
   {
     "id": "flame_stoking",
@@ -2667,7 +2769,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.5,
+    "chest_roll_worth": 0.38529273999999997,
+    "fine_roll_worth": 5.5
   },
   {
     "id": "flooded_field_scavenging",
@@ -2750,7 +2855,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.4,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 30.1
   },
   {
     "id": "flooded_river_fishing_(rod)",
@@ -2824,7 +2932,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.980639999999999,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 32.69849
   },
   {
     "id": "forest_foraging",
@@ -2945,7 +3056,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.083145,
+    "chest_roll_worth": 0.36992481599999993,
+    "fine_roll_worth": 12.99222
   },
   {
     "id": "fossil_mining",
@@ -3057,7 +3171,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.26617,
+    "chest_roll_worth": 0.7448196975999999,
+    "fine_roll_worth": 1.27085
   },
   {
     "id": "gdte_skydisc_course",
@@ -3110,7 +3227,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "ghost_tag",
@@ -3158,7 +3278,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "glacier_foraging",
@@ -3234,7 +3357,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0156,
+    "chest_roll_worth": 0.5761307231999999,
+    "fine_roll_worth": 0.0156
   },
   {
     "id": "gold_panning",
@@ -3383,7 +3509,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.64736,
+    "chest_roll_worth": 0.6438005055999999,
+    "fine_roll_worth": 11.226284999999999
   },
   {
     "id": "graveyard_foraging",
@@ -3473,7 +3602,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.4928899999999996,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 17.947590000000005
   },
   {
     "id": "guard_duty",
@@ -3553,7 +3685,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 15.5,
+    "chest_roll_worth": 1.2361346160000002,
+    "fine_roll_worth": 15.5
   },
   {
     "id": "horseshoe_making",
@@ -3627,7 +3762,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0564,
+    "chest_roll_worth": 0.79137274,
+    "fine_roll_worth": 7.43453
   },
   {
     "id": "house_jumping",
@@ -3710,7 +3848,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.2403799999999998,
+    "chest_roll_worth": 0.6068747072,
+    "fine_roll_worth": 6.0267
   },
   {
     "id": "hull_repair",
@@ -3812,7 +3953,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.79001,
+    "chest_roll_worth": 1.3563080712,
+    "fine_roll_worth": 20.25649
   },
   {
     "id": "hut_jumping",
@@ -3895,7 +4039,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.125475,
+    "chest_roll_worth": 0.6068747072,
+    "fine_roll_worth": 1.4346150000000002
   },
   {
     "id": "ice_sculpting",
@@ -3983,7 +4130,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.5125399999999998,
+    "chest_roll_worth": 0.8120915007999998,
+    "fine_roll_worth": 1.5125399999999998
   },
   {
     "id": "isthmus_sea_fishing_(net)",
@@ -4057,7 +4207,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 10.131450000000001,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 50.79609
   },
   {
     "id": "jarvonia_skydisc_course",
@@ -4110,7 +4263,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "kayaking",
@@ -4198,7 +4354,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.754225,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 7.681674999999999
   },
   {
     "id": "kelp_foraging",
@@ -4298,7 +4457,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.59524,
+    "chest_roll_worth": 1.034908824,
+    "fine_roll_worth": 27.576200000000004
   },
   {
     "id": "lake_fishing",
@@ -4366,7 +4528,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.6756800000000001,
+    "chest_roll_worth": 0.28951989040000004,
+    "fine_roll_worth": 9.3784
   },
   {
     "id": "litter_looting",
@@ -4459,7 +4624,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.28119000000000005,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 4.078309999999999
   },
   {
     "id": "magnet_fishing",
@@ -4631,7 +4799,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.88825,
+    "chest_roll_worth": 0.6029839064,
+    "fine_roll_worth": 9.50329
   },
   {
     "id": "merfolk_dancing",
@@ -4724,7 +4895,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.20980000000000001,
+    "chest_roll_worth": 0.6532057896000001,
+    "fine_roll_worth": 1.48432
   },
   {
     "id": "merfolk_farm_foraging",
@@ -4831,7 +5005,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.3000200000000004,
+    "chest_roll_worth": 0.7040030984000001,
+    "fine_roll_worth": 21.70015
   },
   {
     "id": "mine_adamant_ore",
@@ -4917,7 +5094,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 8.395999999999999,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 46.9035
   },
   {
     "id": "mine_coal",
@@ -4997,7 +5177,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.2661700000000002,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 16.27085
   },
   {
     "id": "mine_copper_ore",
@@ -5083,7 +5266,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.26617,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 7.27085
   },
   {
     "id": "mine_crystal_coal",
@@ -5183,7 +5369,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 9.29844,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 46.537650000000006
   },
   {
     "id": "mine_ectoplasm_rocks",
@@ -5262,7 +5451,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.34859999999999997,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 1.6772799999999997
   },
   {
     "id": "mine_farganite_ore",
@@ -5341,7 +5533,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.26617,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 31.27085
   },
   {
     "id": "mine_gold_ore",
@@ -5427,7 +5622,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 10.395999999999999,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 52.9035
   },
   {
     "id": "mine_iron_ore",
@@ -5513,7 +5711,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.26617,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 12.270850000000001
   },
   {
     "id": "mine_silver_ore",
@@ -5599,7 +5800,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 7.396,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 39.9035
   },
   {
     "id": "mine_tarsilium_ore",
@@ -5678,7 +5882,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.2661700000000002,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 22.27085
   },
   {
     "id": "mine_tarsilium_ore_(underwater)",
@@ -5762,7 +5969,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.2661700000000002,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 22.27085
   },
   {
     "id": "mine_tin_ore",
@@ -5848,7 +6058,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.26617,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 7.27085
   },
   {
     "id": "mine_violite_ore",
@@ -5934,7 +6147,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 10.395999999999999,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 52.9035
   },
   {
     "id": "mine_volcanic_rock",
@@ -6039,7 +6255,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.40903,
+    "chest_roll_worth": 0.7448196975999999,
+    "fine_roll_worth": 25.937530000000002
   },
   {
     "id": "mountain_climbing",
@@ -6127,7 +6346,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.041800000000000004,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 4.34448
   },
   {
     "id": "plains_foraging",
@@ -6220,7 +6442,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.62301,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 14.106035
   },
   {
     "id": "predator_hunting_(spear)",
@@ -6318,7 +6543,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 9.86679,
+    "chest_roll_worth": 0.6800589728000002,
+    "fine_roll_worth": 49.33395
   },
   {
     "id": "repair_the_bank",
@@ -6366,7 +6594,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.40362742239999994,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "rescue_team",
@@ -6457,7 +6688,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 8.9964,
+    "chest_roll_worth": 29.671487912079996,
+    "fine_roll_worth": 54.5168
   },
   {
     "id": "ridge_scrambling",
@@ -6545,7 +6779,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.57891,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 19.34891
   },
   {
     "id": "run_for_your_life",
@@ -6608,7 +6845,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "sandcastle_building",
@@ -6670,7 +6910,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.4600882223999999,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "sea_fishing_(cage)",
@@ -6758,7 +7001,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 2.1983399999999995,
+    "chest_roll_worth": 0.5788475319999999,
+    "fine_roll_worth": 13.94845
   },
   {
     "id": "sea_fishing_(net)",
@@ -6847,7 +7093,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.45638,
+    "chest_roll_worth": 0.6353083319999999,
+    "fine_roll_worth": 10.82988
   },
   {
     "id": "sea_fishing_(rod)",
@@ -6922,7 +7171,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.6944599999999999,
+    "chest_roll_worth": 0.5788475319999999,
+    "fine_roll_worth": 13.77791
   },
   {
     "id": "sea_fishing_(spear)",
@@ -7048,7 +7300,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.14235,
+    "chest_roll_worth": 0.6800589728000002,
+    "fine_roll_worth": 29.634780000000003
   },
   {
     "id": "search_team",
@@ -7117,7 +7372,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.5,
+    "chest_roll_worth": 21.684450012895994,
+    "fine_roll_worth": 16.9
   },
   {
     "id": "seashell_searching",
@@ -7209,7 +7467,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.05897,
+    "chest_roll_worth": 0.6027916575999999,
+    "fine_roll_worth": 25.80947
   },
   {
     "id": "shoreline_scramble",
@@ -7271,7 +7532,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.09359999999999999,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.09359999999999999
   },
   {
     "id": "skate_skiing",
@@ -7331,7 +7595,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "sledding",
@@ -7372,7 +7639,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "soup_kitchen_volunteering",
@@ -7477,7 +7747,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.13779,
+    "chest_roll_worth": 0.28245920639999994,
+    "fine_roll_worth": 2.1345099999999997
   },
   {
     "id": "spelunking",
@@ -7598,7 +7871,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 10.846225,
+    "chest_roll_worth": 1.1843352312,
+    "fine_roll_worth": 51.30045500000001
   },
   {
     "id": "spring_bat_tracking",
@@ -7658,7 +7934,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "spring_cave_foraging",
@@ -7739,7 +8018,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.4442800000000002,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 10.700339999999999
   },
   {
     "id": "stone_quarrying",
@@ -7801,7 +8083,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.02903,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 5.54515
   },
   {
     "id": "summer_cave_foraging",
@@ -7882,7 +8167,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 11.686399999999999,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 80.34575999999998
   },
   {
     "id": "surface_copper_mining",
@@ -7968,7 +8256,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.26617,
+    "chest_roll_worth": 0.41074141519999985,
+    "fine_roll_worth": 7.27085
   },
   {
     "id": "surface_salt_mining",
@@ -8028,7 +8319,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.0,
+    "chest_roll_worth": 0.41074141519999985,
+    "fine_roll_worth": 11.0
   },
   {
     "id": "surface_swimming",
@@ -8119,7 +8413,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.11341000000000001,
+    "chest_roll_worth": 0.5519943487999999,
+    "fine_roll_worth": 2.82043
   },
   {
     "id": "surface_tin_mining",
@@ -8198,7 +8495,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.26617,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 7.27085
   },
   {
     "id": "swamp_foraging",
@@ -8300,7 +8600,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.7067,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 39.463035000000005
   },
   {
     "id": "tinkering",
@@ -8395,7 +8698,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.59025,
+    "chest_roll_worth": 0.8145440784,
+    "fine_roll_worth": 8.807249999999998
   },
   {
     "id": "treasure_hunt",
@@ -8496,7 +8802,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 0.18
   },
   {
     "id": "trellin_dumpster_diving",
@@ -8642,7 +8951,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 5.19264,
+    "chest_roll_worth": 0.5761307231999999,
+    "fine_roll_worth": 13.62954
   },
   {
     "id": "underwater_aqueduct_construction",
@@ -8757,7 +9069,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.30082,
+    "chest_roll_worth": 0.6662941295999999,
+    "fine_roll_worth": 19.43717
   },
   {
     "id": "underwater_aqueduct_digging",
@@ -8881,7 +9196,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.30612,
+    "chest_roll_worth": 0.35428061519999987,
+    "fine_roll_worth": 28.60543
   },
   {
     "id": "underwater_basket_weaving",
@@ -8969,7 +9287,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.08340000000000002,
+    "chest_roll_worth": 1.7724710696000003,
+    "fine_roll_worth": 17.9583
   },
   {
     "id": "underwater_swimming",
@@ -9064,7 +9385,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 4.18849,
+    "chest_roll_worth": 0.6532057896000001,
+    "fine_roll_worth": 22.76435
   },
   {
     "id": "vegetable_chopping",
@@ -9145,7 +9469,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 1.66668,
+    "chest_roll_worth": 0.28245920639999994,
+    "fine_roll_worth": 7.000120000000001
   },
   {
     "id": "venture_into_the_bog",
@@ -9205,7 +9532,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.26266670719999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "venture_into_the_hideout",
@@ -9265,7 +9595,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.3309057255999998,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "venture_into_the_woods",
@@ -9325,7 +9658,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.0,
+    "chest_roll_worth": 0.31346401599999996,
+    "fine_roll_worth": 0.0
   },
   {
     "id": "wine_grape_stomping",
@@ -9422,7 +9758,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 3.3255399999999997,
+    "chest_roll_worth": 1.1125138224,
+    "fine_roll_worth": 20.742499999999996
   },
   {
     "id": "wood_carving",
@@ -9496,7 +9835,10 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 0.008329999999999999,
+    "chest_roll_worth": 0.40362742239999994,
+    "fine_roll_worth": 4.75121
   },
   {
     "id": "wreck_diving",
@@ -9619,6 +9961,9 @@
         ]
       }
     ],
-    "modifiers": []
+    "modifiers": [],
+    "normal_roll_worth": 45.6461,
+    "chest_roll_worth": 1.9401377144,
+    "fine_roll_worth": 285.7592250000001
   }
 ]

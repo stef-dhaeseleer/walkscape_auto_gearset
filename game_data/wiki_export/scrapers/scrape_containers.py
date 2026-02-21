@@ -14,7 +14,7 @@ from urllib.parse import unquote
 # Add parent directory for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from models import Container, DropEntry, LootTableCategory
+from models import Container, DropEntry, ChestTableCategory
 from scraper_utils import *
 
 # Configuration
@@ -34,18 +34,18 @@ def normalize_id(text: str) -> str:
     text = text.replace('Special:MyLanguage/', '')
     return text.lower().replace("'", "").replace("-", "_").replace(" ", "_").strip()
 
-def map_category(header_text: str) -> LootTableCategory:
-    """Map wiki header text to LootTableCategory enum."""
+def map_category(header_text: str) -> ChestTableCategory:
+    """Map wiki header text to ChestTableCategory enum."""
     lower = header_text.lower()
-    if 'main' in lower: return LootTableCategory.MAIN
-    if 'valuables' in lower: return LootTableCategory.VALUABLES
-    if 'uncommon' in lower: return LootTableCategory.UNCOMMON
-    if 'common' in lower: return LootTableCategory.COMMON
-    if 'rare' in lower: return LootTableCategory.RARE
-    if 'legendary' in lower: return LootTableCategory.LEGENDARY
-    if 'epic' in lower: return LootTableCategory.EPIC
-    if 'ethereal' in lower: return LootTableCategory.ETHEREAL
-    return LootTableCategory.OTHER
+    if 'main' in lower: return ChestTableCategory.MAIN
+    if 'valuables' in lower: return ChestTableCategory.VALUABLES
+    if 'uncommon' in lower: return ChestTableCategory.UNCOMMON
+    if 'common' in lower: return ChestTableCategory.COMMON
+    if 'rare' in lower: return ChestTableCategory.RARE
+    if 'legendary' in lower: return ChestTableCategory.LEGENDARY
+    if 'epic' in lower: return ChestTableCategory.EPIC
+    if 'ethereal' in lower: return ChestTableCategory.ETHEREAL
+    return ChestTableCategory.OTHER
 
 def parse_loot_tables(html, container_name) -> list[DropEntry]:
     """Parse all loot tables from a container page."""
@@ -168,12 +168,107 @@ def parse_containers_list():
 
     return containers
 
+def load_item_values() -> dict[str, int]:
+    """Loads the values from already scraped JSON files to calculate EV."""
+    values = {"coins": 1} # Hardcoded currency
+    
+    files_to_load = ["materials.json", "consumables.json", "equipment.json"]
+    for filename in files_to_load:
+        path = Path(get_output_file(filename))
+        if path.exists():
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    for item in data:
+                        i_id = item.get("id")
+                        if i_id:
+                            val = item.get("value", 0)
+                            values[i_id] = val
+                            
+                            # --- FIX: Create Equipment ID Aliases ---
+                            # Chests drop the base name (e.g., "fingerpick").
+                            # We map "fingerpick_common" -> "fingerpick"
+                            if i_id.endswith("_common"):
+                                values[i_id.replace("_common", "")] = val
+                            # Map "FINGERPICK" (no quality) -> "fingerpick"
+                            elif i_id.isupper():
+                                values[i_id.lower()] = val
+                                
+            except Exception as e:
+                print(f"Warning: Could not load {filename} for EV calculation: {e}")
+                
+    return values
+
+def calculate_evs(containers_list: list[Container], item_values: dict[str, int]) -> list[Container]:
+    """Calculates total_ev and material_ev for all containers, supporting recursion and fine variants."""
+    
+    # Map containers for recursive lookups
+    container_map = {c.id: c for c in containers_list}
+    
+    def get_item_ev(item_id: str, depth=0) -> float:
+        if depth > 5: return 0.0 # Prevent infinite loops
+        if item_id == "coins": return 1.0
+        
+        # Recursive container check
+        if item_id in container_map:
+            c = container_map[item_id]
+            ev = 0.0
+            for drop in c.drops:
+                chance = (drop.chance or 0.0) / 100.0
+                avg_qty = (drop.min_quantity + drop.max_quantity) / 2.0
+                ev += chance * avg_qty * get_item_ev(drop.item_id, depth + 1)
+            return ev
+            
+        # Base item logic
+        base_value = float(item_values.get(item_id, 0))
+        
+        # --- FIX: Factor in the innate 1% chance for Fine Materials ---
+        fine_id = f"{item_id}_fine"
+        if fine_id in item_values:
+            fine_value = float(item_values.get(fine_id, 0))
+            return (0.99 * base_value) + (0.01 * fine_value)
+            
+        return base_value
+
+    updated_containers = []
+    
+    for c in containers_list:
+        total_ev = 0.0
+        material_ev = 0.0
+        
+        for drop in c.drops:
+            chance = (drop.chance or 0.0) / 100.0
+            avg_qty = (drop.min_quantity + drop.max_quantity) / 2.0
+            drop_ev = chance * avg_qty * get_item_ev(drop.item_id)
+            
+            total_ev += drop_ev
+            
+            # Check if it's in the Main or Valuables category
+            cat_str = drop.category.value if hasattr(drop.category, 'value') else drop.category
+            if cat_str in ["Main", "Valuables"]:
+                material_ev += drop_ev
+                
+        # Re-create the container with the new EV values
+        updated_containers.append(Container(
+            id=c.id,
+            wiki_slug=c.wiki_slug,
+            name=c.name,
+            type=c.type,
+            drops=c.drops,
+            total_expected_value=total_ev * 4,
+            materials_expected_value=material_ev * 4
+        ))
+        
+    return updated_containers
+
 def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     
     containers = parse_containers_list()
     
-    # Optional: Scan folder for missing containers logic can be added here
+    print("Calculating Expected Values (EV) for containers...")
+    item_values = load_item_values()
+    containers = calculate_evs(containers, item_values)
     
     print(f"\nExporting {len(containers)} containers to {OUTPUT_FILE}...")
     data = [c.model_dump(mode='json') for c in containers]

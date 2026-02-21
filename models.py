@@ -78,6 +78,9 @@ class Container(BaseEntity):
     type: str # "skill_chest" or "unique_openable"
     drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
 
+    total_expected_value: float = 0.0
+    materials_expected_value: float = 0.0
+
 class Collectible(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
     
@@ -150,6 +153,9 @@ class Activity(BaseEntity):
     loot_tables: Tuple[LootTable, ...] = Field(default_factory=tuple) # Consolidated drops
     
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple) 
+    normal_roll_worth: float = 0.0
+    chest_roll_worth: float = 0.0
+    fine_roll_worth: float = 0.0
 
     @property
     def level(self) -> int:

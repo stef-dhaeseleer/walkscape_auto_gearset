@@ -40,6 +40,14 @@ st.markdown("""
             padding-left: 2rem;
             padding-right: 2rem;
         }
+        @media (max-width: 768px) {
+            .block-container {
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
+            }
+        }
         iframe { width: 100%; }
         .service-mod {
             font-size: 0.85rem;
@@ -101,6 +109,61 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
+
+# --- GLOBAL TARGET CONFIG ---
+TARGET_CATEGORIES = {
+    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine",],
+    "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
+    "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
+    "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
+    "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps"]
+}
+
+def find_category(target_name):
+    for cat, targets in TARGET_CATEGORIES.items():
+        if target_name in targets: return cat
+    return "Base" # Fallback
+
+# --- MOBILE DIALOG POP-UP ---
+@st.dialog("Configure Target")
+def edit_target_dialog(item_id=None):
+    if item_id is None:
+        current_target_name = "Reward Rolls"
+        weight = 100
+    else:
+        item = next((x for x in st.session_state['opt_targets_list'] if x['id'] == item_id), None)
+        if not item: return
+        current_target_name = item['target']
+        weight = item['weight']
+        
+    current_cat = find_category(current_target_name)
+    new_cat = st.selectbox("Category", options=list(TARGET_CATEGORIES.keys()), index=list(TARGET_CATEGORIES.keys()).index(current_cat), key="dialog_cat")
+    
+    available_targets = TARGET_CATEGORIES[new_cat]
+    target_idx = available_targets.index(current_target_name) if current_target_name in available_targets else 0
+    new_target = st.selectbox("Target", options=available_targets, index=target_idx, key="dialog_tgt")
+    
+    new_weight = st.slider("Weight", min_value=1, max_value=100, value=int(weight), format="%d%%", key="dialog_weight")
+    
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("Save", type="primary", use_container_width=True):
+            if item_id is None:
+                new_id = st.session_state.get('next_target_id', 1)
+                st.session_state['opt_targets_list'].append({"id": new_id, "target": new_target, "weight": new_weight})
+                st.session_state['next_target_id'] = new_id + 1
+            else:
+                for x in st.session_state['opt_targets_list']:
+                    if x['id'] == item_id:
+                        x['target'] = new_target
+                        x['weight'] = new_weight
+                        break
+            st.rerun()
+    with c2:
+        if item_id is not None:
+            if st.button("Delete", use_container_width=True):
+                st.session_state['opt_targets_list'] = [x for x in st.session_state['opt_targets_list'] if x['id'] != item_id]
+                st.rerun()
 
 # --- Helpers ---
 def get_xp_for_level(level: int) -> int:
@@ -227,7 +290,6 @@ def load_data():
             
     return items, activities, recipes, locations, services, collectibles, pets, consumables
 
-
 def extract_user_counts(user_data: Dict) -> Dict[str, int]:
     counts = Counter()
     for container in ["bank", "inventory"]:
@@ -338,6 +400,7 @@ def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:
         stats[k] = stats.get(k, 0.0) + val
     return stats
 
+
 # --- Main App ---
 def main():
     if 'locked_items_state' not in st.session_state:
@@ -349,10 +412,13 @@ def main():
     if 'ls_loaded' not in st.session_state:
         st.session_state['ls_loaded'] = False
 
-    # Initialize dynamic target list if not present
     if 'opt_targets_list' not in st.session_state:
         st.session_state['opt_targets_list'] = [{"id": 0, "target": "Reward Rolls", "weight": 100}]
         st.session_state['next_target_id'] = 1
+
+    # Mobile Screen Width Detection via Javascript
+    window_width = streamlit_js_eval(js_expressions='window.innerWidth', key='viewport_width')
+    is_mobile = window_width is not None and window_width < 768
 
     # --- LOCAL STORAGE: LOAD ---
     stored_json = streamlit_js_eval(js_expressions="localStorage.getItem('WALKSCAPE_USER_DATA')", key="ls_loader")
@@ -370,7 +436,7 @@ def main():
     st.title("🛡️ WalkScape Gear Optimizer")
 
     with st.container():
-        with st.expander("📂 User Save Data & Settings", expanded=True):
+        with st.expander("📂 User Save Data & Settings", expanded=not is_mobile):
             col_json, col_opts = st.columns([3, 1])
             with col_json:
                 user_json_input = st.text_area(
@@ -714,7 +780,6 @@ def main():
         combined_names = sorted(list(combined_map.keys()))
 
         with c1:
-
             selected_key = st.selectbox("**Select Activity or Recipe**", options=combined_names, index=None, placeholder="Search...")
             
             selected_obj = None
@@ -748,80 +813,78 @@ def main():
         with c2:
             st.write("🎯 **Optimization Targets**")
             
-            TARGET_CATEGORIES = {
-                "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine",],
-                "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
-                "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
-                "$$$$": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
-                "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps"]
+            if is_mobile:
+                # --- MOBILE CARD UI (Option B) ---
+                for item in st.session_state['opt_targets_list']:
+                    col_txt, col_btn = st.columns([4, 1])
+                    with col_txt:
+                        st.markdown(f"<div style='background-color:#1e293b; padding:8px 12px; border: 1px solid #334155; border-radius:6px; margin-bottom:4px;'><b style='color:#e2e8f0'>{item['target']}</b> <span style='color:#94a3b8; font-size:0.85em;'>({item['weight']}%)</span></div>", unsafe_allow_html=True)
+                    with col_btn:
+                        if st.button("✏️", key=f"edit_m_{item['id']}", use_container_width=True):
+                            edit_target_dialog(item['id'])
                 
-            }
+                if st.button("➕ Add Target", key="add_tgt_btn_mobile", use_container_width=True):
+                    edit_target_dialog(None)
 
-            def find_category(target_name):
-                for cat, targets in TARGET_CATEGORIES.items():
-                    if target_name in targets: return cat
-                return "Base"
-
-            targets_to_remove = []
-
-            for index, item in enumerate(st.session_state['opt_targets_list']):
-                c_cat, c_target, c_slider, c_btn = st.columns([3, 3, 3, 1])
-                
-                current_target_name = item['target']
-                current_cat = find_category(current_target_name)
-
-                with c_cat:
-                    new_cat = st.selectbox(
-                        "Category", 
-                        options=list(TARGET_CATEGORIES.keys()), 
-                        index=list(TARGET_CATEGORIES.keys()).index(current_cat),
-                        key=f"cat_sel_{item['id']}", 
-                        label_visibility="collapsed"
-                    )
+            else:
+                # --- DESKTOP 4-COLUMN UI ---
+                targets_to_remove = []
+                for index, item in enumerate(st.session_state['opt_targets_list']):
+                    c_cat, c_target, c_slider, c_btn = st.columns([3, 3, 3, 1])
                     
-                    if new_cat != current_cat:
-                        item['target'] = TARGET_CATEGORIES[new_cat][0]
-                        st.rerun()
+                    current_target_name = item['target']
+                    current_cat = find_category(current_target_name)
 
-                with c_target:
-                    available_targets = TARGET_CATEGORIES[new_cat]
-                    try:
-                        target_idx = available_targets.index(item['target'])
-                    except ValueError:
-                        target_idx = 0
-                    
-                    new_target = st.selectbox(
-                        "Target", 
-                        options=available_targets,
-                        index=target_idx,
-                        key=f"target_sel_{item['id']}", 
-                        label_visibility="collapsed"
-                    )
-                    item['target'] = new_target
+                    with c_cat:
+                        new_cat = st.selectbox(
+                            "Category", 
+                            options=list(TARGET_CATEGORIES.keys()), 
+                            index=list(TARGET_CATEGORIES.keys()).index(current_cat),
+                            key=f"cat_sel_{item['id']}", 
+                            label_visibility="collapsed"
+                        )
+                        if new_cat != current_cat:
+                            item['target'] = TARGET_CATEGORIES[new_cat][0]
+                            st.rerun()
 
-                with c_slider:
-                    item['weight'] = st.slider(
-                        "Weight", min_value=1, max_value=100, 
-                        value=int(item['weight']), format="%d%%",
-                        key=f"target_slider_{item['id']}", label_visibility="collapsed"
-                    )
+                    with c_target:
+                        available_targets = TARGET_CATEGORIES[new_cat]
+                        try:
+                            target_idx = available_targets.index(item['target'])
+                        except ValueError:
+                            target_idx = 0
+                        
+                        new_target = st.selectbox(
+                            "Target", 
+                            options=available_targets,
+                            index=target_idx,
+                            key=f"target_sel_{item['id']}", 
+                            label_visibility="collapsed"
+                        )
+                        item['target'] = new_target
 
-                with c_btn:
-                    if st.button("❌", key=f"target_rem_{item['id']}", help="Remove target"):
-                        targets_to_remove.append(index)
+                    with c_slider:
+                        item['weight'] = st.slider(
+                            "Weight", min_value=1, max_value=100, 
+                            value=int(item['weight']), format="%d%%",
+                            key=f"target_slider_{item['id']}", label_visibility="collapsed"
+                        )
 
-            if targets_to_remove:
-                for i in sorted(targets_to_remove, reverse=True):
-                    del st.session_state['opt_targets_list'][i]
-                st.rerun()
+                    with c_btn:
+                        if st.button("❌", key=f"target_rem_{item['id']}", help="Remove target"):
+                            targets_to_remove.append(index)
 
-            if st.button("➕ Add Target", key="add_tgt_btn", use_container_width=True):
-                new_id = st.session_state.get('next_target_id', 1)
-                st.session_state['opt_targets_list'].append({"id": new_id, "target": "Reward Rolls", "weight": 100})
-                st.session_state['next_target_id'] = new_id + 1
-                st.rerun()
+                if targets_to_remove:
+                    for i in sorted(targets_to_remove, reverse=True):
+                        del st.session_state['opt_targets_list'][i]
+                    st.rerun()
 
-           
+                if st.button("➕ Add Target", key="add_tgt_btn_desktop", use_container_width=True):
+                    new_id = st.session_state.get('next_target_id', 1)
+                    st.session_state['opt_targets_list'].append({"id": new_id, "target": "Reward Rolls", "weight": 100})
+                    st.session_state['next_target_id'] = new_id + 1
+                    st.rerun()
+
             # Prepare list for optimizer
             weighted_targets = []
             for item in st.session_state['opt_targets_list']:
@@ -839,13 +902,22 @@ def main():
 
     st.divider()
 
-    left_col, right_col = st.columns([1, 2.5])
+    # --- DYNAMIC RESULTS LAYOUT ---
+    if is_mobile:
+        tab_res, tab_wiki = st.tabs(["📊 Results", "📖 Gear Tool (Wiki)"])
+        container_results = tab_res
+        container_wiki = tab_wiki
+    else:
+        left_col, right_col = st.columns([1, 2.5])
+        container_results = left_col
+        container_wiki = right_col
 
-    with right_col:
-        st.subheader("Gear Tool Reference (fala's tool)")
-        components.iframe(WIKI_URL, height=1200, scrolling=True)
+    with container_wiki:
+        if not is_mobile:
+            st.subheader("Gear Tool Reference (fala's tool)")
+        components.iframe(WIKI_URL, height=1200 if not is_mobile else 800, scrolling=True)
 
-    with left_col:
+    with container_results:
         st.subheader("Results")
 
         if use_owned and user_data:
@@ -934,7 +1006,6 @@ def main():
                     st.session_state['selected_pet'] = selected_pet
                     st.session_state['selected_cons'] = selected_cons
                     st.session_state['selected_target_list'] = weighted_targets
-                    # Store normalization context for math display
                     st.session_state['normalization_context'] = optimizer.last_normalization_context
 
         if 'best_gear' in st.session_state:
@@ -960,10 +1031,8 @@ def main():
                 for k,v in saved_service_stats.items():
                     passive_stats[k] = passive_stats.get(k, 0.0) + v
 
-                # Use first target for debug/display if list, or list itself
                 display_target = weighted_targets_saved if weighted_targets_saved else OPTIMAZATION_TARGET.reward_rolls
                 
-                # Get full analysis (now includes breakdown)
                 analysis_result = analyze_score(best_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
                 
                 score = analysis_result["score"]
@@ -972,10 +1041,7 @@ def main():
                 breakdown = analysis_result.get("target_breakdown", [])
 
                 badges_html = ""
-                # Generate badges for active stats
-                # Common stats to highlight
                 badge_stats = [
-                    # Core
                     (StatName.WORK_EFFICIENCY, 'WE'),
                     (StatName.DOUBLE_ACTION, 'DA'),
                     (StatName.DOUBLE_REWARDS, 'DR'),
@@ -985,7 +1051,6 @@ def main():
                     (StatName.FIND_COLLECTIBLES, 'Collectibles'),
                     (StatName.FINE_MATERIAL_FINDING, 'FMF'),
                     (StatName.FIND_GOLD, 'Gold Drops'),
-                
                 ]
                 
                 for key, label in badge_stats:
@@ -1025,10 +1090,10 @@ def main():
                             display_text = f"{human_val:.1f} Steps/Fine Roll" if raw_val > 0 else "∞ Steps/Fine Roll"
                         elif "collectibles" in t_name_lower:
                             relative_mult = raw_val * saved_activity.base_steps
-                            display_text = f"{relative_mult:.2f}x Collectibles Base Drop Rate"
+                            display_text = f"{relative_mult:.2f}x Collectibles Base Rate"
                         elif "gems" in t_name_lower:
                             relative_mult = raw_val * saved_activity.base_steps
-                            display_text = f"{relative_mult:.2f}x Gems Base Drop Rate"
+                            display_text = f"{relative_mult:.2f}x Gems Base Rate"
                         elif "coins" in t_name_lower:
                             human_val = raw_val * 1000.0
                             display_text = f"{human_val:.2f} Coins/1k Steps"
@@ -1041,7 +1106,7 @@ def main():
                             display_text = f"{human_val:.2f} Steps/{display_tier_name}" if raw_val > 0 else f"∞ Steps/{display_tier_name}"
                         elif "tokens" in t_name_lower:
                             human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-                            display_text = f"{human_val:.2f} Steps/Adventuring Token" if raw_val > 0 else "∞ Steps/Token"
+                            display_text = f"{human_val:.2f} Steps/Token" if raw_val > 0 else "∞ Steps/Token"
                         elif "ectoplasm" in t_name_lower:
                             human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
                             display_text = f"{human_val:.2f} Steps/Ecto" if raw_val > 0 else "∞ Steps/Ecto"
@@ -1249,14 +1314,10 @@ def main():
                 st.caption(f"Based on **{final_steps} steps per action** (Optimized).")
                 st.caption("Includes effects of Double Action (Frequency) and Double Rewards (Quantity).")
                 
-                
-                # Use the stats dictionary we already calculated for analysis
                 drop_rows = drop_calc.get_drop_table(saved_activity, stats, saved_skill_lvl)
                 
                 if drop_rows:
                     df_drops = pd.DataFrame(drop_rows)
-                    
-                    
                     st.dataframe(
                         df_drops,
                         column_config={
@@ -1286,7 +1347,6 @@ def main():
                             st.caption("Formula: `Contribution = ((Raw - Baseline) / Range) * Weight`")
                             
                             df_math = pd.DataFrame(breakdown)
-                            # Formatting
                             df_math['weight'] = df_math['weight'].apply(lambda x: f"{int(x)}%")
                             df_math['raw_value'] = df_math['raw_value'].apply(lambda x: f"{x:.4f}")
                             df_math['baseline'] = df_math['baseline'].apply(lambda x: f"{x:.4f}")
@@ -1364,7 +1424,7 @@ def main():
                                 test_gear.rings = list(best_gear.rings)
                                 test_gear.tools = list(best_gear.tools)
                                 test_gear.pet = best_gear.pet 
-                                test_gear.consumable = best_gear.consumable # Preserve Consumable
+                                test_gear.consumable = best_gear.consumable
                                 
                                 if "Tool" in edit_slot:
                                     idx = int(edit_slot.split(" ")[1]) - 1
@@ -1422,12 +1482,11 @@ def main():
                             for item in items:
                                 d_set = GearSet()
                                 d_set.pet = best_gear.pet
-                                d_set.consumable = best_gear.consumable # Preserve Consumable
+                                d_set.consumable = best_gear.consumable
                                 if insp_slot == "tools": d_set.tools = [item]
                                 elif insp_slot == "ring": d_set.rings = [item]
                                 else: setattr(d_set, insp_slot, item)
                                 
-                                # Use simplified non-normalized score for raw power check
                                 s = calculate_score(d_set, saved_activity, saved_skill_lvl, display_target, context, ignore_requirements=True)
                                 cand_data.append({"Name": item.name, "Score": s, "ID": item.id})
                             

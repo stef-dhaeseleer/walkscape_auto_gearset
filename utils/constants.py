@@ -128,12 +128,31 @@ QUALITY_RANK = {
     EquipmentQuality.NONE: -1
 }
 
-OPTIMAZATION_TARGET = Enum("OPTIMAZATION_TARGET",
- [  "reward_rolls", "xp", "chests", "materials_from_input", "fine",
-    "eternal_per_input", "good_per_step", "great_per_step","excellent_per_step",
-    "perfect_per_step", "eternal_per_step","tokens_per_step",
-    "ectoplasm_per_step", "gems", "collectibles", "coins",
-    "coins_no_chests", "coins_no_fines", "coins_no_chests_no_fines"])
+class OPTIMAZATION_TARGET(str, Enum):
+    reward_rolls = "reward_rolls"
+    xp = "xp"
+    chests = "chests"
+    materials_from_input = "materials_from_input"
+    fine = "fine"
+    eternal_per_input = "eternal_per_input"
+    good_per_step = "good_per_step"
+    great_per_step = "great_per_step"
+    excellent_per_step = "excellent_per_step"
+    perfect_per_step = "perfect_per_step"
+    eternal_per_step = "eternal_per_step"
+    tokens_per_step = "tokens_per_step"
+    ectoplasm_per_step = "ectoplasm_per_step"
+    gems = "gems"
+    collectibles = "collectibles"
+    coins = "coins"
+    coins_no_chests = "coins_no_chests"
+    coins_no_fines = "coins_no_fines"
+    coins_no_chests_no_fines = "coins_no_chests_no_fines"
+    
+    exp_no_steps = "exp_no_steps"
+    chests_no_steps = "chests_no_steps"
+    reward_rolls_no_steps = "reward_rolls_no_steps"
+    fine_no_steps = "fine_no_steps"
 
 # Correct Set Union Syntax using |
 REWARD_ROLL_STATS = {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT}
@@ -158,7 +177,12 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.coins: COIN_BASE_STATS | {StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_chests: COIN_BASE_STATS | {StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},
-    OPTIMAZATION_TARGET.coins_no_chests_no_fines: COIN_BASE_STATS
+    OPTIMAZATION_TARGET.coins_no_chests_no_fines: COIN_BASE_STATS,
+
+    OPTIMAZATION_TARGET.exp_no_steps: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.DOUBLE_ACTION},
+    OPTIMAZATION_TARGET.chests_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.CHEST_FINDING},
+    OPTIMAZATION_TARGET.reward_rolls_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS},
+    OPTIMAZATION_TARGET.fine_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.FINE_MATERIAL_FINDING},
 }
 
 # Mapping StatName Enums to the keys output by GearSet.get_stats()

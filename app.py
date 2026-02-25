@@ -23,6 +23,7 @@ from models import (
 # --- NEW IMPORT ---
 from streamlit_js_eval import streamlit_js_eval
 from drop_calculator import DropCalculator
+
 # --- Page Config ---
 st.set_page_config(
     page_title="WalkScape Gear Optimizer",
@@ -706,14 +707,15 @@ def main():
                     st.markdown(html, unsafe_allow_html=True)
 
 
-        c1, c2, c3 = st.columns([2, 2, 1])
+        c1, c2, c3 = st.columns([1.5, 2.5, 1])
         act_map = {f"[Activity] {a.name}": a for a in activities}
         rec_map = {f"[Recipe] {r.name}": r for r in recipes}
         combined_map = {**act_map, **rec_map}
         combined_names = sorted(list(combined_map.keys()))
 
         with c1:
-            selected_key = st.selectbox("Select Activity or Recipe", options=combined_names, index=None, placeholder="Search...")
+
+            selected_key = st.selectbox("**Select Activity or Recipe**", options=combined_names, index=None, placeholder="Search...")
             
             selected_obj = None
             is_recipe = False
@@ -746,53 +748,74 @@ def main():
         with c2:
             st.write("🎯 **Optimization Targets**")
             
-            # --- DYNAMIC TARGETS UI ---
-            targets_to_remove = []
-            
-            # Header Row
-            h_col1, h_col2, h_col3 = st.columns([5, 3, 1])
-            with h_col1: st.caption("Target")
-            with h_col2: st.caption("Weight (%)")
-
-            # Iterate through session state targets
-            for index, item in enumerate(st.session_state['opt_targets_list']):
-                row_cols = st.columns([3, 4, 1])
+            TARGET_CATEGORIES = {
+                "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine",],
+                "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
+                "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
+                "$$$$": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
+                "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps"]
                 
-                with row_cols[0]:
-                    # Target Selector
-                    options = [t.name.replace('_', ' ').title() for t in OPTIMAZATION_TARGET]
-                    current_val = item['target']
-                    try: sel_idx = options.index(current_val)
-                    except ValueError: sel_idx = 0
-                        
+            }
+
+            def find_category(target_name):
+                for cat, targets in TARGET_CATEGORIES.items():
+                    if target_name in targets: return cat
+                return "Base"
+
+            targets_to_remove = []
+
+            for index, item in enumerate(st.session_state['opt_targets_list']):
+                c_cat, c_target, c_slider, c_btn = st.columns([3, 3, 3, 1])
+                
+                current_target_name = item['target']
+                current_cat = find_category(current_target_name)
+
+                with c_cat:
+                    new_cat = st.selectbox(
+                        "Category", 
+                        options=list(TARGET_CATEGORIES.keys()), 
+                        index=list(TARGET_CATEGORIES.keys()).index(current_cat),
+                        key=f"cat_sel_{item['id']}", 
+                        label_visibility="collapsed"
+                    )
+                    
+                    if new_cat != current_cat:
+                        item['target'] = TARGET_CATEGORIES[new_cat][0]
+                        st.rerun()
+
+                with c_target:
+                    available_targets = TARGET_CATEGORIES[new_cat]
+                    try:
+                        target_idx = available_targets.index(item['target'])
+                    except ValueError:
+                        target_idx = 0
+                    
                     new_target = st.selectbox(
-                        "Target", options, index=sel_idx, 
-                        key=f"target_sel_{item['id']}", label_visibility="collapsed"
+                        "Target", 
+                        options=available_targets,
+                        index=target_idx,
+                        key=f"target_sel_{item['id']}", 
+                        label_visibility="collapsed"
                     )
                     item['target'] = new_target
 
-                with row_cols[1]:
-                    # Weight Slider
-                    new_weight = st.slider(
+                with c_slider:
+                    item['weight'] = st.slider(
                         "Weight", min_value=1, max_value=100, 
                         value=int(item['weight']), format="%d%%",
                         key=f"target_slider_{item['id']}", label_visibility="collapsed"
                     )
-                    item['weight'] = new_weight
 
-                with row_cols[2]:
-                    # Remove Button
+                with c_btn:
                     if st.button("❌", key=f"target_rem_{item['id']}", help="Remove target"):
                         targets_to_remove.append(index)
 
-            # Process Removal
             if targets_to_remove:
                 for i in sorted(targets_to_remove, reverse=True):
                     del st.session_state['opt_targets_list'][i]
                 st.rerun()
 
-            # Add Button
-            if st.button("➕ Add Target", key="add_target_btn", help="Add a new optimization target row"):
+            if st.button("➕ Add Target", key="add_tgt_btn", use_container_width=True):
                 new_id = st.session_state.get('next_target_id', 1)
                 st.session_state['opt_targets_list'].append({"id": new_id, "target": "Reward Rolls", "weight": 100})
                 st.session_state['next_target_id'] = new_id + 1
@@ -985,7 +1008,9 @@ def main():
                         raw_val = item["raw_value"]
                         t_name_lower = t_name.lower()
                         
-                        if "reward rolls" in t_name_lower:
+                        if "no steps" in t_name_lower:
+                            display_text = f"{raw_val:.2f} Output per Action"
+                        elif "reward rolls" in t_name_lower:
                             human_val = 1.0 / raw_val if raw_val > 0 else 0
                             display_text = f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
                         elif "xp" in t_name_lower:

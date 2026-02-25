@@ -163,17 +163,28 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
     val = 0.0
     if target == OPTIMAZATION_TARGET.reward_rolls:
         val = (da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.reward_rolls_no_steps:
+        val = (da_mult * dr_mult)
     elif target == OPTIMAZATION_TARGET.xp:
         base_xp = activity.base_xp or 0
         xp_mult = 1.0 + stats.get("xp_percent", 0)
         flat_xp = stats.get("flat_xp", 0)
         val = ((base_xp * xp_mult + flat_xp) * da_mult) / steps
+    elif target == OPTIMAZATION_TARGET.exp_no_steps:
+        base_xp = activity.base_xp or 0
+        xp_mult = 1.0 + stats.get("xp_percent", 0)
+        flat_xp = stats.get("flat_xp", 0)
+        val = ((base_xp * xp_mult + flat_xp) * da_mult)
     elif target == OPTIMAZATION_TARGET.chests:
         val = ((1.0 + stats.get("chest_finding", 0)) * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.chests_no_steps:
+        val = ((1.0 + stats.get("chest_finding", 0)) * da_mult * dr_mult)
     elif target == OPTIMAZATION_TARGET.materials_from_input:
         val = (dr_mult * nmc_mult)
     elif target == OPTIMAZATION_TARGET.fine:
         val = ((1.0 + stats.get("fine_material_finding", 0)) * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.fine_no_steps:
+        val = ((1.0 + stats.get("fine_material_finding", 0)) * da_mult * dr_mult)
     elif target == OPTIMAZATION_TARGET.eternal_per_input:
         flat_quality_bonus = stats.get("quality_outcome", 0)
         probs = calculate_quality_probabilities(
@@ -232,8 +243,6 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         
         fine_bonus = stats.get("fine_material_finding", 0.0)
         chest_bonus = stats.get("chest_finding", 0.0)
-        find_gold_chance = stats.get("find_gold", 0.0) / 100.0        # E.g., 5.0 -> 0.05
-        find_pouch_chance = stats.get("find_coin_pouch", 0.0) / 100.0 # E.g., 2.0 -> 0.02
 
         if allow_fines:
             fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))

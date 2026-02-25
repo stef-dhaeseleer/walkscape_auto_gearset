@@ -250,7 +250,6 @@ def parse_attribute_lines(lines) -> list[Modifier]:
         i = next_i
         
     return modifiers
-
 def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
     soup = BeautifulSoup(html_content, 'html.parser')
     keywords = []
@@ -293,6 +292,12 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                     v_match = re.search(r'(\d+)', val_cell.get_text())
                     if v_match: value = int(v_match.group(1))
 
+    # --- NEW: Synthesize exact_item keyword ---
+    clean_slug = slug.replace('Special:MyLanguage/', '')
+    clean_slug = unquote(clean_slug)
+    base_name = clean_slug.lower().replace("'", "").replace("-", "_").replace(" ", "_")
+    keywords.append(f"exact_item_{base_name}")
+
     requirements = parse_requirements(soup)
     attr_section = soup.find('h1', id='Attributes') or soup.find('h1', id='Attribute')
 
@@ -303,7 +308,7 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
             name=item_name,
             uuid=uuid,
             value=value,
-            keywords=keywords,
+            keywords=tuple(keywords), # Use tuple for frozen Pydantic models
             slot=slot,
             quality=EquipmentQuality.NONE,
             requirements=requirements,
@@ -340,7 +345,7 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                         name=f"{item_name} ({quality_str})",
                         uuid=uuid,
                         value=value,
-                        keywords=keywords,
+                        keywords=tuple(keywords), # Use tuple for frozen Pydantic models
                         slot=slot,
                         quality=quality_enum,
                         requirements=requirements,
@@ -359,7 +364,7 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                 name=item_name,
                 uuid=uuid,
                 value=value,
-                keywords=keywords,
+                keywords=tuple(keywords), # Use tuple for frozen Pydantic models
                 slot=slot,
                 quality=EquipmentQuality.NONE,
                 requirements=requirements,
@@ -368,7 +373,6 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
             break
             
     return results
-
 def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     

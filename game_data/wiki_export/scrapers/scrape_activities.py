@@ -211,7 +211,18 @@ def parse_requirements_text(req_text, activity_data):
         activity = clean_text(completion_match.group(1))
         count = int(completion_match.group(2))
         activity_data['requirements']['activity_completions'][activity] = count
+    exact_item_match = re.search(r'Have\s+item\s+(.+?)\s+equipped', text, re.IGNORECASE)
+    if exact_item_match:
+        item_name = exact_item_match.group(1).strip().lower().replace(" ", "_")
+        activity_data['requirements']['keyword_counts'][f'exact_item_{item_name}'] = 1
 
+    # 2. Tool Level Requirement (e.g., "Have Hatchet Hatchet equipped that requires at least Woodcutting Woodcutting level [50]")
+    level_req_match = re.search(r'Have\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+equipped\s+that\s+requires\s+at\s+least\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+level\s*\[?(\d+)\]?', text, re.IGNORECASE)
+    if level_req_match:
+        keyword = level_req_match.group(1).lower()
+        skill = level_req_match.group(2).lower()
+        level = int(level_req_match.group(3))
+        activity_data['requirements']['keyword_counts'][f'req_{skill}_{level}_{keyword}'] = 1
 def parse_locations_section(soup, activity_data):
     """Parse locations from the Location section."""
     content = soup.find('div', class_='mw-parser-output')
@@ -289,7 +300,18 @@ def parse_requirements_section(soup, activity_data):
             activity_name = clean_text(completion_match.group(1))
             count = int(completion_match.group(2))
             activity_data['requirements']['activity_completions'][activity_name] = count
-            
+        exact_item_match = re.search(r'Have\s+item\s+(.+?)\s+equipped', text, re.IGNORECASE)
+        if exact_item_match:
+            item_name = exact_item_match.group(1).strip().lower().replace(" ", "_")
+            activity_data['requirements']['keyword_counts'][f'exact_item_{item_name}'] = 1
+
+        # 2. Tool Level Requirement (e.g., "Have Hatchet Hatchet equipped that requires at least Woodcutting Woodcutting level [50]")
+        level_req_match = re.search(r'Have\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+equipped\s+that\s+requires\s+at\s+least\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+level\s*\[?(\d+)\]?', text, re.IGNORECASE)
+        if level_req_match:
+            keyword = level_req_match.group(1).lower()
+            skill = level_req_match.group(2).lower()
+            level = int(level_req_match.group(3))
+            activity_data['requirements']['keyword_counts'][f'req_{skill}_{level}_{keyword}'] = 1
         next_elem = next_elem.find_next_sibling()
 
 def parse_experience_table(soup, activity_data):

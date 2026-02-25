@@ -1435,6 +1435,11 @@
         "type": "keyword_count",
         "target": "hatchet",
         "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "req_woodcutting_50_hatchet",
+        "value": 1
       }
     ],
     "faction_rewards": [],
@@ -1985,6 +1990,11 @@
       {
         "type": "keyword_count",
         "target": "hatchet",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "req_woodcutting_50_hatchet",
         "value": 1
       }
     ],
@@ -5032,6 +5042,11 @@
         "type": "keyword_count",
         "target": "pickaxe",
         "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "req_mining_50_pickaxe",
+        "value": 1
       }
     ],
     "faction_rewards": [],
@@ -5395,6 +5410,11 @@
       {
         "type": "keyword_count",
         "target": "pickaxe",
+        "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "req_mining_50_pickaxe",
         "value": 1
       }
     ],
@@ -6085,6 +6105,11 @@
         "type": "keyword_count",
         "target": "pickaxe",
         "value": 1
+      },
+      {
+        "type": "keyword_count",
+        "target": "req_mining_60_pickaxe",
+        "value": 1
       }
     ],
     "faction_rewards": [],
@@ -6565,6 +6590,11 @@
         "type": "skill_level",
         "target": "carpentry",
         "value": 58
+      },
+      {
+        "type": "keyword_count",
+        "target": "exact_item_spectral_saw",
+        "value": 1
       }
     ],
     "faction_rewards": [],

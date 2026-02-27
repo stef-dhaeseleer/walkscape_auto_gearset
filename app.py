@@ -809,6 +809,20 @@ def main():
                             st.markdown(html, unsafe_allow_html=True)
                     else:
                         st.error("No compatible services found for this recipe!")
+                
+                elif isinstance(selected_obj, Activity):
+                    if selected_obj.locations:
+                        loc_names = []
+                        loc_name_to_id = {}
+                        
+                        for loc_id in selected_obj.locations:
+                            loc_name = loc_map[loc_id].name if loc_id in loc_map else loc_id
+                            loc_names.append(loc_name)
+                            loc_name_to_id[loc_name] = loc_id
+                            
+                        sel_loc_name = st.selectbox("Select Location", loc_names)
+                        if sel_loc_name:
+                            selected_location_id = loc_name_to_id[sel_loc_name]
         
         with c2:
             st.write("🎯 **Optimization Targets**")
@@ -949,7 +963,11 @@ def main():
                     if req.type == RequirementType.KEYWORD_COUNT and req.target:
                          req_kw[req.target.lower().replace("_", " ").strip()] = req.value
                 
-                current_loc_id = final_activity.locations[0] if final_activity.locations else None
+                if not is_recipe and selected_location_id:
+                    current_loc_id = selected_location_id
+                else:
+                    current_loc_id = final_activity.locations[0] if final_activity.locations else None
+
                 current_tags = set()
                 if current_loc_id and current_loc_id in loc_map:
                     current_tags = {t.lower() for t in loc_map[current_loc_id].tags}

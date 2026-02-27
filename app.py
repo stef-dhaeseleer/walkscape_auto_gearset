@@ -988,7 +988,7 @@ def main():
 
                 start_time = time.time()
                 
-                best_gear, error_msg = optimizer.optimize(
+                best_gear, error_msg,filler_slots = optimizer.optimize(
                     final_activity, 
                     player_level=player_lvl, 
                     player_skill_level=final_skill_lvl,
@@ -1014,6 +1014,7 @@ def main():
                     st.error(error_msg)
                 else:
                     st.session_state['best_gear'] = best_gear
+                    st.session_state['filler_slots'] = filler_slots
                     st.session_state['final_skill_lvl'] = final_skill_lvl
                     st.session_state['selected_activity_obj'] = final_activity 
                     st.session_state['service_stats'] = service_modifiers_stats
@@ -1167,20 +1168,31 @@ def main():
                     cons_str = saved_cons.name
                 loadout_data.append({"Slot": "🧪 Consumable", "Item": cons_str})
 
+
+                filler_slots = st.session_state.get('filler_slots', set())
+
                 for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
                     item = getattr(best_gear, slot.lower())
-                    loadout_data.append({"Slot": slot, "Item": item.name if item else "-"})
+                    name = item.name if item else "-"
+                    if slot.lower() in filler_slots:
+                        name += " (❌🎯)"
+                    loadout_data.append({"Slot": slot, "Item": name})
                 
                 for i in range(2):
                     r_name = "-"
                     if i < len(best_gear.rings) and best_gear.rings[i]:
                         r_name = best_gear.rings[i].name
+                    
+                    if f"ring_{i}" in filler_slots:
+                        r_name += " (❌🎯)"
                     loadout_data.append({"Slot": f"Ring {i+1}", "Item": r_name})
 
                 for i in range(6):
                     t_name = "-"
                     if i < len(best_gear.tools) and best_gear.tools[i]:
                         t_name = best_gear.tools[i].name
+                    if f"tool_{i}" in filler_slots:
+                        t_name += " (❌🎯)"
                     loadout_data.append({"Slot": f"Tool {i+1}", "Item": t_name})
 
                 st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")

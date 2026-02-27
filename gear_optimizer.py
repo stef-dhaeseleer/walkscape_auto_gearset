@@ -29,7 +29,7 @@ class GearOptimizer:
                  pet: Optional[Pet] = None,
                  consumable: Optional[Consumable] = None,
                  locked_items: Optional[Dict[str, Equipment]] = None,
-                 blacklisted_ids: Optional[Set[str]] = None) -> Tuple[Optional[GearSet], Optional[str]]:
+                 blacklisted_ids: Optional[Set[str]] = None) -> Tuple[Optional[GearSet], Optional[str],Set[str]]:
         
         # Reset Debug
         self.debug_candidates = {}
@@ -223,7 +223,7 @@ class GearOptimizer:
                     if have < needed:
                         missing_details.append(f"'{req}' ({have}/{needed})")
             
-            # --- NEW: Identify Restricted Tool Conflicts ---
+
             restricted_issues = []
             restricted_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
             seen_restr = set()
@@ -245,7 +245,87 @@ class GearOptimizer:
             error_msg += " ,".join([str(i) for i in best_overall_set.get_all_items()])  
             return None, error_msg
 
-        return best_overall_set, None
+
+        filler_slots = set()
+        if best_overall_set:
+            filler_target = [
+                (OPTIMAZATION_TARGET.reward_rolls, 33.33),
+                (OPTIMAZATION_TARGET.xp, 33.33),
+                (OPTIMAZATION_TARGET.chests, 33.33)
+            ] + [(t,1) for t in OPTIMAZATION_TARGET]
+            
+            # Get viable candidates specifically for the filler target
+            filler_candidates = self.candidate_selector.get_candidates(
+                activity, {}, filler_target, context, player_skill_level,
+                owned_item_counts, user_reputation, blacklisted_ids, locked_item_objects
+            )
+            
+            filler_norm_context = self._calculate_normalization_factors(
+                filler_target, filler_candidates, activity, player_skill_level, context,
+                tool_slots, owned_item_counts, passive_stats, 
+                {}, [], [], set(), pet, consumable
+            )
+
+            # Helper to check if we still have available inventory copies left
+            def can_equip_filler(item, current_gear):
+                if item in locked_item_objects: return True
+                if not owned_item_counts: return True
+                needed = 1
+                if item in current_gear.get_all_items(): needed += 1
+                return self.candidate_selector._get_available_count(item, owned_item_counts) >= needed
+
+            empty_slots = best_overall_set.get_empty_slots(tool_slots)
+            
+            slot_str_to_enum = {
+                "head": EquipmentSlot.HEAD, "chest": EquipmentSlot.CHEST, "legs": EquipmentSlot.LEGS,
+                "feet": EquipmentSlot.FEET, "back": EquipmentSlot.BACK, "cape": EquipmentSlot.CAPE,
+                "neck": EquipmentSlot.NECK, "hands": EquipmentSlot.HANDS, 
+                "primary": EquipmentSlot.PRIMARY, "secondary": EquipmentSlot.SECONDARY,
+                "ring": EquipmentSlot.RING, "tools": EquipmentSlot.TOOLS
+            }
+            
+            dummy_empty = GearSet()
+            dummy_empty.pet = pet
+            dummy_empty.consumable = consumable
+            baseline_filler_score = calculate_score(dummy_empty, activity, player_skill_level, filler_target, context, ignore_requirements=True, passive_stats=passive_stats, normalization_context=filler_norm_context)
+
+            for slot_str in empty_slots:
+                slot_enum = slot_str_to_enum.get(slot_str)
+                if not slot_enum: continue
+                
+                cands = filler_candidates.get(slot_enum, [])
+                best_filler_item = None
+                best_filler_score = baseline_filler_score + 0.00001 # Must actively provide *some* benefit
+
+                for cand in cands:
+                    if not can_equip_filler(cand, best_overall_set): continue
+                    if best_overall_set.violates_restrictions(cand): continue # Avoid tool conflicts
+                    
+                    # Evaluate item in complete isolation
+                    dummy_test = GearSet()
+                    dummy_test.pet = pet
+                    dummy_test.consumable = consumable
+                    dummy_test.equip(cand, 6)
+                    
+                    score = calculate_score(dummy_test, activity, player_skill_level, filler_target, context, ignore_requirements=True, passive_stats=passive_stats, normalization_context=filler_norm_context)
+                    if score > best_filler_score:
+                        best_filler_score = score
+                        best_filler_item = cand
+                
+                if best_filler_item:
+                    # Dynamically get the index before we add it, so we can track the slot accurately
+                    if best_filler_item.slot == EquipmentSlot.RING:
+                        idx = len(best_overall_set.rings)
+                        if best_overall_set.equip(best_filler_item, tool_slots):
+                            filler_slots.add(f"ring_{idx}")
+                    elif best_filler_item.slot == EquipmentSlot.TOOLS:
+                        idx = len(best_overall_set.tools)
+                        if best_overall_set.equip(best_filler_item, tool_slots):
+                            filler_slots.add(f"tool_{idx}")
+                    else:
+                        if best_overall_set.equip(best_filler_item, tool_slots):
+                            filler_slots.add(slot_str.lower())
+        return best_overall_set, None, filler_slots
 
     # =========================================================================
     # NORMALIZATION & DUMB MAX

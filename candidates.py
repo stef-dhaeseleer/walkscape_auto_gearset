@@ -71,9 +71,8 @@ class CandidateSelector:
             # C. Check Activity Requirements (Keywords)
             provides_requirement = False
             if not rejection_reason:
-                for kw in item.keywords:
-                    norm = kw.lower().replace("_", " ").strip()
-                    if norm in required_keywords:
+                for req_kw in required_keywords:
+                    if item.provides_keyword(req_kw):
                         provides_requirement = True
                         break
             

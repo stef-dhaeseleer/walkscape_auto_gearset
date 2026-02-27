@@ -145,7 +145,7 @@ class GearOptimizer:
                 optimazation_target, context, passive_stats, normalization_context
             )
             for item in sorted_sec:
-                 has_req_kw = any(k.lower().replace("_", " ").strip() in required_keywords for k in item.keywords)
+                 has_req_kw = any(item.provides_keyword(req) for req in required_keywords)
                  dummy_sort_set.secondary = item
                  s = calculate_score(dummy_sort_set, activity, player_skill_level, optimazation_target, context, 
                                      ignore_requirements=True, passive_stats=passive_stats, normalization_context=normalization_context)
@@ -215,9 +215,37 @@ class GearOptimizer:
                 best_overall_set = final_set
 
         if best_overall_score < -1000:
-             return None, "Requirements could not be met with the current locked items."
+            missing_details = []
+            if required_keywords:
+                current_counts = best_overall_set.get_requirement_counts(required_keywords.keys())
+                for req, needed in required_keywords.items():
+                    have = current_counts.get(req, 0)
+                    if have < needed:
+                        missing_details.append(f"'{req}' ({have}/{needed})")
+            
+            # --- NEW: Identify Restricted Tool Conflicts ---
+            restricted_issues = []
+            restricted_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
+            seen_restr = set()
+            for item in best_overall_set.get_all_items():
+                if isinstance(item, Pet) or isinstance(item, Consumable): continue
+                for k in item.keywords:
+                    lk = k.lower()
+                    if lk in restricted_lower:
+                        if lk in seen_restr:
+                            restricted_issues.append(f"Duplicate {k.title()}")
+                        seen_restr.add(lk)
 
-        return best_overall_set, None 
+            error_msg = "couldnt find a valid set, if it shouldve found one please send this full error message to kozz\n"
+
+            if missing_details:
+                error_msg += f"\nMissing: {', '.join(missing_details)}.\n"
+            if restricted_issues:
+                error_msg += f"\nTool Conflict: {', '.join(set(restricted_issues))}.\n"
+            error_msg += " ,".join([str(i) for i in best_overall_set.get_all_items()])  
+            return None, error_msg
+
+        return best_overall_set, None
 
     # =========================================================================
     # NORMALIZATION & DUMB MAX
@@ -293,10 +321,11 @@ class GearOptimizer:
         all_candidates = self.candidate_selector.sort_items_by_utility(
             all_candidates, dummy_set, activity, lvl, target, context, passive_stats
         )
-        
+     
         # Fill missing requirements
-        current_counts = dummy_set.get_keyword_counts()
-        for req_kw, req_count in required_keywords.items():
+        current_counts = dummy_set.get_requirement_counts(required_keywords.keys())
+        sorted_reqs = sorted(required_keywords.items(), key=lambda x: len(x[0]), reverse=True)
+        for req_kw, req_count in sorted_reqs:
             needed = req_count - current_counts.get(req_kw, 0)
             if needed <= 0: continue
             
@@ -304,11 +333,10 @@ class GearOptimizer:
                 if needed <= 0: break
                 if item in dummy_set.get_all_items(): continue
                 
-                # Check if item provides keyword
-                if any(k.lower().replace("_", " ").strip() == req_kw for k in item.keywords):
+                # Check if item provides keyword dynamically
+                if item.provides_keyword(req_kw):
                     if dummy_set.equip(item, tool_slots):
                         needed -= 1
-        
         # 2. Fill Empty Slots Greedily
         empty_slots = dummy_set.get_empty_slots(tool_slots)
         # Note: get_empty_slots returns ["head", "tools", "tools"...]
@@ -360,7 +388,7 @@ class GearOptimizer:
         provider_pool = []
         for slot, items in candidates.items():
             for item in items:
-                if any(k.lower().replace("_", " ").strip() in required_keywords for k in item.keywords):
+                if any(item.provides_keyword(req) for req in required_keywords):
                     provider_pool.append(item)
         
         def can_equip(item, current_gear):
@@ -378,7 +406,7 @@ class GearOptimizer:
         # --- PHASE 1: FILL MISSING REQS ---
         max_fill_attempts = 10 
         for _ in range(max_fill_attempts):
-            current_counts = current_set.get_keyword_counts()
+            current_counts = current_set.get_requirement_counts(required_keywords.keys())
             missing_reqs = []
             if required_keywords:
                 for req, count in required_keywords.items():
@@ -386,17 +414,16 @@ class GearOptimizer:
                         missing_reqs.append(req)
             
             if not missing_reqs: break
-                
+               
+            missing_reqs.sort(key=len, reverse=True) 
             target_req = missing_reqs[0]
             best_filler = None
             for cand in provider_pool:
                 if cand in current_set.get_all_items(): continue
-                cand_kws = {k.lower().replace("_", " ").strip() for k in cand.keywords}
-                if target_req in cand_kws:
+                if cand.provides_keyword(target_req):
                     if can_equip(cand, current_set):
                         best_filler = cand
-                        break 
-            
+                        break
             if not best_filler: break 
             
             temp_set = current_set.clone()
@@ -456,20 +483,19 @@ class GearOptimizer:
                 
                 is_prov = False
                 if required_keywords:
-                    for k in item.keywords:
-                        if k.lower().replace("_", " ").strip() in required_keywords:
+                    for req in required_keywords:
+                        if item.provides_keyword(req):
                             is_prov = True; break
                 if is_prov: active_providers.append(item)
 
             for provider_to_remove in active_providers:
-                relevant_reqs = {k.lower().replace("_", " ").strip() for k in provider_to_remove.keywords if k.lower().replace("_", " ").strip() in required_keywords} if required_keywords else set()
+                relevant_reqs = {req for req in required_keywords if provider_to_remove.provides_keyword(req)} if required_keywords else set()
                 
                 for candidate in provider_pool:
                     if candidate.id == provider_to_remove.id: continue
                     if candidate in best_local_set.get_all_items(): continue
                     
-                    cand_reqs = {k.lower().replace("_", " ").strip() for k in candidate.keywords}
-                    if not relevant_reqs.intersection(cand_reqs): continue 
+                    if not any(candidate.provides_keyword(req) for req in relevant_reqs): continue
 
                     if not can_equip(candidate, best_local_set): continue
 
@@ -487,14 +513,13 @@ class GearOptimizer:
                 if improved: break 
 
         # --- PHASE 3: FULL POLISH ---
-        current_counts = best_local_set.get_keyword_counts()
+        current_counts = best_local_set.get_requirement_counts(required_keywords.keys())
         
         def is_essential(item, current_set_counts):
             if not required_keywords: return False
-            for k in item.keywords:
-                nk = k.lower().replace("_", " ").strip()
-                if nk in required_keywords:
-                    if current_set_counts[nk] <= required_keywords[nk]:
+            for req, count in required_keywords.items():
+                if item.provides_keyword(req):
+                    if current_set_counts.get(req, 0) <= count:
                         return True
             return False
 
@@ -550,7 +575,7 @@ class GearOptimizer:
                             if new_score > best_local_score + 0.00001:
                                 best_local_score = new_score
                                 best_local_set = test_set
-                                current_counts = best_local_set.get_keyword_counts()
+                                current_counts = best_local_set.get_requirement_counts(required_keywords.keys())
                                 polish_improved = True
                                 break
                     if polish_improved: break
@@ -912,6 +937,7 @@ class GearOptimizer:
 
     def _generate_skeletons(self, candidates, required_keywords) -> List[Tuple[GearSet, Set[str]]]:
         # Part A: Requirement-based Skeletons
+
         if not required_keywords:
             results = [(GearSet(), set())]
         else:
@@ -928,14 +954,15 @@ class GearOptimizer:
                 attr_name = attr_map.get(slot)
                 if not attr_name: continue
                 for item in items:
-                    for k in item.keywords:
-                        norm = k.lower().replace("_", " ").strip()
-                        if norm in required_keywords:
-                            providers[norm].append((item, attr_name))
+                    for req in required_keywords:
+                        if item.provides_keyword(req):
+                            providers[req].append((item, attr_name))
 
             req_list = []
             for k, v in required_keywords.items():
                 for _ in range(v): req_list.append(k)
+            
+            req_list.sort(key=len, reverse=True)
             
             results = []
             unique_signatures = set()
@@ -958,6 +985,22 @@ class GearOptimizer:
                     return
 
                 req = req_list[index]
+                
+                # FIX: Check if the items already in the skeleton fulfill this requirement.
+                # This prevents adding a separate item for 'hatchet' if we already added 'req_woodcutting_50_hatchet'.
+                provided_count = 0
+                for attr, item_or_list in current_map.items():
+                    if attr in ["tools", "rings"]:
+                        for it in item_or_list:
+                            if it.provides_keyword(req): provided_count += 1
+                    else:
+                        if item_or_list.provides_keyword(req): provided_count += 1
+                        
+                req_occurrences_so_far = req_list[:index].count(req)
+                if provided_count > req_occurrences_so_far:
+                    solve(index + 1, current_map, locked_slots)
+                    return
+
                 options = providers.get(req, [])
                 seen_slots = set()
                 diverse_options = []

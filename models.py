@@ -130,6 +130,31 @@ class Equipment(BaseItem):
     @property
     def clean_item_name(self) -> str:
         return self.name
+    
+    def provides_keyword(self, req_kw: str) -> bool:
+        """Checks if the item provides a specific requirement keyword, handling dynamic level requirements."""
+        norm_req = req_kw.lower().replace("_", " ").strip()
+        
+        if any(k.lower().replace("_", " ").strip() == norm_req for k in self.keywords):
+            return True
+            
+        if norm_req.startswith("req "):
+            parts = norm_req.split(" ")
+            if len(parts) >= 4:
+                try:
+                    skill = parts[1]
+                    level = int(parts[2])
+                    target_kw = " ".join(parts[3:])
+                    
+                    has_kw = any(k.lower().replace("_", " ").strip() == target_kw for k in self.keywords)
+                    if has_kw:
+                        for req in self.requirements:
+                            if req.type == RequirementType.SKILL_LEVEL and req.target == skill:
+                                if req.value >= level:
+                                    return True
+                except ValueError:
+                    pass
+        return False
 
 class LootTable(BaseModel):
     """Represents a specific drop table for an activity (Main, Gem, Secondary)."""
@@ -342,11 +367,26 @@ class GearSet(BaseModel):
     def get_keyword_counts(self) -> Counter:
         counts = Counter()
         for item in self.get_all_items():
+            base_kws = []
             for kw in item.keywords:
                 norm_kw = kw.lower().replace("_", " ").strip()
                 counts[norm_kw] += 1
+                base_kws.append(norm_kw)
+                counts[kw.lower()] += 1 
+            
+            if hasattr(item, 'slot') and item.slot == EquipmentSlot.TOOLS:
+                if hasattr(item, 'requirements'):
+                    for req in item.requirements:
+                        if req.type == RequirementType.SKILL_LEVEL and req.target:
+                            skill = req.target.lower()
+                            lvl = req.value
+                            for norm_kw in base_kws:
+                                raw_kw = norm_kw.replace(" ", "_")
+                                for i in range(1, lvl + 1):
+                                    # Output both spaced and underscored versions
+                                    counts[f"req {skill} {i} {norm_kw}"] += 1
+                                    counts[f"req_{skill}_{i}_{raw_kw}"] += 1
         return counts
-
     def get_stats(self, context: Dict[str, Any] = None) -> Dict[str, float]:
         if context is None: context = {}
         active_skill = context.get("skill", "").lower() if context.get("skill") else None
@@ -420,3 +460,18 @@ class GearSet(BaseModel):
                     stats[stat_key] += value
 
         return dict(stats)
+    
+    def get_requirement_counts(self, required_keywords: list[str]) -> Counter:
+        """Counts only the requirements requested, using dynamic resolution."""
+        counts = Counter()
+        for item in self.get_all_items():
+            if hasattr(item, 'provides_keyword'):
+                for req_kw in required_keywords:
+                    if item.provides_keyword(req_kw):
+                        counts[req_kw] += 1
+            else:
+                for kw in item.keywords:
+                    norm_kw = kw.lower().replace("_", " ").strip()
+                    if norm_kw in required_keywords:
+                        counts[norm_kw] += 1
+        return counts

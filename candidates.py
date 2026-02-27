@@ -2,13 +2,130 @@ from typing import List, Dict, Set, Optional, Any, Union, Tuple
 from collections import defaultdict
 from models import Equipment, Activity, GearSet, EquipmentSlot, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS
 from calculations import calculate_score
-from utils.constants import TARGET_TO_STATS, STAT_ENUM_TO_KEY, OPTIMAZATION_TARGET, QUALITY_RANK
+from utils.constants import TARGET_TO_STATS, STAT_ENUM_TO_KEY, OPTIMAZATION_TARGET, QUALITY_RANK, RESTRICTED_TOOL_KEYWORDS, StatName, PERCENTAGE_STATS, DOMINANCE_EXEMPT_ITEMS
 
 class CandidateSelector:
     def __init__(self, all_items: List[Equipment]):
         self.all_items = all_items
         self.debug_rejected = []
-        self.restricted_keywords_lower = set() 
+        self.restricted_keywords_lower = {k.lower() for k in RESTRICTED_TOOL_KEYWORDS}
+
+    def _get_raw_stats(self, item: Equipment) -> Dict[str, float]:
+        """Calculates the raw, unconditioned stats of an item for strict dominance comparison."""
+        stats = defaultdict(float)
+        for mod in item.modifiers:
+            if any(c.type == ConditionType.SET_EQUIPPED for c in mod.conditions):
+                continue
+                
+            stat_key = mod.stat.value
+            val = mod.value
+            
+            if mod.stat in PERCENTAGE_STATS: val = val / 100.0
+            
+            if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
+            elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"
+            elif stat_key == StatName.XP_PERCENT.value: stat_key = "xp_percent"
+            elif stat_key == StatName.STEPS_ADD.value: 
+                stat_key = "flat_step_reduction"
+                val = -val 
+            elif stat_key == StatName.STEPS_PERCENT.value: 
+                stat_key = "percent_step_reduction"
+                val = -val
+                
+            stats[stat_key] += val
+        return stats
+
+    def _prune_dominated_items(self, raw_candidates: Dict[str, List[Equipment]], player_skill_level: int, activity: Activity, owned_item_counts: Optional[Dict[str, int]]) -> Dict[str, List[Equipment]]:
+        """Removes items that are strictly inferior to other available candidates in every way."""
+        pruned_candidates = {}
+        
+        for slot, items in raw_candidates.items():
+            keep_items = []
+            
+            # Identify protected items (exempt list or set items)
+            protected_ids = set(DOMINANCE_EXEMPT_ITEMS)
+            for item in items:
+                for mod in item.modifiers:
+                    if any(c.type == ConditionType.SET_EQUIPPED for c in mod.conditions):
+                        protected_ids.add(item.id)
+                        break
+                        
+            for i, item_b in enumerate(items):
+                if item_b.id in protected_ids:
+                    keep_items.append(item_b)
+                    continue
+                    
+                domination_count = 0
+                stats_b = self._get_raw_stats(item_b)
+                kw_b_clean = {k.lower() for k in item_b.keywords if not k.lower().startswith("exact_item_")}
+                restr_b = {k.lower() for k in item_b.keywords if k.lower() in self.restricted_keywords_lower}
+                
+                for j, item_a in enumerate(items):
+                    if i == j: continue
+                    
+                    # 1. A must be equippable by the current player
+                    a_is_equippable = True
+                    for req in item_a.requirements:
+                        if req.type == RequirementType.SKILL_LEVEL and req.target:
+                            if req.target.lower() == activity.primary_skill.lower() and req.value > player_skill_level:
+                                a_is_equippable = False
+                                break
+                    if not a_is_equippable: continue
+                    
+                    # 2. Tool Conflict Check: They must share a restriction to compete
+                    if slot == EquipmentSlot.TOOLS:
+                        restr_a = {k.lower() for k in item_a.keywords if k.lower() in self.restricted_keywords_lower}
+                        if not restr_b.intersection(restr_a):
+                            continue 
+                            
+                    # 3. Keywords Check: A must have all clean keywords of B
+                    kw_a_clean = {k.lower() for k in item_a.keywords if not k.lower().startswith("exact_item_")}
+                    if not kw_b_clean.issubset(kw_a_clean):
+                        continue
+                        
+                    # 4. Stats Check (Dry Comparison): A must be >= B in all stats B provides
+                    stats_a = self._get_raw_stats(item_a)
+                    is_superior_stats = True
+                    for stat_name, b_val in stats_b.items():
+                        if stats_a.get(stat_name, 0.0) < b_val:
+                            is_superior_stats = False
+                            break
+                    if not is_superior_stats: continue
+                    
+                    is_strictly_better = False
+                    if len(kw_a_clean) > len(kw_b_clean): 
+                        is_strictly_better = True
+                    if not is_strictly_better:
+                        for stat_name, b_val in stats_b.items():
+                            if stats_a.get(stat_name, 0.0) > b_val:
+                                is_strictly_better = True
+                                break
+                    if not is_strictly_better:
+                        for stat_name, a_val in stats_a.items():
+                            if a_val > 0 and stat_name not in stats_b:
+                                is_strictly_better = True
+                                break
+                                
+                    if is_strictly_better or (not is_strictly_better and item_a.id < item_b.id):
+                        avail_a = 999 
+                        if owned_item_counts is not None:
+                            avail_a = self._get_available_count(item_a, owned_item_counts)
+                            
+                        domination_count += avail_a
+
+                required_dominations = 2 if slot == EquipmentSlot.RING else 1
+                
+                if domination_count < required_dominations:
+                    keep_items.append(item_b)
+                else:
+                    self.debug_rejected.append({
+                        "name": item_b.name, "slot": item_b.slot, 
+                        "reason": f"Strictly dominated by {domination_count} superior item(s)."
+                    })
+                    
+            pruned_candidates[slot] = keep_items
+            
+        return pruned_candidates
 
     def get_candidates(self, 
                        activity: Activity, 
@@ -158,12 +275,10 @@ class CandidateSelector:
                 if s_key not in raw_candidates: raw_candidates[s_key] = []
                 raw_candidates[s_key].append(item)
 
+        raw_candidates = self._prune_dominated_items(raw_candidates, player_skill_level, activity,owned_item_counts=owned_item_counts)
+
         # Phase 2: Refined filtering (Best Quality Versions)
         final_candidates = {}
-        # NOTE: If we are doing composite optimization, calculating a single "score" for ranking 
-        # is tricky without normalization context. However, getting "candidates" is mostly about filtering.
-        # We will use a simplified greedy approach here: If target is list, just sum raw scores for ranking.
-        # This is not perfect but sufficient to keep the top 10 versions of an item.
         
         for slot, items in raw_candidates.items():
             grouped_candidates = defaultdict(list)
@@ -234,7 +349,10 @@ class CandidateSelector:
             score = calculate_score(current_set, activity, player_skill_level, target, context, 
                                     ignore_requirements=True, passive_stats=passive_stats, 
                                     normalization_context=normalization_context)
-            scored.append((score, item))
+            
+            tiebreaker_score = sum(mod.value for mod in item.modifiers)
+            
+            scored.append((score, tiebreaker_score, item))
             
             # Revert
             if added:
@@ -245,9 +363,8 @@ class CandidateSelector:
                 if hasattr(current_set, attr_name): 
                     setattr(current_set, attr_name, old_val)
 
-        scored.sort(key=lambda x: x[0], reverse=True)
-        return [x[1] for x in scored]
-
+        scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+        return [x[2] for x in scored]
     def _get_available_count(self, item: Equipment, owned_counts: Dict[str, int]) -> int:
         if not owned_counts: return 999
         item_id = item.id.lower()

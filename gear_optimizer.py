@@ -622,6 +622,12 @@ class GearOptimizer:
                             max_s = score
                             best_item = item
                             changed = True
+                        elif abs(score - max_s) <= 0.00001:
+                            if best_item and self._compare_tiebreaker([item], [best_item]):
+                                max_s = score
+                                best_item = item
+                                changed = True
+                                
                     setattr(current_set, attr, best_item)
                     base_score = max_s
                 if not changed: break
@@ -655,6 +661,10 @@ class GearOptimizer:
                                 if score > max_ring_score + 0.00001: 
                                     max_ring_score = score
                                     best_ring_set = list(test_rings)
+                                elif abs(score - max_ring_score) <= 0.00001:
+                                    if self._compare_tiebreaker(test_rings, best_ring_set):
+                                        max_ring_score = score
+                                        best_ring_set = list(test_rings)
                     
                     current_set.rings = best_ring_set
                     base_score = max_ring_score
@@ -932,7 +942,16 @@ class GearOptimizer:
                              continue
                     best_val = val
                     best_subset = [c["item"] for c in combo]
-
+                    
+                elif abs(val - best_val) <= 0.00001:
+                    test_subset = [c["item"] for c in combo]
+                    if self._compare_tiebreaker(test_subset, best_subset or []):
+                        if owned_counts:
+                            test_tools = fixed_tools + test_subset
+                            if not self._is_valid_tool_set(test_tools, owned_counts, fixed_tools):
+                                continue
+                        best_val = val
+                        best_subset = test_subset
         return best_subset, best_val
 
     def _generate_skeletons(self, candidates, required_keywords) -> List[Tuple[GearSet, Set[str]]]:
@@ -1149,3 +1168,32 @@ class GearOptimizer:
                     if extra_needed > remaining_owned:
                         return False
         return True
+    
+    def _compare_tiebreaker(self, new_items: List[Equipment], old_items: List[Equipment]) -> bool:
+        """
+        Evaluates a tie-breaker using strict dominance on raw stats (subtraction).
+        Returns True if new_items has >= stats in every category AND > in at least one.
+        """
+        if not old_items: return True
+        if not new_items: return False
+        
+        new_stats = defaultdict(float)
+        for item in new_items:
+            if not item: continue
+            for mod in item.modifiers: new_stats[mod.stat.value] += mod.value
+                
+        old_stats = defaultdict(float)
+        for item in old_items:
+            if not item: continue
+            for mod in item.modifiers: old_stats[mod.stat.value] += mod.value
+                
+        is_strictly_better = False
+        for stat, old_val in old_stats.items():
+            if new_stats.get(stat, 0.0) < old_val - 0.00001:
+                return False # Missing a stat the old set had (not strictly better)
+                
+        for stat, new_val in new_stats.items():
+            if new_val > old_stats.get(stat, 0.0) + 0.00001:
+                is_strictly_better = True
+                
+        return is_strictly_better

@@ -266,3 +266,13 @@ class ChestTableCategory(str, Enum):
     LEGENDARY = "Legendary"
     ETHEREAL = "Ethereal"
     OTHER = "Other"
+
+DOMINANCE_EXEMPT_ITEMS = {
+    "spectral_saw_common",
+    "spectral_saw_uncommon",
+    "spectral_saw_rare",
+    "spectral_saw_epic",
+    "spectral_saw_legendary",
+    "spectral_saw_ethereal",
+
+}

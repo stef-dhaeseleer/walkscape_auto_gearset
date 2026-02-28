@@ -364,29 +364,6 @@ class GearSet(BaseModel):
         items.extend(self.tools)
         return [i for i in items if i]
 
-    def get_keyword_counts(self) -> Counter:
-        counts = Counter()
-        for item in self.get_all_items():
-            base_kws = []
-            for kw in item.keywords:
-                norm_kw = kw.lower().replace("_", " ").strip()
-                counts[norm_kw] += 1
-                base_kws.append(norm_kw)
-                counts[kw.lower()] += 1 
-            
-            if hasattr(item, 'slot') and item.slot == EquipmentSlot.TOOLS:
-                if hasattr(item, 'requirements'):
-                    for req in item.requirements:
-                        if req.type == RequirementType.SKILL_LEVEL and req.target:
-                            skill = req.target.lower()
-                            lvl = req.value
-                            for norm_kw in base_kws:
-                                raw_kw = norm_kw.replace(" ", "_")
-                                for i in range(1, lvl + 1):
-                                    # Output both spaced and underscored versions
-                                    counts[f"req {skill} {i} {norm_kw}"] += 1
-                                    counts[f"req_{skill}_{i}_{raw_kw}"] += 1
-        return counts
     def get_stats(self, context: Dict[str, Any] = None) -> Dict[str, float]:
         if context is None: context = {}
         active_skill = context.get("skill", "").lower() if context.get("skill") else None
@@ -397,8 +374,13 @@ class GearSet(BaseModel):
         total_lvl = context.get("total_skill_level", 0)
 
         stats = defaultdict(float)
-        keyword_counts = self.get_keyword_counts()
-        
+        active_kws = set()
+        for item in self.get_all_items():
+            if hasattr(item, 'keywords'):
+                for kw in item.keywords:
+                    active_kws.add(kw.lower().replace("_", " ").strip())
+
+        keyword_counts = self.get_requirement_counts(list(active_kws))       
         PERCENTAGE_STATS = {
             StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS,
             StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT,

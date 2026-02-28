@@ -95,7 +95,7 @@ def calculate_score(
     if not ignore_requirements:
         required_keywords = context.get("required_keywords", {})
         if required_keywords:
-            set_keywords = gear_set.get_keyword_counts()
+            set_keywords = gear_set.get_requirement_counts(list(required_keywords.keys()))
             deficit = 0
             for req_kw, req_count in required_keywords.items():
                 curr_count = set_keywords.get(req_kw, 0)

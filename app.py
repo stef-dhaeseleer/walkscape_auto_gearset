@@ -1210,7 +1210,13 @@ def main():
                     for i, t in enumerate(best_gear.tools):
                         equipped_items.append((f"Tool {i+1}", t))
 
-                    set_counts = best_gear.get_keyword_counts()
+                    active_keywords = set()
+                    for item in best_gear.get_all_items():
+                        if hasattr(item, 'keywords'):
+                            for kw in item.keywords:
+                                active_keywords.add(kw.lower().replace("_", " ").strip())
+
+                    set_counts = best_gear.get_requirement_counts(list(active_keywords))
                     
                     for slot_name, item in equipped_items:
                         st.markdown(f"<div class='item-header'>{slot_name}: {item.name}</div>", unsafe_allow_html=True)

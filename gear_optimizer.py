@@ -618,7 +618,7 @@ class GearOptimizer:
         while polish_improved and polish_iter < 3:
             polish_improved = False
             polish_iter += 1
-            current_counts = best_local_set.get_keyword_counts()
+            current_counts = best_local_set.get_requirement_counts(list(required_keywords.keys()))
 
             for slot_attr, slot_enum in slots_to_check:
                 slot_candidates = candidates.get(slot_enum, [])
@@ -934,14 +934,18 @@ class GearOptimizer:
 
         # Prepare keyword counts for set bonuses
         fixed_kw_counts = PyCounter()
+        
         for t in fixed_tools:
-            for k in t.keywords:
-                fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
+            unique_item_kws = {k.lower().replace("_", " ").strip() for k in t.keywords}
+            for k in unique_item_kws:
+                fixed_kw_counts[k] += 1
+                
         for item in current_set.get_all_items():
             if isinstance(item, Pet) or isinstance(item, Consumable) or item.slot != EquipmentSlot.TOOLS:
-                 for k in item.keywords:
-                    fixed_kw_counts[k.lower().replace("_", " ").strip()] += 1
-        
+                 unique_item_kws = {k.lower().replace("_", " ").strip() for k in item.keywords}
+                 for k in unique_item_kws:
+                    fixed_kw_counts[k] += 1
+
         search_cands = light_candidates[:32] 
         
         # Iterate Combinations

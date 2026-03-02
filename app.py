@@ -68,9 +68,8 @@ def main():
     with tab_tree:
         render_crafting_tree_tab(
             recipes, all_items_raw, activities, all_containers, 
-            user_state["user_skills_map"], user_state["valid_json"], drop_calc
+            user_state, drop_calc, locations
         )
-
     with tab_opt:
         render_optimizer_tab(
             is_mobile, user_state, all_items_raw, activities, recipes, 

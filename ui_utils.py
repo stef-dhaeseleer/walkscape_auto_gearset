@@ -219,23 +219,25 @@ def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:
         stats[k] = stats.get(k, 0.0) + val
     return stats
 
-# --- Tree Builder Logic ---
-def can_tree_use_fine(node: CraftingNode, game_data: Dict) -> bool:
-    if node.source_type in ["activity", "chest"]:
-        if node.item_id.endswith("_fine"): return True
-        fine_id = f"{node.item_id}_fine"
-        for act in game_data['activities'].values():
-            for table in act.loot_tables:
-                for drop in table.drops:
-                    if drop.item_id == fine_id: return True
-        return False
-        
+def can_tree_use_fine(node: CraftingNode, drop_calc: 'DropCalculator') -> bool:
     if node.source_type == "recipe":
-        for child in node.inputs.values():
-            if not can_tree_use_fine(child, game_data): return False
+        # A recipe can use fine materials if ALL of its inputs can.
+        if not node.inputs:
+            return False
             
-    return True
-
+        for child in node.inputs.values():
+            if not can_tree_use_fine(child, drop_calc):
+                return False
+        return True
+        
+    else:
+        # For leaf nodes (activity, chest, bank), check if the base item 
+        # has a known fine variant in the game data.
+        if node.item_id.endswith("_fine"):
+            return True
+            
+        return node.item_id in drop_calc.fine_material_map
+    
 def build_default_tree(item_id: str, game_data: Dict, amount_needed=1, current_depth=0) -> CraftingNode:
     node = CraftingNode(
         node_id=str(uuid.uuid4())[:8],

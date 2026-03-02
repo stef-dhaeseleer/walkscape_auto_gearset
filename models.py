@@ -479,12 +479,12 @@ class CraftingNode(BaseModel):
     source_id: Optional[str] = None 
     parent_activity_id: Optional[str] = None 
     
-    # NEW: Store all possible sources for the UI dropdown
     available_sources: List[Dict[str, str]] = Field(default_factory=list)
     
     loadout_id: Optional[str] = None 
+    auto_optimize_target: Optional[List[Dict[str, Any]]] = None 
+    auto_gear_set: Optional[Any] = None         
+    
     inputs: Dict[str, 'CraftingNode'] = Field(default_factory=dict)
     base_requirement_amount: int = 1
-    
-    # NEW: Store calculation results
-    metrics: Optional[Dict[str, float]] = None
+    metrics: Optional[Dict[str, Any]] = None

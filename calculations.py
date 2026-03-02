@@ -406,7 +406,8 @@ class MockActivity:
         self.level = level
         self.base_steps = base_steps
         self.max_efficiency = max_efficiency
-# Add this to calculations.py (or update the existing calculate_node_cost)
+
+
 
 def calculate_node_metrics(
     node: 'CraftingNode', 
@@ -416,15 +417,28 @@ def calculate_node_metrics(
     player_skill_levels: Dict[str, int],
     global_target_quality: str = "Normal",
     global_use_fine: bool = False
-) -> Dict[str, float]:
-    """Recursively calculates rich metrics (Steps, XP, etc.) per 1 unit of output."""
+) -> Dict[str, Any]:
+    """Recursively calculates rich metrics (Steps, XP, Shopping List, Material Cost) per 1 unit of output."""
     
-    # Base case: Bank costs nothing
-    if node.source_type == "bank":
-        return {"steps": 0.0, "xp": 0.0}
+    res = {
+        "steps": float('inf'), 
+        "xp": defaultdict(float),
+        "shopping_list": defaultdict(float),
+        "raw_materials": defaultdict(float),
+        "stats_used": {}
+    }
 
-    loadout = loadouts.get(node.loadout_id)
-    gear_set = loadout.gear_set if loadout else None # Assuming you handle empty gear
+    if node.source_type == "bank":
+        res["steps"] = 0.0
+        res["shopping_list"][node.item_id] += 1.0
+        res["raw_materials"][node.item_id] += 1.0
+        return res
+
+    if getattr(node, "loadout_id", None) == "AUTO" and getattr(node, "auto_gear_set", None):
+        gear_set = node.auto_gear_set
+    else:
+        loadout = loadouts.get(node.loadout_id) if getattr(node, "loadout_id", None) else None
+        gear_set = loadout.gear_set if loadout else None
     
     target_item_id = node.item_id
     if global_use_fine and not target_item_id.endswith("_fine"):
@@ -437,25 +451,26 @@ def calculate_node_metrics(
     
     if node.source_type == "recipe":
         recipe_obj = game_data['recipes'].get(node.source_id)
-        if not recipe_obj: return {"steps": float('inf'), "xp": 0.0}
+        if not recipe_obj: return res
         skill_name, min_level, base_xp = recipe_obj.skill, recipe_obj.level, recipe_obj.base_xp
         node_context["skill"] = skill_name
     elif node.source_type in ["activity", "chest"]:
         act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
         activity_obj = game_data['activities'].get(act_id)
-        if not activity_obj: return {"steps": float('inf'), "xp": 0.0}
+        if not activity_obj: return res
         skill_name, min_level, base_xp = activity_obj.primary_skill, activity_obj.level, activity_obj.base_xp
         node_context["skill"] = skill_name
         if activity_obj.locations: node_context["location_id"] = activity_obj.locations[0]
 
     player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
     
-    # Get stats from gear
     stats = gear_set.get_stats(node_context) if gear_set else {}
     DA = stats.get("double_action", 0.0)
     DR = stats.get("double_rewards", 0.0)
     NMC = stats.get("no_materials_consumed", 0.0)
     XP_BONUS = stats.get("xp_percent", 0.0)
+    FLAT_XP = stats.get("flat_xp", 0.0) # NEW: Included Flat XP
+    WE = stats.get("work_efficiency", 0.0)
     
     # --- Quality Probability ---
     p_valid_quality = 1.0
@@ -467,43 +482,58 @@ def calculate_node_metrics(
         probs = calculate_quality_probabilities(min_level, player_lvl, stats.get("quality_outcome", 0))
         valid_tiers = [q.value for q, r in QUALITY_RANK.items() if r >= target_rank and q != "None"]
         p_valid_quality = sum(probs.get(q, 0.0) for q in valid_tiers)
-        if p_valid_quality <= 0.00001: return {"steps": float('inf'), "xp": 0.0}
+        if p_valid_quality <= 0.00001: return res
 
-    # Initialize result
-    res = {"steps": float('inf'), "xp": 0.0}
+    res["stats_used"] = {
+        "DA": DA, "DR": DR, "NMC": NMC, "WE": WE, "XP_BONUS": XP_BONUS,
+        "p_valid_quality": p_valid_quality,
+        "base_steps": activity_obj.base_steps if activity_obj else (recipe_obj.base_steps if recipe_obj else 0)
+    }
 
     # ==========================================
     # RECIPE
     # ==========================================
     if node.source_type == "recipe":
-        steps_per_action = calculate_steps(recipe_obj, player_lvl, stats.get("work_efficiency", 0.0), int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
+        steps_per_action = calculate_steps(recipe_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
         q_out = recipe_obj.output_quantity
         
-        # Isolated Costs (Notice DA cancels out for XP per item!)
         res["steps"] = steps_per_action / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)
-        res["xp"] = (base_xp * (1.0 + XP_BONUS)) / ((1.0 + DR) * q_out * p_valid_quality)
+        # FIX: Added Flat XP
+        isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * q_out * p_valid_quality)
+        if skill_name: res["xp"][skill_name.lower()] += isolated_xp
         
-        # Add cascading children costs
         for input_id, child_node in node.inputs.items():
             req_amount = child_node.base_requirement_amount
             input_ratio = ((1.0 - NMC) * req_amount) / ((1.0 + DR) * q_out * p_valid_quality)
             
-            child_metrics = calculate_node_metrics(child_node, loadouts, game_data, drop_calc, player_skill_levels, global_target_quality, global_use_fine)
+            child_metrics = calculate_node_metrics(
+                child_node, loadouts, game_data, drop_calc, player_skill_levels, 
+                global_target_quality="Normal", 
+                global_use_fine=global_use_fine
+            )
+            
             res["steps"] += (input_ratio * child_metrics["steps"])
-            res["xp"] += (input_ratio * child_metrics["xp"])
+            for sk, xpv in child_metrics["xp"].items():
+                res["xp"][sk] += (input_ratio * xpv)
+            for item_k, amt in child_metrics["shopping_list"].items():
+                res["shopping_list"][item_k] += (input_ratio * amt)
+            for item_k, amt in child_metrics["raw_materials"].items():
+                res["raw_materials"][item_k] += (input_ratio * amt)
 
     # ==========================================
     # ACTIVITY
     # ==========================================
     elif node.source_type == "activity":
-        steps_per_action = calculate_steps(activity_obj, player_lvl, stats.get("work_efficiency", 0.0), int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
+        steps_per_action = calculate_steps(activity_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
         drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
         for drop in drop_table:
             if drop["Item"] == target_item_id:
-                # We reconstruct XP from the known steps/roll math
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
                 res["steps"] = drop["Steps"] / p_valid_quality
-                res["xp"] = (base_xp * (1.0 + XP_BONUS)) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
+                # FIX: Added Flat XP
+                isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
+                if skill_name: res["xp"][skill_name.lower()] += isolated_xp
+                res["raw_materials"][target_item_id] += 1.0
                 break
 
     # ==========================================
@@ -512,6 +542,7 @@ def calculate_node_metrics(
     elif node.source_type == "chest":
         chest_obj = game_data['chests'].get(node.source_id)
         drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
+        steps_per_action = calculate_steps(activity_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
         steps_per_chest = float('inf')
         
         for drop in drop_table:
@@ -527,10 +558,11 @@ def calculate_node_metrics(
             
             if expected_items_per_chest > 0:
                 res["steps"] = (steps_per_chest / expected_items_per_chest) / p_valid_quality
-                
-                # Approximate XP (Assuming chest finding is main driver)
                 p_chest_eff = steps_per_action / (steps_per_chest * (1.0 + DA) * (1.0 + DR))
-                xp_per_chest = (base_xp * (1.0 + XP_BONUS)) / ((1.0 + DR) * p_chest_eff)
-                res["xp"] = (xp_per_chest / expected_items_per_chest) / p_valid_quality
+                # FIX: Added Flat XP
+                xp_per_chest = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_chest_eff)
+                isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality
+                if skill_name: res["xp"][skill_name.lower()] += isolated_xp
+                res["raw_materials"][target_item_id] += 1.0
 
     return res

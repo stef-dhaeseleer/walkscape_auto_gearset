@@ -457,3 +457,34 @@ class GearSet(BaseModel):
                     if norm_kw in required_keywords:
                         counts[norm_kw] += 1
         return counts
+    
+# ... (existing imports and models) ...
+
+class Loadout(BaseModel):
+    """Represents a saved gearset created by the user for the Crafting Tree."""
+    id: str
+    name: str
+    gear_set: GearSet
+
+
+class CraftingNode(BaseModel):
+    """A recursive node representing a step in the production chain."""
+    model_config = ConfigDict(frozen=False, arbitrary_types_allowed=True)
+
+    node_id: str
+    item_id: str
+    
+    # Source Configuration
+    source_type: str               
+    source_id: Optional[str] = None 
+    parent_activity_id: Optional[str] = None 
+    
+    # NEW: Store all possible sources for the UI dropdown
+    available_sources: List[Dict[str, str]] = Field(default_factory=list)
+    
+    loadout_id: Optional[str] = None 
+    inputs: Dict[str, 'CraftingNode'] = Field(default_factory=dict)
+    base_requirement_amount: int = 1
+    
+    # NEW: Store calculation results
+    metrics: Optional[Dict[str, float]] = None

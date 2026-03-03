@@ -68,7 +68,7 @@ def main():
     with tab_tree:
         render_crafting_tree_tab(
             recipes, all_items_raw, activities, all_containers, 
-            user_state, drop_calc, locations
+            user_state, drop_calc, locations, services, all_pets, all_consumables
         )
     with tab_opt:
         render_optimizer_tab(

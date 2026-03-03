@@ -488,3 +488,9 @@ class CraftingNode(BaseModel):
     inputs: Dict[str, 'CraftingNode'] = Field(default_factory=dict)
     base_requirement_amount: int = 1
     metrics: Optional[Dict[str, Any]] = None
+
+    selected_location_id: Optional[str] = None
+    selected_service_id: Optional[str] = None
+    selected_pet_id: Optional[str] = None
+    selected_pet_level: Optional[int] = None
+    selected_consumable_id: Optional[str] = None

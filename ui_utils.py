@@ -133,6 +133,34 @@ def get_user_collectibles(all_collectibles: List[Collectible], user_data: Dict) 
             owned_objs.append(c)
     return owned_objs
 
+def build_activity_context(activity, user_ap: int, user_total_level: int, loc_map: Dict, drop_calc, selected_location_id: str = None) -> Dict:
+    """Shared helper to build exact math context for both Optimizer and Crafting Tree."""
+    req_kw = {}
+    if hasattr(activity, 'requirements'):
+        for req in activity.requirements:
+            if req.type == RequirementType.KEYWORD_COUNT and req.target:
+                req_kw[req.target.lower().replace("_", " ").strip()] = req.value
+                
+    current_loc_id = selected_location_id
+    if not current_loc_id and getattr(activity, 'locations', None):
+        current_loc_id = activity.locations[0]
+
+    current_tags = set()
+    if current_loc_id and current_loc_id in loc_map:
+        current_tags = {t.lower() for t in loc_map[current_loc_id].tags}
+    skill = getattr(activity, 'primary_skill', getattr(activity, 'skill', ""))
+    return {
+        "skill": skill,
+        "location_id": current_loc_id,
+        "location_tags": current_tags,
+        "activity_id": getattr(activity, 'id', ""),
+        "required_keywords": req_kw,
+        "achievement_points": user_ap,
+        "total_skill_level": user_total_level,
+        "special_ev_map": drop_calc.get_special_ev_map()
+    }
+
+
 def filter_user_items(all_items: List[Equipment], user_data: Dict) -> List[Equipment]:
     try:
         owned_ids = set()

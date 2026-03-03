@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from models import CraftingNode
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET
-from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES
+from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats
 from calculations import calculate_node_metrics
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
@@ -42,13 +42,71 @@ def node_target_dialog(node: CraftingNode):
         node.auto_optimize_target = targets
         st.rerun()
 
-def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, level: int = 0):
+@st.dialog("⚙️ Node Settings")
+def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations):
+    # 1. Service (Recipes only)
+    if node.source_type == "recipe":
+        recipe = game_data_dict['recipes'].get(node.source_id)
+        if recipe:
+            compat_services = get_compatible_services(recipe, list(game_data_dict['services'].values()))
+            if compat_services:
+                opts = ["None"] + [s.id for s in compat_services]
+                def format_srv(x):
+                    if x == "None": return "None"
+                    return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
+                idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
+                new_srv = st.selectbox("Service", opts, index=idx, format_func=format_srv)
+                node.selected_service_id = new_srv if new_srv != "None" else None
+
+    # 2. Location (Activities only)
+    elif node.source_type == "activity":
+        act = game_data_dict['activities'].get(node.source_id)
+        if act and act.locations:
+            opts = ["None"] + list(act.locations)
+            def format_loc(x):
+                if x == "None": return "None"
+                return next((loc.name for loc in locations if loc.id == x), x)
+            idx = opts.index(node.selected_location_id) if getattr(node, 'selected_location_id', None) in opts else 0
+            new_loc = st.selectbox("Location", opts, index=idx, format_func=format_loc)
+            node.selected_location_id = new_loc if new_loc != "None" else None
+
+    # 3. Pet
+    pets = list(game_data_dict['pets'].values())
+    pet_opts = ["None"] + [p.id for p in pets]
+    def format_pet(x):
+        if x == "None": return "None"
+        return next((p.name for p in pets if p.id == x), x)
+    p_idx = pet_opts.index(node.selected_pet_id) if getattr(node, 'selected_pet_id', None) in pet_opts else 0
+    new_pet_id = st.selectbox("Pet", pet_opts, index=p_idx, format_func=format_pet)
+    node.selected_pet_id = new_pet_id if new_pet_id != "None" else None
+    
+    if node.selected_pet_id:
+        pet_obj = game_data_dict['pets'][node.selected_pet_id]
+        max_lvl = max([l.level for l in pet_obj.levels]) if pet_obj.levels else 1
+        lvls = list(range(1, max_lvl + 1))
+        l_idx = lvls.index(node.selected_pet_level) if getattr(node, 'selected_pet_level', None) in lvls else len(lvls)-1
+        node.selected_pet_level = st.selectbox("Pet Level", lvls, index=l_idx)
+        
+    # 4. Consumable
+    cons = list(game_data_dict['consumables'].values())
+    cons_opts = ["None"] + [c.id for c in cons]
+    def format_cons(x):
+        if x == "None": return "None"
+        return next((c.name for c in cons if c.id == x), x)
+    c_idx = cons_opts.index(node.selected_consumable_id) if getattr(node, 'selected_consumable_id', None) in cons_opts else 0
+    new_cons_id = st.selectbox("Consumable", cons_opts, index=c_idx, format_func=format_cons)
+    node.selected_consumable_id = new_cons_id if new_cons_id != "None" else None
+    
+    if st.button("Save & Close", type="primary"):
+        st.rerun()
+
+def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locations, level: int = 0):
     icon = {"recipe": "🔨", "activity": "🪓", "chest": "🧰", "bank": "🏦"}.get(node.source_type, "📦")
     item_name = node.item_id.replace('_', ' ').title()
     title = f"{icon} {item_name} (x{node.base_requirement_amount})"
     
     with st.expander(title, expanded=(level < 2)):
-        c1, c2, c3 = st.columns([3, 2, 2])
+        c1, c2, c3 = st.columns([3, 3, 2])
         
         with c1:
             opts = [s["label"] for s in node.available_sources]
@@ -108,14 +166,25 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, level:
                         default_t = "Reward Rolls No Steps" if node.source_type == "recipe" else "Reward Rolls"
                         node.auto_optimize_target = [{"id": 0, "target": default_t, "weight": 100}]
                         
-                    if st.button("⚙️ Configure Targets", key=f"cfg_btn_{node.node_id}"):
-                        node_target_dialog(node)
-                        
-                    summary = " | ".join([f"{t['weight']}% {t['target']}" for t in node.auto_optimize_target])
-                    st.caption(f"🎯 **Target:** {summary}")
+                    c2_a, c2_b, c2_c = st.columns([3, 1, 1])
+                    with c2_a:
+                        summary = " | ".join([f"{t['weight']}% {t['target']}" for t in node.auto_optimize_target])
+                        st.caption(f"🎯 **Target:** {summary}")
+                    with c2_b:
+                        if st.button("🎯", key=f"cfg_btn_{node.node_id}", help="Configure Target Weighting"):
+                            node_target_dialog(node)
+                    with c2_c:
+                        if st.button("⚙️", key=f"set_btn_{node.node_id}", help="Node Settings (Pets, Location, Service)"):
+                            node_settings_dialog(node, game_data_dict, locations)
                 else:
                     node.loadout_id = next(l_id for l_id, l in st.session_state['saved_loadouts'].items() if l.name == selected_l_name)
                     node.auto_optimize_target = None
+                    
+                    c2_a, c2_b = st.columns([4, 1])
+                    with c2_a: st.write("")
+                    with c2_b:
+                        if st.button("⚙️", key=f"set_btn_ld_{node.node_id}", help="Node Settings (Pets, Location, Service)"):
+                            node_settings_dialog(node, game_data_dict, locations)
 
         with c3:
             if node.metrics:
@@ -230,9 +299,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, level:
             st.markdown("###### ⬇️ Requires:")
             with st.container(border=False):
                 for child_id, child_node in node.inputs.items():
-                    render_tree_node(child_node, game_data_dict, drop_calc, level + 1)
+                    render_tree_node(child_node, game_data_dict, drop_calc, locations, level + 1)
 
-def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers, user_state, drop_calc, locations):
+def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers, user_state, drop_calc, locations, services, all_pets, all_consumables):
     st.subheader("Crafting Tree Calculator")
     st.caption("Calculate the true step cost, raw material requirements, and profitability of complex items.")
     
@@ -280,7 +349,10 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
     game_data_dict = {
         'recipes': {r.id: r for r in recipes},
         'activities': {a.id: a for a in activities},
-        'chests': {c.id: c for c in all_containers} 
+        'chests': {c.id: c for c in all_containers},
+        'services': {s.id: s for s in services},
+        'pets': {p.id: p for p in all_pets},
+        'consumables': {c.id: c for c in all_consumables}
     }
         
     if st.button("Generate Tree", type="primary"):
@@ -327,7 +399,7 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
 
         st.divider()
         
-        render_tree_node(root, game_data_dict, drop_calc)
+        render_tree_node(root, game_data_dict, drop_calc, locations)
         
         st.divider()
         if st.button("🧮 Calculate True Cost & Run Optimizers", type="primary"):
@@ -352,22 +424,33 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     if getattr(node, 'loadout_id', None) == "AUTO" and getattr(node, 'auto_optimize_target', None):
                         activity_obj = None
                         skill_name = ""
+                        extra_passives = {}
+                        
                         if node.source_type == "recipe":
                             recipe_obj = game_data_dict['recipes'].get(node.source_id)
                             if recipe_obj:
                                 skill_name = recipe_obj.skill
-                                class WrappedRecipe:
-                                    def __init__(self, r):
-                                        self.id = r.id
-                                        self.name = r.name
-                                        self.primary_skill = r.skill
-                                        self.level = r.level
-                                        self.base_xp = r.base_xp
-                                        self.base_steps = r.base_steps
-                                        self.max_efficiency = r.max_efficiency
-                                        self.locations = []
-                                        self.requirements = []
-                                activity_obj = WrappedRecipe(recipe_obj)
+                                activity_obj = recipe_obj
+                                if getattr(node, 'selected_service_id', None):
+                                    srv = game_data_dict['services'].get(node.selected_service_id)
+                                    if srv:
+                                        activity_obj = synthesize_activity_from_recipe(recipe_obj, srv)
+                                        extra_passives = extract_modifier_stats(srv.modifiers)
+                                else:
+                                    # Fallback simple wrapper if no service selected
+                                    class WrappedRecipe:
+                                        def __init__(self, r):
+                                            self.id = r.id
+                                            self.name = r.name
+                                            self.primary_skill = r.skill
+                                            self.level = r.level
+                                            self.base_xp = r.base_xp
+                                            self.base_steps = r.base_steps
+                                            self.max_efficiency = r.max_efficiency
+                                            self.locations = []
+                                            self.requirements = []
+                                    activity_obj = WrappedRecipe(recipe_obj)
+                                    
                         elif node.source_type in ["activity", "chest"]:
                             act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
                             activity_obj = game_data_dict['activities'].get(act_id)
@@ -388,6 +471,20 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                             
                             player_lvl_opt = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
                             
+                            # Build the dynamic context for this specific node
+                            loc_map = {loc.id: loc for loc in locations}
+                            node_context = build_activity_context(
+                                activity_obj, 
+                                user_state.get("user_ap", 0), 
+                                user_state.get("user_total_level", 0), 
+                                loc_map, drop_calc, getattr(node, 'selected_location_id', None)
+                            )
+                            
+                            pet_obj = game_data_dict['pets'].get(getattr(node, 'selected_pet_id', None))
+                            if pet_obj: pet_obj = pet_obj.copy(update={"active_level": getattr(node, 'selected_pet_level', 1)})
+                            
+                            cons_obj = game_data_dict['consumables'].get(getattr(node, 'selected_consumable_id', None))
+                            
                             opt_result = optimizer.optimize(
                                 activity=activity_obj,
                                 player_level=char_lvl,
@@ -396,7 +493,11 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                 owned_item_counts=owned_item_counts,
                                 achievement_points=ap,
                                 user_reputation=reputation,
-                                owned_collectibles=collectibles
+                                owned_collectibles=collectibles,
+                                context_override=node_context,
+                                pet=pet_obj,
+                                consumable=cons_obj,
+                                extra_passive_stats=extra_passives
                             )
                             node.auto_gear_set = opt_result[0] 
                     
@@ -406,6 +507,7 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     node.metrics = calculate_node_metrics(
                         node, st.session_state['saved_loadouts'], 
                         game_data_dict, drop_calc, player_skill_levels,
+                        user_state, locations,  
                         global_target_quality=target_qual,
                         global_use_fine=st.session_state.get('global_fine', False)
                     )
@@ -465,11 +567,11 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
             st.write("")
             
             # --- Details Tables ---
-            c_det1, c_det2 = st.columns([1.5, 1])
+            c_det1, c_det2, c_det3 = st.columns([1.2, 1, 1.5])
             
             with c_det1:
                 st.markdown("##### 🛒 Raw Materials Shopping List")
-                st.caption("Materials required from Bank (factors in NMC and Double Rewards).")
+                st.caption("Materials required from Bank (factors in NMC and DR).")
                 shopping_data = []
                 for item_id, amt in root.metrics["shopping_list"].items():
                     final_amt = amt * target_amount
@@ -482,7 +584,39 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 else:
                     st.info("No raw materials required from the bank! (Everything gathered via activities).")
                     
+
             with c_det2:
+                st.markdown("##### 🪙 Material Cost Breakdown")
+                st.caption("Coin value of all base materials.")
+                cost_data = []
+                for item_id, amt in root.metrics["raw_materials"].items():
+                    final_amt = amt * target_amount
+                    unit_val = drop_calc.item_values.get(item_id, 0.0)
+                    total_cost = final_amt * unit_val
+                    cost_data.append({
+                        "Item": item_id.replace('_', ' ').title(),
+                        "Quantity": final_amt,
+                        "Unit Value": unit_val,
+                        "Total Cost": total_cost
+                    })
+                
+                if cost_data:
+                    df_cost = pd.DataFrame(cost_data).sort_values(by="Total Cost", ascending=False)
+                    st.dataframe(
+                        df_cost,
+                        column_config={
+                            "Item": st.column_config.TextColumn("Item"),
+                            "Quantity": st.column_config.NumberColumn("Quantity", format="%.2f"),
+                            "Unit Value": st.column_config.NumberColumn("Unit Value", format="%.1f"),
+                            "Total Cost": st.column_config.NumberColumn("Total Cost", format="%.1f 🪙")
+                        },
+                        hide_index=True, 
+                        width="stretch"
+                    )
+                else:
+                    st.info("No materials required.")
+            
+            with c_det3:
                 st.markdown("##### 📈 XP Breakdown")
                 st.caption("Experience gained by skill.")
                 xp_data = []

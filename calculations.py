@@ -1,7 +1,7 @@
 import math
 from typing import Dict, List, Optional, Any, Set, Tuple, Union
 from collections import defaultdict
-from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout 
+from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout,Location 
 from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS,GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality
 
 
@@ -392,12 +392,6 @@ def calculate_passive_stats(collectibles: List[Collectible], context: Dict) -> D
 
 
 
-
-
-
-
-
-
 # ... (existing imports and functions) ...
 
 class MockActivity:
@@ -408,17 +402,20 @@ class MockActivity:
         self.max_efficiency = max_efficiency
 
 
-
 def calculate_node_metrics(
     node: 'CraftingNode', 
     loadouts: Dict[str, 'Loadout'], 
     game_data: Dict[str, Any], 
     drop_calc: Any, 
     player_skill_levels: Dict[str, int],
+    user_state: Dict[str, Any],         # NEW: Contains AP, total level, collectibles
+    locations: List['Location'],        # NEW: Needed for location map tags
     global_target_quality: str = "Normal",
     global_use_fine: bool = False
 ) -> Dict[str, Any]:
     """Recursively calculates rich metrics (Steps, XP, Shopping List, Material Cost) per 1 unit of output."""
+    
+    from ui_utils import build_activity_context, synthesize_activity_from_recipe, extract_modifier_stats
     
     res = {
         "steps": float('inf'), 
@@ -434,42 +431,87 @@ def calculate_node_metrics(
         res["raw_materials"][node.item_id] += 1.0
         return res
 
+    # 1. Resolve Base GearSet
     if getattr(node, "loadout_id", None) == "AUTO" and getattr(node, "auto_gear_set", None):
-        gear_set = node.auto_gear_set
+        base_gear = node.auto_gear_set
     else:
         loadout = loadouts.get(node.loadout_id) if getattr(node, "loadout_id", None) else None
-        gear_set = loadout.gear_set if loadout else None
+        base_gear = loadout.gear_set if loadout else None
     
+    gear_set_eval = base_gear.clone() if base_gear else GearSet()
+
+    # 2. Inject Node-Specific Pets & Consumables
+    if getattr(node, 'selected_pet_id', None):
+        pet = game_data.get('pets', {}).get(node.selected_pet_id)
+        if pet: 
+            # Safely apply the selected active level
+            gear_set_eval.pet = pet.model_copy(update={"active_level": getattr(node, 'selected_pet_level', 1) or 1})
+        
+    if getattr(node, 'selected_consumable_id', None):
+        cons = game_data.get('consumables', {}).get(node.selected_consumable_id)
+        if cons:
+            gear_set_eval.consumable = cons
+
     target_item_id = node.item_id
     if global_use_fine and not target_item_id.endswith("_fine"):
         target_item_id = f"{target_item_id}_fine"
 
-    # --- Setup Context & Stats ---
+    # 3. Resolve Activity & Service Synthesizing
     recipe_obj, activity_obj = None, None
     skill_name, min_level, base_xp = "", 1, 0.0
-    node_context = {"achievement_points": 0, "total_skill_level": 0} 
     
     if node.source_type == "recipe":
         recipe_obj = game_data['recipes'].get(node.source_id)
-        if not recipe_obj: return res
-        skill_name, min_level, base_xp = recipe_obj.skill, recipe_obj.level, recipe_obj.base_xp
-        node_context["skill"] = skill_name
+        activity_obj = recipe_obj # Fallback to base recipe as activity for context
+        if recipe_obj and getattr(node, 'selected_service_id', None):
+            srv = game_data.get('services', {}).get(node.selected_service_id)
+            if srv: 
+                activity_obj = synthesize_activity_from_recipe(recipe_obj, srv)
+        
+        if recipe_obj:
+            skill_name, min_level, base_xp = recipe_obj.skill, recipe_obj.level, recipe_obj.base_xp
+
     elif node.source_type in ["activity", "chest"]:
         act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
         activity_obj = game_data['activities'].get(act_id)
-        if not activity_obj: return res
-        skill_name, min_level, base_xp = activity_obj.primary_skill, activity_obj.level, activity_obj.base_xp
-        node_context["skill"] = skill_name
-        if activity_obj.locations: node_context["location_id"] = activity_obj.locations[0]
+        if activity_obj:
+            skill_name, min_level, base_xp = activity_obj.primary_skill, activity_obj.level, activity_obj.base_xp
+
+    if not activity_obj: return res
 
     player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
+
+    # 4. DRY Context & Passive Stats Injection
+    loc_map = {loc.id: loc for loc in locations}
     
-    stats = gear_set.get_stats(node_context) if gear_set else {}
+    context = build_activity_context(
+        activity=activity_obj, 
+        user_ap=user_state.get('user_ap', 0), 
+        user_total_level=user_state.get('user_total_level', 0), 
+        loc_map=loc_map, 
+        drop_calc=drop_calc, 
+        selected_location_id=getattr(node, 'selected_location_id', None)
+    )
+
+    stats = gear_set_eval.get_stats(context)
+    passive_stats = calculate_passive_stats(user_state.get('owned_collectibles', []), context)
+    
+    # Inject service modifiers into passive stats if present
+    if hasattr(activity_obj, 'modifiers') and activity_obj.modifiers:
+        act_mods = extract_modifier_stats(activity_obj.modifiers)
+        for k, v in act_mods.items():
+            passive_stats[k] = passive_stats.get(k, 0.0) + v
+            
+    # Combine everything
+    for k, v in passive_stats.items():
+        stats[k] = stats.get(k, 0.0) + v
+
+    # --- Math Extraction ---
     DA = stats.get("double_action", 0.0)
     DR = stats.get("double_rewards", 0.0)
     NMC = stats.get("no_materials_consumed", 0.0)
     XP_BONUS = stats.get("xp_percent", 0.0)
-    FLAT_XP = stats.get("flat_xp", 0.0) # NEW: Included Flat XP
+    FLAT_XP = stats.get("flat_xp", 0.0)
     WE = stats.get("work_efficiency", 0.0)
     
     # --- Quality Probability ---
@@ -487,7 +529,7 @@ def calculate_node_metrics(
     res["stats_used"] = {
         "DA": DA, "DR": DR, "NMC": NMC, "WE": WE, "XP_BONUS": XP_BONUS,
         "p_valid_quality": p_valid_quality,
-        "base_steps": activity_obj.base_steps if activity_obj else (recipe_obj.base_steps if recipe_obj else 0)
+        "base_steps": activity_obj.base_steps if activity_obj else 0
     }
 
     # ==========================================
@@ -498,7 +540,6 @@ def calculate_node_metrics(
         q_out = recipe_obj.output_quantity
         
         res["steps"] = steps_per_action / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)
-        # FIX: Added Flat XP
         isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
         
@@ -506,9 +547,10 @@ def calculate_node_metrics(
             req_amount = child_node.base_requirement_amount
             input_ratio = ((1.0 - NMC) * req_amount) / ((1.0 + DR) * q_out * p_valid_quality)
             
+            # Pass user_state and locations down into the recursion
             child_metrics = calculate_node_metrics(
                 child_node, loadouts, game_data, drop_calc, player_skill_levels, 
-                global_target_quality="Normal", 
+                user_state, locations, 
                 global_use_fine=global_use_fine
             )
             
@@ -530,7 +572,6 @@ def calculate_node_metrics(
             if drop["Item"] == target_item_id:
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
                 res["steps"] = drop["Steps"] / p_valid_quality
-                # FIX: Added Flat XP
                 isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
@@ -550,7 +591,7 @@ def calculate_node_metrics(
                 steps_per_chest = drop["Steps"]
                 break
                 
-        if steps_per_chest != float('inf'):
+        if steps_per_chest != float('inf') and chest_obj:
             expected_items_per_chest = sum(
                 (d.chance / 100.0) * ((d.min_quantity + d.max_quantity) / 2.0)
                 for d in chest_obj.drops if d.item_id == target_item_id
@@ -559,7 +600,6 @@ def calculate_node_metrics(
             if expected_items_per_chest > 0:
                 res["steps"] = (steps_per_chest / expected_items_per_chest) / p_valid_quality
                 p_chest_eff = steps_per_action / (steps_per_chest * (1.0 + DA) * (1.0 + DR))
-                # FIX: Added Flat XP
                 xp_per_chest = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_chest_eff)
                 isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp

@@ -243,7 +243,7 @@ class GearOptimizer:
             if restricted_issues:
                 error_msg += f"\nTool Conflict: {', '.join(set(restricted_issues))}.\n"
             error_msg += " ,".join([str(i) for i in best_overall_set.get_all_items()])  
-            return None, error_msg
+            return None, error_msg, set()
 
 
         filler_slots = set()

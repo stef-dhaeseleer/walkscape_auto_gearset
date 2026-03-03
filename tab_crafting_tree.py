@@ -132,9 +132,18 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                 else:
                     node.source_id = selected_src["id"]
                     
-                if node.source_type == "bank": node.inputs.clear()
+                node.inputs.clear()
+                
+                if node.source_type == "recipe":
+                    recipe = game_data_dict['recipes'].get(node.source_id)
+                    if recipe and recipe.materials:
+                        for i, material_group in enumerate(recipe.materials):
+                            if not material_group: continue
+                            mat = material_group[0] # Default to the first option
+                            child_node = build_default_tree(mat.item_id, game_data_dict, mat.amount, level + 1)
+                            node.inputs[f"{mat.item_id}_{i}"] = child_node
+                            
                 st.rerun()
-
         with c2:
             if node.source_type != "bank":
                 # Force new nodes to default to Auto-Optimize out of the box

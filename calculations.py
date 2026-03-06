@@ -3,7 +3,7 @@ from typing import Dict, List, Optional, Any, Set, Tuple, Union
 from collections import defaultdict
 from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout,Location 
 from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS,GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality
-
+import re
 
 # ============================================================================
 # CORE CALCULATIONS
@@ -402,18 +402,24 @@ class MockActivity:
         self.max_efficiency = max_efficiency
 
 
+
+def get_actions_per_charge(effect: str) -> int:
+    """Extracts the number of actions a pet ability completes instantly."""
+    m = re.search(r'[Cc]ompletes (\d+) ', effect)
+    if m: return int(m.group(1))
+    return 0
+
 def calculate_node_metrics(
     node: 'CraftingNode', 
     loadouts: Dict[str, 'Loadout'], 
     game_data: Dict[str, Any], 
     drop_calc: Any, 
     player_skill_levels: Dict[str, int],
-    user_state: Dict[str, Any],         # NEW: Contains AP, total level, collectibles
-    locations: List['Location'],        # NEW: Needed for location map tags
+    user_state: Dict[str, Any],
+    locations: List['Location'],
     global_target_quality: str = "Normal",
     global_use_fine: bool = False
 ) -> Dict[str, Any]:
-    """Recursively calculates rich metrics (Steps, XP, Shopping List, Material Cost) per 1 unit of output."""
     
     from ui_utils import build_activity_context, synthesize_activity_from_recipe, extract_modifier_stats
     
@@ -422,7 +428,10 @@ def calculate_node_metrics(
         "xp": defaultdict(float),
         "shopping_list": defaultdict(float),
         "raw_materials": defaultdict(float),
-        "stats_used": {}
+        "stats_used": {},
+        "steps_breakdown": defaultdict(float),
+        "pet_steps_gained": defaultdict(float),        # <-- NEW
+        "ability_charges_used": defaultdict(float)     # <-- NEW
     }
 
     if node.source_type == "bank":
@@ -441,16 +450,23 @@ def calculate_node_metrics(
     gear_set_eval = base_gear.clone() if base_gear else GearSet()
 
     # 2. Inject Node-Specific Pets & Consumables
+    pet_obj = None
+    active_ability = None
     if getattr(node, 'selected_pet_id', None):
-        pet = game_data.get('pets', {}).get(node.selected_pet_id)
-        if pet: 
-            # Safely apply the selected active level
-            gear_set_eval.pet = pet.model_copy(update={"active_level": getattr(node, 'selected_pet_level', 1) or 1})
+        pet_obj = game_data.get('pets', {}).get(node.selected_pet_id)
+        if pet_obj: 
+            pet_lvl = getattr(node, 'selected_pet_level', 1) or 1
+            pet_obj = pet_obj.model_copy(update={"active_level": pet_lvl})
+            gear_set_eval.pet = pet_obj
+            
+            # Find the active ability to calculate charge cost
+            for lvl in pet_obj.levels:
+                if lvl.level == pet_lvl and lvl.abilities:
+                    active_ability = lvl.abilities[0]
         
     if getattr(node, 'selected_consumable_id', None):
         cons = game_data.get('consumables', {}).get(node.selected_consumable_id)
-        if cons:
-            gear_set_eval.consumable = cons
+        if cons: gear_set_eval.consumable = cons
 
     target_item_id = node.item_id
     if global_use_fine and not target_item_id.endswith("_fine"):
@@ -462,26 +478,23 @@ def calculate_node_metrics(
     
     if node.source_type == "recipe":
         recipe_obj = game_data['recipes'].get(node.source_id)
-        activity_obj = recipe_obj # Fallback to base recipe as activity for context
+        activity_obj = recipe_obj 
         if recipe_obj and getattr(node, 'selected_service_id', None):
             srv = game_data.get('services', {}).get(node.selected_service_id)
-            if srv: 
-                activity_obj = synthesize_activity_from_recipe(recipe_obj, srv)
+            if srv: activity_obj = synthesize_activity_from_recipe(recipe_obj, srv)
         
-        if recipe_obj:
-            skill_name, min_level, base_xp = recipe_obj.skill, recipe_obj.level, recipe_obj.base_xp
+        if recipe_obj: skill_name, min_level, base_xp = recipe_obj.skill, recipe_obj.level, recipe_obj.base_xp
 
     elif node.source_type in ["activity", "chest"]:
         act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
         activity_obj = game_data['activities'].get(act_id)
-        if activity_obj:
-            skill_name, min_level, base_xp = activity_obj.primary_skill, activity_obj.level, activity_obj.base_xp
+        if activity_obj: skill_name, min_level, base_xp = activity_obj.primary_skill, activity_obj.level, activity_obj.base_xp
 
     if not activity_obj: return res
 
     player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
 
-    # 4. DRY Context & Passive Stats Injection
+    # 4. Context & Passive Stats Injection
     loc_map = {loc.id: loc for loc in locations}
     
     context = build_activity_context(
@@ -531,7 +544,18 @@ def calculate_node_metrics(
         "p_valid_quality": p_valid_quality,
         "base_steps": activity_obj.base_steps if activity_obj else 0
     }
+ 
+    is_using_ability = False
+    instant_pet = None
+    instant_ability = None
 
+    if getattr(node, 'use_pet_ability', False):
+        from ui_utils import get_applicable_abilities
+        applicable = get_applicable_abilities(node, game_data)
+        if applicable:
+            instant_pet, instant_ability = applicable[0] # Grab the first valid ability
+            if get_actions_per_charge(instant_ability.effect) > 0:
+                is_using_ability = True
     # ==========================================
     # RECIPE
     # ==========================================
@@ -539,7 +563,19 @@ def calculate_node_metrics(
         steps_per_action = calculate_steps(recipe_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
         q_out = recipe_obj.output_quantity
         
-        res["steps"] = steps_per_action / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)
+        actions_needed = 1.0 / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)
+        normal_steps = actions_needed * steps_per_action
+        
+        if is_using_ability:
+            res["steps"] = 0.0
+            charges = actions_needed / get_actions_per_charge(instant_ability.effect)
+            res["ability_charges_used"][f"{instant_pet.name}: {instant_ability.name}"] += charges
+            res["steps_breakdown"][f"⚡ Recipe: {recipe_obj.name} (Instant)"] += 0.0
+        else:
+            res["steps"] = normal_steps
+            res["steps_breakdown"][f"Recipe: {recipe_obj.name}"] += normal_steps
+            if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
+            
         isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
         
@@ -555,12 +591,12 @@ def calculate_node_metrics(
             )
             
             res["steps"] += (input_ratio * child_metrics["steps"])
-            for sk, xpv in child_metrics["xp"].items():
-                res["xp"][sk] += (input_ratio * xpv)
-            for item_k, amt in child_metrics["shopping_list"].items():
-                res["shopping_list"][item_k] += (input_ratio * amt)
-            for item_k, amt in child_metrics["raw_materials"].items():
-                res["raw_materials"][item_k] += (input_ratio * amt)
+            for sk, xpv in child_metrics["xp"].items(): res["xp"][sk] += (input_ratio * xpv)
+            for item_k, amt in child_metrics["shopping_list"].items(): res["shopping_list"][item_k] += (input_ratio * amt)
+            for item_k, amt in child_metrics["raw_materials"].items(): res["raw_materials"][item_k] += (input_ratio * amt)
+            for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (input_ratio * stp)
+            for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
+            for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
 
     # ==========================================
     # ACTIVITY
@@ -570,8 +606,20 @@ def calculate_node_metrics(
         drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
         for drop in drop_table:
             if drop["Item"] == target_item_id:
+                normal_steps = drop["Steps"] / p_valid_quality
+                actions_needed = normal_steps / steps_per_action
+                
+                if is_using_ability:
+                    res["steps"] = 0.0
+                    charges = actions_needed / get_actions_per_charge(instant_ability.effect)
+                    res["ability_charges_used"][f"{instant_pet.name}: {instant_ability.name}"] += charges
+                    res["steps_breakdown"][f"⚡ Activity: {activity_obj.name} (Instant)"] += 0.0
+                else:
+                    res["steps"] = normal_steps
+                    res["steps_breakdown"][f"Activity: {activity_obj.name}"] += normal_steps
+                    if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
+                
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
-                res["steps"] = drop["Steps"] / p_valid_quality
                 isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
@@ -592,13 +640,22 @@ def calculate_node_metrics(
                 break
                 
         if steps_per_chest != float('inf') and chest_obj:
-            expected_items_per_chest = sum(
-                (d.chance / 100.0) * ((d.min_quantity + d.max_quantity) / 2.0)
-                for d in chest_obj.drops if d.item_id == target_item_id
-            )
-            
+            expected_items_per_chest = sum((d.chance / 100.0) * ((d.min_quantity + d.max_quantity) / 2.0) for d in chest_obj.drops if d.item_id == target_item_id)
             if expected_items_per_chest > 0:
-                res["steps"] = (steps_per_chest / expected_items_per_chest) / p_valid_quality
+                normal_steps = (steps_per_chest / expected_items_per_chest) / p_valid_quality
+                actions_needed = normal_steps / steps_per_action
+
+
+                if is_using_ability:
+                    res["steps"] = 0.0
+                    charges = actions_needed / get_actions_per_charge(instant_ability.effect)
+                    res["ability_charges_used"][f"{instant_pet.name}: {instant_ability.name}"] += charges
+                    res["steps_breakdown"][f"⚡ Chest: {chest_obj.name} (Instant)"] += 0.0
+                else:
+                    res["steps"] = normal_steps
+                    res["steps_breakdown"][f"Chest: {chest_obj.name}"] += normal_steps
+                    if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
+                
                 p_chest_eff = steps_per_action / (steps_per_chest * (1.0 + DA) * (1.0 + DR))
                 xp_per_chest = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_chest_eff)
                 isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality

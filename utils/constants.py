@@ -276,3 +276,15 @@ DOMINANCE_EXEMPT_ITEMS = {
     "spectral_saw_ethereal",
 
 }
+
+INSTANT_ACTION_PET_ABILITIES = {
+    "Pecking Order": { # Chicken
+        "allowed_source_types": ["activity"],
+        "skill": "foraging"
+    },
+    "Shell Forge": { # Tortoise
+        "allowed_source_types": ["recipe"],
+        "skill": "smithing",
+        "recipe_name_contains": "smelt" 
+    },
+}

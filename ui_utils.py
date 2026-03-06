@@ -7,7 +7,7 @@ from collections import Counter
 from typing import List, Dict, Tuple, Any
 
 from utils.data_loader import load_game_data
-from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality
+from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES
 from calculations import calculate_steps, calculate_quality_probabilities
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -265,7 +265,45 @@ def can_tree_use_fine(node: CraftingNode, drop_calc: 'DropCalculator') -> bool:
             return True
             
         return node.item_id in drop_calc.fine_material_map
+ 
+def can_use_pet_ability(ability_name: str, node: CraftingNode, game_data_dict: dict) -> bool:
+    """Checks if the equipped pet's ability can actually be used on this specific node."""
+    if ability_name not in INSTANT_ACTION_PET_ABILITIES:
+        return False
+        
+    reqs = INSTANT_ACTION_PET_ABILITIES[ability_name]
     
+    if node.source_type not in reqs.get("allowed_source_types", []):
+        return False
+        
+    if node.source_type == "recipe":
+        recipe = game_data_dict['recipes'].get(node.source_id)
+        if not recipe: return False
+        
+        if reqs.get("skill") and recipe.skill.lower() != reqs["skill"].lower():
+            return False
+        if reqs.get("recipe_name_contains") and reqs["recipe_name_contains"].lower() not in recipe.name.lower():
+            return False
+            
+    elif node.source_type == "activity":
+        activity = game_data_dict['activities'].get(node.source_id)
+        if not activity: return False
+        
+        if reqs.get("skill") and activity.primary_skill.lower() != reqs["skill"].lower():
+            return False
+            
+    return True
+def get_applicable_abilities(node: CraftingNode, game_data_dict: dict) -> List[Tuple[Any, Any]]:
+    """Scans all pets to find any abilities that can be used on this specific node."""
+    applicable = []
+    for pet in game_data_dict.get('pets', {}).values():
+        for lvl in pet.levels:
+            for ab in lvl.abilities:
+                if can_use_pet_ability(ab.name, node, game_data_dict):
+                    # Only add the ability once per pet (in case it appears on multiple levels)
+                    if not any(a.name == ab.name for p, a in applicable):
+                        applicable.append((pet, ab))
+    return applicable
 def build_default_tree(item_id: str, game_data: Dict, amount_needed=1, current_depth=0) -> CraftingNode:
     node = CraftingNode(
         node_id=str(uuid.uuid4())[:8],

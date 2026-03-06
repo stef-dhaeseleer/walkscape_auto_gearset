@@ -494,3 +494,4 @@ class CraftingNode(BaseModel):
     selected_pet_id: Optional[str] = None
     selected_pet_level: Optional[int] = None
     selected_consumable_id: Optional[str] = None
+    use_pet_ability: bool = False 

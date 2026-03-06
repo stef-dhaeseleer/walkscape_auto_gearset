@@ -35,8 +35,8 @@ class CandidateSelector:
             stats[stat_key] += val
         return stats
 
-    def _prune_dominated_items(self, raw_candidates: Dict[str, List[Equipment]], player_skill_level: int, activity: Activity, owned_item_counts: Optional[Dict[str, int]]) -> Dict[str, List[Equipment]]:
-        """Removes items that are strictly inferior to other available candidates in every way."""
+    def _prune_dominated_items(self, raw_candidates: Dict[str, List[Equipment]], player_skill_level: int, activity: Activity, owned_item_counts: Optional[Dict[str, int]], context: Dict[str, Any]) -> Dict[str, List[Equipment]]:
+        """Removes items that are strictly inferior to other available candidates in every way (context-aware)."""
         pruned_candidates = {}
         
         for slot, items in raw_candidates.items():
@@ -56,7 +56,7 @@ class CandidateSelector:
                     continue
                     
                 domination_count = 0
-                stats_b = self._get_raw_stats(item_b)
+                stats_b = self._get_contextual_stats(item_b, context) # <--- Updated
                 kw_b_clean = {k.lower() for k in item_b.keywords if not k.lower().startswith("exact_item_")}
                 restr_b = {k.lower() for k in item_b.keywords if k.lower() in self.restricted_keywords_lower}
                 
@@ -83,8 +83,8 @@ class CandidateSelector:
                     if not kw_b_clean.issubset(kw_a_clean):
                         continue
                         
-                    # 4. Stats Check (Dry Comparison): A must be >= B in all stats B provides
-                    stats_a = self._get_raw_stats(item_a)
+                    # 4. Stats Check (Contextual Comparison): A must be >= B in all stats B provides
+                    stats_a = self._get_contextual_stats(item_a, context) # <--- Updated
                     is_superior_stats = True
                     for stat_name, b_val in stats_b.items():
                         if stats_a.get(stat_name, 0.0) < b_val:
@@ -126,7 +126,6 @@ class CandidateSelector:
             pruned_candidates[slot] = keep_items
             
         return pruned_candidates
-
     def get_candidates(self, 
                        activity: Activity, 
                        required_keywords: Dict[str, int], 
@@ -275,8 +274,13 @@ class CandidateSelector:
                 if s_key not in raw_candidates: raw_candidates[s_key] = []
                 raw_candidates[s_key].append(item)
 
-        raw_candidates = self._prune_dominated_items(raw_candidates, player_skill_level, activity,owned_item_counts=owned_item_counts)
-
+        raw_candidates = self._prune_dominated_items(
+            raw_candidates, 
+            player_skill_level, 
+            activity,
+            owned_item_counts=owned_item_counts,
+            context=context
+        )
         # Phase 2: Refined filtering (Best Quality Versions)
         final_candidates = {}
         
@@ -375,3 +379,69 @@ class CandidateSelector:
                 base = item_id.replace(s, "")
                 if base in owned_counts: return owned_counts[base]
         return 0
+    
+
+    def _get_contextual_stats(self, item: Equipment, context: Dict[str, Any]) -> Dict[str, float]:
+        """Calculates the active stats of an item evaluated against the current activity context."""
+        stats = defaultdict(float)
+        
+        active_skill = context.get("skill", "").lower() if context.get("skill") else None
+        loc_id = context.get("location_id")
+        loc_tags = set(t.lower() for t in context.get("location_tags", []))
+        activity_id = context.get("activity_id")
+        user_ap = context.get("achievement_points", 0)
+        total_lvl = context.get("total_skill_level", 0)
+
+        for mod in item.modifiers:
+            applies = True
+            is_set_bonus = False
+            
+            for condition in mod.conditions:
+                c_type = condition.type
+                c_target = condition.target.lower() if condition.target else None
+                c_val = condition.value
+                
+                if c_type == ConditionType.GLOBAL: continue 
+                elif c_type == ConditionType.SKILL_ACTIVITY:
+                    if not active_skill: applies = False 
+                    elif c_target:
+                        if c_target == active_skill: pass
+                        elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
+                        elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                        else: applies = False
+                elif c_type == ConditionType.LOCATION:
+                    if not loc_id: applies = False
+                    else:
+                        if not (c_target == loc_id.lower() or c_target in loc_tags): applies = False
+                elif c_type == ConditionType.REGION:
+                    if not loc_tags: applies = False
+                    elif c_target and c_target not in loc_tags: applies = False
+                elif c_type == ConditionType.SPECIFIC_ACTIVITY:
+                    if not activity_id: applies = False
+                    elif c_target and c_target != activity_id.lower(): applies = False
+                elif c_type == ConditionType.ACHIEVEMENT_POINTS:
+                    if user_ap < (c_val or 0): applies = False
+                elif c_type == ConditionType.TOTAL_SKILL_LEVEL:
+                    if total_lvl < (c_val or 0): applies = False
+                elif c_type == ConditionType.SET_EQUIPPED:
+                    applies = False # Ignore set bonuses for pure dominance pruning
+                    is_set_bonus = True
+
+            if applies and not is_set_bonus:
+                stat_key = mod.stat.value
+                val = mod.value
+                if mod.stat in PERCENTAGE_STATS: val = val / 100.0
+
+                if stat_key == StatName.BONUS_XP_ADD.value: stat_key = "flat_xp"
+                elif stat_key == StatName.BONUS_XP_PERCENT.value: stat_key = "xp_percent"
+                elif stat_key == StatName.XP_PERCENT.value: stat_key = "xp_percent"
+                elif stat_key == StatName.STEPS_ADD.value: 
+                    stat_key = "flat_step_reduction"
+                    val = -val 
+                elif stat_key == StatName.STEPS_PERCENT.value: 
+                    stat_key = "percent_step_reduction"
+                    val = -val
+                    
+                stats[stat_key] += val
+                
+        return dict(stats)

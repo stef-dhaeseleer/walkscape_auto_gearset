@@ -4,7 +4,7 @@ import math
 import os
 import uuid
 from collections import Counter
-from typing import List, Dict, Tuple, Any
+from typing import List, Dict, Tuple, Any, Optional
 
 from utils.data_loader import load_game_data
 from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES
@@ -502,3 +502,94 @@ def load_data():
         except Exception as e: st.error(f"Error loading containers.json: {e}")
             
     return items, activities, recipes, locations, services, collectibles, pets, consumables, containers
+
+
+def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, drop_calc, user_ap: int = 0, total_lvl: int = 0) -> Tuple[Optional[str], Optional[int]]:
+    """Finds the best pet for a node based on stats, falling back to ability charging."""
+    if not game_data_dict.get('pets'): return None, None
+
+    # 1. Build a dummy context for the node to test conditions
+    activity_obj = None
+    if node.source_type == "recipe":
+        activity_obj = game_data_dict['recipes'].get(node.source_id)
+    elif node.source_type in ["activity", "chest"]:
+        act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
+        activity_obj = game_data_dict['activities'].get(act_id)
+
+    if not activity_obj: return None, None
+
+    context = build_activity_context(activity_obj, user_ap, total_lvl, loc_map, drop_calc, getattr(node, 'selected_location_id', None))
+    act_skill = (context.get("skill") or "").lower()
+    loc_tags = context.get("location_tags", set())
+    loc_id = (context.get("location_id") or "").lower() 
+
+    # 2. Phase 1: Find a pet that gives active stats
+    for pet in game_data_dict['pets'].values():
+        max_lvl_obj = pet.levels[-1] if pet.levels else None
+        if not max_lvl_obj: continue
+        
+        helps = False
+        for mod in max_lvl_obj.modifiers:
+            applies = True
+            for cond in mod.conditions:
+                applies_cond, _ = check_condition_details(cond, context, Counter())
+                if not applies_cond:
+                    applies = False
+                    break
+            
+            if applies:
+                stat_name = mod.stat.value if hasattr(mod.stat, 'value') else mod.stat
+                stat_val = mod.value
+                
+                if stat_name in ["steps_add", "steps_percent", "percent_step_reduction", "flat_step_reduction"]:
+                    if stat_val < 0: helps = True # Negative steps are good
+                elif stat_name == "inventory_space":
+                    pass # Ignore inventory space for optimization
+                elif stat_val > 0:
+                    helps = True # Positive stats are good
+                    
+            if helps:
+                break
+                
+        if helps:
+            return pet.id, max_lvl_obj.level
+
+    # 3. Phase 2: Find a pet that can charge an active ability (Fallback)
+    for pet in game_data_dict['pets'].values():
+        max_lvl_obj = pet.levels[-1] if pet.levels else None
+        if not max_lvl_obj: continue
+        
+        for ab in max_lvl_obj.abilities:
+            # Ensure the ability is explicitly supported in our constants
+            if ab.name not in INSTANT_ACTION_PET_ABILITIES:
+                continue
+                
+            # Ignore time-based cooldowns or abilities with no step requirement
+            if not ab.cooldown or "steps" not in ab.cooldown.lower():
+                continue
+                
+            cd_lower = ab.cooldown.lower()
+            charges_here = False
+            
+            # Parse: "4,000 stepsNot doing Agility."
+            if "not doing" in cd_lower:
+                forbidden = cd_lower.split("not doing")[1].replace(".", "").strip()
+                if act_skill and act_skill != forbidden:
+                    charges_here = True
+                    
+            # Parse: "4,000 stepsWhile doing Foraging."
+            elif "while doing" in cd_lower:
+                required = cd_lower.split("while doing")[1].replace(" recipes", "").replace(".", "").strip()
+                if act_skill == required:
+                    charges_here = True
+                    
+            # Parse: "5,000 stepsWhile in Underwater location."
+            elif "while in" in cd_lower:
+                required = cd_lower.split("while in")[1].replace(" location", "").replace(".", "").strip()
+                if required in loc_tags or required == loc_id:
+                    charges_here = True
+                    
+            if charges_here:
+                return pet.id, max_lvl_obj.level
+
+    return None, None

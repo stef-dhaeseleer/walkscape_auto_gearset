@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from models import CraftingNode
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET
-from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities
+from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet
 from calculations import calculate_node_metrics
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
@@ -172,9 +172,28 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     node.loadout_id = "AUTO"
                     
                     if not getattr(node, 'auto_optimize_target', None):
-                        default_t = "Reward Rolls No Steps" if node.source_type == "recipe" else "Reward Rolls"
+                        default_t = "Reward Rolls"
+                        if level == 0: # Root Node
+                            items_list = game_data_dict.get('items', [])
+                            is_equipment = any(item.id == node.item_id or item.id.startswith(f"{node.item_id}_") for item in items_list)
+                            
+                            default_t = "Eternal Per Input" if is_equipment else "Materials From Input"
+                        else:
+                            if node.source_type == "recipe":
+                                default_t = "Materials From Input"
+                            elif node.source_type == "activity":
+                                default_t = "Fine" if st.session_state.get('global_fine', False) else "Reward Rolls"
+                                
                         node.auto_optimize_target = [{"id": 0, "target": default_t, "weight": 100}]
-                        
+                    
+                    if not hasattr(node, '_pet_auto_checked'):
+                        loc_map = {loc.id: loc for loc in locations}
+                        pet_id, pet_lvl = get_best_auto_pet(node, game_data_dict, loc_map, drop_calc, 0, 0)
+                        if pet_id:
+                            node.selected_pet_id = pet_id
+                            node.selected_pet_level = pet_lvl
+                        node._pet_auto_checked = True
+                    
                     c2_a, c2_b, c2_c = st.columns([3, 1, 1])
                     with c2_a:
                         summary = " | ".join([f"{t['weight']}% {t['target']}" for t in node.auto_optimize_target])
@@ -265,6 +284,35 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     if new_val != getattr(node, 'use_pet_ability', False):
                         node.use_pet_ability = new_val
                         st.rerun()
+
+        st.write("") # Spacer
+        if node.source_type == "recipe":
+            recipe = game_data_dict['recipes'].get(node.source_id)
+            if recipe:
+                compat_services = get_compatible_services(recipe, list(game_data_dict['services'].values()))
+                if compat_services:
+                    opts = [s.id for s in compat_services]
+                    def format_srv(x):
+                        return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
+                    idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
+                    
+                    new_srv = st.selectbox("📌 Service Override", opts, index=idx, format_func=format_srv, key=f"inl_srv_{node.node_id}")
+                    if new_srv != (getattr(node, 'selected_service_id', None) or "None"):
+                        node.selected_service_id = new_srv if new_srv != "None" else None
+                        st.rerun()
+                        
+        elif node.source_type == "activity":
+            act = game_data_dict['activities'].get(node.source_id)
+            if act and act.locations:
+                opts = list(act.locations)
+                def format_loc(x):
+                    return next((loc.name for loc in locations if loc.id == x), x)
+                idx = opts.index(node.selected_location_id) if getattr(node, 'selected_location_id', None) in opts else 0
+                
+                new_loc = st.selectbox("📌 Location Override", opts, index=idx, format_func=format_loc, key=f"inl_loc_{node.node_id}")
+                if new_loc != (getattr(node, 'selected_location_id', None) or "None"):
+                    node.selected_location_id = new_loc if new_loc != "None" else None
+                    st.rerun()
         if node.source_type == "recipe" and node.inputs:
             recipe = game_data_dict['recipes'].get(node.source_id)
             if recipe and recipe.materials:
@@ -375,7 +423,8 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
         'chests': {c.id: c for c in all_containers},
         'services': {s.id: s for s in services},
         'pets': {p.id: p for p in all_pets},
-        'consumables': {c.id: c for c in all_consumables}
+        'consumables': {c.id: c for c in all_consumables},
+        'items': all_items_raw
     }
         
     if st.button("Generate Tree", type="primary"):
@@ -416,7 +465,19 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
             st.write("")
             can_fine = can_tree_use_fine(root, drop_calc)
             if can_fine:
-                st.session_state['global_fine'] = st.checkbox("💎 Fine Materials", value=False)
+                new_fine_val = st.checkbox("💎 Fine Materials", value=st.session_state.get('global_fine', False))
+                if new_fine_val != st.session_state.get('global_fine', False):
+                    st.session_state['global_fine'] = new_fine_val
+                    
+                    def force_fine_targets(n):
+                        if n.source_type == "activity" and getattr(n, 'loadout_id', None) == "AUTO":
+                            target_name = "Fine" if new_fine_val else "Reward Rolls"
+                            n.auto_optimize_target = [{"id": 0, "target": target_name, "weight": 100}]
+                        for child in n.inputs.values():
+                            force_fine_targets(child)
+                            
+                    force_fine_targets(root)
+                    st.rerun()
             else:
                 st.session_state['global_fine'] = False
 

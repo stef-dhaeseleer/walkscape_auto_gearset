@@ -154,7 +154,7 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
 
     # Multipliers
     da_val = min(1.0, stats.get("double_action", 0))
-    dr_val = stats.get("double_rewards", 0) 
+    dr_val = min(1.0,stats.get("double_rewards", 0) )
     nmc_val = min(0.99, stats.get("no_materials_consumed", 0)) 
     
     da_mult = 1.0 + da_val
@@ -170,12 +170,12 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         base_xp = activity.base_xp or 0
         xp_mult = 1.0 + stats.get("xp_percent", 0)
         flat_xp = stats.get("flat_xp", 0)
-        val = ((base_xp * xp_mult + flat_xp) * da_mult) / steps
+        val = (((base_xp + flat_xp) * xp_mult) * da_mult) / steps
     elif target == OPTIMAZATION_TARGET.exp_no_steps:
         base_xp = activity.base_xp or 0
         xp_mult = 1.0 + stats.get("xp_percent", 0)
         flat_xp = stats.get("flat_xp", 0)
-        val = ((base_xp * xp_mult + flat_xp) * da_mult)
+        val = (((base_xp + flat_xp) * xp_mult) * da_mult)
     elif target == OPTIMAZATION_TARGET.chests:
         val = ((1.0 + stats.get("chest_finding", 0)) * da_mult * dr_mult) / steps
     elif target == OPTIMAZATION_TARGET.chests_no_steps:
@@ -430,8 +430,8 @@ def calculate_node_metrics(
         "raw_materials": defaultdict(float),
         "stats_used": {},
         "steps_breakdown": defaultdict(float),
-        "pet_steps_gained": defaultdict(float),        # <-- NEW
-        "ability_charges_used": defaultdict(float)     # <-- NEW
+        "pet_steps_gained": defaultdict(float),      
+        "ability_charges_used": defaultdict(float) 
     }
 
     if node.source_type == "bank":
@@ -520,9 +520,9 @@ def calculate_node_metrics(
         stats[k] = stats.get(k, 0.0) + v
 
     # --- Math Extraction ---
-    DA = stats.get("double_action", 0.0)
-    DR = stats.get("double_rewards", 0.0)
-    NMC = stats.get("no_materials_consumed", 0.0)
+    DA = min(1.0, stats.get("double_action", 0.0))
+    DR = min(1.0, stats.get("double_rewards", 0.0))
+    NMC = min(0.99, stats.get("no_materials_consumed", 0.0))
     XP_BONUS = stats.get("xp_percent", 0.0)
     FLAT_XP = stats.get("flat_xp", 0.0)
     WE = stats.get("work_efficiency", 0.0)
@@ -576,7 +576,7 @@ def calculate_node_metrics(
             res["steps_breakdown"][f"Recipe: {recipe_obj.name}"] += normal_steps
             if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
             
-        isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * q_out * p_valid_quality)
+        isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
         
         for input_id, child_node in node.inputs.items():
@@ -620,7 +620,7 @@ def calculate_node_metrics(
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
                 
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
-                isolated_xp = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
+                isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
                 break
@@ -657,7 +657,7 @@ def calculate_node_metrics(
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
                 
                 p_chest_eff = steps_per_action / (steps_per_chest * (1.0 + DA) * (1.0 + DR))
-                xp_per_chest = ((base_xp * (1.0 + XP_BONUS)) + FLAT_XP) / ((1.0 + DR) * p_chest_eff)
+                xp_per_chest = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_chest_eff)
                 isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0

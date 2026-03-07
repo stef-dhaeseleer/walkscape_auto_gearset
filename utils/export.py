@@ -31,6 +31,8 @@ def export_gearset(gearset: GearSet) -> str:
         ("tool", 3, lambda g: g.tools[3] if len(g.tools) > 3 else None),
         ("tool", 4, lambda g: g.tools[4] if len(g.tools) > 4 else None),
         ("tool", 5, lambda g: g.tools[5] if len(g.tools) > 5 else None),
+        ("pet",0, lambda g: g.pet if g.pet else None),
+        ("consumable",0, lambda g: g.consumable if g.consumable else None),
     ]
 
     json_entries = []
@@ -40,8 +42,8 @@ def export_gearset(gearset: GearSet) -> str:
 
     for type_name, idx, getter in slots_map:
         item = getter(gearset)
-        
-        if item and item.uuid:
+        id = item.uuid if item and hasattr(item, 'uuid') else item.id if item and hasattr(item, 'id') else None
+        if id:
             # # 1. LOWERCASE CONVERSION
             # # New models are "ADVENTURING_AMULET", but tools expect "adventuring_amulet"
             # clean_id = item.id.lower()
@@ -58,7 +60,7 @@ def export_gearset(gearset: GearSet) -> str:
             quality_val = "Normal"
 
             inner_data = {
-                "id": item.uuid,
+                "id": id,
                 "quality": quality_val, 
                 "tag": None
             }

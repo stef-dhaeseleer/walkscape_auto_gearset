@@ -8,7 +8,7 @@ from drop_calculator import DropCalculator
 from ui_sidebar import render_sidebar, render_user_data_section
 from tab_crafting_tree import render_crafting_tree_tab
 from tab_optimizer import render_optimizer_tab
-
+from tab_data_entry import render_data_entry_tab
 # --- Page Config ---
 st.set_page_config(
     page_title="WalkScape Gear Optimizer",
@@ -63,8 +63,8 @@ def main():
     with st.container():
         user_state = render_user_data_section(is_mobile, all_collectibles_raw)
 
-    tab_opt, tab_tree = st.tabs(["🎯 Single Optimizer", "🌳 Crafting Tree Calculator"])
-
+    tab_opt, tab_tree, tab_entry = st.tabs(["🎯 Single Optimizer", "🌳 Crafting Tree Calculator", "📝 Data Entry"])
+    
     with tab_tree:
         render_crafting_tree_tab(
             recipes, all_items_raw, activities, all_containers, 
@@ -75,6 +75,8 @@ def main():
             is_mobile, user_state, all_items_raw, activities, recipes, 
             locations, services, all_pets, all_consumables, drop_calc, WIKI_URL
         )
+    with tab_entry:
+        render_data_entry_tab()
 
 if __name__ == "__main__":
     main()

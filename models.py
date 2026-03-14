@@ -69,8 +69,14 @@ class SpecialShopSell(BaseModel):
 
 class Material(BaseItem):
     model_config = ConfigDict(frozen=True)
-    
+    modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
     special_sell: Optional[SpecialShopSell] = None
+
+class RecipeMaterial(BaseModel):
+    model_config = ConfigDict(frozen=True)
+    
+    item_id: str
+    amount: int
 
 class Container(BaseEntity):
     model_config = ConfigDict(frozen=True)
@@ -163,6 +169,7 @@ class LootTable(BaseModel):
     type: ActivityLootTableType
     drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
 
+
 class Activity(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
     
@@ -174,7 +181,7 @@ class Activity(BaseEntity):
     max_efficiency: float = 0.0 
     requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
     faction_rewards: Tuple[FactionReward, ...] = Field(default_factory=tuple)
-    
+    materials: Tuple[Tuple[RecipeMaterial, ...], ...] = Field(default_factory=tuple)   
     loot_tables: Tuple[LootTable, ...] = Field(default_factory=tuple) # Consolidated drops
     
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple) 
@@ -190,11 +197,6 @@ class Activity(BaseEntity):
                     return req.value
         return 1 
 
-class RecipeMaterial(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    
-    item_id: str
-    amount: int
 
 class Recipe(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
@@ -494,4 +496,5 @@ class CraftingNode(BaseModel):
     selected_pet_id: Optional[str] = None
     selected_pet_level: Optional[int] = None
     selected_consumable_id: Optional[str] = None
+    selected_activity_inputs: Dict[int, str] = Field(default_factory=dict)
     use_pet_ability: bool = False 

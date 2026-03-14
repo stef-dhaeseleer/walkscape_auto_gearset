@@ -9995,5 +9995,78 @@
     "normal_roll_worth": 45.6461,
     "chest_roll_worth": 1.9401377144,
     "fine_roll_worth": 285.7592250000001
-  }
+  },
+  {
+  "id": "chicken_hunting",
+  "wiki_slug": "Special:MyLanguage/Chicken_hunting",
+  "name": "Chicken hunting",
+  "primary_skill": "hunting",
+  "locations": [
+    "everhaven"
+  ],
+  "base_steps": 120,
+  "base_xp": 35.0,
+  "secondary_xp": {},
+  "max_efficiency": 0.8,
+  "requirements": [
+    {
+      "type": "skill_level",
+      "target": "hunting",
+      "value": 1
+    }
+  ],
+  "materials": [
+    [
+      {
+        "item_id": "arrow",
+        "amount": 1
+      }
+    ]
+  ],
+  "faction_rewards": [],
+  "loot_tables": [
+    {
+      "type": "main",
+      "drops": [
+        {
+          "item_id": "raw_chicken",
+          "min_quantity": 1,
+          "max_quantity": 2,
+          "chance": 60.0,
+          "category": null
+        },
+        {
+          "item_id": "feather",
+          "min_quantity": 2,
+          "max_quantity": 5,
+          "chance": 40.0,
+          "category": null
+        }
+      ]
+    },
+    {
+      "type": "other",
+      "drops": [
+        {
+          "item_id": "nothing",
+          "min_quantity": 0,
+          "max_quantity": 0,
+          "chance": 95.0,
+          "category": null
+        },
+        {
+          "item_id": "egg",
+          "min_quantity": 1,
+          "max_quantity": 1,
+          "chance": 5.0,
+          "category": null
+        }
+      ]
+    }
+  ],
+  "modifiers": [],
+  "normal_roll_worth": 1.5,
+  "chest_roll_worth": 0.0,
+  "fine_roll_worth": 0.0
+}
 ]

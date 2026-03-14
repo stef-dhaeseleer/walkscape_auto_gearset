@@ -3241,5 +3241,64 @@
       "Trinket"
     ],
     "special_sell": null
+  },
+  {
+    "id": "arrow",
+    "wiki_slug": "Arrow",
+    "name": "Arrow",
+    "value": 2,
+    "keywords": [
+      "Arrow",
+      "Ammunition"
+    ],
+    "special_sell": null,
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "arrow_fine",
+    "wiki_slug": "Arrow",
+    "name": "Arrow (Fine)",
+    "value": 15,
+    "keywords": [
+      "Arrow",
+      "Ammunition"
+    ],
+    "special_sell": null,
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ]
   }
 ]

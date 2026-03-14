@@ -304,62 +304,124 @@ def get_applicable_abilities(node: CraftingNode, game_data_dict: dict) -> List[T
                     if not any(a.name == ab.name for p, a in applicable):
                         applicable.append((pet, ab))
     return applicable
-def build_default_tree(item_id: str, game_data: Dict, amount_needed=1, current_depth=0) -> CraftingNode:
+def build_default_tree(
+    target_item_id: str, 
+    game_data: Dict[str, Any], 
+    drop_calc: Any,
+    global_target_quality: str = "Normal",
+    global_use_fine: bool = False,
+    visited: Optional[set[str]] = None
+) -> CraftingNode:
+    """Recursively builds the default crafting tree path for a target item."""
+    if visited is None:
+        visited = set()
+        
     node = CraftingNode(
         node_id=str(uuid.uuid4())[:8],
-        item_id=item_id,
+        item_id=target_item_id,
         source_type="bank",
-        base_requirement_amount=amount_needed
+        available_sources=[{"type": "bank", "id": "bank", "label": "[Bank] From Inventory"}]
     )
     
-    if current_depth > 12: return node
+    if target_item_id in visited:
+        return node
+        
+    visited.add(target_item_id)
+    sources = []
+    base_item_id = target_item_id.replace("_fine", "") if target_item_id.endswith("_fine") else target_item_id
     
-    sources = [{"type": "bank", "id": "bank", "label": "🏦 Bank / Already Owned"}]
-
-    for r in game_data['recipes'].values():
-        if r.output_item_id == item_id:
-            sources.append({"type": "recipe", "id": r.id, "label": f"🔨 [Recipe] {r.name}"})
+# 1. Find Recipes
+    for r_id, r_obj in game_data['recipes'].items():
+        # Look for the base item
+        if r_obj.output_item_id == base_item_id:
+            sources.append({"type": "recipe", "id": r_id, "label": f"[Recipe] {r_obj.name}"})
             
-    for act in game_data['activities'].values():
-        for table in act.loot_tables:
-            for drop in table.drops:
-                if drop.item_id == item_id:
-                    sources.append({"type": "activity", "id": act.id, "label": f"🪓 [Activity] {act.name}"})
-                    break
+    # 2. Find Activities
+    for act_id, act_obj in game_data['activities'].items():
+        drop_table = drop_calc.get_drop_table(act_obj, {}, 99) 
+        for drop in drop_table:
+            # Check for either the exact fine drop OR the base item drop
+            if drop["Item"] == base_item_id or drop["Item"] == target_item_id:
+                sources.append({"type": "activity", "id": act_id, "label": f"[Activity] {act_obj.name}"})
+                break
+                
+    # 3. Find Chests
+    for chest_id, chest_obj in game_data.get('chests', {}).items():
+        for drop in chest_obj.drops:
+            if drop.item_id == base_item_id or drop.item_id == target_item_id:
+                sources.append({"type": "chest", "id": chest_id, "label": f"[Chest] {chest_obj.name}"})
+                break
+    if not sources:
+        visited.remove(target_item_id)
+        return node
+        
+    node.available_sources.extend(sources)
+    
+    best_source = next((s for s in sources if s["type"] == "recipe"), None)
+    if not best_source:
+        best_source = next((s for s in sources if s["type"] == "activity"), None)
+    if not best_source:
+        best_source = sources[0]
+        
+    source_type = best_source["type"]
+    source_id = best_source["id"]
+    node.source_type = source_type
+    
+    if source_type == "chest":
+        node.source_id = source_id
+        for act_id, act_obj in game_data['activities'].items():
+            drop_table = drop_calc.get_drop_table(act_obj, {}, 99)
+            if any(d["Item"] == source_id for d in drop_table):
+                node.parent_activity_id = act_id
+                break
+    else:
+        node.source_id = source_id
 
-    for chest in game_data['chests'].values():
-        for drop in chest.drops:
-            if drop.item_id == item_id:
-                for act in game_data['activities'].values():
-                    for table in act.loot_tables:
-                        for c_drop in table.drops:
-                            if c_drop.item_id == chest.id:
-                                sources.append({
-                                    "type": "chest", 
-                                    "id": f"{chest.id}::{act.id}", 
-                                    "label": f"🧰 [Chest] {chest.name} (via {act.name})"
-                                })
-                                break
-
-    node.available_sources = sources
-
-    if len(sources) > 1:
-        best = sources[1]
-        node.source_type = best["type"]
-        if best["type"] == "chest":
-            node.source_id, node.parent_activity_id = best["id"].split("::")
-        else:
-            node.source_id = best["id"]
+# --- Recursively build inputs for Recipes ---
+    if source_type == "recipe":
+        recipe_obj = game_data['recipes'][source_id]
+        
+        # --- NEW: Check if the specific item we are crafting is the fine variant ---
+        is_target_fine = target_item_id.endswith("_fine")
+        
+        for i, req_group in enumerate(recipe_obj.materials):
+            mat_item_id = req_group[0].item_id
             
-        if best["type"] == "recipe":
-            recipe = game_data['recipes'][node.source_id]
-            if recipe.materials:
-                for i, material_group in enumerate(recipe.materials):
-                    if not material_group: continue
-                    mat = material_group[0] 
-                    child_node = build_default_tree(mat.item_id, game_data, mat.amount, current_depth + 1)
-                    node.inputs[f"{mat.item_id}_{i}"] = child_node
+            # If global fine is checked OR we are specifically crafting a fine item, upgrade the inputs
+            if global_use_fine or is_target_fine:
+                if mat_item_id in drop_calc.fine_material_map:
+                    mat_item_id = drop_calc.fine_material_map[mat_item_id]
+                else:
+                    # Safe fallback check in case the map misses it
+                    fine_id = f"{mat_item_id}_fine"
+                    if fine_id in game_data.get('materials', {}) or fine_id in game_data.get('consumables', {}):
+                        mat_item_id = fine_id
+                
+            child_node = build_default_tree(
+                mat_item_id, game_data, drop_calc, global_target_quality, global_use_fine, set(visited)
+            )
+            child_node.base_requirement_amount = req_group[0].amount
+            node.inputs[f"{mat_item_id}_{i}"] = child_node
+            
+    # --- NEW: Recursively build inputs for Activities ---
+    elif source_type == "activity":
+        activity_obj = game_data['activities'][source_id]
+        if hasattr(activity_obj, 'materials') and activity_obj.materials:
+            for i, mat_group in enumerate(activity_obj.materials):
+                mat_item_id = mat_group[0].item_id
+                
+                child_node = build_default_tree(
+                    target_item_id=mat_item_id,
+                    game_data=game_data,
+                    drop_calc=drop_calc,
+                    global_target_quality=global_target_quality,
+                    global_use_fine=False, 
+                    visited=set(visited)
+                )
+                child_node.base_requirement_amount = mat_group[0].amount
+                node.inputs[mat_item_id] = child_node
 
+    visited.remove(target_item_id)
     return node
 
 def calculate_node_cost(
@@ -369,6 +431,7 @@ def calculate_node_cost(
     drop_calc: DropCalculator, 
     player_skill_levels: Dict[str, int]
 ) -> float:
+    
     if node.source_type == "bank":
         return 0.0
 
@@ -376,7 +439,7 @@ def calculate_node_cost(
     gear_set = loadout.gear_set if loadout else GearSet()
     
     target_item_id = node.item_id
-    if node.use_fine_materials and not target_item_id.endswith("_fine"):
+    if getattr(node, 'use_fine_materials', False) and not target_item_id.endswith("_fine"):
         target_item_id = f"{target_item_id}_fine"
 
     recipe_obj, activity_obj = None, None
@@ -398,16 +461,25 @@ def calculate_node_cost(
 
     player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
     stats = gear_set.get_stats(node_context)
+
+    if node.source_type == "activity" and node.inputs:
+        for input_id, child_node in node.inputs.items():
+            mat_item_id = child_node.item_id
+            mat_obj = game_data.get('materials', {}).get(mat_item_id) or game_data.get('consumables', {}).get(mat_item_id)
+            if mat_obj and hasattr(mat_obj, 'modifiers') and mat_obj.modifiers:
+                mat_stats = extract_modifier_stats(mat_obj.modifiers)
+                for k, v in mat_stats.items():
+                    stats[k] = stats.get(k, 0.0) + v
     
     DA = stats.get("double_action", 0.0)
     DR = stats.get("double_rewards", 0.0)
     NMC = stats.get("no_materials_consumed", 0.0)
     
     p_valid_quality = 1.0
-    if node.target_quality not in [EquipmentQuality.NORMAL, EquipmentQuality.NONE]:
+    if getattr(node, 'target_quality', EquipmentQuality.NORMAL) not in [EquipmentQuality.NORMAL, EquipmentQuality.NONE]:
         from utils.constants import QUALITY_RANK
         target_rank = QUALITY_RANK.get(node.target_quality, 0)
-        if node.use_fine_materials: target_rank = max(1, target_rank - 1)
+        if getattr(node, 'use_fine_materials', False): target_rank = max(1, target_rank - 1)
         
         probs = calculate_quality_probabilities(min_level, player_lvl, stats.get("quality_outcome", 0))
         valid_tiers = [q.value for q, r in QUALITY_RANK.items() if r >= target_rank and q != EquipmentQuality.NONE]
@@ -430,9 +502,25 @@ def calculate_node_cost(
 
     elif node.source_type == "activity":
         drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
+        target_drop_steps = float('inf')
         for drop in drop_table:
-            if drop["Item"] == target_item_id: return drop["Steps"] / p_valid_quality
-        return float('inf')
+            if drop["Item"] == target_item_id: 
+                target_drop_steps = drop["Steps"]
+                break
+                
+        if target_drop_steps == float('inf'): return float('inf')
+        base_act_steps = target_drop_steps / p_valid_quality
+        
+        children_cost = 0.0
+        if node.inputs:
+            steps_per_action = calculate_steps(activity_obj, player_lvl, stats.get("work_efficiency", 0.0), int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
+            for input_id, child_node in node.inputs.items():
+                req_amount = child_node.base_requirement_amount
+                input_ratio = (req_amount * target_drop_steps * (1.0 + DA)) / (steps_per_action * p_valid_quality)
+                child_cost = calculate_node_cost(child_node, loadouts, game_data, drop_calc, player_skill_levels)
+                children_cost += (input_ratio * child_cost)
+                
+        return base_act_steps + children_cost
 
     elif node.source_type == "chest":
         chest_obj = game_data['chests'].get(node.source_id)
@@ -465,9 +553,10 @@ def load_data():
     loc_path = f"{base_path}/locations.json"
     services_path = f"{base_path}/services.json"
     collectibles_path = f"{base_path}/collectibles.json"
+    materials_path = f"{base_path}/materials.json"
     
-    items, activities, recipes, locations, services, collectibles = load_game_data(
-        equipment_path, act_path, rec_path, loc_path, services_path, collectibles_path
+    items, activities, recipes, locations, services, collectibles, materials = load_game_data(
+        equipment_path, act_path, rec_path, loc_path, services_path, collectibles_path, materials_path
     )
     
     pets = []
@@ -501,7 +590,7 @@ def load_data():
                 for c_data in cont_data: containers.append(Container(**c_data))
         except Exception as e: st.error(f"Error loading containers.json: {e}")
             
-    return items, activities, recipes, locations, services, collectibles, pets, consumables, containers
+    return items, activities, recipes, locations, services, collectibles, pets, consumables, containers, materials
 
 
 def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, drop_calc, user_ap: int = 0, total_lvl: int = 0) -> Tuple[Optional[str], Optional[int]]:

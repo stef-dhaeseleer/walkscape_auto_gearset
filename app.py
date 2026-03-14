@@ -52,7 +52,7 @@ def main():
         st.rerun()
 
     # Load Data globally
-    all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables, all_containers = load_data()   
+    all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables, all_containers, all_materials = load_data()   
     drop_calc = DropCalculator()
     WIKI_URL = "https://gear.walkscape.app"
 
@@ -68,12 +68,12 @@ def main():
     with tab_tree:
         render_crafting_tree_tab(
             recipes, all_items_raw, activities, all_containers, 
-            user_state, drop_calc, locations, services, all_pets, all_consumables
+            user_state, drop_calc, locations, services, all_pets, all_consumables, all_materials
         )
     with tab_opt:
         render_optimizer_tab(
             is_mobile, user_state, all_items_raw, activities, recipes, 
-            locations, services, all_pets, all_consumables, drop_calc, WIKI_URL
+            locations, services, all_pets, all_consumables, all_materials, drop_calc, WIKI_URL
         )
     with tab_entry:
         render_data_entry_tab()

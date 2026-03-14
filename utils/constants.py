@@ -36,15 +36,17 @@ class SkillName(str, Enum):
     TRINKETRY = "trinketry"
     WOODCUTTING = "woodcutting"
     TRAVELING = "traveling"
+    HUNTING = "hunting"        
+    TAILORING = "tailoring"   
     NONE = "none"
 
 # --- SKILL CATEGORIES ---
 GATHERING_SKILLS = {
-    "foraging", "mining", "woodcutting", "fishing"
+    "foraging", "mining", "woodcutting", "fishing" , "hunting"
 }
 
 ARTISAN_SKILLS = {
-    "smithing", "carpentry", "trinketry", "crafting", "cooking"
+    "smithing", "carpentry", "trinketry", "crafting", "cooking", "tailoring"
 }
 
 class ConditionType(str, Enum):

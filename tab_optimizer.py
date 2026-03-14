@@ -57,7 +57,7 @@ def edit_target_dialog(item_id=None):
                 st.session_state['opt_targets_list'] = [x for x in st.session_state['opt_targets_list'] if x['id'] != item_id]
                 st.rerun()
 
-def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recipes, locations, services, all_pets, all_consumables, drop_calc, WIKI_URL):
+def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recipes, locations, services, all_pets, all_consumables,all_materials, drop_calc, WIKI_URL):
     # Unpack user state
     use_owned = user_state["use_owned"]
     user_data = user_state["user_data"]
@@ -355,6 +355,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         is_recipe = False
         selected_service = None
         selected_location_id = None
+        selected_input_materials = [] # <-- NEW
         
         if selected_key:
             selected_obj = combined_map[selected_key]
@@ -390,6 +391,32 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     sel_loc_name = st.selectbox("Select Location", loc_names)
                     if sel_loc_name:
                         selected_location_id = loc_name_to_id[sel_loc_name]
+
+            # --- NEW: Dynamic Input Material Selection ---
+            if getattr(selected_obj, 'materials', None):
+                st.markdown("**Input Materials**")
+                for i, mat_group in enumerate(selected_obj.materials):
+                    options_ids = set()
+                    for mat in mat_group:
+                        options_ids.add(mat.item_id)
+                        options_ids.add(f"{mat.item_id}_fine") # Auto-include fine variants
+                    
+                    valid_mats = [m for m in all_materials if m.id in options_ids]
+                    if valid_mats:
+                        mat_names = [m.name for m in valid_mats]
+                        sel_mat_name = st.selectbox(f"Select Input {i+1}", mat_names, key=f"mat_sel_{selected_obj.id}_{i}")
+                        sel_mat_obj = next((m for m in valid_mats if m.name == sel_mat_name), None)
+                        
+                        if sel_mat_obj:
+                            selected_input_materials.append(sel_mat_obj)
+                            if sel_mat_obj.modifiers:
+                                st.caption(f"*{sel_mat_obj.name} Buffs:*")
+                                html = ""
+                                for mod in sel_mat_obj.modifiers:
+                                    val = mod.value
+                                    if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
+                                    html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
+                                st.markdown(html, unsafe_allow_html=True)
     
     with c2:
         st.write("🎯 **Optimization Targets**")
@@ -499,11 +526,17 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
 
         if run_opt and selected_obj:
             final_activity = selected_obj
-            service_modifiers_stats = {}
+            extra_passive_stats = {}
+            # service_modifiers_stats = {}
             
             if is_recipe and selected_service:
                 final_activity = synthesize_activity_from_recipe(selected_obj, selected_service)
-                service_modifiers_stats = extract_modifier_stats(selected_service.modifiers)
+                extra_passive_stats = extract_modifier_stats(selected_service.modifiers)
+            for mat in selected_input_materials:
+                if mat.modifiers:
+                    mat_stats = extract_modifier_stats(mat.modifiers)
+                    for k, v in mat_stats.items():
+                        extra_passive_stats[k] = extra_passive_stats.get(k, 0.0) + v
 
             player_lvl = calculated_char_lvl if valid_json else 99
             final_skill_lvl = 99
@@ -554,7 +587,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     achievement_points=user_ap,
                     user_reputation=user_reputation,
                     owned_collectibles=owned_collectibles,
-                    extra_passive_stats=service_modifiers_stats,
+                    extra_passive_stats=extra_passive_stats,
                     context_override=context,
                     pet=selected_pet,
                     consumable=selected_cons,
@@ -573,7 +606,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     st.session_state['filler_slots'] = filler_slots
                     st.session_state['final_skill_lvl'] = final_skill_lvl
                     st.session_state['selected_activity_obj'] = final_activity 
-                    st.session_state['service_stats'] = service_modifiers_stats
+                    st.session_state['service_stats'] = extra_passive_stats
+                    st.session_state['selected_input_materials'] = selected_input_materials 
                     st.session_state['debug_candidates'] = optimizer.debug_candidates
                     st.session_state['debug_rejected'] = optimizer.debug_rejected
                     st.session_state['owned_collectibles'] = owned_collectibles
@@ -592,6 +626,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             saved_service_stats = st.session_state.get('service_stats', {})
             saved_pet = st.session_state.get('selected_pet')
             saved_cons = st.session_state.get('selected_cons')
+            saved_materials = st.session_state.get('selected_input_materials', []) 
             weighted_targets_saved = st.session_state.get('selected_target_list', [])
             norm_context_saved = st.session_state.get('normalization_context', {})
             
@@ -721,7 +756,9 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 if saved_cons:
                     cons_str = saved_cons.name
                 loadout_data.append({"Slot": "🧪 Consumable", "Item": cons_str})
-
+                
+                for i, mat in enumerate(saved_materials):
+                    loadout_data.append({"Slot": f"📦 Input {i+1}", "Item": mat.name})
                 filler_slots = st.session_state.get('filler_slots', set())
 
                 for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
@@ -840,7 +877,27 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                             st.markdown(html_mods, unsafe_allow_html=True)
                         else: st.caption("No modifiers.")
                         st.markdown("---")
-
+                    if saved_materials:
+                        for i, mat in enumerate(saved_materials):
+                            st.markdown(f"<div class='item-header'>📦 Input {i+1}: {mat.name}</div>", unsafe_allow_html=True)
+                            if mat.modifiers:
+                                html_mods = ""
+                                for mod in mat.modifiers:
+                                    is_active = True
+                                    fail_reasons = []
+                                    for cond in mod.conditions:
+                                        met, reason = check_condition_details(cond, context, set_counts)
+                                        if not met: is_active = False; fail_reasons.append(reason)
+                                    val_str = f"{mod.value}"
+                                    if mod.stat in PERCENTAGE_STATS: val_str += "%"
+                                    stat_name = mod.stat.replace('_', ' ').title()
+                                    if is_active: html_mods += f"<div class='mod-active'>✅ <b>{stat_name}</b>: +{val_str}</div>"
+                                    else:
+                                        html_mods += f"<div class='mod-inactive'>❌ <b>{stat_name}</b>: +{val_str}</div>"
+                                        for r in fail_reasons: html_mods += f"<div class='mod-condition'>↳ {r}</div>"
+                                st.markdown(html_mods, unsafe_allow_html=True)
+                            else: st.caption("No modifiers.")
+                            st.markdown("---")
                     if saved_collectibles:
                         st.markdown(f"<div class='item-header'>🏆 Collectibles ({len(saved_collectibles)})</div>", unsafe_allow_html=True)
                         active_coll_mods = []

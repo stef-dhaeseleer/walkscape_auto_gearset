@@ -157,6 +157,9 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
     dr_val = min(1.0,stats.get("double_rewards", 0) )
     nmc_val = min(0.99, stats.get("no_materials_consumed", 0)) 
     
+    if not hasattr(activity, 'output_quantity'):
+        nmc_val = 0.0
+        
     da_mult = 1.0 + da_val
     dr_mult = 1.0 + dr_val
     nmc_mult = 1.0 / (1.0 - nmc_val)
@@ -274,7 +277,6 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         
         # Total EV per activity roll
         total_ev_per_roll = ev_normal + ev_fine + ev_chest + ev_special        
-        total_ev_per_roll = ev_normal + ev_fine + ev_chest + ev_special
         
         val = (total_ev_per_roll * da_mult * dr_mult) / steps
     
@@ -321,6 +323,7 @@ def analyze_score(gear_set: GearSet, activity, player_skill_level, target, conte
     return {
         "score": val,
         "steps": steps,
+        "denominator": steps,
         "stats": stats,
         "target_breakdown": target_breakdown
     }
@@ -383,25 +386,12 @@ def calculate_passive_stats(collectibles: List[Collectible], context: Dict) -> D
                 stats[stat_key] += value
     return dict(stats)
 
-
-
-
-
-
-
-
-
-
-# ... (existing imports and functions) ...
-
 class MockActivity:
     """A lightweight wrapper to pass Recipe objects into calculate_steps."""
     def __init__(self, level, base_steps, max_efficiency):
         self.level = level
         self.base_steps = base_steps
         self.max_efficiency = max_efficiency
-
-
 
 def get_actions_per_charge(effect: str) -> int:
     """Extracts the number of actions a pet ability completes instantly."""
@@ -514,7 +504,15 @@ def calculate_node_metrics(
         act_mods = extract_modifier_stats(activity_obj.modifiers)
         for k, v in act_mods.items():
             passive_stats[k] = passive_stats.get(k, 0.0) + v
-            
+    if node.source_type == "activity" and node.inputs:
+        for input_id, child_node in node.inputs.items():
+            mat_item_id = child_node.item_id
+            mat_obj = game_data.get('materials', {}).get(mat_item_id) or game_data.get('consumables', {}).get(mat_item_id)
+            if mat_obj and hasattr(mat_obj, 'modifiers') and mat_obj.modifiers:
+                from ui_utils import extract_modifier_stats
+                mat_stats = extract_modifier_stats(mat_obj.modifiers)
+                for k, v in mat_stats.items():
+                    passive_stats[k] = passive_stats.get(k, 0.0) + v       
     # Combine everything
     for k, v in passive_stats.items():
         stats[k] = stats.get(k, 0.0) + v
@@ -623,6 +621,26 @@ def calculate_node_metrics(
                 isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
+                
+                for input_id, child_node in node.inputs.items():
+                    req_amount = child_node.base_requirement_amount
+                    # For activities, NMC does not apply! DA consumes extra materials, so it factors back in.
+                    input_ratio = (req_amount * drop["Steps"] * (1.0 + DA)) / (steps_per_action * p_valid_quality)
+                    
+                    child_metrics = calculate_node_metrics(
+                        child_node, loadouts, game_data, drop_calc, player_skill_levels, 
+                        user_state, locations, 
+                        global_use_fine=global_use_fine
+                    )
+                    
+                    res["steps"] += (input_ratio * child_metrics["steps"])
+                    for sk, xpv in child_metrics["xp"].items(): res["xp"][sk] += (input_ratio * xpv)
+                    for item_k, amt in child_metrics["shopping_list"].items(): res["shopping_list"][item_k] += (input_ratio * amt)
+                    for item_k, amt in child_metrics["raw_materials"].items(): res["raw_materials"][item_k] += (input_ratio * amt)
+                    for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (input_ratio * stp)
+                    for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
+                    for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
+
                 break
 
     # ==========================================

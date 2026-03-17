@@ -1,14 +1,17 @@
 import streamlit as st
+import json
 from streamlit_js_eval import streamlit_js_eval
 
 from ui_utils import load_data
 from drop_calculator import DropCalculator
+from models import Equipment, Activity, Recipe, Location, Service, Collectible, Pet, Material, Consumable
 
 # Import our split UI components
 from ui_sidebar import render_sidebar, render_user_data_section
 from tab_crafting_tree import render_crafting_tree_tab
 from tab_optimizer import render_optimizer_tab
 from tab_data_entry import render_data_entry_tab
+
 # --- Page Config ---
 st.set_page_config(
     page_title="WalkScape Gear Optimizer",
@@ -31,6 +34,8 @@ def init_session_state():
         st.session_state['user_json_text'] = ""
     if 'ls_loaded' not in st.session_state:
         st.session_state['ls_loaded'] = False
+    if 'custom_entities' not in st.session_state:
+        st.session_state['custom_entities'] = []
 
     if 'opt_targets_list' not in st.session_state:
         st.session_state['opt_targets_list'] = [{"id": 0, "target": "Reward Rolls", "weight": 100}]
@@ -42,17 +47,69 @@ def init_session_state():
 def main():
     init_session_state()
 
-    window_width = streamlit_js_eval(js_expressions='window.innerWidth', key='viewport_width')
-    is_mobile = window_width is not None and window_width < 768
+    # --- 1. Gather all Browser Context & LocalStorage in ONE Call ---
+    # Multiple streamlit_js_eval components can cause race conditions and Duplicate Element Key errors.
+    # This grabs the screen width and all local storage keys in one shot.
+    js_expr = """
+    (() => {
+        return JSON.stringify({
+            width: window.innerWidth,
+            user_data: localStorage.getItem('WALKSCAPE_USER_DATA'),
+            custom_data: localStorage.getItem('WALKSCAPE_CUSTOM_DATA')
+        });
+    })()
+    """
+    
+    browser_data_raw = streamlit_js_eval(js_expressions=js_expr, key='browser_init_data')
+    
+    is_mobile = False
+    if browser_data_raw:
+        try:
+            b_data = json.loads(browser_data_raw)
+            
+            # Check Screen Width
+            width = b_data.get('width')
+            if width:
+                is_mobile = width < 768
+                
+            # Process Local Storage ONLY if we haven't loaded it yet for this session
+            if not st.session_state.get('browser_data_loaded'):
+                
+                if b_data.get('user_data'):
+                    st.session_state['user_json_text'] = b_data['user_data']
+                    st.session_state['ls_loaded'] = True
+                    
+                if b_data.get('custom_data'):
+                    try:
+                        st.session_state['custom_entities'] = json.loads(b_data['custom_data'])
+                    except json.JSONDecodeError:
+                        st.session_state['custom_entities'] = []
+                        
+                st.session_state['browser_data_loaded'] = True
+                st.rerun() # Force an immediate rerun so the UI populates with the loaded data
+                
+        except Exception as e:
+            print("Error parsing browser data:", e)
 
-    stored_json = streamlit_js_eval(js_expressions="localStorage.getItem('WALKSCAPE_USER_DATA')", key="ls_loader")
-    if stored_json and not st.session_state['ls_loaded']:
-        st.session_state['user_json_text'] = stored_json
-        st.session_state['ls_loaded'] = True
-        st.rerun()
-
-    # Load Data globally
+    # Load Base Data globally
     all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables, all_containers, all_materials = load_data()   
+    
+    # --- 2. Inject Custom Entities into Base Data ---
+    if st.session_state.get('custom_entities'):
+        for item in st.session_state['custom_entities']:
+            etype = item.get("entity_type")
+            data = item.get("data")
+            try:
+                if etype == "Equipment": all_items_raw.append(Equipment(**data))
+                elif etype == "Material": all_materials.append(Material(**data))
+                elif etype == "Consumable": all_consumables.append(Consumable(**data))
+                elif etype == "Activity": activities.append(Activity(**data))
+                elif etype == "Recipe": recipes.append(Recipe(**data))
+                elif etype == "Location": locations.append(Location(**data))
+                elif etype == "Pet": all_pets.append(Pet(**data))
+            except Exception as e:
+                print(f"Failed to load custom {etype} ({data.get('id')}): {e}")
+
     drop_calc = DropCalculator()
     WIKI_URL = "https://gear.walkscape.app"
 
@@ -76,7 +133,10 @@ def main():
             locations, services, all_pets, all_consumables, all_materials, drop_calc, WIKI_URL
         )
     with tab_entry:
-        render_data_entry_tab()
+        render_data_entry_tab(
+            all_items_raw, activities, locations, services, 
+            all_pets, all_consumables, all_materials
+        )
 
 if __name__ == "__main__":
     main()

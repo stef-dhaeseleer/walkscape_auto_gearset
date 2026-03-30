@@ -157,8 +157,6 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
     dr_val = min(1.0,stats.get("double_rewards", 0) )
     nmc_val = min(0.99, stats.get("no_materials_consumed", 0)) 
     
-    if not hasattr(activity, 'output_quantity'):
-        nmc_val = 0.0
         
     da_mult = 1.0 + da_val
     dr_mult = 1.0 + dr_val

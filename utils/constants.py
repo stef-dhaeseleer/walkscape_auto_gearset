@@ -137,7 +137,16 @@ RESTRICTED_TOOL_KEYWORDS = {
     "Bug catching net", "Chisel", "Climbing gear", "Cooking knife", "Cooking pan",
     "Fishing cage", "Fishing net", "Fishing spear", "Gold pan", "Knife",
     "Life vest", "Local map", "Log Splitter", "Magnetic", "Magnifying lens",
-    "Ruler", "Sander", "Saw", "Sickle", "Wrench", "Smithing hammer"
+    "Ruler", "Sander", "Saw", "Sickle", "Wrench", "Smithing hammer",
+    "Cutting mat", 
+    "Fishing rod", 
+    "Fishing rod rest", 
+    "Hunting bow", 
+    "Needle", 
+    "Pliers", 
+    "Pins", 
+    "Scissors", 
+    "Toolbox"
 }
 
 

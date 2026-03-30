@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict, model_validator
 from utils.constants import (
     ConditionType, RequirementType, EquipmentSlot, EquipmentQuality, 
     SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS, RESTRICTED_TOOL_KEYWORDS,
-    ActivityLootTableType, ChestTableCategory
+    ActivityLootTableType, ChestTableCategory, PERCENTAGE_STATS
 )
 
 # ============================================================================
@@ -402,13 +402,6 @@ class GearSet(BaseModel):
                     active_kws.add(kw.lower().replace("_", " ").strip())
 
         keyword_counts = self.get_requirement_counts(list(active_kws))       
-        PERCENTAGE_STATS = {
-            StatName.WORK_EFFICIENCY, StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS,
-            StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT,
-            StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
-            StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
-        }
-
         for item in self.get_all_items():
             for mod in item.modifiers:
                 applies = True
@@ -479,7 +472,6 @@ class GearSet(BaseModel):
                         counts[norm_kw] += 1
         return counts
     
-# ... (existing imports and models) ...
 
 class Loadout(BaseModel):
     """Represents a saved gearset created by the user for the Crafting Tree."""

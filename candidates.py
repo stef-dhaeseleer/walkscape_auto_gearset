@@ -183,6 +183,11 @@ class CandidateSelector:
                         if current_val < req.value:
                             rejection_reason = f"Low Reputation ({req.target})"
                             break
+                    elif req.type == RequirementType.SKILL_LEVEL and req.target:
+                        if req.target.lower() == activity.primary_skill.lower():
+                            if player_skill_level < req.value:
+                                rejection_reason = f"Low {req.target.title()} Level ({req.value})"
+                                break
             
             # C. Check Activity Requirements (Keywords)
             provides_requirement = False

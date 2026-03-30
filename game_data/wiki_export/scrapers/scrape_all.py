@@ -13,13 +13,15 @@ Usage:
 Available scrapers:
     - equipment: Items and gear
     - materials: Crafting materials
-    - recipes: Crafting recipes
-    - services: Crafting benches and banks
-    - collectibles: Activity rewards and collectibles
     - consumables: Food and potions
-    - routes: Travel routes
+    - pets: Pets and companions
+    - collectibles: Activity rewards and collectibles
     - locations: Location data
-    - activities: Activities and drop tables
+    - containers: Chests and loot tables (requires items)
+    - recipes: Crafting recipes (requires item caches)
+    - services: Crafting benches and banks
+    - activities: Activities and API overlay (requires containers & recipes)
+    - routes: Travel routes (requires locations)
     - export_names: Export name mappings
 """
 
@@ -33,22 +35,32 @@ from pathlib import Path
 # CONFIGURATION
 # ============================================================================
 
-# Scraper definitions: (name, script_path, cache_path, description)
-# Note: Paths are relative to util/scrapers/ directory
-# Cache paths can be folders (for multi-file caches) or files (for single-file caches)
+# Scraper definitions: (name, script_path, cache_paths (list), description)
+# The order here is strictly dependent on data resolution requirements.
 SCRAPERS = [
-    ('equipment', 'scrape_equipment.py', '../cache/equipment_cache', 'Items and gear'),
-    ('materials', 'scrape_materials.py', '../cache/materials_cache', 'Crafting materials'),
-    ('recipes', 'scrape_recipes.py', '../cache/recipes_cache.html', 'Crafting recipes'),
-    ('services', 'scrape_services.py', '../cache/services_cache.html', 'Crafting benches'),
-    ('collectibles', 'scrape_collectibles.py', '../cache/collectibles_cache.html', 'Collectibles'),
-    ('consumables', 'scrape_consumables.py', '../cache/consumables_cache', 'Consumables'),
-    ('routes', 'scrape_routes.py', '../cache/routes_cache.html', 'Travel routes'),
-    ('locations', 'scrape_locations.py', '../cache/routes_cache.html', 'Location data'),
-    ('activities', 'scrape_activities.py', '../cache/activities_cache_cache', 'Activities and drop tables'),
-    ('pets', 'scrape_pets.py', '../cache/pets', 'Pets and companions'),
-    ('containers', 'scrape_containers.py', '../cache/containers', 'Chests and loot tables'),
-    ('export_names', 'scrape_export_names.py', '../cache/equipment_cache', 'Export name mappings'),
+    # 1. Base Items & Data
+    ('equipment', 'scrape_equipment.py', ['../cache/equipment_cache'], 'Items and gear'),
+    ('materials', 'scrape_materials.py', ['../cache/materials_cache', '../cache/materials_cache.html'], 'Crafting materials'),
+    ('consumables', 'scrape_consumables.py', ['../cache/consumables_cache', '../cache/consumables_cache.html'], 'Consumables'),
+    ('pets', 'scrape_pets.py', ['../cache/pets_cache', '../cache/pets_cache.html'], 'Pets and companions'),
+    ('collectibles', 'scrape_collectibles.py', ['../cache/collectibles_cache.html'], 'Collectibles'),
+    ('locations', 'scrape_locations.py', ['../cache/locations_cache'], 'Location data'),
+    
+    # 2. Derived Base (Requires Items for EV calculation)
+    ('containers', 'scrape_containers.py', ['../cache/containers_cache', '../cache/containers_cache.html'], 'Chests and loot tables'),
+    
+    # 3. Crafting Mechanics (Requires Items)
+    ('recipes', 'scrape_recipes.py', ['../cache/recipes_cache', '../cache/recipes_cache.html'], 'Crafting recipes'),
+    ('services', 'scrape_services.py', ['../cache/services_cache.html'], 'Crafting benches'),
+    
+    # 4. Activities & Overlay (Requires Containers for EV, triggers overlay on Activities AND Recipes)
+    ('activities', 'scrape_activities.py', ['../cache/activities_cache', '../cache/gear_api_cache'], 'Activities and API data overlay'),
+    
+    # 5. Travel (Requires Locations)
+    ('routes', 'scrape_routes.py', ['../cache/routes_cache.html'], 'Travel routes'),
+    
+    # 6. Utilities
+    ('export_names', 'scrape_export_names.py', [], 'Export name mappings'),
 ]
 
 # ============================================================================
@@ -64,8 +76,6 @@ def clear_cache(cache_path_str):
             shutil.rmtree(cache_path)
         else:
             cache_path.unlink()
-    else:
-        print(f"  No cache to clear: {cache_path_str}")
 
 def run_scraper(script_path):
     """Run a scraper script."""
@@ -82,8 +92,9 @@ def run_scraper(script_path):
     else:
         # Show last few lines of output
         lines = result.stdout.strip().split('\n')
-        for line in lines[-3:]:
-            print(f"    {line}")
+        for line in lines[-5:]:  # Increased to 5 to catch the API overlay print statements
+            if line.strip():
+                print(f"    {line}")
         print(f"  ✅ Success")
         return True
 
@@ -129,8 +140,9 @@ def main():
     if clear_caches:
         print("Clearing caches...")
         scrapers_dir = Path(__file__).parent
-        for name, script, cache, desc in scrapers_to_run:
-            clear_cache(scrapers_dir / cache)
+        for name, script, cache_paths, desc in scrapers_to_run:
+            for cache in cache_paths:
+                clear_cache(scrapers_dir / cache)
         print()
     
     # Run scrapers
@@ -138,7 +150,7 @@ def main():
     print()
     
     results = []
-    for name, script, cache, desc in scrapers_to_run:
+    for name, script, cache_paths, desc in scrapers_to_run:
         print(f"[{name.upper()}] {desc}")
         success = run_scraper(script)
         results.append((name, success))

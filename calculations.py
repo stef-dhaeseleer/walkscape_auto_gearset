@@ -229,7 +229,14 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         chance = stats.get("find_ectoplasm", 0) / 100.0
         val = (chance * da_mult * dr_mult) / steps
     elif target == OPTIMAZATION_TARGET.gems:
-        val = ((1.0 + stats.get("find_gems", 0)) * da_mult * dr_mult) / steps
+        # Multiplier (e.g. +20% find gems) enhances base gems from the activity
+        gem_mult = 1.0 + stats.get("find_gems", 0)
+        # Flat chance (e.g. 0.1% chance to find random gem) drops independently
+        flat_gems = stats.get("find_random_gem", 0) / 100.0
+        
+        # (Note: Strictly speaking, gem_mult only works if the activity natively drops gems, 
+        # but for target scoring, summing their relative value allows the optimizer to weigh them together).
+        val = ((gem_mult) + flat_gems) * da_mult * dr_mult / steps
 
     elif target == OPTIMAZATION_TARGET.collectibles:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
@@ -576,7 +583,10 @@ def calculate_node_metrics(
             
         isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
-        
+        for sk in GATHERING_SKILLS | ARTISAN_SKILLS:
+            gain_xp = stats.get(f"gain_{sk}_xp", 0.0)
+            if gain_xp > 0:
+                res["xp"][sk] += gain_xp * actions_needed
         for input_id, child_node in node.inputs.items():
             req_amount = child_node.base_requirement_amount
             input_ratio = ((1.0 - NMC) * req_amount) / ((1.0 + DR) * q_out * p_valid_quality)
@@ -621,7 +631,12 @@ def calculate_node_metrics(
                 isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
-                
+
+                for sk in GATHERING_SKILLS | ARTISAN_SKILLS:
+                    gain_xp = stats.get(f"gain_{sk}_xp", 0.0)
+                    if gain_xp > 0:
+                        res["xp"][sk] += gain_xp * actions_needed
+                        
                 for input_id, child_node in node.inputs.items():
                     req_amount = child_node.base_requirement_amount
                     # For activities, NMC does not apply! DA consumes extra materials, so it factors back in.

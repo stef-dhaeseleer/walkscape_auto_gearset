@@ -205,7 +205,8 @@
           }
         ]
       }
-    ]
+    ],
+    "active_level": 1
   },
   {
     "id": "chicken",
@@ -371,7 +372,8 @@
           }
         ]
       }
-    ]
+    ],
+    "active_level": 1
   },
   {
     "id": "dolphin",
@@ -559,7 +561,175 @@
           }
         ]
       }
-    ]
+    ],
+    "active_level": 1
+  },
+  {
+    "id": "mummy",
+    "wiki_slug": "Mummy",
+    "name": "Mummy",
+    "egg_item_id": "mummy_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 35000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 85000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 4,
+        "total_xp": 250000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 7.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 4.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "tailoring",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "find_collectibles",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "That's A Wrap",
+            "effect": "Gives some linens.",
+            "requirements": null,
+            "cooldown": "3,000 stepsWhile doing Tailoring.",
+            "charges": 10
+          }
+        ]
+      }
+    ],
+    "active_level": 1
   },
   {
     "id": "reindeer",
@@ -711,7 +881,175 @@
           }
         ]
       }
-    ]
+    ],
+    "active_level": 1
+  },
+  {
+    "id": "tiger",
+    "wiki_slug": "Tiger",
+    "name": "Tiger",
+    "egg_item_id": "tiger_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 35000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 85000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 6.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 10.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 4,
+        "total_xp": 250000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 6.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "chest_finding",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 14.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "double_rewards",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "hunting",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "find_collectibles",
+            "value": 5.0,
+            "conditions": [
+              {
+                "type": "global",
+                "target": null,
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "The Hunt Is On",
+            "effect": "Gives you some buffs toward Hunting.Effect lasts for: 20 +6% Work efficiency While doing Hunting. +3% Double action While doing Hunting. -2 Steps required While doing Hunting.",
+            "requirements": null,
+            "cooldown": "This ability is charged by using items. One full charge requires 10. 1 gained from Raw carp 1 gained from Raw pike 2 gained from Animal meat",
+            "charges": 10
+          }
+        ]
+      }
+    ],
+    "active_level": 1
   },
   {
     "id": "tortoise",
@@ -943,6 +1281,7 @@
           }
         ]
       }
-    ]
+    ],
+    "active_level": 1
   }
 ]

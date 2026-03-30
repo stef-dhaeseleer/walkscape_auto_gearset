@@ -1,8 +1,8 @@
 [
   {
     "id": "agility_chest",
-    "wiki_slug": "Agility_Chest",
-    "name": "Agility Chest",
+    "wiki_slug": "Agility_chest",
+    "name": "Agility chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -10,126 +10,180 @@
         "min_quantity": 1,
         "max_quantity": 5,
         "chance": 9.952,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "nettle",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 9.952,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "thistle",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 9.952,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "trash",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 9.952,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wine",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 6.967,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "agility_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 3.234,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 19.63,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "compass_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.005,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "eel_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.005,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "walking_stick",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "water_bottle",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "running_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "running_shorts",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "grappling_hook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "toe_shoes",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "medieval_sneakers",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "stepring",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "exercise_headband",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 65.66667679999999,
@@ -137,193 +191,248 @@
   },
   {
     "id": "carpentry_chest",
-    "wiki_slug": "Carpentry_Chest",
-    "name": "Carpentry Chest",
+    "wiki_slug": "Carpentry_chest",
+    "name": "Carpentry chest",
     "type": "skill_chest",
     "drops": [
       {
         "item_id": "birch_plank",
         "min_quantity": 5,
         "max_quantity": 12,
-        "chance": 5.496,
-        "category": "Main"
+        "chance": 6.412,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "maple_plank",
         "min_quantity": 5,
         "max_quantity": 9,
-        "chance": 5.496,
-        "category": "Main"
+        "chance": 6.412,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "spruce_plank",
         "min_quantity": 4,
         "max_quantity": 8,
-        "chance": 5.496,
-        "category": "Main"
+        "chance": 6.412,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "oak_plank",
         "min_quantity": 4,
         "max_quantity": 10,
-        "chance": 4.946,
-        "category": "Main"
+        "chance": 5.77,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "mangrove_plank",
         "min_quantity": 3,
         "max_quantity": 5,
-        "chance": 4.396,
-        "category": "Main"
+        "chance": 5.129,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pine_plank",
         "min_quantity": 6,
         "max_quantity": 11,
-        "chance": 4.396,
-        "category": "Main"
-      },
-      {
-        "item_id": "spruce_logs",
-        "min_quantity": 5,
-        "max_quantity": 8,
-        "chance": 4.396,
-        "category": "Main"
+        "chance": 5.129,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "teak_plank",
         "min_quantity": 3,
         "max_quantity": 6,
-        "chance": 4.396,
-        "category": "Main"
+        "chance": 5.129,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "willow_plank",
         "min_quantity": 3,
         "max_quantity": 6,
-        "chance": 4.396,
-        "category": "Main"
+        "chance": 5.129,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "carpentry_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
-        "chance": 2.748,
-        "category": "Main"
-      },
-      {
-        "item_id": "maple_logs",
-        "min_quantity": 6,
-        "max_quantity": 12,
-        "chance": 2.748,
-        "category": "Main"
+        "chance": 3.206,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fried_noodles",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 1.099,
-        "category": "Main"
+        "chance": 1.282,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "beaver_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "compressed_charcoal",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "flimsy_ruler",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "protective_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "protective_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "protractor",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "woodworking_glasses",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "precise_ruler",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "protective_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "carpenters_clogs",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "handsaw",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "hookhat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
-    "total_expected_value": 100.90685559999999,
-    "materials_expected_value": 89.2068556
+    "total_expected_value": 102.84670779999999,
+    "materials_expected_value": 91.1467078
   },
   {
     "id": "cooking_chest",
-    "wiki_slug": "Cooking_Chest",
-    "name": "Cooking Chest",
+    "wiki_slug": "Cooking_chest",
+    "name": "Cooking chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -331,175 +440,250 @@
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 7.102,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "egg",
         "min_quantity": 3,
         "max_quantity": 6,
         "chance": 5.918,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "milk",
         "min_quantity": 3,
         "max_quantity": 6,
         "chance": 5.918,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "potato",
         "min_quantity": 3,
         "max_quantity": 6,
         "chance": 5.918,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_carp",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 5.918,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_trout",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 5.918,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_perch",
         "min_quantity": 2,
         "max_quantity": 8,
         "chance": 4.735,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_shrimp",
         "min_quantity": 3,
         "max_quantity": 14,
         "chance": 4.735,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "cooking_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 2.663,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fruit_cake",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.184,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "measuring_spoons_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "dull_knife",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "floras_silver_spoon",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sturdy_whisk",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "cutting_board",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "non_slip_shoes",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "oven_mittens",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "chefs_apron",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "chefs_hat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "flippy_spatula",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "large_pot",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "chefs_leg_apron",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "meat_cleaver",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "recipe_book",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 70.61480159999998,
@@ -507,8 +691,8 @@
   },
   {
     "id": "crafting_chest",
-    "wiki_slug": "Crafting_Chest",
-    "name": "Crafting Chest",
+    "wiki_slug": "Crafting_chest",
+    "name": "Crafting chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -516,182 +700,260 @@
         "min_quantity": 5,
         "max_quantity": 12,
         "chance": 4.631,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "mangrove_plank",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 4.631,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "maple_plank",
         "min_quantity": 5,
         "max_quantity": 9,
         "chance": 4.631,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "spruce_plank",
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 4.631,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "teak_plank",
         "min_quantity": 3,
         "max_quantity": 6,
         "chance": 4.631,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "willow_plank",
         "min_quantity": 3,
         "max_quantity": 6,
         "chance": 4.631,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "oak_plank",
         "min_quantity": 4,
         "max_quantity": 10,
         "chance": 4.167,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "iron_bar",
         "min_quantity": 4,
         "max_quantity": 6,
         "chance": 3.704,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pine_plank",
         "min_quantity": 6,
         "max_quantity": 11,
         "chance": 3.704,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tarsilium_bar",
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 3.241,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bronze_bar",
         "min_quantity": 6,
         "max_quantity": 12,
         "chance": 2.778,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "crafting_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 2.315,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "farganite_bar",
         "min_quantity": 5,
         "max_quantity": 8,
         "chance": 2.315,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pink_pearl_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "crafting_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "crafting_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "crafting_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "screwdriver",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "slipstick",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "adjustable_wrench",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "grippy_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "protective_glasses",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "crafting_guidebook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "modified_platform_shoes",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "candlehat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 102.11601959999999,
@@ -699,8 +961,8 @@
   },
   {
     "id": "fishing_chest",
-    "wiki_slug": "Fishing_Chest",
-    "name": "Fishing Chest",
+    "wiki_slug": "Fishing_chest",
+    "name": "Fishing chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -708,154 +970,220 @@
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 7.794,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_carp",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 6.495,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_lobster",
         "min_quantity": 2,
         "max_quantity": 7,
         "chance": 6.495,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_salmon",
         "min_quantity": 3,
         "max_quantity": 6,
         "chance": 6.495,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_trout",
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 6.495,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_perch",
         "min_quantity": 2,
         "max_quantity": 8,
         "chance": 5.196,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_shrimp",
         "min_quantity": 3,
         "max_quantity": 14,
         "chance": 5.196,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fishing_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 3.247,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bug_bait",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.299,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "frozen_bait",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.299,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "heron_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "catch_bucket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "squishy_flip_flops",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "cool_sunglasses",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sturdy_fishing_rod_rest",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "breezy_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fishermans_hat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wading_shoes",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fishermans_trousers",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fishing_guidebook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "angler_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 72.3799726,
@@ -863,8 +1191,8 @@
   },
   {
     "id": "foraging_chest",
-    "wiki_slug": "Foraging_Chest",
-    "name": "Foraging Chest",
+    "wiki_slug": "Foraging_chest",
+    "name": "Foraging chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -872,184 +1200,499 @@
         "min_quantity": 2,
         "max_quantity": 5,
         "chance": 9.093,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wheat",
         "min_quantity": 5,
         "max_quantity": 10,
         "chance": 9.093,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "flax",
         "min_quantity": 2,
         "max_quantity": 8,
         "chance": 7.274,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sunblossom",
         "min_quantity": 3,
         "max_quantity": 14,
         "chance": 7.274,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "berries",
         "min_quantity": 4,
         "max_quantity": 9,
         "chance": 6.365,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "beer",
         "min_quantity": 2,
         "max_quantity": 4,
         "chance": 5.456,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foraging_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 3.637,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "veggie_soup",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.819,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "shrimp_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foraging_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foraging_shorts",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "non_waterproof_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pickers_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pointy_shears",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.0,
-        "category": "Common"
-      },
-      {
-        "item_id": "camouflage_cape",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gardening_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "leaf_cape",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "waterproof_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "big_basket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "long_spade",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wilderness_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wilderness_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "halflings_feet_slippers",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wilderness_guidebook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "hat_with_a_feather",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 78.36600399999999,
     "materials_expected_value": 68.146844
   },
   {
+    "id": "hunting_chest",
+    "wiki_slug": "Hunting_chest",
+    "name": "Hunting chest",
+    "type": "skill_chest",
+    "drops": [
+      {
+        "item_id": "copper_arrows",
+        "min_quantity": 5,
+        "max_quantity": 12,
+        "chance": 8.335,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "feather",
+        "min_quantity": 10,
+        "max_quantity": 20,
+        "chance": 8.335,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "bronze_arrows",
+        "min_quantity": 4,
+        "max_quantity": 11,
+        "chance": 6.82,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "hide_scraps",
+        "min_quantity": 10,
+        "max_quantity": 20,
+        "chance": 6.82,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "animal_meat",
+        "min_quantity": 2,
+        "max_quantity": 3,
+        "chance": 5.304,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "iron_arrows",
+        "min_quantity": 3,
+        "max_quantity": 10,
+        "chance": 5.304,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "hunting_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 3.031,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "steel_arrows",
+        "min_quantity": 2,
+        "max_quantity": 8,
+        "chance": 3.031,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "jerky",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.515,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "tarsilium_arrows",
+        "min_quantity": 2,
+        "max_quantity": 5,
+        "chance": 1.515,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 10,
+        "max_quantity": 100,
+        "chance": 20.586,
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "shark_tooth_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.054,
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "camo_face_paint",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "skinny_field_knife",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "trappers_cape",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "camo_boots",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.5,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "scent_masking_spray",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.5,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "camo_pants",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.833,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "flashy_field_knife",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.833,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "hunting_bestiary",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.833,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "camo_shirt",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.375,
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "duck_decoy",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.375,
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "hunting_trip_pack",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1,
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      }
+    ],
+    "total_expected_value": 64.07186399999999,
+    "materials_expected_value": 54.311104
+  },
+  {
     "id": "mining_chest",
-    "wiki_slug": "Mining_Chest",
-    "name": "Mining Chest",
+    "wiki_slug": "Mining_chest",
+    "name": "Mining chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -1057,154 +1700,220 @@
         "min_quantity": 5,
         "max_quantity": 14,
         "chance": 7.379,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "iron_ore",
         "min_quantity": 1,
         "max_quantity": 13,
         "chance": 7.379,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tin_ore",
         "min_quantity": 5,
         "max_quantity": 14,
         "chance": 7.379,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coal",
         "min_quantity": 15,
         "max_quantity": 30,
         "chance": 6.559,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tarsilium_ore",
         "min_quantity": 4,
         "max_quantity": 9,
         "chance": 6.559,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "farganite_ore",
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 5.739,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "large_stone",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.099,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "mining_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 3.279,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "jarvonian_pastry",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.64,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bat_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fingerpick",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "light_mining_shovel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "hand_lantern",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "mining_cartpack",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "miners_beard",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "miners_magnet",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "mining_helmet",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "heavy_pick_handle",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.25,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "miners_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.25,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "miners_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.25,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "shovel_axe",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 88.57015379999997,
@@ -1212,8 +1921,8 @@
   },
   {
     "id": "smithing_chest",
-    "wiki_slug": "Smithing_Chest",
-    "name": "Smithing Chest",
+    "wiki_slug": "Smithing_chest",
+    "name": "Smithing chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -1221,170 +1930,449 @@
         "min_quantity": 15,
         "max_quantity": 30,
         "chance": 8.335,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "dynamite",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 8.335,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "copper_ore",
         "min_quantity": 5,
         "max_quantity": 14,
         "chance": 7.501,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tin_ore",
         "min_quantity": 5,
         "max_quantity": 14,
         "chance": 7.501,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "iron_ore",
         "min_quantity": 6,
         "max_quantity": 12,
         "chance": 6.668,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tarsilium_ore",
         "min_quantity": 6,
         "max_quantity": 11,
         "chance": 4.167,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "smithing_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 3.334,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "farganite_ore",
         "min_quantity": 8,
         "max_quantity": 12,
         "chance": 2.5,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "spicy_pumpkin_juice",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "cooling_icicle_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "jarvonian_poker",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "steel_toe_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "forge_bellows",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "smiths_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wolf_jaw_tongs",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "blacksmithing_guidebook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "metalworking_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "smelting_goggles",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "smiths_apron",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.625,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fire_resistant_cloak",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "jarvonian_smiths_hammer",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "meltdown_mask",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 96.323185,
     "materials_expected_value": 83.40938499999999
   },
   {
+    "id": "tailoring_chest",
+    "wiki_slug": "Tailoring_chest",
+    "name": "Tailoring chest",
+    "type": "skill_chest",
+    "drops": [
+      {
+        "item_id": "flax",
+        "min_quantity": 2,
+        "max_quantity": 8,
+        "chance": 10.206,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "hemp",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 10.206,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "basic_hide",
+        "min_quantity": 2,
+        "max_quantity": 5,
+        "chance": 9.186,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "grass",
+        "min_quantity": 3,
+        "max_quantity": 14,
+        "chance": 8.165,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "bamboo_logs",
+        "min_quantity": 2,
+        "max_quantity": 4,
+        "chance": 6.124,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "tailoring_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 4.082,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "bacon_weave",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.041,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "coins",
+        "min_quantity": 10,
+        "max_quantity": 100,
+        "chance": 20.586,
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "spider_trinket",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.054,
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "marking_chalk",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "practice_pins",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "safety_scissors",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 6.667,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "clingy_measuring_tape",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "durable_fabric_cutting_mat",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "never_ending_needlecase",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "precision_pins",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.25,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "silver_scissors",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.25,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "sewing_guidebook",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.375,
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "tailors_moccasins",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.375,
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "pincushion_beret",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.1,
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      }
+    ],
+    "total_expected_value": 74.5785878,
+    "materials_expected_value": 65.5314678
+  },
+  {
     "id": "trinketry_chest",
-    "wiki_slug": "Trinketry_Chest",
-    "name": "Trinketry Chest",
+    "wiki_slug": "Trinketry_chest",
+    "name": "Trinketry chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -1392,203 +2380,290 @@
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.523,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_star_pearl",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 5.436,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gem_pouch",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.349,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_topaz",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.349,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_wrentmarine",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.349,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_jade",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 3.696,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gold_nugget",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 3.262,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_ruby",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 3.262,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "silver_nugget",
         "min_quantity": 5,
         "max_quantity": 7,
         "chance": 3.262,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "trinketry_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 2.609,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "creme_brulee",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.174,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gold_bar",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 2.174,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_sun_stone",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.174,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "silver_bar",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 2.174,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_ethernite",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.217,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 50,
         "max_quantity": 500,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lucky_rabbit_foot_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "dull_chisel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_sandpaper",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gem_tipped_tweezers",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pretty_pliers",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "zip_pouch",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "auto_adjusting_mandrel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "handy_hand_file",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sharp_chisel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.833,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gemistry_guidebook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.25,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "golden_chisel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.25,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "magnifying_lens",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.25,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "dar_witts_monocle",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 316.2521022384281,
@@ -1596,8 +2671,8 @@
   },
   {
     "id": "woodcutting_chest",
-    "wiki_slug": "Woodcutting_Chest",
-    "name": "Woodcutting Chest",
+    "wiki_slug": "Woodcutting_chest",
+    "name": "Woodcutting chest",
     "type": "skill_chest",
     "drops": [
       {
@@ -1605,381 +2680,224 @@
         "min_quantity": 4,
         "max_quantity": 9,
         "chance": 9.324,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "oak_logs",
         "min_quantity": 5,
         "max_quantity": 10,
         "chance": 8.476,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "spruce_logs",
         "min_quantity": 5,
         "max_quantity": 12,
         "chance": 8.476,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pine_logs",
         "min_quantity": 5,
         "max_quantity": 14,
         "chance": 7.629,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "maple_logs",
         "min_quantity": 6,
         "max_quantity": 11,
         "chance": 6.781,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sturdy_branch",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.238,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "woodcutting_memosphere",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 3.391,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "schnitzel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.695,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 100,
         "chance": 20.586,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "circular_root_trinket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.054,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lumberjack_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lumberjack_sandals",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 10.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "log_basket",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lumberjack_hat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lumberjack_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.667,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foresters_pants",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "log_splitter",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foresters_flannel_shirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.187,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foresters_hat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.187,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "heavy_axe_handle",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.187,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "woodcutting_guidebook",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.187,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "foresters_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 82.72643139999995,
     "materials_expected_value": 69.12519139999999
-  },
-  {
-    "id": "adventuring_guild_chest",
-    "wiki_slug": "Adventuring_Guild_Chest",
-    "name": "Adventuring Guild Chest",
-    "type": "unique_openable",
-    "drops": [
-      {
-        "item_id": "coal",
-        "min_quantity": 10,
-        "max_quantity": 30,
-        "chance": 16.575,
-        "category": "Main"
-      },
-      {
-        "item_id": "metal_scrap",
-        "min_quantity": 20,
-        "max_quantity": 60,
-        "chance": 16.575,
-        "category": "Main"
-      },
-      {
-        "item_id": "wood_scrap",
-        "min_quantity": 20,
-        "max_quantity": 60,
-        "chance": 16.575,
-        "category": "Main"
-      },
-      {
-        "item_id": "jelly_sandwich",
-        "min_quantity": 1,
-        "max_quantity": 2,
-        "chance": 7.8,
-        "category": "Main"
-      },
-      {
-        "item_id": "dynamite",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 3.9,
-        "category": "Main"
-      },
-      {
-        "item_id": "fried_fish_sandwich",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 3.9,
-        "category": "Main"
-      },
-      {
-        "item_id": "mushroom_curry",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 3.9,
-        "category": "Main"
-      },
-      {
-        "item_id": "schnitzel",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 3.9,
-        "category": "Main"
-      },
-      {
-        "item_id": "sweet_carrot_pie",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 3.9,
-        "category": "Main"
-      },
-      {
-        "item_id": "agility_memosphere",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 2.925,
-        "category": "Main"
-      },
-      {
-        "item_id": "fishing_memosphere",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 2.925,
-        "category": "Main"
-      },
-      {
-        "item_id": "foraging_memosphere",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 2.925,
-        "category": "Main"
-      },
-      {
-        "item_id": "mining_memosphere",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 2.925,
-        "category": "Main"
-      },
-      {
-        "item_id": "woodcutting_memosphere",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 2.925,
-        "category": "Main"
-      },
-      {
-        "item_id": "adventuring_fishing_pole",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 1.25,
-        "category": "Uncommon"
-      },
-      {
-        "item_id": "adventuring_hatchet",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 1.25,
-        "category": "Uncommon"
-      },
-      {
-        "item_id": "adventuring_pickaxe",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 1.25,
-        "category": "Uncommon"
-      },
-      {
-        "item_id": "adventuring_sickle",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 1.25,
-        "category": "Uncommon"
-      },
-      {
-        "item_id": "adventuring_frying_pan",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.5,
-        "category": "Rare"
-      },
-      {
-        "item_id": "adventuring_hammer",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.5,
-        "category": "Rare"
-      },
-      {
-        "item_id": "adventuring_sander",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.5,
-        "category": "Rare"
-      },
-      {
-        "item_id": "adventuring_saw",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.5,
-        "category": "Rare"
-      },
-      {
-        "item_id": "adventuring_wrench",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.5,
-        "category": "Rare"
-      },
-      {
-        "item_id": "adventuring_amulet",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.375,
-        "category": "Epic"
-      },
-      {
-        "item_id": "adventuring_ring",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.375,
-        "category": "Epic"
-      },
-      {
-        "item_id": "axe_of_destruction",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.05,
-        "category": "Legendary"
-      },
-      {
-        "item_id": "shoes_of_escape",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 0.05,
-        "category": "Legendary"
-      }
-    ],
-    "total_expected_value": 48.69507999999997,
-    "materials_expected_value": 42.967079999999974
-  },
-  {
-    "id": "bird_nest",
-    "wiki_slug": "Bird_Nest",
-    "name": "Bird Nest",
-    "type": "unique_openable",
-    "drops": [
-      {
-        "item_id": "berries",
-        "min_quantity": 8,
-        "max_quantity": 16,
-        "chance": 80.0,
-        "category": "Main"
-      },
-      {
-        "item_id": "egg",
-        "min_quantity": 1,
-        "max_quantity": 4,
-        "chance": 20.0,
-        "category": "Main"
-      }
-    ],
-    "total_expected_value": 86.052,
-    "materials_expected_value": 86.052
   },
   {
     "id": "chest_of_erdwise",
@@ -1992,140 +2910,200 @@
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 32.297,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_star_pearl",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 26.425,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "creme_brulee",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 5.872,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_wrentmarine",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.936,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_topaz",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.468,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_jade",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.881,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_ethernite",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.587,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_ruby",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.587,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_sun_stone",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.587,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "ink_pen",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "loose_change_pouch",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "makeup_set",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "map_of_erdwise",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "royal_troubadour_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "royal_troubadour_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "royal_troubadour_pantaloons",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "chrome_wool",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "royal_troubadour_capesuit",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "royal_troubadour_hat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "flowing_pocketwatch",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.01,
-        "category": "Ethereal"
+        "category": "Ethereal",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 107.30744160000002,
@@ -2142,126 +3120,180 @@
         "min_quantity": 1,
         "max_quantity": 13,
         "chance": 14.654,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coal",
         "min_quantity": 15,
         "max_quantity": 30,
         "chance": 13.025,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tarsilium_ore",
         "min_quantity": 4,
         "max_quantity": 9,
         "chance": 13.025,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "farganite_ore",
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 11.397,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "dynamite",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 8.141,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pancake",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 8.141,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "jarvonian_pastry",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 3.256,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "hand_warming_pack",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "knitted_mittens",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "perfect_snowballs",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "frost_touched_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "map_of_jarvonia",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "frost_touched_gauntlets",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "frost_touched_leggings",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "frost_touched_torso",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wintry_pan",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "frost_touched_helm",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "ring_of_ash",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.01,
-        "category": "Ethereal"
+        "category": "Ethereal",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 71.4579258,
@@ -2278,122 +3310,173 @@
         "min_quantity": 2,
         "max_quantity": 4,
         "chance": 23.11,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sea_shell",
         "min_quantity": 6,
         "max_quantity": 12,
         "chance": 23.11,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "salty_hops",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 11.555,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "kelp_rolls",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.622,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "saltrum",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.622,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "underwater_salad",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.622,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bubble_bauble",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 6.667,
-        "category": "Common"
+        "chance": 10.0,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "merfolk_shell_coverings",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 6.667,
-        "category": "Common"
-      },
-      {
-        "item_id": "pearl_bracelet",
-        "min_quantity": 1,
-        "max_quantity": 1,
-        "chance": 6.667,
-        "category": "Common"
+        "chance": 10.0,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "map_of_syrenthia",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 2.5,
-        "category": "Uncommon"
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "merfolk_dance_leglets",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 2.5,
-        "category": "Uncommon"
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "pearl_bracelet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.667,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "merfolk_dance_bracers",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "merfolk_dance_skirt",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "merfolk_dance_corslet",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "tidal_lure",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "merfolk_dance_circlet",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "algae_ring",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.01,
-        "category": "Ethereal"
+        "category": "Ethereal",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
-    "total_expected_value": 123.21953140000002,
+    "total_expected_value": 122.15329140000001,
     "materials_expected_value": 113.3716514
   },
   {
@@ -2407,126 +3490,180 @@
         "min_quantity": 4,
         "max_quantity": 9,
         "chance": 14.328,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "oak_logs",
         "min_quantity": 5,
         "max_quantity": 10,
         "chance": 13.025,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "spruce_logs",
         "min_quantity": 5,
         "max_quantity": 12,
         "chance": 13.025,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "pine_logs",
         "min_quantity": 5,
         "max_quantity": 14,
         "chance": 11.723,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "maple_logs",
         "min_quantity": 6,
         "max_quantity": 11,
         "chance": 10.42,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sturdy_branch",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.513,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "schnitzel",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.605,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bug_attracting_incense",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bug_repelling_incense",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "firestarter",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "linden_leaf_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "map_of_trellin",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "linden_leaf_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "linden_leaf_shorts",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fungal_backpack",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "linden_leaf_vest",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "linden_leaf_hat",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "trellin_beaver",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.01,
-        "category": "Ethereal"
+        "category": "Ethereal",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 38.50199379999999,
@@ -2543,135 +3680,529 @@
         "min_quantity": 6,
         "max_quantity": 11,
         "chance": 14.654,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "milkweed",
         "min_quantity": 4,
         "max_quantity": 9,
         "chance": 13.025,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "potato",
         "min_quantity": 5,
         "max_quantity": 12,
         "chance": 13.025,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "grass",
         "min_quantity": 5,
         "max_quantity": 12,
         "chance": 11.397,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "root",
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 8.141,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rotbud",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 8.141,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "veggie_soup",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 3.256,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "fingersaw",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lil_stool",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "moss_chewie",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 6.667,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bogwood_boots",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "map_of_halfling_rebels",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.5,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bogwood_gloves",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bogwood_shorts",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bogwood_vest",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "lily_pad_rope",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.375,
-        "category": "Epic"
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "bogwood_bandana",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.1,
-        "category": "Legendary"
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wholly_ring",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.01,
-        "category": "Ethereal"
+        "category": "Ethereal",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 61.89142999999999,
     "materials_expected_value": 50.888549999999995
   },
   {
+    "id": "adventuring_guild_chest",
+    "wiki_slug": "Adventuring_guild_chest",
+    "name": "Adventuring guild chest",
+    "type": "unique_openable",
+    "drops": [
+      {
+        "item_id": "coal",
+        "min_quantity": 10,
+        "max_quantity": 30,
+        "chance": 16.575,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "metal_scrap",
+        "min_quantity": 20,
+        "max_quantity": 60,
+        "chance": 16.575,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "wood_scrap",
+        "min_quantity": 20,
+        "max_quantity": 60,
+        "chance": 16.575,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "jelly_sandwich",
+        "min_quantity": 1,
+        "max_quantity": 2,
+        "chance": 7.8,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "dynamite",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.9,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "fried_fish_sandwich",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.9,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "mushroom_curry",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.9,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "schnitzel",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.9,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "sweet_carrot_pie",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.9,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "agility_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.925,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "fishing_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.925,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "foraging_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.925,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "mining_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.925,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "woodcutting_memosphere",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 2.925,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_fishing_pole",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.0,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_hatchet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.0,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_hunting_bow",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.0,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_pickaxe",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.0,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_sickle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 1.0,
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_frying_pan",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.417,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_hammer",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.417,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_sander",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.417,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_saw",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.417,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_sewing_needle",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.417,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_wrench",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.417,
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_amulet",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.375,
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "adventuring_ring",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.375,
+        "category": "Epic",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "axe_of_destruction",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05,
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "shoes_of_escape",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 0.05,
+        "category": "Legendary",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      }
+    ],
+    "total_expected_value": 48.69651999999998,
+    "materials_expected_value": 42.967079999999974
+  },
+  {
+    "id": "bird_nest",
+    "wiki_slug": "Bird_nest",
+    "name": "Bird nest",
+    "type": "unique_openable",
+    "drops": [
+      {
+        "item_id": "berries",
+        "min_quantity": 8,
+        "max_quantity": 16,
+        "chance": 57.143,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "feather",
+        "min_quantity": 5,
+        "max_quantity": 10,
+        "chance": 28.571,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "egg",
+        "min_quantity": 1,
+        "max_quantity": 4,
+        "chance": 14.286,
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      }
+    ],
+    "total_expected_value": 61.9801992,
+    "materials_expected_value": 61.9801992
+  },
+  {
     "id": "coin_pouch",
-    "wiki_slug": "Coin_Pouch",
-    "name": "Coin Pouch",
+    "wiki_slug": "Coin_pouch",
+    "name": "Coin pouch",
     "type": "unique_openable",
     "drops": [
       {
@@ -2679,42 +4210,60 @@
         "min_quantity": 1,
         "max_quantity": 10,
         "chance": 40.0,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 10,
         "max_quantity": 30,
         "chance": 30.0,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 30,
         "max_quantity": 50,
         "chance": 15.0,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 50,
         "max_quantity": 70,
         "chance": 10.0,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 70,
         "max_quantity": 100,
         "chance": 4.8,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 100,
         "max_quantity": 1000,
         "chance": 0.2,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 101.52000000000001,
@@ -2722,8 +4271,8 @@
   },
   {
     "id": "coral_chest",
-    "wiki_slug": "Coral_Chest",
-    "name": "Coral Chest",
+    "wiki_slug": "Coral_chest",
+    "name": "Coral chest",
     "type": "unique_openable",
     "drops": [
       {
@@ -2731,42 +4280,60 @@
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 27.143,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sea_shell",
         "min_quantity": 6,
         "max_quantity": 12,
         "chance": 27.143,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coral",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 13.571,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "kelp",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 13.571,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "salty_hops",
         "min_quantity": 1,
         "max_quantity": 2,
         "chance": 13.571,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coral_cape",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 5.0,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 97.63477060000001,
@@ -2774,8 +4341,8 @@
   },
   {
     "id": "gem_pouch",
-    "wiki_slug": "Gem_Pouch",
-    "name": "Gem Pouch",
+    "wiki_slug": "Gem_pouch",
+    "name": "Gem pouch",
     "type": "unique_openable",
     "drops": [
       {
@@ -2783,56 +4350,80 @@
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 29.851,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_star_pearl",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 29.851,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_topaz",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 14.925,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_wrentmarine",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 14.925,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_jade",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 4.975,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_ruby",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 2.985,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_sun_stone",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.99,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rough_ethernite",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 0.498,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 141.84697720000003,
@@ -2840,8 +4431,8 @@
   },
   {
     "id": "rusty_chest",
-    "wiki_slug": "Rusty_Chest",
-    "name": "Rusty Chest",
+    "wiki_slug": "Rusty_chest",
+    "name": "Rusty chest",
     "type": "unique_openable",
     "drops": [
       {
@@ -2849,100 +4440,149 @@
         "min_quantity": 4,
         "max_quantity": 8,
         "chance": 15.385,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "wooden_stick",
         "min_quantity": 2,
         "max_quantity": 4,
         "chance": 15.385,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "flax",
         "min_quantity": 2,
         "max_quantity": 4,
         "chance": 10.769,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "birch_logs",
         "min_quantity": 2,
         "max_quantity": 4,
         "chance": 7.692,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "copper_ore",
         "min_quantity": 2,
         "max_quantity": 4,
         "chance": 7.692,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "moondaisy",
         "min_quantity": 3,
         "max_quantity": 3,
         "chance": 7.692,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_shrimp",
         "min_quantity": 2,
         "max_quantity": 3,
         "chance": 7.692,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "snowdrop",
         "min_quantity": 3,
         "max_quantity": 3,
         "chance": 7.692,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rusty_fishing_net",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 4.0,
-        "category": "Common"
+        "chance": 3.333,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rusty_fishing_rod",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 4.0,
-        "category": "Common"
+        "chance": 3.333,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rusty_hatchet",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 4.0,
-        "category": "Common"
+        "chance": 3.333,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
+      },
+      {
+        "item_id": "rusty_hunting_bow",
+        "min_quantity": 1,
+        "max_quantity": 1,
+        "chance": 3.333,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rusty_pickaxe",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 4.0,
-        "category": "Common"
+        "chance": 3.333,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rusty_sickle",
         "min_quantity": 1,
         "max_quantity": 1,
-        "chance": 4.0,
-        "category": "Common"
+        "chance": 3.333,
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
-    "total_expected_value": 11.292159999999999,
+    "total_expected_value": 11.02488,
     "materials_expected_value": 4.8921600000000005
   },
   {
     "id": "sunken_chest",
-    "wiki_slug": "Sunken_Chest",
-    "name": "Sunken Chest",
+    "wiki_slug": "Sunken_chest",
+    "name": "Sunken chest",
     "type": "unique_openable",
     "drops": [
       {
@@ -2950,70 +4590,100 @@
         "min_quantity": 5,
         "max_quantity": 7,
         "chance": 10.172,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_lobster",
         "min_quantity": 5,
         "max_quantity": 7,
         "chance": 10.172,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_salmon",
         "min_quantity": 5,
         "max_quantity": 7,
         "chance": 10.172,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "raw_trout",
         "min_quantity": 5,
         "max_quantity": 7,
         "chance": 10.172,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "sea_shell",
         "min_quantity": 3,
         "max_quantity": 5,
         "chance": 10.172,
-        "category": "Main"
+        "category": "Main",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "coins",
         "min_quantity": 25,
         "max_quantity": 35,
         "chance": 21.64,
-        "category": "Valuables"
+        "category": "Valuables",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "rusty_diving_leggings",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 20.0,
-        "category": "Common"
+        "category": "Common",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "gold_pan",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 5.0,
-        "category": "Uncommon"
+        "category": "Uncommon",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "northern_spices",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       },
       {
         "item_id": "shiny_spinner",
         "min_quantity": 1,
         "max_quantity": 1,
         "chance": 1.25,
-        "category": "Rare"
+        "category": "Rare",
+        "no_drop_chance": null,
+        "row_weight": null,
+        "table_weight": null
       }
     ],
     "total_expected_value": 72.33191039999998,

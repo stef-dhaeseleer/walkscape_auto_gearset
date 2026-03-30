@@ -483,11 +483,33 @@ def overlay(dry_run=False):
     print(f"\nPatched {patched}, added {added} new")
 
     if not dry_run:
-        with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-            json.dump(clean_floats(activities), f, indent=2, ensure_ascii=False)
-        print(f"✓ Written {len(activities)} activities to {OUTPUT_FILE.name}")
+        print("\nRecalculating Expected Values (EV) with precise API drop rates...")
+        try:
+            from scrape_activities import load_ev_values, calculate_activity_evs
+            from models import Activity
+            
+            # Convert raw dicts back to Pydantic models to validate schema and run EV math
+            activity_objs = [Activity(**act) for act in activities]
+            item_vals, container_evs = load_ev_values()
+            updated_objs = calculate_activity_evs(activity_objs, item_vals, container_evs)
+            
+            final_data = [a.model_dump(mode='json') for a in updated_objs]
+            
+            with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+                json.dump(clean_floats(final_data), f, indent=2, ensure_ascii=False)
+            print(f"✓ Written {len(final_data)} activities to {OUTPUT_FILE.name} (EVs Updated)")
+            
+        except Exception as e:
+            print(f"⚠ Schema validation or EV recalculation failed: {e}")
+            # Fallback to saving raw activities
+            with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
+                json.dump(clean_floats(activities), f, indent=2, ensure_ascii=False)
+            print(f"✓ Written {len(activities)} activities to {OUTPUT_FILE.name} (Raw/Unvalidated)")
     else:
         print("(dry run — no file written)")
+
+    # Also overlay recipes
+    overlay_recipes(dry_run=dry_run)
 
     # Also overlay recipes
     overlay_recipes(dry_run=dry_run)

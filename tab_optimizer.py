@@ -355,7 +355,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         is_recipe = False
         selected_service = None
         selected_location_id = None
-        selected_input_materials = [] # <-- NEW
+        selected_input_materials = [] 
         
         if selected_key:
             selected_obj = combined_map[selected_key]
@@ -393,7 +393,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                         selected_location_id = loc_name_to_id[sel_loc_name]
 
             # --- NEW: Dynamic Input Material Selection ---
-            if getattr(selected_obj, 'materials', None):
+            if is_recipe and getattr(selected_obj, 'materials', None):
                 st.markdown("**Input Materials**")
                 for i, mat_group in enumerate(selected_obj.materials):
                     options_ids = set()
@@ -417,6 +417,57 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                     if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
                                     html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
                                 st.markdown(html, unsafe_allow_html=True)
+                                
+            elif not is_recipe and getattr(selected_obj, 'requirements', None):
+                # For Activities: Find consumable input requirements
+                input_reqs = [r for r in selected_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]
+                
+                if input_reqs:
+                    materials_added = False
+                    for i, req in enumerate(input_reqs):
+                        req_type_val = getattr(req.type, 'value', req.type)
+                        valid_mats = []
+                        
+                        if req_type_val in ('keyword_count', 'input_keyword') and req.target:
+                            kw_target = req.target.lower().replace("_", " ").strip()
+                            for mat in all_materials + all_consumables:
+                                if hasattr(mat, 'keywords') and mat.keywords:
+                                    mat_kws = [k.lower().replace("_", " ").strip() for k in mat.keywords]
+                                    if kw_target in mat_kws:
+                                        valid_mats.append(mat)
+                        elif req_type_val == 'item' and req.target:
+                            item_target = req.target.lower()
+                            for mat in all_materials + all_consumables:
+                                if mat.id == item_target or mat.id == f"{item_target}_fine":
+                                    valid_mats.append(mat)
+                                    
+                        if valid_mats:
+                            if not materials_added:
+                                st.markdown("**Required Inputs / Consumables**")
+                                materials_added = True
+                                
+                            seen = set()
+                            unique_valid_mats = []
+                            for m in valid_mats:
+                                if m.id not in seen:
+                                    seen.add(m.id)
+                                    unique_valid_mats.append(m)
+                                    
+                            mat_names = [m.name for m in unique_valid_mats]
+                            sel_mat_name = st.selectbox(f"Select {req.target.replace('_', ' ').title()} ({req.value}x)", mat_names, key=f"act_mat_sel_{selected_obj.id}_{i}")
+                            
+                            if sel_mat_name != "(Provided by Gear)":
+                                sel_mat_obj = next((m for m in unique_valid_mats if m.name == sel_mat_name), None)
+                                if sel_mat_obj:
+                                    selected_input_materials.append(sel_mat_obj)
+                                    if getattr(sel_mat_obj, 'modifiers', None):
+                                        st.caption(f"*{sel_mat_obj.name} Buffs:*")
+                                        html = ""
+                                        for mod in sel_mat_obj.modifiers:
+                                            val = mod.value
+                                            if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
+                                            html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
+                                        st.markdown(html, unsafe_allow_html=True)
     
     with c2:
         st.write("🎯 **Optimization Targets**")
@@ -527,7 +578,6 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         if run_opt and selected_obj:
             final_activity = selected_obj
             extra_passive_stats = {}
-            # service_modifiers_stats = {}
             
             if is_recipe and selected_service:
                 final_activity = synthesize_activity_from_recipe(selected_obj, selected_service)
@@ -550,8 +600,17 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             with st.spinner(f"Optimizing {final_activity.name}..."):
                 req_kw = {} 
                 for req in final_activity.requirements:
-                    if req.type == RequirementType.KEYWORD_COUNT and req.target:
-                        req_kw[req.target.lower().replace("_", " ").strip()] = req.value
+                    req_type_val = getattr(req.type, 'value', req.type)
+                    if req_type_val in ('keyword_count', 'input_keyword') and req.target:
+                        kw = req.target.lower().replace("_", " ").strip()
+                        req_kw[kw] = req_kw.get(kw, 0) + req.value
+                
+                # Subtract keywords fulfilled by selected input materials/consumables
+                for mat in selected_input_materials:
+                    if hasattr(mat, 'keywords') and mat.keywords:
+                        for kw in mat.keywords:
+                            norm_kw = kw.lower().replace("_", " ").strip()
+                            req_kw.pop(norm_kw, None)
                 
                 if not is_recipe and selected_location_id:
                     current_loc_id = selected_location_id

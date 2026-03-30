@@ -30,7 +30,9 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -58,7 +60,9 @@
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -97,7 +101,9 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -147,7 +153,9 @@
       {
         "type": "reputation",
         "target": "halfling_rebels",
-        "value": 5
+        "value": 5,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -321,7 +329,9 @@
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -382,7 +392,9 @@
       {
         "type": "skill_level",
         "target": "cooking",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -462,7 +474,9 @@
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -501,7 +515,9 @@
       {
         "type": "skill_level",
         "target": "crafting",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -581,7 +597,9 @@
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -653,7 +671,9 @@
       {
         "type": "skill_level",
         "target": "smithing",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "modifiers": [
@@ -816,6 +836,162 @@
           {
             "type": "skill_activity",
             "target": "trinketry",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+{
+    "id": "basic_loom_azurazera",
+    "wiki_slug": "Basic_Loom",
+    "name": "Basic Loom",
+    "skill": "tailoring",
+    "tier": "Basic",
+    "location": "azurazera",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_loom_frusenholm",
+    "wiki_slug": "Basic_Loom",
+    "name": "Basic Loom",
+    "skill": "tailoring",
+    "tier": "Basic",
+    "location": "frusenholm",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "basic_loom_salsfirth",
+    "wiki_slug": "Basic_Loom",
+    "name": "Basic Loom",
+    "skill": "tailoring",
+    "tier": "Basic",
+    "location": "salsfirth",
+    "requirements": [],
+    "modifiers": []
+  },
+  {
+    "id": "underwater_loom_vastalume",
+    "wiki_slug": "Underwater_Loom_(Basic)",
+    "name": "Underwater Loom",
+    "skill": "tailoring",
+    "tier": "Basic",
+    "location": "vastalume",
+    "requirements": [
+      {
+        "type": "keyword_count",
+        "target": "diving_gear",
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "no_materials_consumed",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "marked_textiles_myriadian_arc",
+    "wiki_slug": "Marked_Textiles_(Advanced)",
+    "name": "Marked Textiles",
+    "skill": "tailoring",
+    "tier": "Advanced",
+    "location": "myriadian_arc",
+    "requirements": [],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_action",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cursed_loom_wraithwater",
+    "wiki_slug": "Cursed_Loom_(Advanced)",
+    "name": "Cursed Loom",
+    "skill": "tailoring",
+    "tier": "Advanced",
+    "location": "wraithwater",
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "tailoring",
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": -10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 5.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "quality_outcome",
+        "value": -7.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
             "value": null
           }
         ]

@@ -1,5 +1,624 @@
 [
   {
+    "id": "aerodynamic_thread",
+    "wiki_slug": "Aerodynamic_thread",
+    "name": "Aerodynamic thread",
+    "value": 6,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "aerodynamic_thread_fine",
+    "wiki_slug": "Aerodynamic_thread",
+    "name": "Aerodynamic thread (Fine)",
+    "value": 36,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "animal_fur",
+    "wiki_slug": "Animal_fur",
+    "name": "Animal fur",
+    "value": 5,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "animal_fur_fine",
+    "wiki_slug": "Animal_fur",
+    "name": "Animal fur (Fine)",
+    "value": 30,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_scraps",
+    "wiki_slug": "Ectoplasm_scraps",
+    "name": "Ectoplasm scraps",
+    "value": 0,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "ectoplasm_scraps_fine",
+    "wiki_slug": "Ectoplasm_scraps",
+    "name": "Ectoplasm scraps (Fine)",
+    "value": 0,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "lizard_tail",
+    "wiki_slug": "Lizard_tail",
+    "name": "Lizard tail",
+    "value": 2,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "lizard_tail_fine",
+    "wiki_slug": "Lizard_tail",
+    "name": "Lizard tail (Fine)",
+    "value": 15,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "unicorn_horn",
+    "wiki_slug": "Unicorn_horn",
+    "name": "Unicorn horn",
+    "value": 12,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "unicorn_horn_fine",
+    "wiki_slug": "Unicorn_horn",
+    "name": "Unicorn horn (Fine)",
+    "value": 59,
+    "keywords": [],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "bronze_arrows",
+    "wiki_slug": "Bronze_arrows",
+    "name": "Bronze arrows",
+    "value": 0,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "bronze_arrows_fine",
+    "wiki_slug": "Bronze_arrows",
+    "name": "Bronze arrows (Fine)",
+    "value": 6,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "copper_arrows",
+    "wiki_slug": "Copper_arrows",
+    "name": "Copper arrows",
+    "value": 0,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "copper_arrows_fine",
+    "wiki_slug": "Copper_arrows",
+    "name": "Copper arrows (Fine)",
+    "value": 6,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "farganite_arrows",
+    "wiki_slug": "Farganite_arrows",
+    "name": "Farganite arrows",
+    "value": 3,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "farganite_arrows_fine",
+    "wiki_slug": "Farganite_arrows",
+    "name": "Farganite arrows (Fine)",
+    "value": 22,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "iron_arrows",
+    "wiki_slug": "Iron_arrows",
+    "name": "Iron arrows",
+    "value": 1,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "iron_arrows_fine",
+    "wiki_slug": "Iron_arrows",
+    "name": "Iron arrows (Fine)",
+    "value": 11,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "steel_arrows",
+    "wiki_slug": "Steel_arrows",
+    "name": "Steel arrows",
+    "value": 1,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 30.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "steel_arrows_fine",
+    "wiki_slug": "Steel_arrows",
+    "name": "Steel arrows (Fine)",
+    "value": 11,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 30.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tarsilium_arrows",
+    "wiki_slug": "Tarsilium_arrows",
+    "name": "Tarsilium arrows",
+    "value": 2,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tarsilium_arrows_fine",
+    "wiki_slug": "Tarsilium_arrows",
+    "name": "Tarsilium arrows (Fine)",
+    "value": 22,
+    "keywords": [
+      "Arrows",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
     "id": "adamant_bar",
     "wiki_slug": "Adamant_bar",
     "name": "Adamant bar",
@@ -7,6 +626,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -17,6 +637,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -27,6 +648,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -37,6 +659,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -47,6 +670,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -57,6 +681,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -67,6 +692,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -77,6 +703,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -87,6 +714,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -97,6 +725,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -107,6 +736,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -117,6 +747,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -127,6 +758,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -137,6 +769,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -147,6 +780,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -157,6 +791,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -167,6 +802,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -177,6 +813,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -187,6 +824,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -197,6 +835,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -207,6 +846,7 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -217,6 +857,101 @@
     "keywords": [
       "Bar"
     ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "linen_cloth",
+    "wiki_slug": "Linen_cloth",
+    "name": "Linen cloth",
+    "value": 1,
+    "keywords": [
+      "Fabric",
+      "Processed"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_add",
+        "value": 15.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "linen_cloth_fine",
+    "wiki_slug": "Linen_cloth",
+    "name": "Linen cloth (Fine)",
+    "value": 11,
+    "keywords": [
+      "Fabric",
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "tough_linen_cloth",
+    "wiki_slug": "Tough_linen_cloth",
+    "name": "Tough linen cloth",
+    "value": 5,
+    "keywords": [
+      "Fabric",
+      "Processed"
+    ],
+    "modifiers": [
+      {
+        "stat": "bonus_xp_add",
+        "value": 30.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 30.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "tough_linen_cloth_fine",
+    "wiki_slug": "Tough_linen_cloth",
+    "name": "Tough linen cloth (Fine)",
+    "value": 30,
+    "keywords": [
+      "Fabric",
+      "Processed"
+    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -227,6 +962,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -237,6 +973,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -247,6 +984,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -257,6 +995,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -267,6 +1006,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -277,6 +1017,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -287,6 +1028,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -297,6 +1039,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -307,6 +1050,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -317,26 +1061,7 @@
     "keywords": [
       "Fish"
     ],
-    "special_sell": null
-  },
-  {
-    "id": "raw_lobster",
-    "wiki_slug": "Raw_lobster",
-    "name": "Raw lobster",
-    "value": 4,
-    "keywords": [
-      "Fish"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "raw_lobster_fine",
-    "wiki_slug": "Raw_lobster",
-    "name": "Raw lobster (Fine)",
-    "value": 24,
-    "keywords": [
-      "Fish"
-    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -347,6 +1072,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -357,6 +1083,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -367,6 +1094,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -377,6 +1105,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -387,6 +1116,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -397,6 +1127,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -407,6 +1138,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -417,6 +1149,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -427,6 +1160,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -437,26 +1171,7 @@
     "keywords": [
       "Fish"
     ],
-    "special_sell": null
-  },
-  {
-    "id": "raw_shrimp",
-    "wiki_slug": "Raw_shrimp",
-    "name": "Raw shrimp",
-    "value": 0,
-    "keywords": [
-      "Fish"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "raw_shrimp_fine",
-    "wiki_slug": "Raw_shrimp",
-    "name": "Raw shrimp (Fine)",
-    "value": 6,
-    "keywords": [
-      "Fish"
-    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -467,6 +1182,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -477,6 +1193,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -487,6 +1204,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -497,6 +1215,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -507,6 +1226,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -517,6 +1237,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -527,6 +1248,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -537,6 +1259,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -547,6 +1270,7 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -557,6 +1281,79 @@
     "keywords": [
       "Fish"
     ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "raw_crab",
+    "wiki_slug": "Raw_crab",
+    "name": "Raw crab",
+    "value": 1,
+    "keywords": [
+      "Fish",
+      "Crustacean"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "raw_crab_fine",
+    "wiki_slug": "Raw_crab",
+    "name": "Raw crab (Fine)",
+    "value": 11,
+    "keywords": [
+      "Fish",
+      "Crustacean"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "raw_lobster",
+    "wiki_slug": "Raw_lobster",
+    "name": "Raw lobster",
+    "value": 4,
+    "keywords": [
+      "Fish",
+      "Crustacean"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "raw_lobster_fine",
+    "wiki_slug": "Raw_lobster",
+    "name": "Raw lobster (Fine)",
+    "value": 24,
+    "keywords": [
+      "Fish",
+      "Crustacean"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "raw_shrimp",
+    "wiki_slug": "Raw_shrimp",
+    "name": "Raw shrimp",
+    "value": 0,
+    "keywords": [
+      "Fish",
+      "Crustacean"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "raw_shrimp_fine",
+    "wiki_slug": "Raw_shrimp",
+    "name": "Raw shrimp (Fine)",
+    "value": 6,
+    "keywords": [
+      "Fish",
+      "Crustacean"
+    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -568,6 +1365,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -579,6 +1377,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -590,6 +1389,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -601,6 +1401,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -612,6 +1413,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -623,6 +1425,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -634,6 +1437,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -645,6 +1449,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -656,6 +1461,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -667,6 +1473,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -678,6 +1485,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -689,6 +1497,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -700,6 +1509,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -711,6 +1521,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -722,6 +1533,7 @@
       "Gem",
       "Cut gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -733,28 +1545,7 @@
       "Gem",
       "Cut gem"
     ],
-    "special_sell": null
-  },
-  {
-    "id": "crystal_coal",
-    "wiki_slug": "Crystal_coal",
-    "name": "Crystal coal",
-    "value": 9,
-    "keywords": [
-      "Gem",
-      "Misc."
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "crystal_coal_fine",
-    "wiki_slug": "Crystal_coal",
-    "name": "Crystal coal (Fine)",
-    "value": 45,
-    "keywords": [
-      "Gem",
-      "Misc."
-    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -766,6 +1557,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -777,6 +1569,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -788,6 +1581,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -799,6 +1593,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -810,6 +1605,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -821,6 +1617,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -832,6 +1629,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -843,6 +1641,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -854,6 +1653,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -865,6 +1665,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -876,6 +1677,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -887,6 +1689,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -898,6 +1701,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -909,6 +1713,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -920,6 +1725,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -931,6 +1737,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -942,6 +1749,7 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -953,6 +1761,259 @@
       "Gem",
       "Rough gem"
     ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "basic_hide",
+    "wiki_slug": "Basic_hide",
+    "name": "Basic hide",
+    "value": 1,
+    "keywords": [
+      "Hide"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "basic_hide_fine",
+    "wiki_slug": "Basic_hide",
+    "name": "Basic hide (Fine)",
+    "value": 11,
+    "keywords": [
+      "Hide"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "elderhide_hide",
+    "wiki_slug": "Elderhide_hide",
+    "name": "Elderhide hide",
+    "value": 3,
+    "keywords": [
+      "Hide"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "elderhide_hide_fine",
+    "wiki_slug": "Elderhide_hide",
+    "name": "Elderhide hide (Fine)",
+    "value": 18,
+    "keywords": [
+      "Hide"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "elderhide_scraps",
+    "wiki_slug": "Elderhide_scraps",
+    "name": "Elderhide scraps",
+    "value": 1,
+    "keywords": [
+      "Hide",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "elderhide_scraps_fine",
+    "wiki_slug": "Elderhide_scraps",
+    "name": "Elderhide scraps (Fine)",
+    "value": 11,
+    "keywords": [
+      "Hide",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "hide_scraps",
+    "wiki_slug": "Hide_scraps",
+    "name": "Hide scraps",
+    "value": 0,
+    "keywords": [
+      "Hide",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "hide_scraps_fine",
+    "wiki_slug": "Hide_scraps",
+    "name": "Hide scraps (Fine)",
+    "value": 6,
+    "keywords": [
+      "Hide",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "kelp_drift_net",
+    "wiki_slug": "Kelp_drift_net",
+    "name": "Kelp drift net",
+    "value": 2,
+    "keywords": [
+      "Hunting net",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "kelp_drift_net_fine",
+    "wiki_slug": "Kelp_drift_net",
+    "name": "Kelp drift net (Fine)",
+    "value": 22,
+    "keywords": [
+      "Hunting net",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "boxtrap",
+    "wiki_slug": "Boxtrap",
+    "name": "Boxtrap",
+    "value": 1,
+    "keywords": [
+      "Hunting trap",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "boxtrap_fine",
+    "wiki_slug": "Boxtrap",
+    "name": "Boxtrap (Fine)",
+    "value": 11,
+    "keywords": [
+      "Hunting trap",
+      "Light"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "animal_meat",
+    "wiki_slug": "Animal_meat",
+    "name": "Animal meat",
+    "value": 1,
+    "keywords": [
+      "Ingredient"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "animal_meat_fine",
+    "wiki_slug": "Animal_meat",
+    "name": "Animal meat (Fine)",
+    "value": 11,
+    "keywords": [
+      "Ingredient"
+    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -963,6 +2024,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -973,6 +2035,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -983,6 +2046,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -993,6 +2057,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1003,6 +2068,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1013,6 +2079,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1023,6 +2090,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1033,6 +2101,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1043,6 +2112,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1053,6 +2123,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1063,6 +2134,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1073,6 +2145,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1083,6 +2156,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1093,6 +2167,7 @@
     "keywords": [
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1104,6 +2179,7 @@
       "Ingredient",
       "Mushroom"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1115,6 +2191,99 @@
       "Ingredient",
       "Mushroom"
     ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "basic_leather",
+    "wiki_slug": "Basic_leather",
+    "name": "Basic leather",
+    "value": 2,
+    "keywords": [
+      "Leather",
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "basic_leather_fine",
+    "wiki_slug": "Basic_leather",
+    "name": "Basic leather (Fine)",
+    "value": 15,
+    "keywords": [
+      "Leather",
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "elderhide_leather",
+    "wiki_slug": "Elderhide_leather",
+    "name": "Elderhide leather",
+    "value": 4,
+    "keywords": [
+      "Leather",
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "elderhide_leather_fine",
+    "wiki_slug": "Elderhide_leather",
+    "name": "Elderhide leather (Fine)",
+    "value": 24,
+    "keywords": [
+      "Leather",
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "dark_feather",
+    "wiki_slug": "Dark_feather",
+    "name": "Dark feather",
+    "value": 4,
+    "keywords": [
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "dark_feather_fine",
+    "wiki_slug": "Dark_feather",
+    "name": "Dark feather (Fine)",
+    "value": 24,
+    "keywords": [
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "feather",
+    "wiki_slug": "Feather",
+    "name": "Feather",
+    "value": 0,
+    "keywords": [
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "feather_fine",
+    "wiki_slug": "Feather",
+    "name": "Feather (Fine)",
+    "value": 6,
+    "keywords": [
+      "Light"
+    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1125,6 +2294,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1135,6 +2305,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1145,6 +2316,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1155,6 +2327,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1165,6 +2338,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1175,6 +2349,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1185,6 +2360,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1195,6 +2371,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1205,6 +2382,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1215,6 +2393,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1225,6 +2404,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1235,6 +2415,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1245,6 +2426,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1255,6 +2437,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1265,6 +2448,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1275,6 +2459,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1285,6 +2470,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1295,6 +2481,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1305,6 +2492,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1315,6 +2503,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1325,6 +2514,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1335,6 +2525,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1345,6 +2536,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1355,6 +2547,7 @@
     "keywords": [
       "Log"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1365,6 +2558,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1375,6 +2569,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1385,6 +2580,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1395,6 +2591,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1405,6 +2602,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1415,6 +2613,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1425,6 +2624,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1435,6 +2635,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1445,6 +2646,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1455,6 +2657,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1465,6 +2668,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1475,6 +2679,7 @@
     "keywords": [
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1486,6 +2691,7 @@
       "Misc.",
       "Heavy"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1497,6 +2703,7 @@
       "Misc.",
       "Heavy"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1508,6 +2715,7 @@
       "Misc.",
       "Heavy"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1519,6 +2727,7 @@
       "Misc.",
       "Heavy"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1530,6 +2739,7 @@
       "Misc.",
       "Heavy"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 20
@@ -1544,6 +2754,7 @@
       "Misc.",
       "Heavy"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 100
@@ -1558,6 +2769,7 @@
       "Misc.",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 2
@@ -1572,9 +2784,70 @@
       "Misc.",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 10
+    }
+  },
+  {
+    "id": "halfmaw_scales",
+    "wiki_slug": "Halfmaw_scales",
+    "name": "Halfmaw scales",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 1
+    }
+  },
+  {
+    "id": "halfmaw_scales_fine",
+    "wiki_slug": "Halfmaw_scales",
+    "name": "Halfmaw scales (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 5
+    }
+  },
+  {
+    "id": "halfmaw_teeth",
+    "wiki_slug": "Halfmaw_teeth",
+    "name": "Halfmaw teeth",
+    "value": 0,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 3
+    }
+  },
+  {
+    "id": "halfmaw_teeth_fine",
+    "wiki_slug": "Halfmaw_teeth",
+    "name": "Halfmaw teeth (Fine)",
+    "value": 6,
+    "keywords": [
+      "Misc.",
+      "Light"
+    ],
+    "modifiers": [],
+    "special_sell": {
+      "item_id": "adventurers_guild_token",
+      "amount": 15
     }
   },
   {
@@ -1586,6 +2859,7 @@
       "Misc.",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 10
@@ -1600,6 +2874,7 @@
       "Misc.",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 50
@@ -1614,6 +2889,7 @@
       "Misc.",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1625,6 +2901,7 @@
       "Misc.",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": {
       "item_id": "sea_shell",
       "amount": 10
@@ -1640,6 +2917,7 @@
       "Ultra light",
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1652,6 +2930,7 @@
       "Ultra light",
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1663,6 +2942,7 @@
       "Nugget",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1674,6 +2954,7 @@
       "Nugget",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1685,6 +2966,7 @@
       "Nugget",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1696,6 +2978,7 @@
       "Nugget",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1707,6 +2990,7 @@
       "Offcut",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1718,6 +3002,7 @@
       "Offcut",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1729,6 +3014,7 @@
       "Offcut",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1740,6 +3026,7 @@
       "Offcut",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1750,6 +3037,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1760,6 +3048,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1770,6 +3059,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1780,6 +3070,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1790,6 +3081,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1800,6 +3092,29 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "crystal_coal",
+    "wiki_slug": "Crystal_coal",
+    "name": "Crystal coal",
+    "value": 9,
+    "keywords": [
+      "Ore"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "crystal_coal_fine",
+    "wiki_slug": "Crystal_coal",
+    "name": "Crystal coal (Fine)",
+    "value": 45,
+    "keywords": [
+      "Ore"
+    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1810,6 +3125,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1820,6 +3136,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1830,6 +3147,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1840,6 +3158,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1850,6 +3169,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1860,6 +3180,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1870,6 +3191,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1880,6 +3202,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1890,6 +3213,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1900,6 +3224,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1910,6 +3235,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1920,6 +3246,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1930,6 +3257,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1940,6 +3268,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1950,6 +3279,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1960,6 +3290,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1970,6 +3301,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1980,6 +3312,7 @@
     "keywords": [
       "Ore"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -1990,6 +3323,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2000,6 +3334,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2010,6 +3345,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2020,6 +3356,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2030,6 +3367,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2040,6 +3378,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2050,6 +3389,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2060,6 +3400,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2070,6 +3411,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2080,6 +3422,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2090,6 +3433,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2100,6 +3444,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2110,6 +3455,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2120,6 +3466,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2130,6 +3477,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2140,6 +3488,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2150,6 +3499,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2160,6 +3510,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2170,6 +3521,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2180,6 +3532,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2190,6 +3543,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2200,6 +3554,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2210,6 +3565,7 @@
     "keywords": [
       "Plank"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2220,66 +3576,7 @@
     "keywords": [
       "Plank"
     ],
-    "special_sell": null
-  },
-  {
-    "id": "cattail",
-    "wiki_slug": "Cattail",
-    "name": "Cattail",
-    "value": 4,
-    "keywords": [
-      "Plant"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "cattail_fine",
-    "wiki_slug": "Cattail",
-    "name": "Cattail (Fine)",
-    "value": 30,
-    "keywords": [
-      "Plant"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "flax",
-    "wiki_slug": "Flax",
-    "name": "Flax",
-    "value": 1,
-    "keywords": [
-      "Plant"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "flax_fine",
-    "wiki_slug": "Flax",
-    "name": "Flax (Fine)",
-    "value": 11,
-    "keywords": [
-      "Plant"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "hemp",
-    "wiki_slug": "Hemp",
-    "name": "Hemp",
-    "value": 0,
-    "keywords": [
-      "Plant"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "hemp_fine",
-    "wiki_slug": "Hemp",
-    "name": "Hemp (Fine)",
-    "value": 6,
-    "keywords": [
-      "Plant"
-    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2290,6 +3587,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2300,25 +3598,51 @@
     "keywords": [
       "Plant"
     ],
-    "special_sell": null
-  },
-  {
-    "id": "ironweed",
-    "wiki_slug": "Ironweed",
-    "name": "Ironweed",
-    "value": 5,
-    "keywords": [
-      "Plant"
-    ],
-    "special_sell": null
-  },
-  {
-    "id": "ironweed_fine",
-    "wiki_slug": "Ironweed",
-    "name": "Ironweed (Fine)",
-    "value": 30,
-    "keywords": [
-      "Plant"
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2330,6 +3654,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2339,6 +3664,52 @@
     "value": 24,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2350,6 +3721,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2359,6 +3731,52 @@
     "value": 36,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2370,6 +3788,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2379,6 +3798,52 @@
     "value": 11,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2390,6 +3855,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2399,6 +3865,52 @@
     "value": 15,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2410,6 +3922,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2419,6 +3932,52 @@
     "value": 11,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2430,6 +3989,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2439,6 +3999,52 @@
     "value": 6,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2450,6 +4056,7 @@
     "keywords": [
       "Plant"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2459,6 +4066,328 @@
     "value": 30,
     "keywords": [
       "Plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "cattail",
+    "wiki_slug": "Cattail",
+    "name": "Cattail",
+    "value": 4,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "cattail_fine",
+    "wiki_slug": "Cattail",
+    "name": "Cattail (Fine)",
+    "value": 30,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "flax",
+    "wiki_slug": "Flax",
+    "name": "Flax",
+    "value": 1,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "flax_fine",
+    "wiki_slug": "Flax",
+    "name": "Flax (Fine)",
+    "value": 11,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "hemp",
+    "wiki_slug": "Hemp",
+    "name": "Hemp",
+    "value": 0,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "hemp_fine",
+    "wiki_slug": "Hemp",
+    "name": "Hemp (Fine)",
+    "value": 6,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "special_sell": null
+  },
+  {
+    "id": "ironweed",
+    "wiki_slug": "Ironweed",
+    "name": "Ironweed",
+    "value": 5,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "ironweed_fine",
+    "wiki_slug": "Ironweed",
+    "name": "Ironweed (Fine)",
+    "value": 30,
+    "keywords": [
+      "Plant",
+      "Fibrous plant"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2471,6 +4400,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2481,6 +4411,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2493,6 +4469,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2503,6 +4480,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2515,6 +4538,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2525,6 +4549,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2537,6 +4607,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2547,6 +4618,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2559,6 +4676,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2569,6 +4687,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2581,6 +4745,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2591,6 +4756,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2603,6 +4814,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2613,6 +4825,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2625,6 +4883,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2635,6 +4894,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2647,6 +4952,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2657,6 +4963,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2669,6 +5021,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2679,6 +5032,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2691,6 +5090,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2701,6 +5101,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2713,6 +5159,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2723,6 +5170,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2735,6 +5228,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2745,6 +5239,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2757,6 +5297,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2767,6 +5308,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2779,6 +5366,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2789,6 +5377,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2801,6 +5435,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2811,6 +5446,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2823,6 +5504,7 @@
       "Plant",
       "Ingredient"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2833,6 +5515,52 @@
     "keywords": [
       "Plant",
       "Ingredient"
+    ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
     ],
     "special_sell": null
   },
@@ -2846,6 +5574,7 @@
       "Ingredient",
       "Light"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2858,6 +5587,52 @@
       "Ingredient",
       "Light"
     ],
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 40.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "bonus_xp_percent",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
     "special_sell": null
   },
   {
@@ -2868,6 +5643,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2878,6 +5654,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2888,6 +5665,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2898,6 +5676,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2908,6 +5687,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2918,6 +5698,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2928,6 +5709,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2938,6 +5720,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2948,6 +5731,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2958,6 +5742,51 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "simple_bowstring",
+    "wiki_slug": "Simple_bowstring",
+    "name": "Simple bowstring",
+    "value": 1,
+    "keywords": [
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "simple_bowstring_fine",
+    "wiki_slug": "Simple_bowstring",
+    "name": "Simple bowstring (Fine)",
+    "value": 11,
+    "keywords": [
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "strong_bowstring",
+    "wiki_slug": "Strong_bowstring",
+    "name": "Strong bowstring",
+    "value": 6,
+    "keywords": [
+      "Processed"
+    ],
+    "modifiers": [],
+    "special_sell": null
+  },
+  {
+    "id": "strong_bowstring_fine",
+    "wiki_slug": "Strong_bowstring",
+    "name": "Strong bowstring (Fine)",
+    "value": 36,
+    "keywords": [
+      "Processed"
+    ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2968,6 +5797,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2978,6 +5808,7 @@
     "keywords": [
       "Processed"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -2989,6 +5820,7 @@
       "Trash",
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3000,6 +5832,7 @@
       "Trash",
       "Misc."
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3010,6 +5843,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3020,6 +5854,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3030,6 +5865,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3040,6 +5876,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3050,6 +5887,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3060,6 +5898,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3070,6 +5909,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3080,6 +5920,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3090,6 +5931,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3100,6 +5942,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3110,6 +5953,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3120,6 +5964,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3130,6 +5975,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3140,6 +5986,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3150,6 +5997,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3160,6 +6008,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3170,6 +6019,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3180,6 +6030,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3190,6 +6041,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3200,6 +6052,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3210,6 +6063,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3220,6 +6074,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3230,6 +6085,7 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
@@ -3240,65 +6096,29 @@
     "keywords": [
       "Trinket"
     ],
+    "modifiers": [],
     "special_sell": null
   },
   {
-    "id": "arrow",
-    "wiki_slug": "Arrow",
-    "name": "Arrow",
-    "value": 2,
+    "id": "spider_trinket",
+    "wiki_slug": "Spider_trinket",
+    "name": "Spider trinket",
+    "value": 150,
     "keywords": [
-      "Arrow",
-      "Ammunition"
+      "Trinket"
     ],
-    "special_sell": null,
-    "modifiers": [
-      {
-        "stat": "work_efficiency",
-        "value": 5.0,
-        "conditions": [
-          {
-            "type": "skill_activity",
-            "target": "hunting",
-            "value": null
-          }
-        ]
-      }
-    ]
+    "modifiers": [],
+    "special_sell": null
   },
   {
-    "id": "arrow_fine",
-    "wiki_slug": "Arrow",
-    "name": "Arrow (Fine)",
-    "value": 15,
+    "id": "spider_trinket_fine",
+    "wiki_slug": "Spider_trinket",
+    "name": "Spider trinket (Fine)",
+    "value": 684,
     "keywords": [
-      "Arrow",
-      "Ammunition"
+      "Trinket"
     ],
-    "special_sell": null,
-    "modifiers": [
-      {
-        "stat": "work_efficiency",
-        "value": 10.0,
-        "conditions": [
-          {
-            "type": "skill_activity",
-            "target": "hunting",
-            "value": null
-          }
-        ]
-      },
-      {
-        "stat": "double_rewards",
-        "value": 50.0,
-        "conditions": [
-          {
-            "type": "skill_activity",
-            "target": "hunting",
-            "value": null
-          }
-        ]
-      }
-    ]
+    "modifiers": [],
+    "special_sell": null
   }
 ]

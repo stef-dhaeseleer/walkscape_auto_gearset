@@ -121,7 +121,19 @@
     "id": "brilliant_emerald_dragonfly",
     "wiki_slug": "Brilliant_emerald_dragonfly",
     "name": "Brilliant emerald dragonfly",
-    "modifiers": []
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "cold_embrace",
@@ -256,10 +268,40 @@
     ]
   },
   {
+    "id": "halfmaw_venom",
+    "wiki_slug": "Halfmaw_venom",
+    "name": "Halfmaw venom",
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "haunted_teddy_bear",
     "wiki_slug": "Haunted_teddy_bear",
     "name": "Haunted teddy bear",
-    "modifiers": []
+    "modifiers": [
+      {
+        "stat": "work_efficiency",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ]
   },
   {
     "id": "jar_of_dirt",
@@ -364,9 +406,9 @@
     "modifiers": []
   },
   {
-    "id": "shiny_broken_skydisk",
-    "wiki_slug": "Shiny_broken_skydisk",
-    "name": "Shiny broken skydisk",
+    "id": "shiny_broken_skydisc",
+    "wiki_slug": "Shiny_broken_skydisc",
+    "name": "Shiny broken skydisc",
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -399,6 +441,24 @@
           {
             "type": "skill_activity",
             "target": "cooking",
+            "value": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "swampman_article",
+    "wiki_slug": "Swampman_article",
+    "name": "Swampman article",
+    "modifiers": [
+      {
+        "stat": "find_collectibles",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
             "value": null
           }
         ]

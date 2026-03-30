@@ -128,14 +128,21 @@ def parse_containers_list():
     print(f"Found {len(tables)} tables.")
     
     for table in tables:
-        caption = table.find('caption')
-        caption_text = clean_text(caption.get_text()) if caption else ""
+        # Check table headers instead of captions to identify chest tables
+        headers = [h.get_text().strip().lower() for h in table.find_all('th')]
         
-        c_type = "unknown"
-        if 'Skill Chests' in caption_text: c_type = "skill_chest"
-        elif 'Unique Openables' in caption_text: c_type = "unique_openable"
-        else: continue # Skip other tables like regional chests if not desired, or add logic
+        if not headers: continue
         
+        # Look for "chest name" or "chest" in headers to confirm it's a list table
+        is_chest_table = any('chest name' in h or 'chest' in h for h in headers)
+        if not is_chest_table or 'region' in headers:
+            continue # Skip "Loot Table" mechanics and "Unavailable" regional tables
+        
+        # Dynamically determine the type based on header columns
+        c_type = "unique_openable"
+        if 'skill' in headers:
+            c_type = "skill_chest"
+            
         rows = table.find_all('tr')[1:]
         for row in rows:
             cells = row.find_all('td')
@@ -146,6 +153,8 @@ def parse_containers_list():
             if not link: continue
             
             name = clean_text(link.get_text())
+            if not name: continue
+            
             url = 'https://wiki.walkscape.app' + link.get('href', '')
             slug = link.get('href', '').split('/')[-1]
             

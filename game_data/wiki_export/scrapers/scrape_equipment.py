@@ -120,7 +120,7 @@ def parse_requirements(soup) -> list[Requirement]:
             continue
     return requirements
 
-def parse_attribute_lines(lines) -> list[Modifier]:
+def parse_attribute_lines(lines, item_name="Unknown") -> list[Modifier]:
     modifiers = []
     i = 0
     while i < len(lines):
@@ -130,6 +130,15 @@ def parse_attribute_lines(lines) -> list[Modifier]:
             continue
 
         line_lower = line.lower()
+        
+        # Skip accidental requirement lines that slip into the attributes section
+        if 'at least' in line_lower and 'lvl.' in line_lower:
+            i += 1
+            continue
+        if 'walk a total amount of steps' in line_lower:
+            i += 1
+            continue
+            
         conditions = []
         
         if 'have' in line_lower and 'reputation' in line_lower:
@@ -158,7 +167,7 @@ def parse_attribute_lines(lines) -> list[Modifier]:
                 continue
                 
             # Set Piece Check
-            set_match = re.search(r'requires\s+[\(\[](\d+)[\)\]]\s+unique\s+(.+?)\s+equipped', next_lower)
+            set_match = re.search(r'requires\s+[\(\[](\d+)[\)\]]\s+(?:unique\s+)?(.+?)\s+equipped', next_lower)
             if set_match:
                 conditions.append(Condition(type=ConditionType.SET_EQUIPPED, target=set_match.group(2).strip(), value=int(set_match.group(1))))
                 next_i += 1
@@ -179,7 +188,6 @@ def parse_attribute_lines(lines) -> list[Modifier]:
                  continue
             
             # Activity Completion
-            # "Have completed the Underwater basket weaving activity [50] times in Elara's Lagoon"
             act_comp_match = re.search(r'have completed the\s+(.+?)\s+activity\s+[\(\[](\d+)[\)\]]\s+times', next_lower)
             if act_comp_match:
                 conditions.append(Condition(
@@ -192,10 +200,10 @@ def parse_attribute_lines(lines) -> list[Modifier]:
 
             # Inline "While doing" check on next line
             if next_lower.startswith('while doing'):
-                act_match = re.search(r'while doing\s+(\w+)', next_lower)
+                act_match = re.search(r'while doing\s+([a-z0-9_]+)', next_lower)
                 if act_match:
-                    activity = act_match.group(1).lower()
-                    if activity in ACTIVITY_KEYWORDS:
+                    activity = act_match.group(1)
+                    if 'ACTIVITY_KEYWORDS' in globals() and activity in ACTIVITY_KEYWORDS:
                         conditions.append(Condition(type=ConditionType.SPECIFIC_ACTIVITY, target=activity))
                     else:
                         conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=activity))
@@ -206,16 +214,20 @@ def parse_attribute_lines(lines) -> list[Modifier]:
 
         # --- Parse Stat Line ---
         if 'while doing' in line_lower:
-            act_match = re.search(r'while doing\s+(\w+)', line_lower)
+            act_match = re.search(r'while doing\s+([a-z0-9_]+)', line_lower)
             if act_match:
-                activity = act_match.group(1).lower()
-                if activity in ACTIVITY_KEYWORDS:
+                activity = act_match.group(1)
+                if 'ACTIVITY_KEYWORDS' in globals() and activity in ACTIVITY_KEYWORDS:
                     conditions.append(Condition(type=ConditionType.SPECIFIC_ACTIVITY, target=activity))
+                else:
+                    conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=activity))
                 
-        skill_context = extract_skill_from_text(line)
-        if skill_context and skill_context != 'global':
-            if not any(c.type == ConditionType.SKILL_ACTIVITY and c.target == skill_context for c in conditions):
-                conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=skill_context))
+        # FIX: Do not extract a skill condition if this is an "any action" global buff
+        if 'experience on any action' not in line_lower:
+            skill_context = extract_skill_from_text(line)
+            if skill_context and skill_context != 'global':
+                if not any(c.type == ConditionType.SKILL_ACTIVITY and c.target == skill_context for c in conditions):
+                    conditions.append(Condition(type=ConditionType.SKILL_ACTIVITY, target=skill_context))
         
         clean_line = re.sub(r'while doing\s+\w+', '', line_lower)
         value_match = re.search(r'([+-]?\d+(?:\.\d+)?)\s*(%?)', clean_line)
@@ -224,10 +236,30 @@ def parse_attribute_lines(lines) -> list[Modifier]:
             value_str = value_match.group(1)
             is_percent = value_match.group(2) == '%'
             
-            # --- CUSTOM: Override for "Chance to find X bird nest" ---
-            # Handles: "+5% Chance to find 1 bird nest"
-            if 'chance to find' in clean_line and 'bird nest' in clean_line:
-                raw_stat_name = "chance_to_find_bird_nest"
+            # --- CUSTOM: Override for specific drops ---
+            if 'chance to find' in clean_line:
+                if 'bird nest' in clean_line:
+                    raw_stat_name = "chance_to_find_bird_nest"
+                elif 'sea shell' in clean_line:
+                    raw_stat_name = "find_sea_shells"
+                elif 'skilling chest' in clean_line or 'skill chest' in clean_line:
+                    raw_stat_name = "find_skill_chest"
+                elif 'rough gem' in clean_line or 'random gem' in clean_line:
+                    raw_stat_name = "find_random_gem"
+                elif 'crustacean' in clean_line or 'crab' in clean_line:
+                    raw_stat_name = "find_crustacean"
+                elif 'fibrous plant' in clean_line:
+                    raw_stat_name = "find_fibrous_plant"
+                else:
+                    raw_stat_name = normalize_stat_name(clean_line)
+                    
+            # FIX: Catch the "Any Action" XP and map to the specific skill
+            elif 'experience on any action' in clean_line:
+                skill_match = re.search(r'([a-z]+)\s+experience on any action', clean_line)
+                if skill_match:
+                    raw_stat_name = f"gain_{skill_match.group(1)}_xp"
+                else:
+                    raw_stat_name = "bonus_xp_add"
             else:
                 raw_stat_name = normalize_stat_name(clean_line)
             
@@ -243,13 +275,20 @@ def parse_attribute_lines(lines) -> list[Modifier]:
                     
                     modifiers.append(Modifier(stat=stat_enum, value=float(value_str), conditions=conditions))
                 except ValueError:
-                    validator.add_unrecognized_stat("Parsing", f"Enum conversion failed: {final_stat_key}")
+                    validator.add_unrecognized_stat(item_name, f"Enum conversion failed: {final_stat_key}")
             else:
-                validator.add_unrecognized_stat("Parsing", line)
+                validator.add_unrecognized_stat(item_name, line)
         
         i = next_i
         
     return modifiers
+
+
+
+
+
+
+
 def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
     soup = BeautifulSoup(html_content, 'html.parser')
     keywords = []

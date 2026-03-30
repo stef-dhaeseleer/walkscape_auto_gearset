@@ -74,6 +74,7 @@ class RequirementType(str, Enum):
     TOOL_EQUIPPED = "tool_equipped"
     UNIQUE_TOOLS = "unique_tools"
     SPECIFIC_ACTIVITY = "specific_activity"
+    INPUT_KEYWORD = "input_keyword"
 
 class StatName(str, Enum):
     # Core
@@ -111,7 +112,24 @@ class StatName(str, Enum):
     FIND_GOLD_NUGGET = "find_gold_nugget"
     FIND_SKILL_CHEST = "find_skill_chest"
     CHANCE_TO_FIND_BIRD_NEST = "chance_to_find_bird_nest"
+    FIND_RANDOM_GEM = "find_random_gem"
+    FIND_FIBROUS_PLANT = "find_fibrous_plant"
     INVENTORY_SPACE = "inventory_space"
+
+    # "Any Action" Global XP
+    GAIN_AGILITY_XP = "gain_agility_xp"
+    GAIN_CARPENTRY_XP = "gain_carpentry_xp"
+    GAIN_COOKING_XP = "gain_cooking_xp"
+    GAIN_CRAFTING_XP = "gain_crafting_xp"
+    GAIN_FISHING_XP = "gain_fishing_xp"
+    GAIN_FORAGING_XP = "gain_foraging_xp"
+    GAIN_MINING_XP = "gain_mining_xp"
+    GAIN_SMITHING_XP = "gain_smithing_xp"
+    GAIN_TRINKETRY_XP = "gain_trinketry_xp"
+    GAIN_WOODCUTTING_XP = "gain_woodcutting_xp"
+    GAIN_TRAVELING_XP = "gain_traveling_xp"
+    GAIN_HUNTING_XP = "gain_hunting_xp"
+    GAIN_TAILORING_XP = "gain_tailoring_xp"
 
 # --- Constants & Config ---
 RESTRICTED_TOOL_KEYWORDS = {
@@ -175,7 +193,7 @@ TARGET_TO_STATS = {
     
     OPTIMAZATION_TARGET.tokens_per_step: REWARD_ROLL_STATS | {StatName.FIND_ADVENTURERS_GUILD_TOKEN},
     OPTIMAZATION_TARGET.ectoplasm_per_step: REWARD_ROLL_STATS | {StatName.FIND_ECTOPLASM},
-    OPTIMAZATION_TARGET.gems: REWARD_ROLL_STATS | {StatName.FIND_GEMS},
+    OPTIMAZATION_TARGET.gems: REWARD_ROLL_STATS | {StatName.FIND_GEMS, StatName.FIND_RANDOM_GEM},
     OPTIMAZATION_TARGET.coins: COIN_BASE_STATS | {StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_chests: COIN_BASE_STATS | {StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},
@@ -201,6 +219,8 @@ PERCENTAGE_STATS = {
     StatName.NO_MATERIALS_CONSUMED, StatName.STEPS_PERCENT, StatName.XP_PERCENT,
     StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
     StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
+    StatName.FIND_RANDOM_GEM, StatName.FIND_FIBROUS_PLANT, StatName.FIND_CRUSTACEAN,
+    StatName.FIND_SKILL_CHEST, StatName.FIND_SEA_SHELLS, StatName.FIND_GOLD
 }
 class ActivityLootTableType(str, Enum):
     MAIN = "main"
@@ -212,48 +232,54 @@ class ActivityLootTableType(str, Enum):
 
 
 
-FISHING_BAIT_TABLE = [
-    ("bug_bait", 0.50),
-    ("frozen_bait", 0.50)
-]
+FISHING_BAIT_TABLE = [("bug_bait", 0.50, 1.0), ("frozen_bait", 0.50, 1.0)]
 
 GEM_TABLE = [
-    ("rough_opal", 0.29851),
-    ("rough_star_pearl", 0.29851),
-    ("rough_topaz", 0.14925),
-    ("rough_wrentmarine", 0.14925),
-    ("rough_jade", 0.04975),
-    ("rough_ruby", 0.02985),
-    ("rough_sun_stone", 0.01990),
-    ("rough_ethernite", 0.00498)
+    ("rough_opal", 0.29851, 1.0), ("rough_star_pearl", 0.29851, 1.0),
+    ("rough_topaz", 0.14925, 1.0), ("rough_wrentmarine", 0.14925, 1.0),
+    ("rough_jade", 0.04975, 1.0), ("rough_ruby", 0.02985, 1.0),
+    ("rough_sun_stone", 0.01990, 1.0), ("rough_ethernite", 0.00498, 1.0)
 ]
 
 JUNK_TABLE = [
-    ("trash", 0.51546),
-    ("fishbone", 0.10309),
-    ("grass", 0.07732),
-    ("mud", 0.07732),
-    ("milkweed", 0.05155),
-    ("moondaisy", 0.05155),
-    ("sea_shell", 0.05155),
-    ("birch_skis", 0.01546),
-    ("clay_skydisc", 0.01546),
-    ("rough_opal", 0.01546),
-    ("simple_torch", 0.01546),
-    ("rusty_chest", 0.00515),
-    ("sunken_chest", 0.00515)
+    ("trash", 0.48454, 1.0), ("fishbone", 0.08247, 1.0),
+    ("grass", 0.07732, 1.0), ("mud", 0.07732, 1.0),
+    ("copper_arrows", 0.05155, 2.0), ("milkweed", 0.05155, 1.0), 
+    ("moondaisy", 0.05155, 1.0), ("sea_shell", 0.05155, 1.0),
+    ("birch_skis", 0.01546, 1.0), ("clay_skydisc", 0.01546, 1.0),
+    ("rough_opal", 0.01546, 1.0), ("simple_torch", 0.01546, 1.0),
+    ("rusty_chest", 0.00515, 1.0), ("sunken_chest", 0.00515, 1.0)
 ]
 
-# Mapping from Stat Key to Item ID (or Table)
+SKILL_CHEST_TABLE = [
+    ("agility_chest", 0.08333, 1.0), ("carpentry_chest", 0.08333, 1.0),
+    ("cooking_chest", 0.08333, 1.0), ("crafting_chest", 0.08333, 1.0),
+    ("fishing_chest", 0.08333, 1.0), ("foraging_chest", 0.08333, 1.0),
+    ("hunting_chest", 0.08333, 1.0), ("mining_chest", 0.08333, 1.0),
+    ("smithing_chest", 0.08333, 1.0), ("tailoring_chest", 0.08333, 1.0),
+    ("trinketry_chest", 0.08333, 1.0), ("woodcutting_chest", 0.08333, 1.0),
+]
+
+CRUSTACEAN_TABLE = [
+    ("raw_crab", 0.54545, 1.5), ("raw_lobster", 0.36364, 1.0), ("raw_shrimp", 0.09091, 4.5)
+]
+
+FIBROUS_PLANT_TABLE = [("hemp", 0.70, 1.0), ("flax", 0.30, 1.0)]
+
 SPECIAL_FIND_MAP = {
     "chance_to_find_bird_nest": "bird_nest",
     "find_coin_pouch": "coin_pouch",
     "find_gold_nugget": "gold_nugget",
     "find_adventurers_guild_token": "adventurers_guild_token",
     "find_ectoplasm": "ectoplasm",
-    "find_sea_shells": "sea_shell",
+    "find_sea_shells": [("sea_shell", 1.0, 5.5)], # 1-10 quantity
+    "find_gold": [("coins", 1.0, 5.5)],           # 1-10 quantity
     "find_fishing_bait": FISHING_BAIT_TABLE,
     "find_junk": JUNK_TABLE,
+    "find_random_gem": GEM_TABLE,
+    "find_skill_chest": SKILL_CHEST_TABLE,
+    "find_crustacean": CRUSTACEAN_TABLE,
+    "find_fibrous_plant": FIBROUS_PLANT_TABLE
 }
 
 

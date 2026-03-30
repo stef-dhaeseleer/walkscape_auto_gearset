@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from urllib.parse import unquote
 
 # Add parent directory for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
 from models import Recipe, RecipeMaterial, SkillName
 from scraper_utils import *

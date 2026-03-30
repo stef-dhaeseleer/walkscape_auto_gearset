@@ -32,6 +32,8 @@ class Requirement(BaseModel):
     type: RequirementType
     target: Optional[str] = None     
     value: int             
+    input_skill: Optional[str] = None
+    input_level: Optional[int] = None
 
 class DropEntry(BaseModel):
     model_config = ConfigDict(frozen=True)

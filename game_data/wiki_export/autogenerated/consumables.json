@@ -396,6 +396,52 @@
     "duration": 10000
   },
   {
+    "id": "cooked_meat",
+    "wiki_slug": "Cooked_meat",
+    "name": "Cooked meat",
+    "value": 2,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
+    "id": "cooked_meat_fine",
+    "wiki_slug": "Cooked_meat",
+    "name": "Cooked meat (Fine)",
+    "value": 15,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "double_rewards",
+        "value": 2.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 500
+  },
+  {
     "id": "mud_pie",
     "wiki_slug": "Mud_pie",
     "name": "Mud pie",
@@ -508,6 +554,74 @@
       }
     ],
     "duration": 1000
+  },
+  {
+    "id": "spicy_moray",
+    "wiki_slug": "Spicy_moray",
+    "name": "Spicy moray",
+    "value": 12,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "chest_finding",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
+    "id": "spicy_moray_fine",
+    "wiki_slug": "Spicy_moray",
+    "name": "Spicy moray (Fine)",
+    "value": 61,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "chest_finding",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "steps_add",
+        "value": 6.0,
+        "conditions": [
+          {
+            "type": "global",
+            "target": null,
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
   },
   {
     "id": "sweet_carrot_pie",
@@ -1580,6 +1694,52 @@
     "duration": 5000
   },
   {
+    "id": "jellied_stream_eel",
+    "wiki_slug": "Jellied_stream_eel",
+    "name": "Jellied stream eel",
+    "value": 15,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_fishing_bait",
+        "value": 0.5,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
+    "id": "jellied_stream_eel_fine",
+    "wiki_slug": "Jellied_stream_eel",
+    "name": "Jellied stream eel (Fine)",
+    "value": 74,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_fishing_bait",
+        "value": 1.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "fishing",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
     "id": "trout_soup",
     "wiki_slug": "Trout_soup",
     "name": "Trout soup",
@@ -2069,9 +2229,228 @@
     "duration": 5000
   },
   {
+    "id": "crab_rolls",
+    "wiki_slug": "Crab_rolls",
+    "name": "Crab rolls",
+    "value": 4,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_gold",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_gold",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
+    "id": "crab_rolls_fine",
+    "wiki_slug": "Crab_rolls",
+    "name": "Crab rolls (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_gold",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_gold",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
     "id": "foraging_memosphere",
     "wiki_slug": "Foraging_memosphere",
     "name": "Foraging memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "jerky",
+    "wiki_slug": "Jerky",
+    "name": "Jerky",
+    "value": 12,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 100.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 10.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "jerky_fine",
+    "wiki_slug": "Jerky",
+    "name": "Jerky (Fine)",
+    "value": 61,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "fine_material_finding",
+        "value": 200.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "double_rewards",
+        "value": 20.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "crab_rolls",
+    "wiki_slug": "Crab_rolls",
+    "name": "Crab rolls",
+    "value": 4,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_gold",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_gold",
+        "value": 25.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
+    "id": "crab_rolls_fine",
+    "wiki_slug": "Crab_rolls",
+    "name": "Crab rolls (Fine)",
+    "value": 24,
+    "keywords": [
+      "Food",
+      "Sandwich"
+    ],
+    "modifiers": [
+      {
+        "stat": "find_gold",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "foraging",
+            "value": null
+          }
+        ]
+      },
+      {
+        "stat": "find_gold",
+        "value": 50.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "hunting",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 750
+  },
+  {
+    "id": "hunting_memosphere",
+    "wiki_slug": "Hunting_memosphere",
+    "name": "Hunting memosphere",
     "value": 0,
     "keywords": [
       "Memosphere"
@@ -2646,6 +3025,63 @@
     "id": "smithing_memosphere",
     "wiki_slug": "Smithing_memosphere",
     "name": "Smithing memosphere",
+    "value": 0,
+    "keywords": [
+      "Memosphere"
+    ],
+    "modifiers": [],
+    "duration": 0
+  },
+  {
+    "id": "bacon_weave",
+    "wiki_slug": "Bacon_weave",
+    "name": "Bacon weave",
+    "value": 10,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "quality_outcome",
+        "value": 30.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "bacon_weave_fine",
+    "wiki_slug": "Bacon_weave",
+    "name": "Bacon weave (Fine)",
+    "value": 51,
+    "keywords": [
+      "Food"
+    ],
+    "modifiers": [
+      {
+        "stat": "quality_outcome",
+        "value": 60.0,
+        "conditions": [
+          {
+            "type": "skill_activity",
+            "target": "tailoring",
+            "value": null
+          }
+        ]
+      }
+    ],
+    "duration": 5000
+  },
+  {
+    "id": "tailoring_memosphere",
+    "wiki_slug": "Tailoring_memosphere",
+    "name": "Tailoring memosphere",
     "value": 0,
     "keywords": [
       "Memosphere"

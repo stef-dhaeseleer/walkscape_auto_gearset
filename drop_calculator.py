@@ -170,7 +170,7 @@ class DropCalculator:
                 else:
                     self._add_row(rows, item_id, final_prob, steps_per_roll, avg_quantity)
 
-        # 4. Process Special Finds
+# 4. Process Special Finds
         for stat_key, reward_data in SPECIAL_FIND_MAP.items():
             stat_val = stats.get(stat_key, 0.0)
             if stat_val <= 0:
@@ -179,8 +179,14 @@ class DropCalculator:
             chance = stat_val / 100.0 
 
             if isinstance(reward_data, list):
-                for sub_item, sub_weight in reward_data:
-                    self._add_row(rows, sub_item, chance * sub_weight, steps_per_roll, 1.0)
+                for tuple_data in reward_data:
+                    # Support both (item, weight) and (item, weight, qty)
+                    if len(tuple_data) == 3:
+                        sub_item, sub_weight, sub_qty = tuple_data
+                    else:
+                        sub_item, sub_weight = tuple_data
+                        sub_qty = 1.0
+                    self._add_row(rows, sub_item, chance * sub_weight, steps_per_roll, sub_qty)
             else:
                 self._add_row(rows, reward_data, chance, steps_per_roll, 1.0)
 
@@ -205,17 +211,19 @@ class DropCalculator:
         for stat_key, reward_data in SPECIAL_FIND_MAP.items():
             if isinstance(reward_data, list):
                 norm_tot, fine_tot = 0.0, 0.0
-                for sub_item, weight in reward_data:
+                for tuple_data in reward_data:
+                    if len(tuple_data) == 3:
+                        sub_item, weight, qty = tuple_data
+                    else:
+                        sub_item, weight = tuple_data
+                        qty = 1.0
                     n, f = get_ev(sub_item)
-                    norm_tot += n * weight
-                    fine_tot += f * weight
+                    norm_tot += n * weight * qty
+                    fine_tot += f * weight * qty
                 ev_map[stat_key] = {"normal": norm_tot, "fine": fine_tot}
             else:
                 n, f = get_ev(reward_data)
                 ev_map[stat_key] = {"normal": n, "fine": f}
-                
-        # Manually add find_gold so it evaluates seamlessly in the loop
-        ev_map["find_gold"] = {"normal": 5.5, "fine": 5.5}
         
         return ev_map
 

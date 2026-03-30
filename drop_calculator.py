@@ -110,11 +110,9 @@ class DropCalculator:
         
         # 2. Reward Logic
         da_val = stats.get("double_action", 0.0)
-        # Fix: Double Rewards logic now matches Wiki: (1 + DA) * (1 + DR)
         dr_val = stats.get("double_rewards", 0.0)
         
         # Total multiplier for output quantity (not frequency)
-        # This reduces steps per effective item
         steps_per_roll = action_steps / ((1.0 + da_val) * (1.0 + dr_val))
 
         # 3. Process Standard Loot Tables
@@ -122,6 +120,7 @@ class DropCalculator:
         loot_tables = act_dict.get("loot_tables", [])
 
         for table in loot_tables:
+            rolls = table.get("rolls", 1)
             table_type = table.get("type", "main")
             drops = table.get("drops", [])
             
@@ -129,7 +128,6 @@ class DropCalculator:
                 item_id = drop.get("item_id")
                 base_chance = drop.get("chance", 0.0)
                 
-                # Fix: Handle Quantity
                 min_q = drop.get("min_quantity", 1)
                 max_q = drop.get("max_quantity", 1)
                 avg_quantity = (min_q + max_q) / 2.0
@@ -142,24 +140,19 @@ class DropCalculator:
                 # Check Modifiers
                 if item_id in self.chest_ids:
                     multiplier += stats.get("chest_finding", 0.0)
-                
-                # Fix: Add Bird Nest Logic
                 if item_id == "bird_nest":
                     multiplier += stats.get("find_bird_nests", 0.0)
-
                 if item_id in self.collectible_ids:
                     multiplier += stats.get("find_collectibles", 0.0)
-                
                 if table_type == "gem":
                      multiplier += stats.get("find_gems", 0.0)
 
-                final_prob = (base_chance / 100.0) * multiplier
+                final_prob = (base_chance / 100.0) * multiplier * rolls
 
                 # Check Fine Material
                 fine_id = self.fine_material_map.get(item_id)
                 if fine_id:
                     fine_bonus = stats.get("fine_material_finding", 0.0)
-                    # Note: Fine material finding is treated as a conversion chance here
                     fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))
                     
                     prob_fine = final_prob * fine_conversion_rate
@@ -170,7 +163,7 @@ class DropCalculator:
                 else:
                     self._add_row(rows, item_id, final_prob, steps_per_roll, avg_quantity)
 
-# 4. Process Special Finds
+        # 4. Process Special Finds
         for stat_key, reward_data in SPECIAL_FIND_MAP.items():
             stat_val = stats.get(stat_key, 0.0)
             if stat_val <= 0:
@@ -180,7 +173,6 @@ class DropCalculator:
 
             if isinstance(reward_data, list):
                 for tuple_data in reward_data:
-                    # Support both (item, weight) and (item, weight, qty)
                     if len(tuple_data) == 3:
                         sub_item, sub_weight, sub_qty = tuple_data
                     else:
@@ -200,11 +192,9 @@ class DropCalculator:
         
         def get_ev(item_id):
             if item_id in self.container_evs:
-                # Containers don't have fine variants
                 ev = self.container_evs[item_id]
                 return ev, ev 
             norm = self.item_values.get(item_id, 0.0)
-            # Fallback to normal value if no fine variant exists
             fine = self.item_values.get(f"{item_id}_fine", norm)
             return norm, fine
 

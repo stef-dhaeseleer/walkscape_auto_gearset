@@ -751,7 +751,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                             human_val = 250.0 / raw_val if raw_val > 0 else 0
                             display_text = f"{human_val:.1f} Steps/Chest" if raw_val > 0 else "∞ Steps/Chest"
                         elif "materials from input" in t_name_lower:
-                            display_text = f"{raw_val:.3f} Output/Input"
+                            display_text = f"{raw_val:.3f} Output Ratio"
                         elif "fine" in t_name_lower:
                             human_val = 100.0 / raw_val if raw_val > 0 else 0
                             display_text = f"{human_val:.1f} Steps/Fine Roll" if raw_val > 0 else "∞ Steps/Fine Roll"

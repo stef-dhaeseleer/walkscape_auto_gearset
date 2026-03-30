@@ -15,22 +15,30 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -79,7 +87,8 @@
             "row_weight": 10.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -104,13 +113,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 3.8,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 38.8
+    "normal_roll_worth": 7.6,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 77.6
   },
   {
     "id": "antique_market_assessor",
@@ -128,7 +138,9 @@
       {
         "type": "skill_level",
         "target": "trinketry",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [
@@ -139,6 +151,52 @@
     ],
     "materials": [],
     "loot_tables": [
+      {
+        "type": "secondary",
+        "drops": [
+          {
+            "item_id": "meteorite_fragment",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.1,
+            "category": null,
+            "no_drop_chance": 99.9,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          },
+          {
+            "item_id": "trinketry_chest",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.4,
+            "category": null,
+            "no_drop_chance": 99.6,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          },
+          {
+            "item_id": "coin_pouch",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.4,
+            "category": null,
+            "no_drop_chance": 99.6,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          },
+          {
+            "item_id": "gem_pouch",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.4,
+            "category": null,
+            "no_drop_chance": 99.6,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
       {
         "type": "main",
         "drops": [
@@ -212,57 +270,13 @@
             "row_weight": 2.0,
             "table_weight": 53.0
           }
-        ]
-      },
-      {
-        "type": "secondary",
-        "drops": [
-          {
-            "item_id": "meteorite_fragment",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.1,
-            "category": null,
-            "no_drop_chance": 99.9,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          },
-          {
-            "item_id": "trinketry_chest",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.4,
-            "category": null,
-            "no_drop_chance": 99.6,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          },
-          {
-            "item_id": "coin_pouch",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.4,
-            "category": null,
-            "no_drop_chance": 99.6,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          },
-          {
-            "item_id": "gem_pouch",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.4,
-            "category": null,
-            "no_drop_chance": 99.6,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 26.0094339623,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 2.2384763178,
     "fine_roll_worth": 98.0801886792
   },
   {
@@ -281,27 +295,14 @@
       {
         "type": "skill_level",
         "target": "crafting",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
     "materials": [],
     "loot_tables": [
-      {
-        "type": "main",
-        "drops": [
-          {
-            "item_id": "coins",
-            "min_quantity": 1,
-            "max_quantity": 10,
-            "chance": 100.0,
-            "category": null,
-            "no_drop_chance": 0.0,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          }
-        ]
-      },
       {
         "type": "secondary",
         "drops": [
@@ -315,12 +316,29 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "coins",
+            "min_quantity": 1,
+            "max_quantity": 10,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": 0.0,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.5,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.4084640784,
     "fine_roll_worth": 5.5
   },
   {
@@ -339,17 +357,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -408,7 +432,8 @@
             "row_weight": 0.19,
             "table_weight": 100.19
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -423,13 +448,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 4.0922247729,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 37.5286954786
+    "normal_roll_worth": 8.4347739295,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 75.3077153409
   },
   {
     "id": "bird_feeding",
@@ -448,12 +474,16 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 5
+        "value": 5,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "plant",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -492,7 +522,8 @@
             "row_weight": 13.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -507,13 +538,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 0.34,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 22.83
+    "normal_roll_worth": 0.68,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 45.66
   },
   {
     "id": "bird_watching",
@@ -531,7 +563,9 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -590,7 +624,8 @@
             "row_weight": 1.0,
             "table_weight": 93.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -605,12 +640,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.74,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.256287456,
     "fine_roll_worth": 118.44
   },
   {
@@ -629,7 +665,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -708,7 +746,8 @@
             "row_weight": 0.15,
             "table_weight": 17.95
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -733,12 +772,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.1331476323,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5519943488,
     "fine_roll_worth": 7.3293593315
   },
   {
@@ -757,17 +797,23 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -836,7 +882,8 @@
             "row_weight": 10.0,
             "table_weight": 45.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -851,12 +898,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.6666666667,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 18.1111111111
   },
   {
@@ -875,22 +923,30 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_spear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -959,7 +1015,8 @@
             "row_weight": 10.0,
             "table_weight": 45.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -974,12 +1031,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.6666666667,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 23.0
   },
   {
@@ -998,12 +1056,16 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_trap",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1082,7 +1144,8 @@
             "row_weight": 30.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -1107,13 +1170,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 1.64,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 25.64
+    "normal_roll_worth": 3.28,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 51.28
   },
   {
     "id": "branch_trimming",
@@ -1133,7 +1197,9 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1172,7 +1238,8 @@
             "row_weight": 5.0,
             "table_weight": 155.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -1197,13 +1264,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 0.0290322581,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 5.5451612903
+    "normal_roll_worth": 0.0580645161,
+    "chest_roll_worth": 0.5788265224,
+    "fine_roll_worth": 11.0903225806
   },
   {
     "id": "brig_repair",
@@ -1223,17 +1291,23 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "smithing",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "carpentry_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1292,7 +1366,8 @@
             "row_weight": 0.03,
             "table_weight": 85.165
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -1327,12 +1402,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.7345740621,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.2027595712,
     "fine_roll_worth": 7.2124699113
   },
   {
@@ -1353,17 +1429,23 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "bug_catching_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1432,7 +1514,8 @@
             "row_weight": 8.0,
             "table_weight": 31.34
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -1477,12 +1560,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.9314613912,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5761307232,
     "fine_roll_worth": 27.5594128909
   },
   {
@@ -1504,32 +1588,44 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1638,7 +1734,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -1693,12 +1790,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 25.1288461538,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.3209504208,
     "fine_roll_worth": 143.0326923077
   },
   {
@@ -1717,12 +1815,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 5
+        "value": 5,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "skis",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1741,12 +1843,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -1765,12 +1868,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [
@@ -1814,7 +1921,8 @@
             "row_weight": 20.0,
             "table_weight": 30.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -1849,12 +1957,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.4583333333,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 1.4583333333
   },
   {
@@ -1876,12 +1985,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -1940,7 +2053,8 @@
             "row_weight": 0.5,
             "table_weight": 12.12
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -1965,12 +2079,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.4981023102,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5761307232,
     "fine_roll_worth": 18.1340346535
   },
   {
@@ -1989,17 +2104,23 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2038,7 +2159,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2063,12 +2185,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.5,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.721444808,
     "fine_roll_worth": 27.1
   },
   {
@@ -2089,7 +2212,9 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2118,7 +2243,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2133,12 +2259,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.35,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.256287456,
     "fine_roll_worth": 14.85
   },
   {
@@ -2157,12 +2284,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2191,7 +2322,8 @@
             "row_weight": 0.17,
             "table_weight": 1000.17
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2226,12 +2358,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.0231160703,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 24.1043622584
   },
   {
@@ -2251,12 +2384,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2275,7 +2412,8 @@
             "row_weight": 11.0,
             "table_weight": 11.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2320,12 +2458,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.045,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6339509224,
     "fine_roll_worth": 6.045
   },
   {
@@ -2344,17 +2483,23 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "req_woodcutting_50_hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2373,7 +2518,8 @@
             "row_weight": 1000.0,
             "table_weight": 1000.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2398,12 +2544,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 0.0
   },
   {
@@ -2422,12 +2569,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2456,7 +2607,8 @@
             "row_weight": 0.28,
             "table_weight": 1000.28
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2481,12 +2633,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.037789419,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 31.1699124245
   },
   {
@@ -2505,12 +2658,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2539,7 +2696,8 @@
             "row_weight": 0.16,
             "table_weight": 1000.16
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2564,12 +2722,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.0220764678,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 15.0996640538
   },
   {
@@ -2589,12 +2748,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2613,7 +2776,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2638,12 +2802,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 15.0
   },
   {
@@ -2663,12 +2828,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2687,7 +2856,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2722,12 +2892,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.045,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 11.045
   },
   {
@@ -2748,12 +2919,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2772,7 +2947,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2797,12 +2973,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 11.0
   },
   {
@@ -2821,12 +2998,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2855,7 +3036,8 @@
             "row_weight": 0.2,
             "table_weight": 1000.2
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2880,12 +3062,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.0393921216,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 21.1781643671
   },
   {
@@ -2905,12 +3088,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -2939,7 +3126,8 @@
             "row_weight": 0.13,
             "table_weight": 1000.13
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -2974,12 +3162,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.0176777019,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 24.0798096247
   },
   {
@@ -2998,17 +3187,23 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "req_woodcutting_50_hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3027,7 +3222,8 @@
             "row_weight": 1000.0,
             "table_weight": 1000.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -3052,12 +3248,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 6.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5788265224,
     "fine_roll_worth": 36.0
   },
   {
@@ -3076,17 +3273,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3145,7 +3348,8 @@
             "row_weight": 15.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -3160,13 +3364,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 2.345,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 31.795
+    "normal_roll_worth": 4.69,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 63.59
   },
   {
     "id": "dragonfly_catching",
@@ -3186,17 +3391,23 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "bug_catching_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3255,7 +3466,8 @@
             "row_weight": 0.035,
             "table_weight": 18.035
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -3300,12 +3512,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.3499306903,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5761307232,
     "fine_roll_worth": 20.6496257278
   },
   {
@@ -3326,22 +3539,30 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3400,7 +3621,8 @@
             "row_weight": 7.0,
             "table_weight": 64.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -3435,13 +3657,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 3.875,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 28.5703125
+    "normal_roll_worth": 7.75,
+    "chest_roll_worth": 0.6468265384,
+    "fine_roll_worth": 57.140625
   },
   {
     "id": "ectoplasm_fishing",
@@ -3459,12 +3682,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3483,7 +3710,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -3498,12 +3726,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 0.0
   },
   {
@@ -3522,17 +3751,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3551,7 +3786,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -3566,12 +3802,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.256287456,
     "fine_roll_worth": 0.0
   },
   {
@@ -3594,7 +3831,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3613,7 +3852,8 @@
             "row_weight": null,
             "table_weight": null
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -3638,7 +3878,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3657,7 +3899,8 @@
             "row_weight": null,
             "table_weight": null
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -3686,7 +3929,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3705,7 +3950,8 @@
             "row_weight": null,
             "table_weight": null
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -3729,7 +3975,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3748,7 +3996,8 @@
             "row_weight": null,
             "table_weight": null
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -3774,12 +4023,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3918,7 +4171,8 @@
             "row_weight": 0.04,
             "table_weight": 34.78
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -3943,12 +4197,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.6719378953,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5761307232,
     "fine_roll_worth": 12.9913743531
   },
   {
@@ -3967,17 +4222,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -3996,12 +4257,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 0.0
   },
   {
@@ -4020,17 +4282,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4059,12 +4327,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 0.0
   },
   {
@@ -4085,17 +4354,23 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 15
+        "value": 15,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hatchet",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4134,7 +4409,8 @@
             "row_weight": 10.0,
             "table_weight": 10.28
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -4159,12 +4435,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0490272374,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5935724328,
     "fine_roll_worth": 6.1774319066
   },
   {
@@ -4183,27 +4460,14 @@
       {
         "type": "skill_level",
         "target": "smithing",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
     "materials": [],
     "loot_tables": [
-      {
-        "type": "main",
-        "drops": [
-          {
-            "item_id": "coins",
-            "min_quantity": 1,
-            "max_quantity": 10,
-            "chance": 100.0,
-            "category": null,
-            "no_drop_chance": 0.0,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          }
-        ]
-      },
       {
         "type": "secondary",
         "drops": [
@@ -4217,12 +4481,29 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "coins",
+            "min_quantity": 1,
+            "max_quantity": 10,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": 0.0,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.5,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.38529274,
     "fine_roll_worth": 5.5
   },
   {
@@ -4241,7 +4522,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4290,7 +4573,8 @@
             "row_weight": 3.0,
             "table_weight": 18.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -4325,12 +4609,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.4,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 30.1
   },
   {
@@ -4349,12 +4634,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_rod",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4403,7 +4692,8 @@
             "row_weight": 0.026,
             "table_weight": 6.026
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -4428,12 +4718,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.980750083,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 32.6983073349
   },
   {
@@ -4455,7 +4746,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4554,7 +4847,8 @@
             "row_weight": 6.0,
             "table_weight": 74.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -4589,12 +4883,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.9372297297,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.368588416,
     "fine_roll_worth": 12.5618918919
   },
   {
@@ -4613,22 +4908,30 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "expert_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4697,7 +5000,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -4722,12 +5026,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.7448196976,
     "fine_roll_worth": 1.2707692308
   },
   {
@@ -4746,12 +5051,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "skydisc",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4780,13 +5089,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 0.0
+    "normal_roll_worth": 0.8512,
+    "chest_roll_worth": 0.2626667072,
+    "fine_roll_worth": 0.8512
   },
   {
     "id": "ghost_tag",
@@ -4804,7 +5114,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4823,7 +5135,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -4838,12 +5151,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -4864,12 +5178,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -4898,7 +5216,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -4933,12 +5252,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.015,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5761307232,
     "fine_roll_worth": 0.015
   },
   {
@@ -4959,17 +5279,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 15
+        "value": 15,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 5
+        "value": 5,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "gold_pan",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5068,7 +5394,8 @@
             "row_weight": 3.0,
             "table_weight": 18.825
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5093,7 +5420,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -5118,12 +5446,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.6472295434,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6438005056,
     "fine_roll_worth": 11.22634692
   },
   {
@@ -5142,7 +5471,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5211,7 +5542,8 @@
             "row_weight": 2.25,
             "table_weight": 12.375
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5236,12 +5568,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.4927272727,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 17.9472727273
   },
   {
@@ -5263,42 +5596,35 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "shield",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "weapon",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
     "materials": [],
     "loot_tables": [
-      {
-        "type": "main",
-        "drops": [
-          {
-            "item_id": "coins",
-            "min_quantity": 1,
-            "max_quantity": 30,
-            "chance": 100.0,
-            "category": null,
-            "no_drop_chance": 0.0,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          }
-        ]
-      },
       {
         "type": "secondary",
         "drops": [
@@ -5332,12 +5658,29 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "coins",
+            "min_quantity": 1,
+            "max_quantity": 30,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": 0.0,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 15.5,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.236134616,
     "fine_roll_worth": 15.5
   },
   {
@@ -5356,12 +5699,16 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5390,7 +5737,8 @@
             "row_weight": 67.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5415,12 +5763,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.256287456,
     "fine_roll_worth": 6.0
   },
   {
@@ -5439,12 +5788,16 @@
       {
         "type": "skill_level",
         "target": "smithing",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "smithing_hammer",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5483,7 +5836,8 @@
             "row_weight": 25.3,
             "table_weight": 25.38
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5508,12 +5862,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0567375887,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.79137274,
     "fine_roll_worth": 7.4359338061
   },
   {
@@ -5532,7 +5887,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5591,7 +5948,8 @@
             "row_weight": 0.1,
             "table_weight": 35.1
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5616,12 +5974,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.2404558405,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.510587504,
     "fine_roll_worth": 6.0267806268
   },
   {
@@ -5642,17 +6001,23 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "smithing",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "carpentry_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5711,7 +6076,8 @@
             "row_weight": 0.05,
             "table_weight": 72.13
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5746,12 +6112,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.7906557604,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.36406748,
     "fine_roll_worth": 20.2589768474
   },
   {
@@ -5770,7 +6137,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5829,7 +6198,8 @@
             "row_weight": 0.25,
             "table_weight": 30.25
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5854,12 +6224,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.1254545455,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.510587504,
     "fine_roll_worth": 1.4345454545
   },
   {
@@ -5880,17 +6251,23 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 15
+        "value": 15,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "crafting",
-        "value": 15
+        "value": 15,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "carpentry_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -5929,7 +6306,8 @@
             "row_weight": 0.21,
             "table_weight": 50.21
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -5964,12 +6342,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.5125473013,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.8198509096,
     "fine_roll_worth": 1.5125473013
   },
   {
@@ -5988,12 +6367,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6042,7 +6425,8 @@
             "row_weight": 0.046,
             "table_weight": 10.068
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6057,12 +6441,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 10.1311084625,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 50.7948450536
   },
   {
@@ -6081,12 +6466,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "skydisc",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6105,12 +6494,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -6129,12 +6519,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "life_vest",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6193,7 +6587,8 @@
             "row_weight": 0.04,
             "table_weight": 22.54
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6218,12 +6613,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.7546583851,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 7.6836734694
   },
   {
@@ -6244,17 +6640,23 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6303,7 +6705,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6338,12 +6741,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.5952380952,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.034908824,
     "fine_roll_worth": 27.5761904762
   },
   {
@@ -6363,12 +6767,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 5
+        "value": 5,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_rod",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6407,7 +6815,8 @@
             "row_weight": 15.0,
             "table_weight": 37.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6422,12 +6831,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.6756756757,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2895198904,
     "fine_roll_worth": 9.3783783784
   },
   {
@@ -6446,17 +6856,23 @@
       {
         "type": "skill_level",
         "target": "tailoring",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "needle",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fabric",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6515,7 +6931,8 @@
             "row_weight": 0.14,
             "table_weight": 72.22
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6530,12 +6947,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 15.3514261977,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2983143512,
     "fine_roll_worth": 21.6482968707
   },
   {
@@ -6557,7 +6975,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 8
+        "value": 8,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6636,7 +7056,8 @@
             "row_weight": 2.0,
             "table_weight": 41.4
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6651,12 +7072,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2811594203,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 4.0782608696
   },
   {
@@ -6675,17 +7097,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6724,7 +7152,8 @@
             "row_weight": 15.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -6739,13 +7168,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 2.575,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 20.45
+    "normal_roll_worth": 5.15,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 40.9
   },
   {
     "id": "magnet_fishing",
@@ -6765,17 +7195,23 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "magnetic",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -6944,7 +7380,8 @@
             "row_weight": 1.0,
             "table_weight": 80.28
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -6979,12 +7416,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.7106377678,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6029839064,
     "fine_roll_worth": 9.4754608869
   },
   {
@@ -7003,12 +7441,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [
@@ -7052,7 +7494,8 @@
             "row_weight": 0.2,
             "table_weight": 10.2
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7097,12 +7540,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2098039216,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6532057896,
     "fine_roll_worth": 1.4843137255
   },
   {
@@ -7121,12 +7565,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7205,7 +7653,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7230,12 +7679,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.3,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.7040030984,
     "fine_roll_worth": 21.7
   },
   {
@@ -7254,17 +7704,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "req_mining_50_pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7283,7 +7739,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7308,7 +7765,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7333,12 +7791,13 @@
             "row_weight": 3.0,
             "table_weight": 23.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 8.3960869565,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 46.9039130435
   },
   {
@@ -7358,12 +7817,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7382,7 +7845,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7397,7 +7861,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7422,12 +7887,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 16.2707692308
   },
   {
@@ -7446,12 +7912,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7470,7 +7940,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7495,7 +7966,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7520,12 +7992,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 7.2707692308
   },
   {
@@ -7544,12 +8017,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7578,7 +8055,8 @@
             "row_weight": 0.25,
             "table_weight": 10.25
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7613,7 +8091,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7638,12 +8117,13 @@
             "row_weight": 3.0,
             "table_weight": 23.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 9.2985259809,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 46.5380593849
   },
   {
@@ -7662,17 +8142,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "req_mining_50_pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7691,7 +8177,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7706,7 +8193,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7731,12 +8219,13 @@
             "row_weight": 8.0,
             "table_weight": 28.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.3485714286,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 1.6771428571
   },
   {
@@ -7755,12 +8244,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7779,7 +8272,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7794,7 +8288,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7819,12 +8314,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 31.2707692308
   },
   {
@@ -7843,12 +8339,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7867,7 +8367,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7892,7 +8393,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -7917,12 +8419,13 @@
             "row_weight": 3.0,
             "table_weight": 23.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 10.3960869565,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 52.9039130435
   },
   {
@@ -7941,12 +8444,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -7965,7 +8472,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -7990,7 +8498,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8015,12 +8524,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 12.2707692308
   },
   {
@@ -8039,12 +8549,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8063,7 +8577,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8088,7 +8603,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8113,12 +8629,13 @@
             "row_weight": 3.0,
             "table_weight": 23.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 7.3960869565,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 39.9039130435
   },
   {
@@ -8137,12 +8654,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8161,7 +8682,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8176,7 +8698,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8201,12 +8724,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 22.2707692308
   },
   {
@@ -8225,17 +8749,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8254,7 +8784,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8269,7 +8800,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8294,12 +8826,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 22.2707692308
   },
   {
@@ -8318,12 +8851,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8342,7 +8879,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8367,7 +8905,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8392,12 +8931,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 7.2707692308
   },
   {
@@ -8416,17 +8956,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 70
+        "value": 70,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "req_mining_60_pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8445,7 +8991,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8470,7 +9017,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8495,12 +9043,13 @@
             "row_weight": 3.0,
             "table_weight": 23.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 10.3960869565,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 52.9039130435
   },
   {
@@ -8519,17 +9068,23 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8558,7 +9113,8 @@
             "row_weight": 0.5,
             "table_weight": 10.5
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8593,7 +9149,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -8618,12 +9175,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.409010989,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.7448196976,
     "fine_roll_worth": 25.9374358974
   },
   {
@@ -8642,12 +9200,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "climbing_gear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8716,7 +9278,8 @@
             "row_weight": 0.08,
             "table_weight": 29.08
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8731,12 +9294,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0417606602,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 4.3443741403
   },
   {
@@ -8758,7 +9322,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8837,7 +9403,8 @@
             "row_weight": 0.7,
             "table_weight": 72.7
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8852,12 +9419,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.637826685,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 15.8620357634
   },
   {
@@ -8878,27 +9446,37 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 55
+        "value": 55,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_spear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "expert_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8947,7 +9525,8 @@
             "row_weight": 10.0,
             "table_weight": 30.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -8992,12 +9571,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 9.8666666667,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.9363464288,
     "fine_roll_worth": 49.3333333333
   },
   {
@@ -9017,7 +9597,9 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9056,7 +9638,8 @@
             "row_weight": 8.4,
             "table_weight": 850.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -9071,13 +9654,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 2.5248,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 18.936
+    "normal_roll_worth": 2.5584,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 18.9696
   },
   {
     "id": "repair_the_bank",
@@ -9095,12 +9679,16 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 58
+        "value": 58,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "exact_item_spectral_saw",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9119,12 +9707,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.4113868312,
     "fine_roll_worth": 0.0
   },
   {
@@ -9143,22 +9732,30 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "climbing_gear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "skis",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "achievement_points",
         "target": null,
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9176,7 +9773,13 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
-          },
+          }
+        ],
+        "rolls": 150
+      },
+      {
+        "type": "secondary",
+        "drops": [
           {
             "item_id": "adventurers_enamel_pin",
             "min_quantity": 1,
@@ -9217,12 +9820,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 8.9964,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 39.40000608,
     "fine_roll_worth": 54.5168
   },
   {
@@ -9241,12 +9845,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "climbing_gear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9315,7 +9923,8 @@
             "row_weight": 0.018,
             "table_weight": 27.518
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -9330,12 +9939,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.5789752162,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 19.3489076241
   },
   {
@@ -9357,12 +9967,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9391,12 +10005,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -9415,7 +10030,9 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9454,12 +10071,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.4665112312,
     "fine_roll_worth": 0.0
   },
   {
@@ -9478,12 +10096,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_cage",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9542,7 +10164,8 @@
             "row_weight": 0.07,
             "table_weight": 35.136
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -9567,12 +10190,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 2.1990551002,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.578847532,
     "fine_roll_worth": 13.951189663
   },
   {
@@ -9592,12 +10216,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_net",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9646,7 +10274,8 @@
             "row_weight": 0.03,
             "table_weight": 25.03
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -9681,12 +10310,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.456252497,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.633971932,
     "fine_roll_worth": 10.8293048342
   },
   {
@@ -9706,12 +10336,16 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_rod",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9750,7 +10384,8 @@
             "row_weight": 11.0,
             "table_weight": 36.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -9775,12 +10410,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.6944444444,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.578847532,
     "fine_roll_worth": 13.7777777778
   },
   {
@@ -9799,17 +10435,23 @@
       {
         "type": "skill_level",
         "target": "fishing",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fishing_spear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9908,7 +10550,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -9933,12 +10576,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.1425187032,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6800589728,
     "fine_roll_worth": 29.6354114713
   },
   {
@@ -9957,7 +10601,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -9975,7 +10621,13 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
-          },
+          }
+        ],
+        "rolls": 100
+      },
+      {
+        "type": "secondary",
+        "drops": [
           {
             "item_id": "adventurers_enamel_pin",
             "min_quantity": 1,
@@ -10006,12 +10658,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.5,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 26.26667072,
     "fine_roll_worth": 16.9
   },
   {
@@ -10032,7 +10685,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10101,7 +10756,8 @@
             "row_weight": 0.005,
             "table_weight": 40.005
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -10126,12 +10782,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.0582427197,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6027916576,
     "fine_roll_worth": 25.8061742282
   },
   {
@@ -10150,7 +10807,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10179,7 +10838,8 @@
             "row_weight": 1.0,
             "table_weight": 1.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -10204,12 +10864,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0936,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0936
   },
   {
@@ -10228,12 +10889,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "skis",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10262,12 +10927,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -10286,7 +10952,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [
@@ -10310,12 +10978,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -10334,17 +11003,23 @@
       {
         "type": "skill_level",
         "target": "tailoring",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "needle",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "fabric",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10403,7 +11078,8 @@
             "row_weight": 0.1,
             "table_weight": 80.235
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -10418,12 +11094,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 7.5015890821,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2983143512,
     "fine_roll_worth": 11.5322490185
   },
   {
@@ -10443,7 +11120,9 @@
       {
         "type": "skill_level",
         "target": "cooking",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10532,7 +11211,8 @@
             "row_weight": 2.5,
             "table_weight": 23.02
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -10557,12 +11237,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.1374891399,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2824592064,
     "fine_roll_worth": 2.1331450912
   },
   {
@@ -10583,22 +11264,30 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "climbing_gear",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10667,7 +11356,8 @@
             "row_weight": 0.35,
             "table_weight": 80.35
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -10722,12 +11412,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 10.8465463597,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.1843352312,
     "fine_roll_worth": 51.3015556938
   },
   {
@@ -10746,12 +11437,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10780,12 +11475,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -10804,12 +11500,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10868,7 +11568,8 @@
             "row_weight": 0.02,
             "table_weight": 26.02
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -10883,12 +11584,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.4441199078,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 10.6996156802
   },
   {
@@ -10907,17 +11609,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 15
+        "value": 15,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -10946,7 +11654,8 @@
             "row_weight": 20.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -10961,13 +11670,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 0.2,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 16.6
+    "normal_roll_worth": 0.4,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 33.2
   },
   {
     "id": "stone_quarrying",
@@ -10985,7 +11695,9 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11024,7 +11736,8 @@
             "row_weight": 5.0,
             "table_weight": 155.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11039,12 +11752,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0290322581,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 5.5451612903
   },
   {
@@ -11063,12 +11777,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11127,7 +11845,8 @@
             "row_weight": 10.0,
             "table_weight": 40.01
           }
-        ]
+        ],
+        "rolls": 3
       },
       {
         "type": "secondary",
@@ -11142,13 +11861,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 5.040739815,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 34.6843289178
+    "normal_roll_worth": 15.1222194451,
+    "chest_roll_worth": 0.313464016,
+    "fine_roll_worth": 104.0529867533
   },
   {
     "id": "surface_copper_mining",
@@ -11166,12 +11886,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11190,7 +11914,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11215,7 +11940,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -11240,12 +11966,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.4094050152,
     "fine_roll_worth": 7.2707692308
   },
   {
@@ -11264,12 +11991,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11288,7 +12019,8 @@
             "row_weight": 18.0,
             "table_weight": 18.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11313,12 +12045,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.4094050152,
     "fine_roll_worth": 11.0
   },
   {
@@ -11338,7 +12071,9 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11407,7 +12142,8 @@
             "row_weight": 0.1,
             "table_weight": 17.9
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11432,12 +12168,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.1131284916,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5519943488,
     "fine_roll_worth": 2.8191620112
   },
   {
@@ -11456,12 +12193,16 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11480,7 +12221,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11495,7 +12237,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -11520,12 +12263,13 @@
             "row_weight": 20.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 7.2707692308
   },
   {
@@ -11544,12 +12288,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11638,7 +12386,8 @@
             "row_weight": 0.1,
             "table_weight": 70.1
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11653,12 +12402,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.7061340942,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 39.4607703281
   },
   {
@@ -11677,12 +12427,16 @@
       {
         "type": "skill_level",
         "target": "crafting",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "crafting_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11741,7 +12495,8 @@
             "row_weight": 5.0,
             "table_weight": 20.08
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -11776,12 +12531,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.5901394422,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.8145440784,
     "fine_roll_worth": 8.8072709163
   },
   {
@@ -11804,7 +12560,9 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -11893,12 +12651,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 0.18
   },
   {
@@ -11919,12 +12678,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 20
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12063,7 +12826,8 @@
             "row_weight": 0.04,
             "table_weight": 34.9
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -12088,12 +12852,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 5.1919770774,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.5761307232,
     "fine_roll_worth": 13.6263610315
   },
   {
@@ -12114,27 +12879,37 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "carpentry_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [
@@ -12168,7 +12943,8 @@
             "row_weight": 10.0,
             "table_weight": 20.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -12193,7 +12969,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -12218,12 +12995,13 @@
             "row_weight": 6.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.3007692308,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6740535384,
     "fine_roll_worth": 19.4369230769
   },
   {
@@ -12242,22 +13020,30 @@
       {
         "type": "skill_level",
         "target": "mining",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "pickaxe",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12326,7 +13112,8 @@
             "row_weight": 0.0053,
             "table_weight": 30.0053
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -12341,7 +13128,8 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "gem",
@@ -12366,12 +13154,13 @@
             "row_weight": 6.0,
             "table_weight": 26.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.3058916591,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3542806152,
     "fine_roll_worth": 28.6046201171
   },
   {
@@ -12390,12 +13179,16 @@
       {
         "type": "skill_level",
         "target": "crafting",
-        "value": 40
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12434,7 +13227,8 @@
             "row_weight": 0.07,
             "table_weight": 10.07
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -12479,12 +13273,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0834160874,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.7724710696,
     "fine_roll_worth": 17.9582919563
   },
   {
@@ -12503,17 +13298,57 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "advanced_diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
     "materials": [],
     "loot_tables": [
+      {
+        "type": "secondary",
+        "drops": [
+          {
+            "item_id": "sea_shell",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 10.0,
+            "category": null,
+            "no_drop_chance": 90.0,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          },
+          {
+            "item_id": "agility_chest",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.4,
+            "category": null,
+            "no_drop_chance": 99.6,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          },
+          {
+            "item_id": "coral_chest",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.4,
+            "category": null,
+            "no_drop_chance": 99.6,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
       {
         "type": "main",
         "drops": [
@@ -12567,47 +13402,13 @@
             "row_weight": 0.25,
             "table_weight": 40.5
           }
-        ]
-      },
-      {
-        "type": "secondary",
-        "drops": [
-          {
-            "item_id": "sea_shell",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 10.0,
-            "category": null,
-            "no_drop_chance": 90.0,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          },
-          {
-            "item_id": "agility_chest",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.4,
-            "category": null,
-            "no_drop_chance": 99.6,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          },
-          {
-            "item_id": "coral_chest",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.4,
-            "category": null,
-            "no_drop_chance": 99.6,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 4.1882716049,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.6532057896,
     "fine_roll_worth": 22.7635802469
   },
   {
@@ -12626,17 +13427,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 60
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12695,7 +13502,8 @@
             "row_weight": 0.17,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -12710,13 +13518,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 10.6244,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 81.39955
+    "normal_roll_worth": 21.5344,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 163.0847
   },
   {
     "id": "vegetable_chopping",
@@ -12734,12 +13543,30 @@
       {
         "type": "skill_level",
         "target": "cooking",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
     "materials": [],
     "loot_tables": [
+      {
+        "type": "secondary",
+        "drops": [
+          {
+            "item_id": "cooking_chest",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.4,
+            "category": null,
+            "no_drop_chance": 99.6,
+            "row_weight": 10.0,
+            "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
       {
         "type": "main",
         "drops": [
@@ -12793,27 +13620,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
-      },
-      {
-        "type": "secondary",
-        "drops": [
-          {
-            "item_id": "cooking_chest",
-            "min_quantity": 1,
-            "max_quantity": 1,
-            "chance": 0.4,
-            "category": null,
-            "no_drop_chance": 99.6,
-            "row_weight": 10.0,
-            "table_weight": 10.0
-          }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 1.6666666667,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2824592064,
     "fine_roll_worth": 7.0
   },
   {
@@ -12832,12 +13645,16 @@
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12866,12 +13683,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.2626667072,
     "fine_roll_worth": 0.0
   },
   {
@@ -12890,12 +13708,16 @@
       {
         "type": "skill_level",
         "target": "woodcutting",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12924,12 +13746,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.3309057256,
     "fine_roll_worth": 0.0
   },
   {
@@ -12948,12 +13771,16 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 50
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "light_source",
-        "value": 2
+        "value": 2,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -12982,12 +13809,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.313464016,
     "fine_roll_worth": 0.0
   },
   {
@@ -13008,12 +13836,16 @@
       {
         "type": "skill_level",
         "target": "cooking",
-        "value": 45
+        "value": 45,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 30
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -13072,7 +13904,8 @@
             "row_weight": 0.005,
             "table_weight": 6.015
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -13117,12 +13950,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 3.3250207814,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.1125138224,
     "fine_roll_worth": 20.7401496259
   },
   {
@@ -13141,17 +13975,23 @@
       {
         "type": "skill_level",
         "target": "hunting",
-        "value": 25
+        "value": 25,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "hunting_bow",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "arrows",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -13210,7 +14050,8 @@
             "row_weight": 20.0,
             "table_weight": 100.0
           }
-        ]
+        ],
+        "rolls": 2
       },
       {
         "type": "secondary",
@@ -13225,13 +14066,14 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 1.02,
-    "chest_roll_worth": 0.0,
-    "fine_roll_worth": 29.97
+    "normal_roll_worth": 2.04,
+    "chest_roll_worth": 0.256287456,
+    "fine_roll_worth": 59.94
   },
   {
     "id": "wood_carving",
@@ -13249,12 +14091,16 @@
       {
         "type": "skill_level",
         "target": "carpentry",
-        "value": 10
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "carpentry_tool",
-        "value": 1
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -13293,7 +14139,8 @@
             "row_weight": 20.0,
             "table_weight": 20.24
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -13318,12 +14165,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 0.0083003953,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 0.4113868312,
     "fine_roll_worth": 4.7513833992
   },
   {
@@ -13344,17 +14192,23 @@
       {
         "type": "skill_level",
         "target": "foraging",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "skill_level",
         "target": "agility",
-        "value": 35
+        "value": 35,
+        "input_skill": null,
+        "input_level": null
       },
       {
         "type": "keyword_count",
         "target": "diving_gear",
-        "value": 3
+        "value": 3,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -13413,7 +14267,8 @@
             "row_weight": 7.0,
             "table_weight": 20.025
           }
-        ]
+        ],
+        "rolls": 1
       },
       {
         "type": "secondary",
@@ -13478,12 +14333,13 @@
             "row_weight": 10.0,
             "table_weight": 10.0
           }
-        ]
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 45.6460674157,
-    "chest_roll_worth": 0.0,
+    "chest_roll_worth": 1.9401377144,
     "fine_roll_worth": 285.7584269663
   }
 ]

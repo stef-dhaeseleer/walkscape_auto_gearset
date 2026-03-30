@@ -22,9 +22,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 50,
+    "base_steps": 135,
+    "max_efficiency": 0.5
   },
   {
     "id": "cut_a_birch_plank",
@@ -45,7 +45,7 @@
     ],
     "base_xp": 28.0,
     "base_steps": 90,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_a_wooden_shield",
@@ -66,7 +66,7 @@
     ],
     "base_xp": 40.0,
     "base_steps": 140,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_a_wooden_sword",
@@ -87,7 +87,7 @@
     ],
     "base_xp": 42.0,
     "base_steps": 140,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "create_a_birch_plank_(scrap)",
@@ -107,8 +107,8 @@
       ]
     ],
     "base_xp": 28.0,
-    "base_steps": 90,
-    "max_efficiency": 1.5
+    "base_steps": 99,
+    "max_efficiency": 0.5
   },
   {
     "id": "fletch_copper_arrows",
@@ -141,7 +141,7 @@
     ],
     "base_xp": 14.0,
     "base_steps": 45,
-    "max_efficiency": 1.2
+    "max_efficiency": 0.2
   },
   {
     "id": "cut_a_pine_plank",
@@ -162,7 +162,7 @@
     ],
     "base_xp": 39.0,
     "base_steps": 105,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "create_a_pine_plank_(scrap)",
@@ -182,8 +182,8 @@
       ]
     ],
     "base_xp": 39.0,
-    "base_steps": 105,
-    "max_efficiency": 1.6
+    "base_steps": 115,
+    "max_efficiency": 0.6
   },
   {
     "id": "fletch_bronze_arrows",
@@ -216,7 +216,7 @@
     ],
     "base_xp": 19.0,
     "base_steps": 52,
-    "max_efficiency": 1.25
+    "max_efficiency": 0.25
   },
   {
     "id": "woodwork_a_pine_toolbox",
@@ -235,9 +235,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 121,
+    "base_steps": 242,
+    "max_efficiency": 0.6
   },
   {
     "id": "cut_a_spruce_plank",
@@ -258,7 +258,7 @@
     ],
     "base_xp": 53.0,
     "base_steps": 120,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "create_a_spruce_plank_(scrap)",
@@ -278,8 +278,8 @@
       ]
     ],
     "base_xp": 53.0,
-    "base_steps": 120,
-    "max_efficiency": 1.7
+    "base_steps": 132,
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_comfy_fishing_chair",
@@ -304,9 +304,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 168,
+    "base_steps": 421,
+    "max_efficiency": 0.85
   },
   {
     "id": "fletch_iron_arrows",
@@ -339,7 +339,7 @@
     ],
     "base_xp": 26.0,
     "base_steps": 60,
-    "max_efficiency": 1.3
+    "max_efficiency": 0.3
   },
   {
     "id": "craft_an_oak_hunting_bow",
@@ -364,9 +364,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 93,
+    "base_steps": 180,
+    "max_efficiency": 0.7
   },
   {
     "id": "cut_an_oak_plank",
@@ -387,7 +387,7 @@
     ],
     "base_xp": 64.0,
     "base_steps": 125,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "create_an_oak_plank_(scrap)",
@@ -407,8 +407,8 @@
       ]
     ],
     "base_xp": 64.0,
-    "base_steps": 125,
-    "max_efficiency": 1.7
+    "base_steps": 137,
+    "max_efficiency": 0.7
   },
   {
     "id": "cut_a_maple_plank",
@@ -429,7 +429,7 @@
     ],
     "base_xp": 77.0,
     "base_steps": 135,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "create_a_maple_plank_(scrap)",
@@ -449,8 +449,8 @@
       ]
     ],
     "base_xp": 77.0,
-    "base_steps": 135,
-    "max_efficiency": 1.8
+    "base_steps": 148,
+    "max_efficiency": 0.8
   },
   {
     "id": "fletch_steel_arrows",
@@ -483,7 +483,7 @@
     ],
     "base_xp": 33.0,
     "base_steps": 68,
-    "max_efficiency": 1.4
+    "max_efficiency": 0.4
   },
   {
     "id": "craft_a_boxtrap",
@@ -528,7 +528,7 @@
     ],
     "base_xp": 26.0,
     "base_steps": 56,
-    "max_efficiency": 1.75
+    "max_efficiency": 0.75
   },
   {
     "id": "craft_triple_rod_rest",
@@ -559,9 +559,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 252,
+    "base_steps": 421,
+    "max_efficiency": 0.75
   },
   {
     "id": "cut_a_teak_plank",
@@ -582,7 +582,7 @@
     ],
     "base_xp": 90.0,
     "base_steps": 145,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "cut_a_willow_plank",
@@ -603,7 +603,7 @@
     ],
     "base_xp": 81.0,
     "base_steps": 131,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "create_a_teak_plank_(scrap)",
@@ -623,8 +623,8 @@
       ]
     ],
     "base_xp": 90.0,
-    "base_steps": 145,
-    "max_efficiency": 1.9
+    "base_steps": 159,
+    "max_efficiency": 0.9
   },
   {
     "id": "create_a_willow_plank_(scrap)",
@@ -644,8 +644,8 @@
       ]
     ],
     "base_xp": 81.0,
-    "base_steps": 131,
-    "max_efficiency": 1.9
+    "base_steps": 144,
+    "max_efficiency": 0.9
   },
   {
     "id": "fletch_tarsilium_arrows",
@@ -678,7 +678,7 @@
     ],
     "base_xp": 40.0,
     "base_steps": 73,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "craft_a_bamboo_hunting_bow",
@@ -703,9 +703,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 156,
+    "base_steps": 225,
+    "max_efficiency": 0.9
   },
   {
     "id": "cut_a_bamboo_plank",
@@ -726,7 +726,7 @@
     ],
     "base_xp": 95.0,
     "base_steps": 140,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "cut_a_coral_plank",
@@ -747,7 +747,7 @@
     ],
     "base_xp": 112.0,
     "base_steps": 150,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "woodwork_a_bamboo_toolbox",
@@ -766,9 +766,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 242,
+    "base_steps": 484,
+    "max_efficiency": 1.0
   },
   {
     "id": "cut_a_mangrove_plank",
@@ -789,7 +789,7 @@
     ],
     "base_xp": 114.0,
     "base_steps": 160,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "fletch_farganite_arrows",
@@ -822,7 +822,7 @@
     ],
     "base_xp": 49.0,
     "base_steps": 80,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_spectral_hunting_bow",
@@ -847,9 +847,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 240,
+    "base_steps": 280,
+    "max_efficiency": 1.0
   },
   {
     "id": "cut_into_ectoplasm",
@@ -868,9 +868,9 @@
         }
       ]
     ],
-    "base_xp": 168.0,
-    "base_steps": 195,
-    "max_efficiency": 2.1
+    "base_xp": 116,
+    "base_steps": 166,
+    "max_efficiency": 1.0
   },
   {
     "id": "cut_a_yew_plank",
@@ -891,7 +891,7 @@
     ],
     "base_xp": 126.0,
     "base_steps": 182,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "fry_a_perch",
@@ -912,7 +912,7 @@
     ],
     "base_xp": 28.0,
     "base_steps": 70,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "fry_a_shrimp",
@@ -933,7 +933,7 @@
     ],
     "base_xp": 26.0,
     "base_steps": 65,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "brew_nettle_tea",
@@ -954,7 +954,7 @@
     ],
     "base_xp": 31.0,
     "base_steps": 75,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "fry_a_carp",
@@ -975,7 +975,7 @@
     ],
     "base_xp": 33.0,
     "base_steps": 75,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "bake_bread",
@@ -996,7 +996,7 @@
     ],
     "base_xp": 23.0,
     "base_steps": 50,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "fry_a_pike",
@@ -1017,7 +1017,7 @@
     ],
     "base_xp": 40.0,
     "base_steps": 85,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "cook_meat",
@@ -1038,7 +1038,7 @@
     ],
     "base_xp": 26.0,
     "base_steps": 55,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "make_porridge",
@@ -1059,7 +1059,7 @@
     ],
     "base_xp": 50.0,
     "base_steps": 93,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "make_crab_rolls",
@@ -1086,7 +1086,7 @@
     ],
     "base_xp": 43.0,
     "base_steps": 82,
-    "max_efficiency": 1.65
+    "max_efficiency": 0.65
   },
   {
     "id": "make_pancakes",
@@ -1113,7 +1113,7 @@
     ],
     "base_xp": 56.0,
     "base_steps": 100,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "brew_beer",
@@ -1134,7 +1134,7 @@
     ],
     "base_xp": 260.0,
     "base_steps": 450,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "fry_a_trout",
@@ -1155,7 +1155,7 @@
     ],
     "base_xp": 52.0,
     "base_steps": 90,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "ferment_wine",
@@ -1176,7 +1176,7 @@
     ],
     "base_xp": 265.0,
     "base_steps": 455,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "mix_chocolate_milk",
@@ -1203,7 +1203,7 @@
     ],
     "base_xp": 46.0,
     "base_steps": 75,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "bake_a_bagel",
@@ -1224,7 +1224,7 @@
     ],
     "base_xp": 66.0,
     "base_steps": 100,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "make_milk",
@@ -1245,7 +1245,7 @@
     ],
     "base_xp": 66.0,
     "base_steps": 100,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "make_pickles",
@@ -1272,7 +1272,7 @@
     ],
     "base_xp": 68.0,
     "base_steps": 100,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "fry_a_jellyfish",
@@ -1293,7 +1293,7 @@
     ],
     "base_xp": 73.0,
     "base_steps": 100,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "fry_a_salmon",
@@ -1314,7 +1314,7 @@
     ],
     "base_xp": 67.0,
     "base_steps": 100,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "make_trout_soup",
@@ -1335,7 +1335,7 @@
     ],
     "base_xp": 86.0,
     "base_steps": 150,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "make_mushroom_curry",
@@ -1362,7 +1362,7 @@
     ],
     "base_xp": 132.0,
     "base_steps": 174,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "fry_a_lobster",
@@ -1383,7 +1383,7 @@
     ],
     "base_xp": 83.0,
     "base_steps": 105,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "harden_kelp",
@@ -1404,7 +1404,7 @@
     ],
     "base_xp": 57.0,
     "base_steps": 70,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "make_a_mud_pie",
@@ -1431,7 +1431,7 @@
     ],
     "base_xp": 32.0,
     "base_steps": 40,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "prepare_a_kelp_roll",
@@ -1452,7 +1452,7 @@
     ],
     "base_xp": 82.0,
     "base_steps": 100,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "make_a_jelly_sandwich",
@@ -1479,7 +1479,7 @@
     ],
     "base_xp": 148.0,
     "base_steps": 175,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "assemble_dynamite",
@@ -1506,7 +1506,7 @@
     ],
     "base_xp": 172.0,
     "base_steps": 200,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "fry_a_swordfish",
@@ -1527,7 +1527,7 @@
     ],
     "base_xp": 94.0,
     "base_steps": 110,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "make_a_roasted_bell_pepper",
@@ -1554,7 +1554,7 @@
     ],
     "base_xp": 107.0,
     "base_steps": 100,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "brew_saltrum",
@@ -1581,7 +1581,7 @@
     ],
     "base_xp": 120.0,
     "base_steps": 125,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "fry_a_squid",
@@ -1602,7 +1602,7 @@
     ],
     "base_xp": 130.0,
     "base_steps": 130,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "fry_a_stingray",
@@ -1623,7 +1623,7 @@
     ],
     "base_xp": 120.0,
     "base_steps": 120,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "make_a_sweet_carrot_pie",
@@ -1668,7 +1668,7 @@
     ],
     "base_xp": 285.0,
     "base_steps": 300,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "bake_salmon_pie",
@@ -1707,7 +1707,7 @@
     ],
     "base_xp": 236.0,
     "base_steps": 232,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "make_a_fried_fish_sandwich",
@@ -1734,7 +1734,7 @@
     ],
     "base_xp": 224.0,
     "base_steps": 220,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "prepare_an_underwater_salad",
@@ -1767,7 +1767,7 @@
     ],
     "base_xp": 123.0,
     "base_steps": 129,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "ferment_fortified_wine",
@@ -1794,7 +1794,7 @@
     ],
     "base_xp": 569.0,
     "base_steps": 550,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "fry_a_shark",
@@ -1815,7 +1815,7 @@
     ],
     "base_xp": 143.0,
     "base_steps": 130,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "cook_into_ectoplasm",
@@ -1836,7 +1836,7 @@
     ],
     "base_xp": 168.0,
     "base_steps": 195,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "fry_a_largemouth_bass",
@@ -1857,7 +1857,7 @@
     ],
     "base_xp": 166.0,
     "base_steps": 135,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "make_jellied_stream_eel",
@@ -1890,7 +1890,7 @@
     ],
     "base_xp": 329.0,
     "base_steps": 270,
-    "max_efficiency": 2.5
+    "max_efficiency": 1.5
   },
   {
     "id": "distill_moonshine",
@@ -1917,7 +1917,7 @@
     ],
     "base_xp": 888.0,
     "base_steps": 690,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "fry_an_anglerfish",
@@ -1938,7 +1938,7 @@
     ],
     "base_xp": 204.0,
     "base_steps": 150,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "make_spicy_moray",
@@ -1971,7 +1971,7 @@
     ],
     "base_xp": 368.0,
     "base_steps": 284,
-    "max_efficiency": 2.6
+    "max_efficiency": 1.6
   },
   {
     "id": "ferment_fireball_wine",
@@ -1998,7 +1998,7 @@
     ],
     "base_xp": 816.0,
     "base_steps": 600,
-    "max_efficiency": 2.2
+    "max_efficiency": 1.2
   },
   {
     "id": "craft_a_simple_bowstring",
@@ -2023,7 +2023,7 @@
     ],
     "base_xp": 12.0,
     "base_steps": 55,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_a_basic_hatchet",
@@ -2050,7 +2050,7 @@
     ],
     "base_xp": 44.0,
     "base_steps": 110,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_a_basic_pickaxe",
@@ -2077,7 +2077,7 @@
     ],
     "base_xp": 44.0,
     "base_steps": 110,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_a_basic_sickle",
@@ -2110,7 +2110,7 @@
     ],
     "base_xp": 44.0,
     "base_steps": 110,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "spin_flax_into_twine",
@@ -2131,7 +2131,7 @@
     ],
     "base_xp": 15.0,
     "base_steps": 60,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "craft_a_copper_hatchet",
@@ -2158,7 +2158,7 @@
     ],
     "base_xp": 51.0,
     "base_steps": 120,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "craft_a_copper_pickaxe",
@@ -2185,7 +2185,7 @@
     ],
     "base_xp": 50.0,
     "base_steps": 120,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "craft_a_copper_sickle",
@@ -2218,7 +2218,7 @@
     ],
     "base_xp": 51.0,
     "base_steps": 120,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "weave_a_basic_fishing_net",
@@ -2239,7 +2239,7 @@
     ],
     "base_xp": 28.0,
     "base_steps": 75,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_basic_fishing_rod",
@@ -2266,7 +2266,7 @@
     ],
     "base_xp": 29.0,
     "base_steps": 70,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_bag_of_rocks",
@@ -2293,7 +2293,7 @@
     ],
     "base_xp": 120.0,
     "base_steps": 200,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_bronze_hatchet",
@@ -2320,7 +2320,7 @@
     ],
     "base_xp": 66.0,
     "base_steps": 130,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_bronze_pickaxe",
@@ -2347,7 +2347,7 @@
     ],
     "base_xp": 66.0,
     "base_steps": 130,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_pine_fishing_rod",
@@ -2374,7 +2374,7 @@
     ],
     "base_xp": 45.0,
     "base_steps": 90,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "upcycle_trash",
@@ -2395,7 +2395,7 @@
     ],
     "base_xp": 19.0,
     "base_steps": 40,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_bronze_wrench",
@@ -2422,7 +2422,7 @@
     ],
     "base_xp": 69.0,
     "base_steps": 131,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_bronze_hammer",
@@ -2449,7 +2449,7 @@
     ],
     "base_xp": 71.0,
     "base_steps": 133,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_bronze_pan",
@@ -2476,7 +2476,7 @@
     ],
     "base_xp": 71.0,
     "base_steps": 133,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_bronze_saw",
@@ -2503,7 +2503,7 @@
     ],
     "base_xp": 71.0,
     "base_steps": 133,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_wanderlust_walking_stick",
@@ -2530,7 +2530,7 @@
     ],
     "base_xp": 150.0,
     "base_steps": 200,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "craft_a_bronze_chisel",
@@ -2557,7 +2557,7 @@
     ],
     "base_xp": 73.0,
     "base_steps": 136,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "weave_a_large_fishing_net",
@@ -2578,7 +2578,7 @@
     ],
     "base_xp": 48.0,
     "base_steps": 95,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_a_silver_sewing_needle",
@@ -2603,9 +2603,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 78,
+    "base_steps": 142,
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_an_iron_hatchet",
@@ -2632,7 +2632,7 @@
     ],
     "base_xp": 86.0,
     "base_steps": 140,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_an_iron_pickaxe",
@@ -2659,7 +2659,7 @@
     ],
     "base_xp": 89.0,
     "base_steps": 145,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_an_iron_sickle",
@@ -2692,7 +2692,7 @@
     ],
     "base_xp": 86.0,
     "base_steps": 140,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_fishing_spear",
@@ -2719,7 +2719,7 @@
     ],
     "base_xp": 95.0,
     "base_steps": 130,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_a_kelp_drift_net",
@@ -2740,7 +2740,7 @@
     ],
     "base_xp": 40.0,
     "base_steps": 63,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_steel_hatchet",
@@ -2767,7 +2767,7 @@
     ],
     "base_xp": 111.0,
     "base_steps": 155,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_a_steel_pickaxe",
@@ -2794,7 +2794,7 @@
     ],
     "base_xp": 114.0,
     "base_steps": 160,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_a_steel_sickle",
@@ -2827,7 +2827,7 @@
     ],
     "base_xp": 111.0,
     "base_steps": 155,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_an_oak_fishing_rod",
@@ -2854,7 +2854,7 @@
     ],
     "base_xp": 83.0,
     "base_steps": 125,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_gem_tipped_pliers",
@@ -2885,9 +2885,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 233,
+    "base_steps": 333,
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_a_lobster_pot",
@@ -2912,9 +2912,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 150,
+    "base_steps": 200,
+    "max_efficiency": 0.8
   },
   {
     "id": "craft_a_jellyfishing_net",
@@ -2941,7 +2941,7 @@
     ],
     "base_xp": 150.0,
     "base_steps": 173,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_kelp_twine",
@@ -2962,7 +2962,7 @@
     ],
     "base_xp": 49.0,
     "base_steps": 70,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_reinforced_bellows",
@@ -2989,7 +2989,7 @@
     ],
     "base_xp": 300.0,
     "base_steps": 400,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_jade_tipped_steel_pan",
@@ -3022,7 +3022,7 @@
     ],
     "base_xp": 147.0,
     "base_steps": 164,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "craft_a_tarsilium_hatchet",
@@ -3049,7 +3049,7 @@
     ],
     "base_xp": 135.0,
     "base_steps": 170,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_tarsilium_pickaxe",
@@ -3076,7 +3076,7 @@
     ],
     "base_xp": 138.0,
     "base_steps": 175,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_willow_fishing_rod",
@@ -3103,7 +3103,7 @@
     ],
     "base_xp": 136.0,
     "base_steps": 175,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_golden_sewing_needle",
@@ -3128,9 +3128,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 122,
+    "base_steps": 184,
+    "max_efficiency": 0.95
   },
   {
     "id": "craft_a_tarsilium_hammer",
@@ -3157,7 +3157,7 @@
     ],
     "base_xp": 142.0,
     "base_steps": 182,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "craft_a_tarsilium_saw",
@@ -3184,7 +3184,7 @@
     ],
     "base_xp": 142.0,
     "base_steps": 182,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "craft_a_topaz_tipped_chisel",
@@ -3217,7 +3217,7 @@
     ],
     "base_xp": 73.0,
     "base_steps": 186,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "craft_a_coral_fishing_spear",
@@ -3244,7 +3244,7 @@
     ],
     "base_xp": 148.0,
     "base_steps": 180,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_hydrilium_hatchet",
@@ -3271,7 +3271,7 @@
     ],
     "base_xp": 148.0,
     "base_steps": 180,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_hydrilium_pickaxe",
@@ -3298,7 +3298,7 @@
     ],
     "base_xp": 148.0,
     "base_steps": 180,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_hydrilium_sickle",
@@ -3331,7 +3331,7 @@
     ],
     "base_xp": 180.0,
     "base_steps": 180,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_hydrilium",
@@ -3358,7 +3358,7 @@
     ],
     "base_xp": 55.0,
     "base_steps": 85,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_hydrilium_wrench",
@@ -3385,7 +3385,7 @@
     ],
     "base_xp": 147.0,
     "base_steps": 164,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_golden_cutting_mat",
@@ -3410,9 +3410,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 480,
+    "base_steps": 660,
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_a_farganite_hatchet",
@@ -3439,7 +3439,7 @@
     ],
     "base_xp": 152.0,
     "base_steps": 185,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "craft_a_farganite_pickaxe",
@@ -3466,7 +3466,7 @@
     ],
     "base_xp": 156.0,
     "base_steps": 190,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "craft_bright_camo_face_paint",
@@ -3497,9 +3497,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 275,
+    "base_steps": 470,
+    "max_efficiency": 1.0
   },
   {
     "id": "craft_a_hydrilium_log_splitter",
@@ -3526,7 +3526,7 @@
     ],
     "base_xp": 500.0,
     "base_steps": 500,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_hydrilium_magnet",
@@ -3553,7 +3553,7 @@
     ],
     "base_xp": 560.0,
     "base_steps": 500,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_mangrove_basket",
@@ -3586,7 +3586,7 @@
     ],
     "base_xp": 500.0,
     "base_steps": 500,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_spectral_fishing_cagespear",
@@ -3613,7 +3613,7 @@
     ],
     "base_xp": 170.0,
     "base_steps": 250,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_spectral_fishing_rod",
@@ -3640,7 +3640,7 @@
     ],
     "base_xp": 166.0,
     "base_steps": 225,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_spectral_hatchet",
@@ -3667,7 +3667,7 @@
     ],
     "base_xp": 163.0,
     "base_steps": 215,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_spectral_pickaxe",
@@ -3694,7 +3694,7 @@
     ],
     "base_xp": 163.0,
     "base_steps": 220,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_spectral_sickle",
@@ -3721,7 +3721,7 @@
     ],
     "base_xp": 161.0,
     "base_steps": 210,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "craft_a_strong_bowstring",
@@ -3746,7 +3746,7 @@
     ],
     "base_xp": 66.0,
     "base_steps": 105,
-    "max_efficiency": 2.25
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_a_spectral_chisel",
@@ -3773,7 +3773,7 @@
     ],
     "base_xp": 174.0,
     "base_steps": 265,
-    "max_efficiency": 2.25
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_a_spectral_hammer",
@@ -3800,7 +3800,7 @@
     ],
     "base_xp": 173.0,
     "base_steps": 255,
-    "max_efficiency": 2.25
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_a_spectral_pan",
@@ -3827,7 +3827,7 @@
     ],
     "base_xp": 176.0,
     "base_steps": 270,
-    "max_efficiency": 2.25
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_a_spectral_saw",
@@ -3854,7 +3854,7 @@
     ],
     "base_xp": 174.0,
     "base_steps": 260,
-    "max_efficiency": 2.25
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_a_spectral_sewing_needle",
@@ -3879,9 +3879,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 173,
+    "base_steps": 258,
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_a_spectral_wrench",
@@ -3908,7 +3908,7 @@
     ],
     "base_xp": 174.0,
     "base_steps": 260,
-    "max_efficiency": 2.25
+    "max_efficiency": 1.25
   },
   {
     "id": "craft_an_adamant_hatchet",
@@ -3935,7 +3935,7 @@
     ],
     "base_xp": 212.0,
     "base_steps": 269,
-    "max_efficiency": 2.3
+    "max_efficiency": 1.3
   },
   {
     "id": "craft_an_adamant_pickaxe",
@@ -3962,7 +3962,7 @@
     ],
     "base_xp": 215.0,
     "base_steps": 273,
-    "max_efficiency": 2.3
+    "max_efficiency": 1.3
   },
   {
     "id": "craft_ironweed_twine",
@@ -3983,7 +3983,7 @@
     ],
     "base_xp": 72.0,
     "base_steps": 110,
-    "max_efficiency": 2.3
+    "max_efficiency": 1.3
   },
   {
     "id": "craft_a_violite_hatchet",
@@ -4010,7 +4010,7 @@
     ],
     "base_xp": 257.0,
     "base_steps": 333,
-    "max_efficiency": 2.5
+    "max_efficiency": 1.5
   },
   {
     "id": "craft_a_violite_pickaxe",
@@ -4037,7 +4037,7 @@
     ],
     "base_xp": 261.0,
     "base_steps": 338,
-    "max_efficiency": 2.5
+    "max_efficiency": 1.5
   },
   {
     "id": "craft_a_violite_sickle",
@@ -4070,7 +4070,7 @@
     ],
     "base_xp": 259.0,
     "base_steps": 335,
-    "max_efficiency": 2.5
+    "max_efficiency": 1.5
   },
   {
     "id": "smelt_a_copper_bar",
@@ -4091,7 +4091,7 @@
     ],
     "base_xp": 12.0,
     "base_steps": 50,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "create_a_copper_bar_(scrap)",
@@ -4111,8 +4111,8 @@
       ]
     ],
     "base_xp": 12.0,
-    "base_steps": 50,
-    "max_efficiency": 1.5
+    "base_steps": 55,
+    "max_efficiency": 0.5
   },
   {
     "id": "smith_a_copper_shield",
@@ -4133,7 +4133,7 @@
     ],
     "base_xp": 50.0,
     "base_steps": 140,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "smelt_a_silver_bar",
@@ -4158,7 +4158,7 @@
     ],
     "base_xp": 80.0,
     "base_steps": 100,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "smith_a_copper_sword",
@@ -4179,7 +4179,7 @@
     ],
     "base_xp": 52.0,
     "base_steps": 140,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "smelt_a_bronze_bar",
@@ -4206,7 +4206,7 @@
     ],
     "base_xp": 15.0,
     "base_steps": 60,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "create_a_bronze_bar_(scrap)",
@@ -4226,8 +4226,8 @@
       ]
     ],
     "base_xp": 15.0,
-    "base_steps": 60,
-    "max_efficiency": 1.6
+    "base_steps": 66,
+    "max_efficiency": 0.6
   },
   {
     "id": "smith_a_bronze_shield",
@@ -4248,7 +4248,7 @@
     ],
     "base_xp": 64.0,
     "base_steps": 160,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "smelt_a_gold_bar",
@@ -4273,7 +4273,7 @@
     ],
     "base_xp": 160.0,
     "base_steps": 150,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "smith_a_bronze_sword",
@@ -4294,7 +4294,7 @@
     ],
     "base_xp": 67.0,
     "base_steps": 160,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "smelt_an_iron_bar",
@@ -4315,7 +4315,7 @@
     ],
     "base_xp": 21.5,
     "base_steps": 75,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "create_an_iron_bar_(scrap)",
@@ -4335,8 +4335,8 @@
       ]
     ],
     "base_xp": 21.5,
-    "base_steps": 75,
-    "max_efficiency": 1.7
+    "base_steps": 83,
+    "max_efficiency": 0.7
   },
   {
     "id": "smith_an_iron_shield",
@@ -4357,7 +4357,7 @@
     ],
     "base_xp": 93.0,
     "base_steps": 190,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "smith_an_iron_sword",
@@ -4378,7 +4378,7 @@
     ],
     "base_xp": 97.0,
     "base_steps": 190,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "smelt_a_steel_bar",
@@ -4405,7 +4405,7 @@
     ],
     "base_xp": 28.0,
     "base_steps": 85,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "create_a_steel_bar_(scrap)",
@@ -4425,8 +4425,8 @@
       ]
     ],
     "base_xp": 28.0,
-    "base_steps": 85,
-    "max_efficiency": 1.8
+    "base_steps": 93,
+    "max_efficiency": 0.8
   },
   {
     "id": "smith_a_steel_shield",
@@ -4447,7 +4447,7 @@
     ],
     "base_xp": 123.0,
     "base_steps": 210,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "smith_a_steel_sword",
@@ -4468,7 +4468,7 @@
     ],
     "base_xp": 129.0,
     "base_steps": 210,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "smelt_a_tarsilium_bar",
@@ -4495,7 +4495,7 @@
     ],
     "base_xp": 36.0,
     "base_steps": 100,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "create_a_tarsilium_bar_(scrap)",
@@ -4516,7 +4516,7 @@
     ],
     "base_xp": 36.0,
     "base_steps": 100,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "smith_tarsilium_toed_boots",
@@ -4537,7 +4537,7 @@
     ],
     "base_xp": 234.0,
     "base_steps": 250,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "smith_a_tarsilium_shield",
@@ -4558,7 +4558,7 @@
     ],
     "base_xp": 160.0,
     "base_steps": 240,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "craft_tinted_woodworking_glasses",
@@ -4595,9 +4595,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 180,
+    "base_steps": 260,
+    "max_efficiency": 0.9
   },
   {
     "id": "smelt_a_hydrilium_bar",
@@ -4624,7 +4624,7 @@
     ],
     "base_xp": 55.0,
     "base_steps": 110,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "smith_a_hydrilium_diving_helm",
@@ -4645,7 +4645,7 @@
     ],
     "base_xp": 165.0,
     "base_steps": 215,
-    "max_efficiency": 1.95
+    "max_efficiency": 0.95
   },
   {
     "id": "smith_a_tarsilium_sword",
@@ -4666,7 +4666,7 @@
     ],
     "base_xp": 168.0,
     "base_steps": 240,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "smith_hydrilium_diving_leggings",
@@ -4687,7 +4687,7 @@
     ],
     "base_xp": 170.0,
     "base_steps": 220,
-    "max_efficiency": 1.95
+    "max_efficiency": 0.95
   },
   {
     "id": "smith_a_hydrilium_diving_torso",
@@ -4708,7 +4708,7 @@
     ],
     "base_xp": 175.0,
     "base_steps": 225,
-    "max_efficiency": 1.95
+    "max_efficiency": 0.95
   },
   {
     "id": "smelt_a_farganite_bar",
@@ -4735,7 +4735,7 @@
     ],
     "base_xp": 48.5,
     "base_steps": 120,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "smith_a_farganite_shield",
@@ -4756,7 +4756,7 @@
     ],
     "base_xp": 353.0,
     "base_steps": 300,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "smelt_into_ectoplasm",
@@ -4775,9 +4775,9 @@
         }
       ]
     ],
-    "base_xp": 168.0,
-    "base_steps": 195,
-    "max_efficiency": 2.1
+    "base_xp": 52,
+    "base_steps": 180,
+    "max_efficiency": 1.2
   },
   {
     "id": "smith_a_farganite_sword",
@@ -4798,7 +4798,7 @@
     ],
     "base_xp": 370.0,
     "base_steps": 300,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "smith_a_gem_shield",
@@ -4855,7 +4855,7 @@
     ],
     "base_xp": 942.0,
     "base_steps": 777,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "smelt_an_adamant_bar",
@@ -4882,7 +4882,7 @@
     ],
     "base_xp": 56.0,
     "base_steps": 150,
-    "max_efficiency": 2.2
+    "max_efficiency": 1.2
   },
   {
     "id": "smelt_a_violite_bar",
@@ -4909,7 +4909,7 @@
     ],
     "base_xp": 68.0,
     "base_steps": 180,
-    "max_efficiency": 2.4
+    "max_efficiency": 1.4
   },
   {
     "id": "make_linen_cloth",
@@ -4938,7 +4938,7 @@
     ],
     "base_xp": 6.0,
     "base_steps": 50,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_a_basic_leather",
@@ -4963,7 +4963,7 @@
     ],
     "base_xp": 10.0,
     "base_steps": 60,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "make_tatty_handwraps",
@@ -4982,9 +4982,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 50,
+    "base_steps": 150,
+    "max_efficiency": 0.4
   },
   {
     "id": "make_tatty_skirt",
@@ -5003,9 +5003,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 50,
+    "base_steps": 150,
+    "max_efficiency": 0.45
   },
   {
     "id": "make_a_tatty_garb",
@@ -5024,9 +5024,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 50,
+    "base_steps": 150,
+    "max_efficiency": 0.5
   },
   {
     "id": "make_grassknot_mitts",
@@ -5051,9 +5051,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 38,
+    "base_steps": 90,
+    "max_efficiency": 0.5
   },
   {
     "id": "make_grassknot_chaps",
@@ -5078,9 +5078,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 76,
+    "base_steps": 180,
+    "max_efficiency": 0.55
   },
   {
     "id": "make_a_grassknot_tunic",
@@ -5105,9 +5105,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 76,
+    "base_steps": 180,
+    "max_efficiency": 0.6
   },
   {
     "id": "make_apprentice_handwear",
@@ -5132,9 +5132,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 50,
+    "base_steps": 100,
+    "max_efficiency": 0.6
   },
   {
     "id": "make_apprentice_breeches",
@@ -5159,9 +5159,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 100,
+    "base_steps": 200,
+    "max_efficiency": 0.65
   },
   {
     "id": "make_an_apprentice_vest",
@@ -5186,9 +5186,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 100,
+    "base_steps": 200,
+    "max_efficiency": 0.7
   },
   {
     "id": "make_spikescale_mitts",
@@ -5219,9 +5219,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 66,
+    "base_steps": 110,
+    "max_efficiency": 0.7
   },
   {
     "id": "make_spikescale_chaps",
@@ -5252,9 +5252,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 132,
+    "base_steps": 220,
+    "max_efficiency": 0.75
   },
   {
     "id": "tailor_a_kelp_diving_mask",
@@ -5275,7 +5275,7 @@
     ],
     "base_xp": 80.0,
     "base_steps": 150,
-    "max_efficiency": 1.65
+    "max_efficiency": 0.65
   },
   {
     "id": "tailor_kelp_diving_pants",
@@ -5296,7 +5296,7 @@
     ],
     "base_xp": 80.0,
     "base_steps": 150,
-    "max_efficiency": 1.75
+    "max_efficiency": 0.75
   },
   {
     "id": "make_a_spikescale_tunic",
@@ -5327,9 +5327,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 132,
+    "base_steps": 220,
+    "max_efficiency": 0.8
   },
   {
     "id": "tailor_a_kelp_diving_shirt",
@@ -5350,7 +5350,7 @@
     ],
     "base_xp": 80.0,
     "base_steps": 150,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "make_shadowquill_bracers",
@@ -5381,9 +5381,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 73,
+    "base_steps": 118,
+    "max_efficiency": 0.8
   },
   {
     "id": "make_shadowquill_shorts",
@@ -5414,9 +5414,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 146,
+    "base_steps": 236,
+    "max_efficiency": 0.85
   },
   {
     "id": "craft_extra_crafty_pants",
@@ -5455,9 +5455,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 249,
+    "base_steps": 420,
+    "max_efficiency": 0.8
   },
   {
     "id": "make_a_shadowquill_plastron",
@@ -5488,9 +5488,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 146,
+    "base_steps": 236,
+    "max_efficiency": 0.9
   },
   {
     "id": "make_rootweave_mitts",
@@ -5521,9 +5521,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 162,
+    "base_steps": 254,
+    "max_efficiency": 0.9
   },
   {
     "id": "make_rootweave_chaps",
@@ -5554,9 +5554,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 162,
+    "base_steps": 254,
+    "max_efficiency": 0.95
   },
   {
     "id": "make_a_rootweave_tunic",
@@ -5587,9 +5587,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 243,
+    "base_steps": 379,
+    "max_efficiency": 1.0
   },
   {
     "id": "make_journeyman_handwear",
@@ -5620,9 +5620,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 174,
+    "base_steps": 260,
+    "max_efficiency": 1.0
   },
   {
     "id": "make_journeyman_breeches",
@@ -5653,9 +5653,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 174,
+    "base_steps": 260,
+    "max_efficiency": 1.05
   },
   {
     "id": "make_a_journeyman_vest",
@@ -5686,9 +5686,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 261,
+    "base_steps": 390,
+    "max_efficiency": 1.1
   },
   {
     "id": "make_aerofibril_bracers",
@@ -5719,9 +5719,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 192,
+    "base_steps": 280,
+    "max_efficiency": 1.1
   },
   {
     "id": "make_aerofibril_shorts",
@@ -5752,9 +5752,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 288,
+    "base_steps": 420,
+    "max_efficiency": 1.15
   },
   {
     "id": "make_an_aerofibril_plastron",
@@ -5785,9 +5785,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 288,
+    "base_steps": 420,
+    "max_efficiency": 1.2
   },
   {
     "id": "make_an_elderhide_leather",
@@ -5812,7 +5812,7 @@
     ],
     "base_xp": 30.0,
     "base_steps": 104,
-    "max_efficiency": 2.5
+    "max_efficiency": 1.5
   },
   {
     "id": "make_elderhide_mitts",
@@ -5837,9 +5837,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 308,
+    "base_steps": 450,
+    "max_efficiency": 1.2
   },
   {
     "id": "make_elderhide_chaps",
@@ -5864,9 +5864,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 308,
+    "base_steps": 450,
+    "max_efficiency": 1.25
   },
   {
     "id": "make_an_elderhide_tunic",
@@ -5891,9 +5891,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 308,
+    "base_steps": 450,
+    "max_efficiency": 1.3
   },
   {
     "id": "weave_into_ectoplasm",
@@ -5912,9 +5912,9 @@
         }
       ]
     ],
-    "base_xp": 168.0,
-    "base_steps": 195,
-    "max_efficiency": 2.1
+    "base_xp": 111,
+    "base_steps": 190,
+    "max_efficiency": 1.2
   },
   {
     "id": "make_spectral_handwear",
@@ -5939,9 +5939,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 212,
+    "base_steps": 323,
+    "max_efficiency": 1.3
   },
   {
     "id": "make_spectral_breeches",
@@ -5966,9 +5966,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 318,
+    "base_steps": 486,
+    "max_efficiency": 1.35
   },
   {
     "id": "make_a_spectral_vest",
@@ -5993,9 +5993,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 318,
+    "base_steps": 486,
+    "max_efficiency": 1.4
   },
   {
     "id": "make_tough_linen",
@@ -6020,7 +6020,7 @@
     ],
     "base_xp": 35.0,
     "base_steps": 150,
-    "max_efficiency": 2.5
+    "max_efficiency": 1.5
   },
   {
     "id": "craft_an_iron_chefs_hat",
@@ -6051,9 +6051,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 512,
+    "base_steps": 560,
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_jarvonian_flower_necklace",
@@ -6080,7 +6080,7 @@
     ],
     "base_xp": 20.0,
     "base_steps": 100,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "shape_an_opal",
@@ -6101,7 +6101,7 @@
     ],
     "base_xp": 45.0,
     "base_steps": 150,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "create_a_silver_ring",
@@ -6122,7 +6122,7 @@
     ],
     "base_xp": 120.0,
     "base_steps": 250,
-    "max_efficiency": 1.5
+    "max_efficiency": 0.5
   },
   {
     "id": "shape_a_star_pearl",
@@ -6143,7 +6143,7 @@
     ],
     "base_xp": 61.0,
     "base_steps": 175,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "create_a_silver_opal_ring",
@@ -6170,7 +6170,7 @@
     ],
     "base_xp": 262.0,
     "base_steps": 600,
-    "max_efficiency": 1.6
+    "max_efficiency": 0.6
   },
   {
     "id": "create_a_gold_ring",
@@ -6191,7 +6191,7 @@
     ],
     "base_xp": 180.0,
     "base_steps": 350,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "shape_a_wrentmarine",
@@ -6212,7 +6212,7 @@
     ],
     "base_xp": 80.0,
     "base_steps": 200,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "create_a_silver_star_pearl_ring",
@@ -6239,7 +6239,7 @@
     ],
     "base_xp": 353.0,
     "base_steps": 700,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "create_a_gold_opal_ring",
@@ -6266,7 +6266,7 @@
     ],
     "base_xp": 374.0,
     "base_steps": 700,
-    "max_efficiency": 1.7
+    "max_efficiency": 0.7
   },
   {
     "id": "shape_a_topaz",
@@ -6287,7 +6287,7 @@
     ],
     "base_xp": 103.0,
     "base_steps": 225,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "create_a_silver_wrentmarine_ring",
@@ -6314,7 +6314,7 @@
     ],
     "base_xp": 466.0,
     "base_steps": 800,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "shape_a_jade",
@@ -6335,7 +6335,7 @@
     ],
     "base_xp": 126.0,
     "base_steps": 250,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "create_a_gold_star_pearl_ring",
@@ -6362,7 +6362,7 @@
     ],
     "base_xp": 496.0,
     "base_steps": 800,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "create_an_amulet_of_finding",
@@ -6395,7 +6395,7 @@
     ],
     "base_xp": 2000.0,
     "base_steps": 2500,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "create_a_silver_topaz_ring",
@@ -6422,7 +6422,7 @@
     ],
     "base_xp": 593.0,
     "base_steps": 900,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "shape_a_ruby",
@@ -6443,7 +6443,7 @@
     ],
     "base_xp": 151.0,
     "base_steps": 275,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_eel",
@@ -6476,7 +6476,7 @@
     ],
     "base_xp": 2804.0,
     "base_steps": 2500,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_heron",
@@ -6509,7 +6509,7 @@
     ],
     "base_xp": 2924.0,
     "base_steps": 2500,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_gold_wrentmarine_ring",
@@ -6536,7 +6536,7 @@
     ],
     "base_xp": 646.0,
     "base_steps": 900,
-    "max_efficiency": 1.9
+    "max_efficiency": 0.9
   },
   {
     "id": "shape_a_sun_stone",
@@ -6557,7 +6557,7 @@
     ],
     "base_xp": 179.0,
     "base_steps": 300,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "create_a_silver_jade_ring",
@@ -6584,7 +6584,7 @@
     ],
     "base_xp": 731.0,
     "base_steps": 1000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_bat",
@@ -6617,7 +6617,7 @@
     ],
     "base_xp": 3048.0,
     "base_steps": 2500,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_shark_tooth",
@@ -6648,9 +6648,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 4250,
+    "base_steps": 3500,
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_cooling_ice",
@@ -6683,7 +6683,7 @@
     ],
     "base_xp": 6352.0,
     "base_steps": 5000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "shape_an_ethernite",
@@ -6704,7 +6704,7 @@
     ],
     "base_xp": 210.0,
     "base_steps": 325,
-    "max_efficiency": 2.2
+    "max_efficiency": 1.2
   },
   {
     "id": "create_a_silver_ruby_ring",
@@ -6731,7 +6731,7 @@
     ],
     "base_xp": 874.0,
     "base_steps": 1100,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "create_an_amulet_of_spider",
@@ -6762,9 +6762,9 @@
         }
       ]
     ],
-    "base_xp": 0.0,
-    "base_steps": 0,
-    "max_efficiency": 0.0
+    "base_xp": 4250,
+    "base_steps": 3500,
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_gold_topaz_ring",
@@ -6791,7 +6791,7 @@
     ],
     "base_xp": 811.0,
     "base_steps": 1000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_circular_root",
@@ -6824,7 +6824,7 @@
     ],
     "base_xp": 6904.0,
     "base_steps": 5000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_pink_pearl",
@@ -6851,7 +6851,7 @@
     ],
     "base_xp": 7070.0,
     "base_steps": 5000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_silver_sun_stone_ring",
@@ -6878,7 +6878,7 @@
     ],
     "base_xp": 1037.0,
     "base_steps": 1200,
-    "max_efficiency": 2.2
+    "max_efficiency": 1.2
   },
   {
     "id": "create_an_amulet_of_measuring_spoons",
@@ -6911,7 +6911,7 @@
     ],
     "base_xp": 3598.0,
     "base_steps": 2500,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_gold_jade_ring",
@@ -6938,7 +6938,7 @@
     ],
     "base_xp": 990.0,
     "base_steps": 1100,
-    "max_efficiency": 2.1
+    "max_efficiency": 1.1
   },
   {
     "id": "create_an_amulet_of_shrimp",
@@ -6971,7 +6971,7 @@
     ],
     "base_xp": 7502.0,
     "base_steps": 5000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_silver_ethernite_ring",
@@ -6998,7 +6998,7 @@
     ],
     "base_xp": 1219.0,
     "base_steps": 1300,
-    "max_efficiency": 2.3
+    "max_efficiency": 1.3
   },
   {
     "id": "create_a_gold_ruby_ring",
@@ -7025,7 +7025,7 @@
     ],
     "base_xp": 1174.0,
     "base_steps": 1200,
-    "max_efficiency": 2.2
+    "max_efficiency": 1.2
   },
   {
     "id": "create_an_amulet_of_beaver",
@@ -7058,7 +7058,7 @@
     ],
     "base_xp": 8152.0,
     "base_steps": 5000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_an_amulet_of_lucky_rabbits_foot",
@@ -7091,7 +7091,7 @@
     ],
     "base_xp": 8496.0,
     "base_steps": 5000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_gold_sun_stone_ring",
@@ -7118,7 +7118,7 @@
     ],
     "base_xp": 1400.0,
     "base_steps": 1300,
-    "max_efficiency": 2.3
+    "max_efficiency": 1.3
   },
   {
     "id": "create_a_wraithwater_flower_necklace",
@@ -7145,7 +7145,7 @@
     ],
     "base_xp": 80.0,
     "base_steps": 125,
-    "max_efficiency": 1.8
+    "max_efficiency": 0.8
   },
   {
     "id": "create_an_amulet_of_animal_kingdom",
@@ -7220,7 +7220,7 @@
     ],
     "base_xp": 32316.0,
     "base_steps": 10000,
-    "max_efficiency": 2.0
+    "max_efficiency": 1.0
   },
   {
     "id": "create_a_gold_ethernite_ring",
@@ -7247,6 +7247,6 @@
     ],
     "base_xp": 1647.0,
     "base_steps": 1400,
-    "max_efficiency": 2.4
+    "max_efficiency": 1.4
   }
 ]

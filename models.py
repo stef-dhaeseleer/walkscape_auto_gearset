@@ -187,7 +187,7 @@ class LootTable(BaseModel):
     
     type: ActivityLootTableType
     drops: Tuple[DropEntry, ...] = Field(default_factory=tuple)
-
+    rolls: int = 1
 
 class Activity(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)

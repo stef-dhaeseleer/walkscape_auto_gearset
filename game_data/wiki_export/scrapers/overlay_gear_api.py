@@ -93,16 +93,32 @@ def api_post(path, body, cache_filename=None):
 
 def convert_loot_tables(activity_detail, loot_tables_data):
     """Convert API loot tables into our JSON drop format with raw API values.
-
-    Returns (main_drops, secondary_drops, gem_drops) as lists of dicts.
+    Returns a list of table dictionaries, grouped by type and rollAmount.
     """
-    main_drops, secondary_drops = [], []
-    gem_drops = []
+    tables_out = []
     tables_by_id = {t['id']: t for t in loot_tables_data}
+
+    # Group by (type, rolls) to avoid duplicating table entries
+    grouped_drops = {}
 
     for table_group in activity_detail.get('tables', []):
         is_primary = table_group.get('isPrimary', False)
-        api_types = table_group.get('type', [])  # e.g., ["chestTable"], ["gem"], ["collectible"]
+        api_types = table_group.get('type', [])
+        rolls = table_group.get('rollAmount', 1)
+        
+        if is_primary:
+            t_type = 'main'
+        elif 'gem' in api_types:
+            t_type = 'gem'
+        else:
+            t_type = 'secondary'
+            
+        group_key = (t_type, rolls)
+        if group_key not in grouped_drops:
+            grouped_drops[group_key] = []
+            
+        target = grouped_drops[group_key]
+
         for table_id in table_group.get('tables', []):
             table_data = tables_by_id.get(table_id)
             if not table_data:
@@ -115,15 +131,6 @@ def convert_loot_tables(activity_detail, loot_tables_data):
             if ndc >= 1.0:
                 continue
 
-            # Determine which list to add to
-            if is_primary:
-                target = main_drops
-            elif 'gem' in api_types:
-                target = gem_drops
-            else:
-                target = secondary_drops
-
-            # "Nothing" entry
             if is_primary and ndc > 0:
                 target.append({
                     'item_id': 'nothing', 'min_quantity': 0, 'max_quantity': 0,
@@ -137,21 +144,27 @@ def convert_loot_tables(activity_detail, loot_tables_data):
                 if not item_id:
                     continue
 
-                # Compute exact chance percentage from raw values
                 rw = row.get('rowWeight', 0)
-
                 target.append({
                     'item_id': item_id,
                     'min_quantity': row.get('rowMinimumAmount', 1),
                     'max_quantity': row.get('rowMaximumAmount', 1),
-                    'chance': None,  # Computed by DropEntry model validator from raw fields
+                    'chance': None,
                     'category': None,
-                    'no_drop_chance': round(ndc * 100.0, 6),  # Stored as percentage (99.6 = 99.6%)
+                    'no_drop_chance': round(ndc * 100.0, 6),
                     'row_weight': rw,
                     'table_weight': tw,
                 })
 
-    return main_drops, secondary_drops, gem_drops
+    for (t_type, rolls), drops in grouped_drops.items():
+        if drops:
+            tables_out.append({
+                'type': t_type,
+                'rolls': rolls,
+                'drops': drops
+            })
+            
+    return tables_out
 
 
 def parse_api_requirements(detail):
@@ -419,16 +432,9 @@ def overlay(dry_run=False):
                 wiki['secondary_xp'] = sec
 
             if loot:
-                main_d, sec_d, gem_d = convert_loot_tables(detail, loot)
-                tables = []
-                if main_d:
-                    tables.append({'type': 'main', 'drops': main_d})
-                if sec_d:
-                    tables.append({'type': 'secondary', 'drops': sec_d})
-                if gem_d:
-                    tables.append({'type': 'gem', 'drops': gem_d})
+                tables = convert_loot_tables(detail, loot)
                 old_n = sum(len(t.get('drops', [])) for t in wiki.get('loot_tables', []))
-                new_n = len(main_d) + len(sec_d) + len(gem_d)
+                new_n = sum(len(t.get('drops', [])) for t in tables)
                 if old_n != new_n:
                     changes.append(f"drops {old_n}→{new_n}")
                 wiki['loot_tables'] = tables
@@ -450,13 +456,7 @@ def overlay(dry_run=False):
 
             tables = []
             if loot:
-                md, sd, gd = convert_loot_tables(detail, loot)
-                if md:
-                    tables.append({'type': 'main', 'drops': md})
-                if sd:
-                    tables.append({'type': 'secondary', 'drops': sd})
-                if gd:
-                    tables.append({'type': 'gem', 'drops': gd})
+                tables = convert_loot_tables(detail, loot)
 
             activities.append({
                 'id': aid,

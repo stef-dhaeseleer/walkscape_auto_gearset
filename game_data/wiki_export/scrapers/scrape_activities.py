@@ -685,6 +685,8 @@ def load_ev_values() -> tuple[dict[str, int], dict[str, float]]:
 
     return item_values, container_evs
 
+
+
 def calculate_activity_evs(activities: list[Activity], item_values: dict[str, int], container_evs: dict[str, float]) -> list[Activity]:
     """Calculates normal, chest, and fine roll worths for activities."""
     updated_activities = []
@@ -695,14 +697,20 @@ def calculate_activity_evs(activities: list[Activity], item_values: dict[str, in
         fine_worth = 0.0
 
         for table in act.loot_tables:
+            # ---> GET ROLLS HERE <---
+            rolls = getattr(table, 'rolls', 1) 
+            
             for drop in table.drops:
                 chance = (drop.chance or 0.0) / 100.0
                 avg_qty = (drop.min_quantity + drop.max_quantity) / 2.0
                 item_id = drop.item_id
                 
+                # ---> MULTIPLY BY ROLLS <---
+                multiplier = chance * avg_qty * rolls 
+                
                 # 1. Chests & Containers
                 if item_id in container_evs:
-                    chest_worth += chance * avg_qty * container_evs[item_id]
+                    chest_worth += multiplier * container_evs[item_id]
                 
                 # 2. Standard Items
                 else:
@@ -710,8 +718,8 @@ def calculate_activity_evs(activities: list[Activity], item_values: dict[str, in
                     fine_id = f"{item_id}_fine"
                     fine_val = float(item_values.get(fine_id, base_val)) 
 
-                    normal_worth += chance * avg_qty * base_val
-                    fine_worth += chance * avg_qty * fine_val
+                    normal_worth += multiplier * base_val
+                    fine_worth += multiplier * fine_val
         
         # Rebuild frozen Activity model with new EV values
         act_dict = act.model_dump()
@@ -722,6 +730,8 @@ def calculate_activity_evs(activities: list[Activity], item_values: dict[str, in
         updated_activities.append(Activity(**act_dict))
         
     return updated_activities
+
+
 def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     

@@ -7,7 +7,7 @@ from collections import Counter
 from typing import List, Dict, Tuple, Any, Optional
 
 from utils.data_loader import load_game_data
-from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES
+from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, OPTIMAZATION_TARGET
 from calculations import calculate_steps, calculate_quality_probabilities
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -22,7 +22,7 @@ TARGET_CATEGORIES = {
     "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
     "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
     "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
-    "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps"]
+    "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps", "Collectibles No Steps"]
 }
 
 def find_category(target_name):

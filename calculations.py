@@ -239,6 +239,8 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
     elif target == OPTIMAZATION_TARGET.collectibles:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
  
+    elif target == OPTIMAZATION_TARGET.collectibles_no_steps:
+        val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult)
 
     elif target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_chests, 
                     OPTIMAZATION_TARGET.coins_no_fines, OPTIMAZATION_TARGET.coins_no_chests_no_fines]:

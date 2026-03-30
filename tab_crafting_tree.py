@@ -580,7 +580,7 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
         with c_g4:
             st.write("")
             st.write("")
-            can_fine = can_tree_use_fine(root, drop_calc)
+            can_fine = True #can_tree_use_fine(root, drop_calc)
             if can_fine:
                 new_fine_val = st.checkbox("💎 Fine Materials", value=st.session_state.get('global_fine', False))
                 if new_fine_val != st.session_state.get('global_fine', False):

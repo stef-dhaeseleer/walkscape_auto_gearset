@@ -182,6 +182,7 @@ class OPTIMAZATION_TARGET(str, Enum):
     chests_no_steps = "chests_no_steps"
     reward_rolls_no_steps = "reward_rolls_no_steps"
     fine_no_steps = "fine_no_steps"
+    collectibles_no_steps = "collectibles_no_steps"
 
 # Correct Set Union Syntax using |
 REWARD_ROLL_STATS = {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.WORK_EFFICIENCY, StatName.STEPS_ADD, StatName.STEPS_PERCENT}
@@ -212,6 +213,7 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.chests_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.CHEST_FINDING},
     OPTIMAZATION_TARGET.reward_rolls_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS},
     OPTIMAZATION_TARGET.fine_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.collectibles_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.FIND_COLLECTIBLES}
 }
 
 # Mapping StatName Enums to the keys output by GearSet.get_stats()

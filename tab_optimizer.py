@@ -233,7 +233,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
 
             for item in all_sorted:
                 row = {
-                    "Item Name": item.name,
+                    # "Item Name": item.name,
                     "Select": False,
                     "id": item.id
                 }

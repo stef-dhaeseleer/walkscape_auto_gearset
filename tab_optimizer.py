@@ -15,7 +15,7 @@ from ui_utils import (
     TARGET_CATEGORIES, find_category, filter_user_items, 
     get_compatible_services, synthesize_activity_from_recipe, 
     extract_modifier_stats, check_condition_details, calculate_level_from_xp,
-    get_best_auto_pet
+    get_best_auto_pet, format_target_metric
 )
 
 @st.dialog("Configure Target")
@@ -784,47 +784,10 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     for item in breakdown:
                         t_name = item["target"]
                         raw_val = item["raw_value"]
-                        t_name_lower = t_name.lower()
                         
-                        if "no steps" in t_name_lower:
-                            display_text = f"{raw_val:.2f} Output per Action"
-                        elif "reward rolls" in t_name_lower:
-                            human_val = 1.0 / raw_val if raw_val > 0 else 0
-                            display_text = f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
-                        elif "xp" in t_name_lower:
-                            display_text = f"{raw_val:.2f} XP/Step"
-                        elif "chests" in t_name_lower:
-                            human_val = 250.0 / raw_val if raw_val > 0 else 0
-                            display_text = f"{human_val:.1f} Steps/Chest" if raw_val > 0 else "∞ Steps/Chest"
-                        elif "materials from input" in t_name_lower:
-                            display_text = f"{raw_val:.3f} Output Ratio"
-                        elif "fine" in t_name_lower:
-                            human_val = 100.0 / raw_val if raw_val > 0 else 0
-                            display_text = f"{human_val:.1f} Steps/Fine Roll" if raw_val > 0 else "∞ Steps/Fine Roll"
-                        elif "collectibles" in t_name_lower:
-                            relative_mult = raw_val * saved_activity.base_steps
-                            display_text = f"{relative_mult:.2f}x Collectibles Base Rate"
-                        elif "gems" in t_name_lower:
-                            relative_mult = raw_val * saved_activity.base_steps
-                            display_text = f"{relative_mult:.2f}x Gems Base Rate"
-                        elif "coins" in t_name_lower:
-                            human_val = raw_val * 1000.0
-                            display_text = f"{human_val:.2f} Coins/1k Steps"
-                        elif "eternal per input" in t_name_lower:
-                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-                            display_text = f"{human_val:.2f} Inputs/Eternal" if raw_val > 0 else "∞ Inputs/Eternal"
-                        elif any(q in t_name_lower for q in ["good per step", "great per step", "excellent per step", "perfect per step", "eternal per step"]):
-                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-                            display_tier_name = t_name.split()[0].title()
-                            display_text = f"{human_val:.2f} Steps/{display_tier_name}" if raw_val > 0 else f"∞ Steps/{display_tier_name}"
-                        elif "tokens" in t_name_lower:
-                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-                            display_text = f"{human_val:.2f} Steps/Token" if raw_val > 0 else "∞ Steps/Token"
-                        elif "ectoplasm" in t_name_lower:
-                            human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-                            display_text = f"{human_val:.2f} Steps/Ecto" if raw_val > 0 else "∞ Steps/Ecto"
-                        else:
-                            display_text = f"{raw_val:.4f}"
+                        # Use our new helper function
+                        display_text = format_target_metric(t_name, raw_val, saved_activity.base_steps)
+                        
                         raw_scores_html += f"<div style='font-size: 0.95rem; color: #e2e8f0;'><span style='color: #94a3b8;'>{t_name}:</span> <span style='font-weight: 600; color: #93c5fd;'>{display_text}</span></div>"
                     raw_scores_html += "</div>"
 
@@ -1022,7 +985,174 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                 html_coll += f"<div class='mod-active'>✅ <b>{mod.stat.replace('_',' ').title()}</b>: +{val_str} <span style='color:gray; font-size:0.8em'>({name})</span></div>"
                             st.markdown(html_coll, unsafe_allow_html=True)
                         else: st.caption("No collectibles currently active.")
+                # --- UPGRADE FINDER ---
+                if use_owned:
+                    with st.expander("💡 Upgrade Finder (What to Grind For)", expanded=False):
+                        st.caption("Find all mathematical improvements currently not in your inventory. Shows the exact impact on your target metrics.")
+                        if st.button("🔍 Scan for Upgrades", use_container_width=True):
+                            with st.spinner("Evaluating all possible item swaps..."):
+                                baseline_analysis = analyze_score(best_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
+                                baseline_score = baseline_analysis["score"]
+                                
+                                upgrades_by_slot = defaultdict(list)
+                                blacklist_set = set(st.session_state.get('blacklist_state', []))
+                                
+                                # Helper to check if the player can actually wear the item right now
+                                def get_unmet_reqs(item):
+                                    unmet = []
+                                    player_skills = {k.lower(): calculate_level_from_xp(v) for k, v in user_state.get("user_skills_map", {}).items()} if user_state.get("valid_json") else {}
+                                    user_rep = user_state.get("user_reputation", {})
+                                    char_lvl = user_state.get("calculated_char_lvl", 1)
+                                    
+                                    for req in item.requirements:
+                                        if req.type == RequirementType.SKILL_LEVEL:
+                                            skill = req.target.lower() if req.target else ""
+                                            if player_skills.get(skill, 1) < req.value:
+                                                unmet.append(f"{skill.title()} Lvl {req.value}")
+                                        elif req.type == RequirementType.REPUTATION:
+                                            faction = req.target.lower() if req.target else ""
+                                            if user_rep.get(faction, 0) < req.value:
+                                                unmet.append(f"{faction.title()} Rep {req.value}")
+                                        elif req.type == RequirementType.CHARACTER_LEVEL:
+                                            if char_lvl < req.value:
+                                                unmet.append(f"Char Lvl {req.value}")
+                                    return unmet
 
+                                # Evaluate standard slots
+                                std_slots = [
+                                    ("Head", "head", EquipmentSlot.HEAD), ("Chest", "chest", EquipmentSlot.CHEST), 
+                                    ("Legs", "legs", EquipmentSlot.LEGS), ("Feet", "feet", EquipmentSlot.FEET),
+                                    ("Back", "back", EquipmentSlot.BACK), ("Cape", "cape", EquipmentSlot.CAPE), 
+                                    ("Neck", "neck", EquipmentSlot.NECK), ("Hands", "hands", EquipmentSlot.HANDS), 
+                                    ("Primary", "primary", EquipmentSlot.PRIMARY), ("Secondary", "secondary", EquipmentSlot.SECONDARY)
+                                ]
+                                
+                                for ui_name, attr_name, slot_enum in std_slots:
+                                    valid_items = [i for i in all_items_raw if i.slot == slot_enum and i.id not in blacklist_set]
+                                    for item in valid_items:
+                                        if item in best_gear.get_all_items(): continue
+                                        
+                                        test_gear = best_gear.clone()
+                                        setattr(test_gear, attr_name, item)
+                                        
+                                        if test_gear.violates_restrictions(item): continue
+                                            
+                                        test_analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
+                                        
+                                        if test_analysis["score"] > baseline_score + 0.0001:
+                                            upgrades_by_slot[ui_name].append({"item": item, "score": test_analysis["score"], "analysis": test_analysis, "unmet_reqs": get_unmet_reqs(item)})
+
+                                # Evaluate Rings
+                                valid_rings = [i for i in all_items_raw if i.slot == EquipmentSlot.RING and i.id not in blacklist_set]
+                                for item in valid_rings:
+                                    if item in best_gear.rings: continue
+                                    
+                                    best_ring_score = baseline_score + 0.0001
+                                    best_ring_analysis = None
+                                    
+                                    slots_to_test = list(range(len(best_gear.rings)))
+                                    if len(best_gear.rings) < 2: slots_to_test.append(len(best_gear.rings))
+                                    
+                                    for idx in slots_to_test:
+                                        test_gear = best_gear.clone()
+                                        while len(test_gear.rings) <= idx: test_gear.rings.append(None)
+                                        test_gear.rings[idx] = item
+                                        test_gear.rings = [r for r in test_gear.rings if r is not None]
+                                        
+                                        # Strict duplicate check
+                                        ring_ids = [r.id for r in test_gear.rings]
+                                        if len(ring_ids) != len(set(ring_ids)): continue
+                                        
+                                        if test_gear.violates_restrictions(item): continue
+                                            
+                                        test_analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
+                                        if test_analysis["score"] > best_ring_score:
+                                            best_ring_score = test_analysis["score"]
+                                            best_ring_analysis = test_analysis
+                                            
+                                    if best_ring_analysis:
+                                        upgrades_by_slot["Rings"].append({"item": item, "score": best_ring_score, "analysis": best_ring_analysis, "unmet_reqs": get_unmet_reqs(item)})
+
+                                # Evaluate Tools
+                                valid_tools = [i for i in all_items_raw if i.slot == EquipmentSlot.TOOLS and i.id not in blacklist_set]
+                                tool_slots_available = 6 if calculated_char_lvl >= 80 else (5 if calculated_char_lvl >= 50 else (4 if calculated_char_lvl >= 20 else 3))
+                                
+                                for item in valid_tools:
+                                    if item in best_gear.tools: continue
+                                    
+                                    best_tool_score = baseline_score + 0.0001
+                                    best_tool_analysis = None
+                                    
+                                    slots_to_test = list(range(len(best_gear.tools)))
+                                    if len(best_gear.tools) < tool_slots_available: slots_to_test.append(len(best_gear.tools))
+                                    
+                                    for idx in slots_to_test:
+                                        test_gear = best_gear.clone()
+                                        while len(test_gear.tools) <= idx: test_gear.tools.append(None)
+                                        test_gear.tools[idx] = item
+                                        test_gear.tools = [t for t in test_gear.tools if t is not None]
+                                        
+                                        # Strict duplicate check
+                                        tool_ids = [t.id for t in test_gear.tools]
+                                        if len(tool_ids) != len(set(tool_ids)): continue
+                                        
+                                        if test_gear.violates_restrictions(item): continue
+                                            
+                                        test_analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
+                                        if test_analysis["score"] > best_tool_score:
+                                            best_tool_score = test_analysis["score"]
+                                            best_tool_analysis = test_analysis
+                                            
+                                    if best_tool_analysis:
+                                        upgrades_by_slot["Tools"].append({"item": item, "score": best_tool_score, "analysis": best_tool_analysis, "unmet_reqs": get_unmet_reqs(item)})
+
+                                # Sort and store in session state
+                                for k in upgrades_by_slot:
+                                    upgrades_by_slot[k].sort(key=lambda x: x["score"], reverse=True)
+                                    
+                                st.session_state['upgrade_suggestions'] = dict(upgrades_by_slot)
+                                st.session_state['baseline_analysis'] = baseline_analysis
+
+                        # Render Results (Preserved across reruns)
+                        if 'upgrade_suggestions' in st.session_state:
+                            upgrades = st.session_state['upgrade_suggestions']
+                            baseline_analysis = st.session_state['baseline_analysis']
+                            baseline_score = baseline_analysis["score"]
+                            
+                            if not upgrades:
+                                st.success("You are currently wearing the mathematical absolute best gear in the entire game for this target!")
+                            else:
+                                for slot_name, items in upgrades.items():
+                                    if not items: continue
+                                    with st.expander(f"{slot_name} ({len(items)} Upgrades)"):
+                                        for upg in items:
+                                            item = upg["item"]
+                                            diff_score = upg["score"] - baseline_score
+                                            
+                                            req_warn = ""
+                                            if upg.get("unmet_reqs"):
+                                                req_warn = f" <span style='color:#ef4444; font-size: 0.85em; margin-left: 8px;'>[⚠️ Requires: {', '.join(upg['unmet_reqs'])}]</span>"
+                                                
+                                            st.markdown(f"**{item.name}** &nbsp; <span style='color:#4ade80; font-size: 0.9em;'>+{diff_score:.4f} Score</span>{req_warn}", unsafe_allow_html=True)
+                                            
+                                            # Compare metrics visually with "old ➔ new"
+                                            metrics_html = ""
+                                            for orig, new in zip(baseline_analysis.get("target_breakdown", []), upg["analysis"].get("target_breakdown", [])):
+                                                t_name = orig["target"]
+                                                orig_str = format_target_metric(t_name, orig["raw_value"], saved_activity.base_steps)
+                                                new_str = format_target_metric(t_name, new["raw_value"], saved_activity.base_steps)
+                                                
+                                                if orig_str != new_str:
+                                                    metrics_html += f"<div style='font-size:0.85em; color:#94a3b8; margin-left: 10px;'>{t_name}: <span style='text-decoration: line-through;'>{orig_str}</span> ➔ <span style='color:#93c5fd; font-weight:bold;'>{new_str}</span></div>"
+                                            
+                                            if metrics_html:
+                                                st.markdown(metrics_html, unsafe_allow_html=True)
+                                            else:
+                                                st.caption("Improves underlying stats without changing top-level metrics visibly.")
+                                            
+                                            st.markdown("<hr style='margin: 8px 0; border-color: #334155;'>", unsafe_allow_html=True)
+                
+                st.markdown("---")
                 st.success("✅ **Export Ready**")
                 export_json = export_gearset(best_gear)
                 st.caption("Hover over the top-right of the code block to copy!")

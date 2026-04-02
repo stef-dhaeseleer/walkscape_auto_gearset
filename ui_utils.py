@@ -711,3 +711,46 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
                 return pet.id, eval_lvl_obj.level
 
     return None, None
+
+
+def format_target_metric(t_name, raw_val, base_steps):
+    t_name_lower = t_name.lower()
+    if "no steps" in t_name_lower:
+        return f"{raw_val:.2f} Output per Action"
+    elif "reward rolls" in t_name_lower:
+        human_val = 1.0 / raw_val if raw_val > 0 else 0
+        return f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
+    elif "xp" in t_name_lower:
+        return f"{raw_val:.2f} XP/Step"
+    elif "chests" in t_name_lower:
+        human_val = 250.0 / raw_val if raw_val > 0 else 0
+        return f"{human_val:.1f} Steps/Chest" if raw_val > 0 else "∞ Steps/Chest"
+    elif "materials from input" in t_name_lower:
+        return f"{raw_val:.3f} Output Ratio"
+    elif "fine" in t_name_lower:
+        human_val = 100.0 / raw_val if raw_val > 0 else 0
+        return f"{human_val:.1f} Steps/Fine Roll" if raw_val > 0 else "∞ Steps/Fine Roll"
+    elif "collectibles" in t_name_lower:
+        relative_mult = raw_val * base_steps
+        return f"{relative_mult:.2f}x Collectibles Base Rate"
+    elif "gems" in t_name_lower:
+        relative_mult = raw_val * base_steps
+        return f"{relative_mult:.2f}x Gems Base Rate"
+    elif "coins" in t_name_lower:
+        human_val = raw_val * 1000.0
+        return f"{human_val:.2f} Coins/1k Steps"
+    elif "eternal per input" in t_name_lower:
+        human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+        return f"{human_val:.2f} Inputs/Eternal" if raw_val > 0 else "∞ Inputs/Eternal"
+    elif any(q in t_name_lower for q in ["good per step", "great per step", "excellent per step", "perfect per step", "eternal per step"]):
+        human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+        display_tier_name = t_name.split()[0].title()
+        return f"{human_val:.2f} Steps/{display_tier_name}" if raw_val > 0 else f"∞ Steps/{display_tier_name}"
+    elif "tokens" in t_name_lower:
+        human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+        return f"{human_val:.2f} Steps/Token" if raw_val > 0 else "∞ Steps/Token"
+    elif "ectoplasm" in t_name_lower:
+        human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
+        return f"{human_val:.2f} Steps/Ecto" if raw_val > 0 else "∞ Steps/Ecto"
+    else:
+        return f"{raw_val:.4f}"

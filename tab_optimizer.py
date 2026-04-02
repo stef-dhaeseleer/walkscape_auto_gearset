@@ -1143,7 +1143,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                                 new_str = format_target_metric(t_name, new["raw_value"], saved_activity.base_steps)
                                                 
                                                 if orig_str != new_str:
-                                                    metrics_html += f"<div style='font-size:0.85em; color:#94a3b8; margin-left: 10px;'>{t_name}: <span style='text-decoration: line-through;'>{orig_str}</span> ➔ <span style='color:#93c5fd; font-weight:bold;'>{new_str}</span></div>"
+                                                    metrics_html += f"<div style='font-size:0.85em; color:#94a3b8; margin-left: 10px;'>{t_name}: <span>{orig_str}</span> ➔ <span style='color:#93c5fd; font-weight:bold;'>{new_str}</span></div>"
                                             
                                             if metrics_html:
                                                 st.markdown(metrics_html, unsafe_allow_html=True)
@@ -1277,7 +1277,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                             }
                             target_enum = slot_enum_map.get(edit_slot.split(" ")[0])
                             
-                            show_unowned = st.checkbox("Show only unowned items", key="lab_show_unowned")
+                            show_unowned = st.checkbox("Show unowned items", key="lab_show_unowned")
 
                             if show_unowned:
                                 all_slot_items = [i for i in all_items_raw if i.slot == target_enum]

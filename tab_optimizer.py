@@ -9,12 +9,13 @@ from utils.constants import StatName, PERCENTAGE_STATS
 from utils.export import export_gearset
 from calculations import calculate_passive_stats, calculate_score, analyze_score
 from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET
-from models import EquipmentSlot, GearSet, Recipe, Activity, RequirementType
+from models import EquipmentSlot, GearSet, Recipe, Activity, RequirementType, CraftingNode
 
 from ui_utils import (
     TARGET_CATEGORIES, find_category, filter_user_items, 
     get_compatible_services, synthesize_activity_from_recipe, 
-    extract_modifier_stats, check_condition_details, calculate_level_from_xp
+    extract_modifier_stats, check_condition_details, calculate_level_from_xp,
+    get_best_auto_pet
 )
 
 @st.dialog("Configure Target")
@@ -300,19 +301,41 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
     with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):
         st.caption("Select active buffs. These are treated as permanent stats during optimization.")
         col_pet, col_lvl, col_cons = st.columns([2, 1, 2])
+        
+        owned_pets = user_state.get("owned_pets", {})
+        
         with col_pet:
-            pet_names = ["None"] + [p.name for p in all_pets]
-            selected_pet_name = st.selectbox("Select Pet", pet_names)
+            pet_opts = ["Auto", "None"] + [p.id for p in all_pets]
+            
+            def format_pet(pid):
+                if pid == "Auto": return "✨ Auto Select Best Pet"
+                if pid == "None": return "None"
+                p_obj = next((x for x in all_pets if x.id == pid), None)
+                if not p_obj: return pid
+                if pid in owned_pets: return f"{owned_pets[pid]['name']} ({p_obj.name})"
+                return p_obj.name
+                
+            selected_pet_id = st.selectbox("Select Pet", pet_opts, format_func=format_pet)
         
         selected_pet = None
-        if selected_pet_name != "None":
-            selected_pet = next((p for p in all_pets if p.name == selected_pet_name), None)
+        if selected_pet_id not in ["None", "Auto"]:
+            selected_pet = next((p for p in all_pets if p.id == selected_pet_id), None)
             
         with col_lvl:
-            if selected_pet:
+            if selected_pet_id == "Auto":
+                st.selectbox("Pet Level", ["Auto"], disabled=True)
+            elif selected_pet:
                 max_lvl = max([l.level for l in selected_pet.levels]) if selected_pet.levels else 1
                 lvls = list(range(1, max_lvl + 1))
-                sel_level = st.selectbox("Pet Level", lvls, index=len(lvls)-1)
+                
+                default_lvl = max_lvl
+                if selected_pet_id in owned_pets:
+                    default_lvl = min(owned_pets[selected_pet_id]["level"], max_lvl)
+                    
+                try: default_idx = lvls.index(default_lvl)
+                except ValueError: default_idx = len(lvls)-1
+                
+                sel_level = st.selectbox("Pet Level", lvls, index=default_idx)
                 selected_pet = selected_pet.copy(update={"active_level": sel_level})
                 st.caption(f"**Level {sel_level} Effects:**")
                 mods = selected_pet.modifiers
@@ -326,7 +349,6 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     st.markdown(html, unsafe_allow_html=True)
             else:
                 st.selectbox("Pet Level", ["-"], disabled=True)
-        
         with col_cons:
             cons_names = ["None"] + sorted([c.name for c in all_consumables])
             selected_cons_name = st.selectbox("Select Consumable", cons_names)
@@ -636,7 +658,31 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 blacklist_set = set(st.session_state.get('blacklist_state', []))
 
                 start_time = time.time()
-                
+
+                actual_pet = selected_pet
+                if selected_pet_id == "Auto":
+                    game_data_dict = {
+                        'recipes': {r.id: r for r in recipes},
+                        'activities': {a.id: a for a in activities},
+                        'pets': {p.id: p for p in all_pets}
+                    }
+                    dummy_node = CraftingNode(
+                        node_id="dummy", 
+                        item_id="dummy", 
+                        source_type="recipe" if is_recipe else "activity",
+                        source_id=selected_obj.id,
+                        selected_location_id=selected_location_id
+                    )
+                    
+                    auto_pet_id, auto_pet_lvl = get_best_auto_pet(
+                        dummy_node, game_data_dict, loc_map, drop_calc, 
+                        user_ap, user_total_level, use_owned, user_state.get("owned_pets", {})
+                    )
+                    
+                    if auto_pet_id:
+                        actual_pet = next((p for p in all_pets if p.id == auto_pet_id), None)
+                        if actual_pet:
+                            actual_pet = actual_pet.copy(update={"active_level": auto_pet_lvl})
                 best_gear, error_msg, filler_slots = optimizer.optimize(
                     final_activity, 
                     player_level=player_lvl, 
@@ -648,7 +694,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     owned_collectibles=owned_collectibles,
                     extra_passive_stats=extra_passive_stats,
                     context_override=context,
-                    pet=selected_pet,
+                    pet=actual_pet,
                     consumable=selected_cons,
                     locked_items=locked_items_map,
                     blacklisted_ids=blacklist_set
@@ -671,7 +717,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     st.session_state['debug_rejected'] = optimizer.debug_rejected
                     st.session_state['owned_collectibles'] = owned_collectibles
                     st.session_state['context'] = context
-                    st.session_state['selected_pet'] = selected_pet
+                    st.session_state['selected_pet'] = actual_pet
                     st.session_state['selected_cons'] = selected_cons
                     st.session_state['selected_target_list'] = weighted_targets
                     st.session_state['normalization_context'] = optimizer.last_normalization_context

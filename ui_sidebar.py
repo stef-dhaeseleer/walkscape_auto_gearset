@@ -47,6 +47,7 @@ def render_user_data_section(is_mobile, all_collectibles_raw):
         "user_total_level": 0,
         "owned_collectibles": [],
         "user_reputation": {},
+        "owned_pets": {},
         "use_owned": False
     }
 
@@ -79,6 +80,7 @@ def render_user_data_section(is_mobile, all_collectibles_raw):
                 user_state["user_ap"] = user_data.get("achievement_points", 0)
                 user_state["item_counts"] = extract_user_counts(user_data)
                 user_state["user_reputation"] = extract_user_reputation(user_data)
+                user_state["owned_pets"] = extract_user_pets(user_data)
                 
                 if user_state["user_skills_map"]:
                     user_state["user_total_level"] = calculate_total_level(user_state["user_skills_map"])
@@ -95,3 +97,31 @@ def render_user_data_section(is_mobile, all_collectibles_raw):
             user_state["use_owned"] = st.checkbox("Only use owned items", value=user_state["valid_json"])
 
     return user_state
+
+
+
+def extract_user_pets(user_data: dict) -> dict:
+    owned_pets = {}
+    pets_list = []
+    
+    # Check for currently equipped pet
+    if "pets" in user_data and isinstance(user_data["pets"], dict):
+        equipped = user_data["pets"].get("pet")
+        if equipped:
+            pets_list.append(equipped)
+            
+    # Add all available (unequipped) pets
+    available = user_data.get("available_pets", [])
+    if isinstance(available, list):
+        pets_list.extend(available)
+        
+    for p in pets_list:
+        species = p.get("species", "").lower()
+        lvl = p.get("level", 1)
+        name = p.get("name", species.title())
+        
+        # Keep the highest level if the user has multiple of the same species
+        if species not in owned_pets or lvl > owned_pets[species]["level"]:
+            owned_pets[species] = {"name": name, "level": lvl}
+            
+    return owned_pets

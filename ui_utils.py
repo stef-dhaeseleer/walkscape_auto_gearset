@@ -593,9 +593,10 @@ def load_data():
     return items, activities, recipes, locations, services, collectibles, pets, consumables, containers, materials
 
 
-def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, drop_calc, user_ap: int = 0, total_lvl: int = 0) -> Tuple[Optional[str], Optional[int]]:
+def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, drop_calc, user_ap: int = 0, total_lvl: int = 0, use_owned: bool = False, owned_pets: dict = None) -> Tuple[Optional[str], Optional[int]]:
     """Finds the best pet for a node based on stats, falling back to ability charging."""
     if not game_data_dict.get('pets'): return None, None
+    if owned_pets is None: owned_pets = {}
 
     # 1. Build a dummy context for the node to test conditions
     activity_obj = None
@@ -614,11 +615,25 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
 
     # 2. Phase 1: Find a pet that gives active stats
     for pet in game_data_dict['pets'].values():
-        max_lvl_obj = pet.levels[-1] if pet.levels else None
-        if not max_lvl_obj: continue
+        # Skip if we are strictly using owned items and we don't own this pet
+        if use_owned and pet.id not in owned_pets:
+            continue
+            
+        eval_lvl_obj = None
+        if use_owned and pet.id in owned_pets:
+            target_lvl = owned_pets[pet.id]["level"]
+            eval_lvl_obj = next((l for l in pet.levels if l.level == target_lvl), None)
+            # Fallback if the exact level is missing from the pet's definition
+            if not eval_lvl_obj:
+                valid = [l for l in pet.levels if l.level <= target_lvl]
+                if valid: eval_lvl_obj = valid[-1]
+        else:
+            eval_lvl_obj = pet.levels[-1] if pet.levels else None
+
+        if not eval_lvl_obj: continue
         
         helps = False
-        for mod in max_lvl_obj.modifiers:
+        for mod in eval_lvl_obj.modifiers:
             applies = True
             for cond in mod.conditions:
                 applies_cond, _ = check_condition_details(cond, context, Counter())
@@ -641,14 +656,28 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
                 break
                 
         if helps:
-            return pet.id, max_lvl_obj.level
+            return pet.id, eval_lvl_obj.level
 
     # 3. Phase 2: Find a pet that can charge an active ability (Fallback)
     for pet in game_data_dict['pets'].values():
-        max_lvl_obj = pet.levels[-1] if pet.levels else None
-        if not max_lvl_obj: continue
+        # Skip if we are strictly using owned items and we don't own this pet
+        if use_owned and pet.id not in owned_pets:
+            continue
+            
+        eval_lvl_obj = None
+        if use_owned and pet.id in owned_pets:
+            target_lvl = owned_pets[pet.id]["level"]
+            eval_lvl_obj = next((l for l in pet.levels if l.level == target_lvl), None)
+            # Fallback if the exact level is missing from the pet's definition
+            if not eval_lvl_obj:
+                valid = [l for l in pet.levels if l.level <= target_lvl]
+                if valid: eval_lvl_obj = valid[-1]
+        else:
+            eval_lvl_obj = pet.levels[-1] if pet.levels else None
+
+        if not eval_lvl_obj: continue
         
-        for ab in max_lvl_obj.abilities:
+        for ab in eval_lvl_obj.abilities:
             # Ensure the ability is explicitly supported in our constants
             if ab.name not in INSTANT_ACTION_PET_ABILITIES:
                 continue
@@ -679,6 +708,6 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
                     charges_here = True
                     
             if charges_here:
-                return pet.id, max_lvl_obj.level
+                return pet.id, eval_lvl_obj.level
 
     return None, None

@@ -43,7 +43,9 @@ def node_target_dialog(node: CraftingNode):
         st.rerun()
 
 @st.dialog("⚙️ Node Settings")
-def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations):
+def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations, user_state: dict):
+    owned_pets = user_state.get("owned_pets", {})
+
     # 1. Service (Recipes only)
     if node.source_type == "recipe":
         recipe = game_data_dict['recipes'].get(node.source_id)
@@ -73,9 +75,14 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations):
     # 3. Pet
     pets = list(game_data_dict['pets'].values())
     pet_opts = ["None"] + [p.id for p in pets]
+    
     def format_pet(x):
         if x == "None": return "None"
-        return next((p.name for p in pets if p.id == x), x)
+        p = next((p for p in pets if p.id == x), None)
+        if not p: return x
+        if x in owned_pets: return f"{owned_pets[x]['name']} ({p.name})"
+        return p.name
+        
     p_idx = pet_opts.index(node.selected_pet_id) if getattr(node, 'selected_pet_id', None) in pet_opts else 0
     new_pet_id = st.selectbox("Pet", pet_opts, index=p_idx, format_func=format_pet)
     node.selected_pet_id = new_pet_id if new_pet_id != "None" else None
@@ -84,7 +91,12 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations):
         pet_obj = game_data_dict['pets'][node.selected_pet_id]
         max_lvl = max([l.level for l in pet_obj.levels]) if pet_obj.levels else 1
         lvls = list(range(1, max_lvl + 1))
-        l_idx = lvls.index(node.selected_pet_level) if getattr(node, 'selected_pet_level', None) in lvls else len(lvls)-1
+        
+        default_lvl = max_lvl
+        if node.selected_pet_id in owned_pets:
+            default_lvl = min(owned_pets[node.selected_pet_id]["level"], max_lvl)
+            
+        l_idx = lvls.index(node.selected_pet_level) if getattr(node, 'selected_pet_level', None) in lvls else lvls.index(default_lvl) if default_lvl in lvls else len(lvls)-1
         node.selected_pet_level = st.selectbox("Pet Level", lvls, index=l_idx)
         
     # 4. Consumable
@@ -100,7 +112,7 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations):
     if st.button("Save & Close", type="primary"):
         st.rerun()
 
-def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locations, level: int = 0):
+def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locations, user_state: dict, level: int = 0):
     icon = {"recipe": "🔨", "activity": "🪓", "chest": "🧰", "bank": "🏦"}.get(node.source_type, "📦")
     item_name = node.item_id.replace('_', ' ').title()
     title = f"{icon} {item_name} (x{node.base_requirement_amount})"
@@ -297,7 +309,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     
                     if not hasattr(node, '_pet_auto_checked'):
                         loc_map = {loc.id: loc for loc in locations}
-                        pet_id, pet_lvl = get_best_auto_pet(node, game_data_dict, loc_map, drop_calc, 0, 0)
+                        use_owned = user_state.get("use_owned", False)
+                        owned_pets = user_state.get("owned_pets", {})
+                        pet_id, pet_lvl = get_best_auto_pet(node, game_data_dict, loc_map, drop_calc, 0, 0, use_owned, owned_pets)
                         if pet_id:
                             node.selected_pet_id = pet_id
                             node.selected_pet_level = pet_lvl
@@ -312,7 +326,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                             node_target_dialog(node)
                     with c2_c:
                         if st.button("⚙️", key=f"set_btn_{node.node_id}", help="Node Settings (Pets, Location, Service)"):
-                            node_settings_dialog(node, game_data_dict, locations)
+                            node_settings_dialog(node, game_data_dict, locations, user_state)
                 else:
                     node.loadout_id = next(l_id for l_id, l in st.session_state['saved_loadouts'].items() if l.name == selected_l_name)
                     node.auto_optimize_target = None
@@ -321,8 +335,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     with c2_a: st.write("")
                     with c2_b:
                         if st.button("⚙️", key=f"set_btn_ld_{node.node_id}", help="Node Settings (Pets, Location, Service)"):
-                            node_settings_dialog(node, game_data_dict, locations)
-
+                            node_settings_dialog(node, game_data_dict, locations, user_state)
         with c3:
             if node.metrics:
                 steps = node.metrics.get("steps", 0)
@@ -486,7 +499,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             st.markdown("###### ⬇️ Requires:")
             with st.container(border=False):
                 for child_id, child_node in node.inputs.items():
-                    render_tree_node(child_node, game_data_dict, drop_calc, locations, level + 1)
+                    render_tree_node(child_node, game_data_dict, drop_calc, locations, user_state, level + 1)
 
 def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers, user_state, drop_calc, locations, services, all_pets, all_consumables, all_materials):
     st.subheader("Crafting Tree Calculator")
@@ -600,8 +613,7 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
 
         st.divider()
         
-        render_tree_node(root, game_data_dict, drop_calc, locations)
-        
+        render_tree_node(root, game_data_dict, drop_calc, locations, user_state)       
         st.divider()
         if st.button("🧮 Calculate True Cost & Run Optimizers", type="primary"):
             

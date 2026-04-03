@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Scrape recipes from the Walkscape wiki Recipes page.
-Generates recipes.json with all recipe data using Pydantic models.
+Scrape recipes from the Walkscape wiki.
+Downloads the main Recipes index, then caches and scrapes individual item pages
+to extract highly accurate recipe data using Pydantic models.
 """
 
 import json
@@ -14,7 +15,7 @@ from urllib.parse import unquote
 # Add parent directory for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from models import Recipe, RecipeMaterial, SkillName
+from models import Recipe, SkillName
 from scraper_utils import *
 
 # Configuration
@@ -50,283 +51,217 @@ def clean_text(text: str) -> str:
 # PARSING LOGIC
 # ============================================================================
 
-def extract_materials(td) -> list[list[RecipeMaterial]]:
-    """
-    Extract materials list from the materials cell.
-    Returns: List of material groups (outer=AND, inner=OR).
-    """
-    for br in td.find_all('br'):
-        br.replace_with(' ')
-    
-    text = clean_text(td.get_text())
-    material_groups = []
+def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
+    """Parses an individual item's HTML page to extract recipe data."""
+    soup = BeautifulSoup(html_content, 'html.parser')
+    recipes = []
 
-    # Helper to parse "5x Item Name" string
-    def parse_group_string(group_str):
-        group_items = []
-        matches = re.findall(r'(\d+)x\s+([A-Za-z\s\(\)\']+?)(?=\s*\d+x|$)', group_str)
-        for qty_str, material_name in matches:
-            group_items.append(RecipeMaterial(
-                item_id=normalize_id(material_name.strip()),
-                amount=int(qty_str)
-            ))
-        return group_items
+    # 1. Locate the necessary tables by their EXACT captions
+    recipe_outputs_table = None
+    recipe_xp_table = None
 
-    # Check for " or " alternatives
-    if ' or ' in text.lower():
-        options = []
-        alternatives = re.split(r'\s+or\s+', text, flags=re.IGNORECASE)
-        for alt in alternatives:
-            matches = re.findall(r'(\d+)x\s+([A-Za-z\s\(\)\']+?)(?=\s*\d+x|$)', alt)
-            for qty, name in matches:
-                options.append(RecipeMaterial(item_id=normalize_id(name), amount=int(qty)))
-        if options:
-            material_groups.append(options)
-    else:
-        matches = re.findall(r'(\d+)x\s+([A-Za-z\s\(\)\']+?)(?=\s*\d+x|$)', text)
-        for qty, name in matches:
-            material_groups.append([RecipeMaterial(item_id=normalize_id(name), amount=int(qty))])
-
-    return material_groups
-
-def extract_output_quantity(td):
-    text = clean_text(td.get_text())
-    match = re.match(r'(\d+)x\s+(.+)', text)
-    if match:
-        return int(match.group(1)), match.group(2).strip()
-    
-    text = re.sub(r'^(Create|Craft|Brew|Make|Cook|Prepare)\s+an?\s+', '', text, flags=re.IGNORECASE)
-    return 1, text
-
-def extract_service_and_level(service_td, level_td):
-    service_text = clean_text(service_td.get_text())
-    level_text = clean_text(level_td.get_text())
-    
-    skill = None
-    level = 0
-    
-    level_match = re.search(r'(\w+)\s+lvl\.?\s+(\d+)', level_text, re.IGNORECASE)
-    if level_match:
-        skill = level_match.group(1)
-        level = int(level_match.group(2))
-    
-    if not level_match:
-        level_match = re.search(r'(\w+)\s+lvl\.?\s+(\d+)', service_text, re.IGNORECASE)
-        if level_match:
-            skill = level_match.group(1)
-            level = int(level_match.group(2))
-    
-    service_match = re.search(r'Needs\s+(.+?)\s+service', service_text, re.IGNORECASE)
-    service_name = service_match.group(1).strip() if service_match else service_text
-    
-    return normalize_id(service_name), skill, level
-
-def normalize_recipe_name_match(name1, name2):
-    """
-    Check if two recipe names match, ignoring common prefixes.
-    e.g. "Brew beer" == "Beer"
-    """
-    n1 = name1.lower()
-    n2 = name2.lower()
-    
-    if n1 == n2: return True
-    if n1 in n2 or n2 in n1: return True
-    
-    prefixes = ['create ', 'craft ', 'brew ', 'make ', 'cook ', 'prepare ', 'mix ', 'fry ', 'bake ', 'cut ', 'saw ']
-    
-    def strip_prefix(s):
-        for p in prefixes:
-            if s.startswith(p):
-                return s[len(p):].strip()
-        return s
-        
-    return strip_prefix(n1) == strip_prefix(n2)
-
-def parse_recipe_experience_from_item_page(item_name, recipe_name, cache_folders):
-    """Find and parse item page for recipe stats."""
-    
-    cache_path = None
-    filenames_to_try = [
-        sanitize_filename(item_name) + '.html',
-        sanitize_filename(item_name).replace(' ', '_') + '.html'
-    ]
-    
-    for folder in cache_folders:
-        for fname in filenames_to_try:
-            p = folder / fname
-            if p.exists():
-                cache_path = p
-                break
-        if cache_path: break
-            
-    if not cache_path:
-        return None
-    
-    try:
-        html = cache_path.read_text(encoding='utf-8')
-    except:
-        return None
-        
-    soup = BeautifulSoup(html, 'html.parser')
-    
-    # Locate Recipe Experience Table
-    # Method 1: Look for "Recipe Experience" caption directly
-    target_table = None
-    tables = soup.find_all('table', class_='wikitable')
-    for table in tables:
+    for table in soup.find_all('table', class_='wikitable'):
         caption = table.find('caption')
-        if caption and 'Recipe Experience' in caption.get_text():
-            target_table = table
-            break
-            
-    if not target_table:
-        # Method 2: Look for heading
-        recipe_heading = soup.find('h2', id='Primary_Recipe_Output')
-        if recipe_heading:
-            current = recipe_heading.parent
-            while current:
-                current = current.find_next_sibling()
-                if not current: break
-                if current.name == 'table':
-                    target_table = current
-                    break
-                if current.name == 'h2': break
+        if not caption:
+            continue
+        
+        # EXACT match prevents hitting "Additional Recipe Outputs"
+        caption_text = caption.get_text(strip=True)
+        if caption_text == 'Recipe Outputs':
+            recipe_outputs_table = table
+        elif caption_text == 'Recipe Experience':
+            recipe_xp_table = table
 
-    if target_table:
-        rows = target_table.find_all('tr')[1:]
-        for data_row in rows:
-            cells = data_row.find_all('td')
-            if len(cells) >= 7:
-                row_recipe_name = clean_text(cells[1].get_text())
-                
-                # Loose matching:
-                # 1. Exact match
-                # 2. Normalized match (strip "Brew ", "Craft ", etc)
-                # 3. Match against Item Name (e.g. "Beer" recipe for "Beer" item)
-                if (row_recipe_name == recipe_name or 
-                    normalize_recipe_name_match(row_recipe_name, recipe_name) or
-                    normalize_recipe_name_match(row_recipe_name, item_name)):
+    if not recipe_outputs_table:
+        return [] # No craftable recipes found on this page
+
+    # 2. Extract XP and Steps data into a dictionary for safe lookup
+    xp_data_map = {}
+    if recipe_xp_table:
+        for row in recipe_xp_table.find_all('tr')[1:]:
+            cells = row.find_all(['th', 'td'])
+            if len(cells) >= 4:
+                rec_name = clean_text(cells[1].get_text())
+                try:
+                    # Strip commas before casting to int/float
+                    base_xp = float(cells[2].get_text(strip=True).replace(',', ''))
+                    base_steps = int(cells[3].get_text(strip=True).replace(',', ''))
                     
-                    try:
-                        base_xp = float(clean_text(cells[2].get_text()))
-                        base_steps = int(clean_text(cells[3].get_text()))
-                        max_eff_text = clean_text(cells[6].get_text()).replace('%', '')
-                        max_efficiency = round(float(max_eff_text) / 100.0, 2)
-                        return {
-                            'base_xp': base_xp,
-                            'base_steps': base_steps,
-                            'max_efficiency': max_efficiency
-                        }
-                    except:
+                    # Max Work Efficiency is usually column index 6
+                    max_eff = 0.0
+                    if len(cells) > 6:
+                        eff_text = cells[6].get_text(strip=True).replace('%', '')
+                        if eff_text.replace('.', '', 1).isdigit():
+                            max_eff = float(eff_text) / 100.0
+
+                    xp_data_map[rec_name] = {
+                        "base_xp": base_xp,
+                        "base_steps": base_steps,
+                        "max_efficiency": max_eff
+                    }
+                except ValueError:
+                    continue
+
+    # 3. Parse the main Recipe Outputs table
+    for row in recipe_outputs_table.find_all('tr')[1:]:
+        cells = row.find_all(['th', 'td'])
+        if len(cells) < 6:
+            continue
+
+        recipe_name = clean_text(cells[1].get_text())
+        recipe_id = normalize_id(recipe_name)
+
+        # Level and Skill
+        skill_str = "none"
+        level = 1
+        skill_match = re.search(r'([A-Za-z\s]+)\s*lvl\.\s*(\d+)', cells[2].get_text(strip=True), re.IGNORECASE)
+        if skill_match:
+            skill_str = normalize_id(skill_match.group(1))
+            level = int(skill_match.group(2))
+
+        # Service
+        service_id = "none"
+        service_match = re.search(r'Needs\s+(.+?)\s+service', cells[3].get_text(strip=True), re.IGNORECASE)
+        if service_match:
+            service_id = normalize_id(service_match.group(1))
+
+        # Materials
+        materials = []
+        materials_cell = cells[4]
+        
+        # Replace <br> tags with newlines to split the strict AND requirements
+        for br in materials_cell.find_all('br'):
+            br.replace_with('\n')
+        
+        # Clean text and split by the newlines we just injected
+        and_lines = materials_cell.get_text(separator='').split('\n')
+        
+        for line in and_lines:
+            line = line.strip()
+            if not line:
+                continue
+            
+            # Now split by OR within the specific AND line
+            or_options = re.split(r'\s+or\s+', line, flags=re.IGNORECASE)
+            material_group = []
+            
+            for option in or_options:
+                option = option.replace('\xa0', ' ').strip()
+                # Safely split at the 'x' to allow hyphens and numbers in item names
+                match = re.match(r'([\d,]+)\s*x\s*(.+)', option)
+                if match:
+                    qty = int(match.group(1).replace(',', ''))
+                    item_name = match.group(2).strip()
+                    material_group.append({
+                        "item_id": normalize_id(item_name),
+                        "amount": qty
+                    })
+            
+            if material_group:
+                materials.append(material_group)
+
+        # Output Item
+        output_qty = 1
+        output_item_id = "none"
+        out_match = re.match(r'([\d,]+)\s*x\s*(.+)', cells[5].get_text(strip=True))
+        if out_match:
+            output_qty = int(out_match.group(1).replace(',', ''))
+            output_item_id = normalize_id(out_match.group(2))
+
+        # Merge with XP Data
+        xp_stats = xp_data_map.get(recipe_name, {"base_xp": 0.0, "base_steps": 0, "max_efficiency": 0.0})
+
+        try:
+            # Construct Recipe Pydantic Model
+            recipe = Recipe(
+                id=recipe_id,
+                wiki_slug=wiki_slug,
+                name=recipe_name,
+                skill=parse_skill_enum(skill_str),
+                level=level,
+                service=service_id,
+                output_item_id=output_item_id,
+                output_quantity=output_qty,
+                materials=materials,
+                base_xp=xp_stats["base_xp"],
+                base_steps=xp_stats["base_steps"],
+                max_efficiency=xp_stats["max_efficiency"]
+            )
+            recipes.append(recipe)
+        except Exception as e:
+            print(f"  Error creating recipe {recipe_name}: {e}")
+
+    return recipes
+
+def get_item_slugs_from_index() -> set:
+    """Downloads the main Recipes page and extracts all unique item URLs to scrape."""
+    print("Downloading Main Recipes Index...")
+    html = download_page(RECIPES_URL, CACHE_FILE, rescrape=RESCRAPE)
+    if not html:
+        return set()
+    
+    soup = BeautifulSoup(html, 'html.parser')
+    item_slugs = set()
+    
+    # Find all links in the main table that point to items
+    for table in soup.find_all('table', class_='wikitable'):
+        for row in table.find_all('tr')[1:]:
+            cells = row.find_all(['th', 'td'])
+            if len(cells) >= 6:
+                # Column 5 is typically "Recipe Outputs"
+                links = cells[5].find_all('a')
+                for link in links:
+                    href = link.get('href')
+                    if not href:
                         continue
+                    
+                    # 1. Reject files (images/icons) immediately
+                    if 'File:' in href:
+                        continue
+                    
+                    # 2. Extract item slug, prioritizing the Special:MyLanguage route used for wiki items
+                    if 'Special:MyLanguage/' in href:
+                        slug = href.split('Special:MyLanguage/')[-1]
+                        item_slugs.add(unquote(slug))
+                    elif href.startswith('/wiki/'):
+                        slug = href.split('/wiki/')[-1]
+                        item_slugs.add(unquote(slug))
                         
-    return None
-
-def extract_max_efficiency_fallback(td):
-    text = clean_text(td.get_text())
-    match = re.search(r'\(\+(\d+\.?\d*)%\)', text)
-    if match:
-        return float(match.group(1)) / 100.0
-    return 0.0
-
-# ============================================================================
-# MAIN
-# ============================================================================
+    print(f"Found {len(item_slugs)} unique item pages to scrape.")
+    return item_slugs
 
 def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    
-    equip_cache = get_cache_dir('equipment')
-    mat_cache = get_cache_dir('materials')
-    cons_cache = get_cache_dir('consumables')
-    cross_ref_folders = [equip_cache, mat_cache, cons_cache]
-    
-    print("Step 1: Downloading Recipes page...")
-    html = download_page(RECIPES_URL, CACHE_FILE, rescrape=RESCRAPE)
-    if not html: return
-
-    soup = BeautifulSoup(html, 'html.parser')
     all_recipes = []
     
-    current_skill_context = None
+    # 1. Get the list of pages to scrape
+    slugs = get_item_slugs_from_index()
     
-    tables = soup.find_all('table', class_='wikitable')
-    print(f"Found {len(tables)} tables.")
-
-    for table in tables:
-        heading = table.find_previous('h2')
-        if heading:
-            skill_text = clean_text(heading.get_text())
-            skill_text = re.sub(r'^\d+\s*', '', skill_text)
-            if skill_text and skill_text != 'Contents':
-                current_skill_context = skill_text
-
-        rows = table.find_all('tr')[1:]
-        for row in rows:
-            cells = row.find_all('td')
-            if len(cells) < 6: continue
-            
-            recipe_name = clean_text(cells[1].get_text())
-            
-            output_links = cells[5].find_all('a')
-            output_link = next((l for l in output_links if '/wiki/File:' not in l.get('href', '')), None)
-            
-            if not output_link: continue
-            
-            output_item_url = unquote(output_link.get('href', '')).replace('/Special:MyLanguage/', '/')
-            output_item_name = output_item_url.split('/')[-1].replace('_', ' ')
-            
-            output_qty, _ = extract_output_quantity(cells[5])
-            service_id, skill_str, level = extract_service_and_level(cells[3], cells[2])
-            if not skill_str: skill_str = current_skill_context
-            
-            materials = extract_materials(cells[4])
-            
-            base_xp, base_steps, max_eff = 0.0, 0, 0.0
-            
-            # Pass output_item_name explicitly for fuzzy matching against recipe name
-            stats = parse_recipe_experience_from_item_page(output_item_name, recipe_name, cross_ref_folders)
-            if stats:
-                base_xp = stats['base_xp']
-                base_steps = stats['base_steps']
-                max_eff = stats['max_efficiency']
+    # 2. Iterate through each item page, caching and scraping it
+    for i, slug in enumerate(slugs, 1):
+        url = f"https://wiki.walkscape.app/wiki/{slug}"
+        cache_file = CACHE_DIR / (sanitize_filename(slug) + '.html')
+        
+        html = download_page(url, cache_file, rescrape=RESCRAPE)
+        if html:
+            item_recipes = parse_item_recipe_page(html, slug)
+            if item_recipes:
+                print(f"[{i}/{len(slugs)}] Processed: {slug} (Found {len(item_recipes)} recipes)")
+                all_recipes.extend(item_recipes)
             else:
-                if len(cells) >= 10:
-                    try:
-                        base_xp = float(clean_text(cells[5].get_text()))
-                        base_steps = int(clean_text(cells[6].get_text()))
-                        max_eff = extract_max_efficiency_fallback(cells[8])
-                    except: pass
+                print(f"[{i}/{len(slugs)}] Processed: {slug} (No recipes found)")
 
-            recipe_id = normalize_id(recipe_name)
-            
-            try:
-                recipe = Recipe(
-                    id=recipe_id,
-                    wiki_slug=output_item_url.split('/')[-1],
-                    name=recipe_name,
-                    value=0,
-                    skill=parse_skill_enum(skill_str or "none"),
-                    level=level,
-                    service=service_id,
-                    output_item_id=normalize_id(output_item_name),
-                    output_quantity=output_qty,
-                    materials=materials,
-                    base_xp=base_xp,
-                    base_steps=base_steps,
-                    max_efficiency=max_eff
-                )
-                all_recipes.append(recipe)
-                print(f"  Processed: {recipe_name} -> XP: {base_xp}, Steps: {base_steps}")
-            except Exception as e:
-                print(f"  Error creating recipe {recipe_name}: {e}")
+    # 3. Deduplicate recipes by ID (in case multiple items share a recipe page)
+    unique_recipes = {r.id: r for r in all_recipes}.values()
 
-    print(f"\nStep 3: Exporting {len(all_recipes)} recipes to {OUTPUT_FILE}...")
+    # 4. Export to JSON
+    print(f"\nExporting {len(unique_recipes)} recipes to {OUTPUT_FILE}...")
+    data = [r.model_dump(mode='json') for r in unique_recipes]
     
-    data = [r.model_dump(mode='json') for r in all_recipes]
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
         
+    validator.report()
     print("Done.")
 
 if __name__ == "__main__":

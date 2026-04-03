@@ -479,9 +479,25 @@ def calculate_node_cost(
     if getattr(node, 'target_quality', EquipmentQuality.NORMAL) not in [EquipmentQuality.NORMAL, EquipmentQuality.NONE]:
         from utils.constants import QUALITY_RANK
         target_rank = QUALITY_RANK.get(node.target_quality, 0)
-        if getattr(node, 'use_fine_materials', False): target_rank = max(1, target_rank - 1)
         
-        probs = calculate_quality_probabilities(min_level, player_lvl, stats.get("quality_outcome", 0))
+        is_equipment_upgrade = False
+        if recipe_obj and hasattr(recipe_obj, 'materials'):
+            for mat_group in recipe_obj.materials:
+                for mat in mat_group:
+                    base_id = mat.item_id.replace("_fine", "")
+                    has_fine = (base_id in drop_calc.fine_material_map or 
+                                f"{base_id}_fine" in game_data.get('materials', {}) or 
+                                f"{base_id}_fine" in game_data.get('consumables', {}))
+                    if not has_fine:
+                        is_equipment_upgrade = True
+                        break
+                if is_equipment_upgrade: break
+        
+        probs = calculate_quality_probabilities(
+            min_level, player_lvl, stats.get("quality_outcome", 0),
+            is_fine_materials=getattr(node, 'use_fine_materials', False),
+            is_equipment_upgrade=is_equipment_upgrade
+        )
         valid_tiers = [q.value for q, r in QUALITY_RANK.items() if r >= target_rank and q != EquipmentQuality.NONE]
         p_valid_quality = sum(probs.get(q, 0.0) for q in valid_tiers)
         if p_valid_quality <= 0.00001: return float('inf')

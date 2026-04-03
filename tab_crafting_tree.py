@@ -713,7 +713,21 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                             if pet_obj: pet_obj = pet_obj.copy(update={"active_level": getattr(node, 'selected_pet_level', 1)})
                             
                             cons_obj = game_data_dict['consumables'].get(getattr(node, 'selected_consumable_id', None))
+                            is_equipment_upgrade = False
+                            if node.source_type == "recipe" and hasattr(activity_obj, 'materials'):
+                                for mat_group in activity_obj.materials:
+                                    for mat in mat_group:
+                                        base_id = mat.item_id.replace("_fine", "")
+                                        has_fine = (base_id in drop_calc.fine_material_map or 
+                                                    f"{base_id}_fine" in game_data_dict.get('materials', {}) or 
+                                                    f"{base_id}_fine" in game_data_dict.get('consumables', {}))
+                                        if not has_fine:
+                                            is_equipment_upgrade = True
+                                            break
+                                    if is_equipment_upgrade: break
                             
+                            node_context["is_fine_materials"] = st.session_state.get('global_fine', False)
+                            node_context["is_equipment_upgrade"] = is_equipment_upgrade 
                             opt_result = optimizer.optimize(
                                 activity=activity_obj,
                                 player_level=char_lvl,

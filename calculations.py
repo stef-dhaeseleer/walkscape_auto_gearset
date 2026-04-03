@@ -38,9 +38,11 @@ def calculate_steps(
 def calculate_quality_probabilities(
     activity_min_level: int,
     player_skill_level: int,
-    quality_bonus: float
+    quality_bonus: float,
+    is_fine_materials: bool = False,
+    is_equipment_upgrade: bool = False
 ) -> dict[str, float]:
-    """Calculates the probability of each quality tier."""
+    """Calculates the probability of each quality tier, applying fine material shifts."""
     level_diff_bonus = max(0, player_skill_level - activity_min_level)
     total_outcome = level_diff_bonus + quality_bonus
     
@@ -71,8 +73,34 @@ def calculate_quality_probabilities(
     total_weight = sum(current_weights)
     if total_weight == 0: return {k: 0.0 for k in quality_names}
     
-    return {quality_names[i]: (w / total_weight) for i, w in enumerate(current_weights)}
-
+    base_pct = {k: (w / total_weight) for k, w in zip(quality_names, current_weights)}
+    
+    # --- FINE MATERIAL PROBABILITY TRANSFER ---
+    if is_fine_materials:
+        transfer_rate = 0.3 if is_equipment_upgrade else 1.0
+        new_pct = {}
+        
+        t_norm = base_pct["Normal"] * transfer_rate
+        new_pct["Normal"] = base_pct["Normal"] - t_norm
+        
+        t_good = base_pct["Good"] * transfer_rate
+        new_pct["Good"] = base_pct["Good"] - t_good + t_norm
+        
+        t_great = base_pct["Great"] * transfer_rate
+        new_pct["Great"] = base_pct["Great"] - t_great + t_good
+        
+        t_exc = base_pct["Excellent"] * transfer_rate
+        new_pct["Excellent"] = base_pct["Excellent"] - t_exc + t_great
+        
+        t_perf = base_pct["Perfect"] * transfer_rate
+        new_pct["Perfect"] = base_pct["Perfect"] - t_perf + t_exc
+        
+        # Eternal just absorbs Perfect's transfer, no reduction
+        new_pct["Eternal"] = base_pct["Eternal"] + t_perf
+        
+        return new_pct
+    else:
+        return base_pct
 # ============================================================================
 # SCORING LOGIC
 # ============================================================================
@@ -156,12 +184,13 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
     da_val = min(1.0, stats.get("double_action", 0))
     dr_val = min(1.0,stats.get("double_rewards", 0) )
     nmc_val = min(0.99, stats.get("no_materials_consumed", 0)) 
-    
         
     da_mult = 1.0 + da_val
     dr_mult = 1.0 + dr_val
     nmc_mult = 1.0 / (1.0 - nmc_val)
     
+    is_fine = context.get("is_fine_materials", False) if context else False
+    is_upg = context.get("is_equipment_upgrade", False) if context else False
     val = 0.0
     if target == OPTIMAZATION_TARGET.reward_rolls:
         val = (da_mult * dr_mult) / steps
@@ -192,7 +221,9 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         probs = calculate_quality_probabilities(
             activity_min_level=activity.level, 
             player_skill_level=player_skill_level,
-            quality_bonus=flat_quality_bonus
+            quality_bonus=flat_quality_bonus,
+            is_fine_materials=is_fine,
+            is_equipment_upgrade=is_upg
         )
         score_q = probs.get("Eternal", 0.0)
         val = score_q * dr_mult * nmc_mult
@@ -204,7 +235,9 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         probs = calculate_quality_probabilities(
             activity_min_level=activity.level, 
             player_skill_level=player_skill_level,
-            quality_bonus=flat_quality_bonus
+            quality_bonus=flat_quality_bonus,
+            is_fine_materials=is_fine,
+            is_equipment_upgrade=is_upg
         )
         
         if target == OPTIMAZATION_TARGET.good_per_step:
@@ -537,9 +570,25 @@ def calculate_node_metrics(
     if global_target_quality not in ["Normal", "None"]:
         from utils.constants import QUALITY_RANK
         target_rank = QUALITY_RANK.get(global_target_quality, 0)
-        if global_use_fine: target_rank = max(1, target_rank - 1)
         
-        probs = calculate_quality_probabilities(min_level, player_lvl, stats.get("quality_outcome", 0))
+        is_equipment_upgrade = False
+        if recipe_obj and hasattr(recipe_obj, 'materials'):
+            for mat_group in recipe_obj.materials:
+                for mat in mat_group:
+                    base_id = mat.item_id.replace("_fine", "")
+                    has_fine = (base_id in drop_calc.fine_material_map or 
+                                f"{base_id}_fine" in game_data.get('materials', {}) or 
+                                f"{base_id}_fine" in game_data.get('consumables', {}))
+                    if not has_fine:
+                        is_equipment_upgrade = True
+                        break
+                if is_equipment_upgrade: break
+        
+        probs = calculate_quality_probabilities(
+            min_level, player_lvl, stats.get("quality_outcome", 0),
+            is_fine_materials=global_use_fine,
+            is_equipment_upgrade=is_equipment_upgrade
+        )
         valid_tiers = [q.value for q, r in QUALITY_RANK.items() if r >= target_rank and q != "None"]
         p_valid_quality = sum(probs.get(q, 0.0) for q in valid_tiers)
         if p_valid_quality <= 0.00001: return res

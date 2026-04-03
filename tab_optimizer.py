@@ -642,7 +642,24 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 current_tags = set()
                 if current_loc_id and current_loc_id in loc_map:
                     current_tags = {t.lower() for t in loc_map[current_loc_id].tags}
-
+                
+                is_fine_materials = True
+                is_equipment_upgrade = False
+                if is_recipe and getattr(selected_obj, 'materials', None):
+                    for i, mat_group in enumerate(selected_obj.materials):
+                        base_id = mat_group[0].item_id.replace("_fine", "")
+                        has_fine_version = (f"{base_id}_fine" in [m.id for m in all_materials] or 
+                                            f"{base_id}_fine" in [c.id for c in all_consumables])
+                        
+                        if not has_fine_version:
+                            is_equipment_upgrade = True
+                        else:
+                            # Check if the user selected the fine variant for this input
+                            selected_mat = next((m for m in selected_input_materials if m.id.startswith(base_id)), None)
+                            if not selected_mat or not selected_mat.id.endswith("_fine"):
+                                is_fine_materials = False
+                else:
+                    is_fine_materials = False
                 context = {
                     "skill": final_activity.primary_skill,
                     "location_id": current_loc_id,
@@ -651,7 +668,9 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     "required_keywords": req_kw,
                     "achievement_points": user_ap,
                     "total_skill_level": user_total_level,
-                    "special_ev_map": drop_calc.get_special_ev_map()
+                    "special_ev_map": drop_calc.get_special_ev_map(),
+                    "is_fine_materials": is_fine_materials,
+                    "is_equipment_upgrade": is_equipment_upgrade
                 }
 
                 locked_items_map = st.session_state.get('locked_items_state', {})

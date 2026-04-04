@@ -56,29 +56,28 @@ def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
     soup = BeautifulSoup(html_content, 'html.parser')
     recipes = []
 
-    # 1. Locate the necessary tables by their EXACT captions
-    recipe_outputs_table = None
-    recipe_xp_table = None
+    # 1. Locate ALL necessary tables by their EXACT captions
+    recipe_outputs_tables = []
+    recipe_xp_tables = []
 
     for table in soup.find_all('table', class_='wikitable'):
         caption = table.find('caption')
         if not caption:
             continue
         
-        # EXACT match prevents hitting "Additional Recipe Outputs"
         caption_text = caption.get_text(strip=True)
         if caption_text == 'Recipe Outputs':
-            recipe_outputs_table = table
+            recipe_outputs_tables.append(table)
         elif caption_text == 'Recipe Experience':
-            recipe_xp_table = table
+            recipe_xp_tables.append(table)
 
-    if not recipe_outputs_table:
+    if not recipe_outputs_tables:
         return [] # No craftable recipes found on this page
 
-    # 2. Extract XP and Steps data into a dictionary for safe lookup
+    # 2. Extract XP and Steps data into a dictionary for safe lookup across ALL XP tables
     xp_data_map = {}
-    if recipe_xp_table:
-        for row in recipe_xp_table.find_all('tr')[1:]:
+    for xp_table in recipe_xp_tables:
+        for row in xp_table.find_all('tr')[1:]:
             cells = row.find_all(['th', 'td'])
             if len(cells) >= 4:
                 rec_name = clean_text(cells[1].get_text())
@@ -102,94 +101,107 @@ def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
                 except ValueError:
                     continue
 
-    # 3. Parse the main Recipe Outputs table
-    for row in recipe_outputs_table.find_all('tr')[1:]:
-        cells = row.find_all(['th', 'td'])
-        if len(cells) < 6:
-            continue
-
-        recipe_name = clean_text(cells[1].get_text())
-        recipe_id = normalize_id(recipe_name)
-
-        # Level and Skill
-        skill_str = "none"
-        level = 1
-        skill_match = re.search(r'([A-Za-z\s]+)\s*lvl\.\s*(\d+)', cells[2].get_text(strip=True), re.IGNORECASE)
-        if skill_match:
-            skill_str = normalize_id(skill_match.group(1))
-            level = int(skill_match.group(2))
-
-        # Service
-        service_id = "none"
-        service_match = re.search(r'Needs\s+(.+?)\s+service', cells[3].get_text(strip=True), re.IGNORECASE)
-        if service_match:
-            service_id = normalize_id(service_match.group(1))
-
-        # Materials
-        materials = []
-        materials_cell = cells[4]
-        
-        # Replace <br> tags with newlines to split the strict AND requirements
-        for br in materials_cell.find_all('br'):
-            br.replace_with('\n')
-        
-        # Clean text and split by the newlines we just injected
-        and_lines = materials_cell.get_text(separator='').split('\n')
-        
-        for line in and_lines:
-            line = line.strip()
-            if not line:
+    # 3. Parse ALL Recipe Outputs tables
+    for outputs_table in recipe_outputs_tables:
+        for row in outputs_table.find_all('tr')[1:]:
+            cells = row.find_all(['th', 'td'])
+            if len(cells) < 6:
                 continue
-            
-            # Now split by OR within the specific AND line
-            or_options = re.split(r'\s+or\s+', line, flags=re.IGNORECASE)
-            material_group = []
-            
-            for option in or_options:
-                option = option.replace('\xa0', ' ').strip()
-                # Safely split at the 'x' to allow hyphens and numbers in item names
-                match = re.match(r'([\d,]+)\s*x\s*(.+)', option)
-                if match:
-                    qty = int(match.group(1).replace(',', ''))
-                    item_name = match.group(2).strip()
-                    material_group.append({
-                        "item_id": normalize_id(item_name),
-                        "amount": qty
-                    })
-            
-            if material_group:
-                materials.append(material_group)
 
-        # Output Item
-        output_qty = 1
-        output_item_id = "none"
-        out_match = re.match(r'([\d,]+)\s*x\s*(.+)', cells[5].get_text(strip=True))
-        if out_match:
-            output_qty = int(out_match.group(1).replace(',', ''))
-            output_item_id = normalize_id(out_match.group(2))
+            recipe_name = clean_text(cells[1].get_text())
+            recipe_id = normalize_id(recipe_name)
 
-        # Merge with XP Data
-        xp_stats = xp_data_map.get(recipe_name, {"base_xp": 0.0, "base_steps": 0, "max_efficiency": 0.0})
+            # Level and Skill
+            skill_str = "none"
+            level = 1
+            skill_match = re.search(r'([A-Za-z\s]+)\s*lvl\.\s*(\d+)', cells[2].get_text(strip=True), re.IGNORECASE)
+            if skill_match:
+                skill_str = normalize_id(skill_match.group(1))
+                level = int(skill_match.group(2))
 
-        try:
-            # Construct Recipe Pydantic Model
-            recipe = Recipe(
-                id=recipe_id,
-                wiki_slug=wiki_slug,
-                name=recipe_name,
-                skill=parse_skill_enum(skill_str),
-                level=level,
-                service=service_id,
-                output_item_id=output_item_id,
-                output_quantity=output_qty,
-                materials=materials,
-                base_xp=xp_stats["base_xp"],
-                base_steps=xp_stats["base_steps"],
-                max_efficiency=xp_stats["max_efficiency"]
-            )
-            recipes.append(recipe)
-        except Exception as e:
-            print(f"  Error creating recipe {recipe_name}: {e}")
+            # Service
+            service_id = "none"
+            service_match = re.search(r'Needs\s+(.+?)\s+service', cells[3].get_text(strip=True), re.IGNORECASE)
+            if service_match:
+                service_id = normalize_id(service_match.group(1))
+
+            # Materials
+            materials = []
+            materials_cell = cells[4]
+            
+            # Replace <br> tags with newlines
+            for br in materials_cell.find_all('br'):
+                br.replace_with('\n')
+            
+            raw_text = materials_cell.get_text(separator='')
+            
+            # Heal 'or' statements that were visually wrapped with <br> on the wiki
+            # This converts "Pine plank or \n Spruce plank" into "Pine plank or Spruce plank"
+            raw_text = re.sub(r'(?i)\s+or\s*\n\s*', ' or ', raw_text)
+            raw_text = re.sub(r'(?i)\s*\n\s*or\s+', ' or ', raw_text)
+            
+            # Now split by \n for the strict AND requirements
+            and_lines = raw_text.split('\n')
+            
+            for line in and_lines:
+                line = line.strip()
+                if not line:
+                    continue
+                
+                # Now split by OR within the specific AND line
+                or_options = re.split(r'\s+or\s+', line, flags=re.IGNORECASE)
+                material_group = []
+                
+                for option in or_options:
+                    option = option.replace('\xa0', ' ').strip()
+                    # Safely split at the 'x' to allow hyphens and numbers in item names
+                    match = re.match(r'([\d,]+)\s*x\s*(.+)', option)
+                    if match:
+                        qty = int(match.group(1).replace(',', ''))
+                        item_name = match.group(2).strip()
+                        
+                        # Extra safety: strip trailing 'or' if edge case formatting slipped through
+                        if item_name.lower().endswith(' or'):
+                            item_name = item_name[:-3].strip()
+                            
+                        material_group.append({
+                            "item_id": normalize_id(item_name),
+                            "amount": qty
+                        })
+                
+                if material_group:
+                    materials.append(material_group)
+
+            # Output Item
+            output_qty = 1
+            output_item_id = "none"
+            out_match = re.match(r'([\d,]+)\s*x\s*(.+)', cells[5].get_text(strip=True))
+            if out_match:
+                output_qty = int(out_match.group(1).replace(',', ''))
+                output_item_id = normalize_id(out_match.group(2))
+
+            # Merge with XP Data
+            xp_stats = xp_data_map.get(recipe_name, {"base_xp": 0.0, "base_steps": 0, "max_efficiency": 0.0})
+
+            try:
+                # Construct Recipe Pydantic Model
+                recipe = Recipe(
+                    id=recipe_id,
+                    wiki_slug=wiki_slug,
+                    name=recipe_name,
+                    skill=parse_skill_enum(skill_str),
+                    level=level,
+                    service=service_id,
+                    output_item_id=output_item_id,
+                    output_quantity=output_qty,
+                    materials=materials,
+                    base_xp=xp_stats["base_xp"],
+                    base_steps=xp_stats["base_steps"],
+                    max_efficiency=xp_stats["max_efficiency"]
+                )
+                recipes.append(recipe)
+            except Exception as e:
+                print(f"  Error creating recipe {recipe_name}: {e}")
 
     return recipes
 

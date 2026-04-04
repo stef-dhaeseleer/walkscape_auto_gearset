@@ -699,7 +699,7 @@ def calculate_node_metrics(
                     child_metrics = calculate_node_metrics(
                         child_node, loadouts, game_data, drop_calc, player_skill_levels, 
                         user_state, locations, 
-                        global_use_fine=global_use_fine
+                        global_use_fine=False
                     )
                     
                     res["steps"] += (input_ratio * child_metrics["steps"])

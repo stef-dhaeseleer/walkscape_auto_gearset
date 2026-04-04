@@ -36,7 +36,8 @@ def normalize_id(text: str) -> str:
     if not text: return "none"
     text = unquote(text)
     text = text.replace('Special:MyLanguage/', '')
-    return text.lower().replace("'", "").replace("-", "_").replace(" ", "_").strip()
+    # FIX: Strip whitespace BEFORE replacing spaces with underscores
+    return text.strip().lower().replace("'", "").replace("-", "_").replace(" ", "_")
 
 def parse_skill_enum(text: str) -> SkillName:
     try:
@@ -80,16 +81,16 @@ def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
         for row in xp_table.find_all('tr')[1:]:
             cells = row.find_all(['th', 'td'])
             if len(cells) >= 4:
-                rec_name = clean_text(cells[1].get_text())
+                rec_name = clean_text(cells[1].get_text(separator=' '))
                 try:
                     # Strip commas before casting to int/float
-                    base_xp = float(cells[2].get_text(strip=True).replace(',', ''))
-                    base_steps = int(cells[3].get_text(strip=True).replace(',', ''))
+                    base_xp = float(clean_text(cells[2].get_text(separator=' ')).replace(',', ''))
+                    base_steps = int(clean_text(cells[3].get_text(separator=' ')).replace(',', ''))
                     
                     # Max Work Efficiency is usually column index 6
                     max_eff = 0.0
                     if len(cells) > 6:
-                        eff_text = cells[6].get_text(strip=True).replace('%', '')
+                        eff_text = clean_text(cells[6].get_text(separator=' ')).replace('%', '')
                         if eff_text.replace('.', '', 1).isdigit():
                             max_eff = float(eff_text) / 100.0
 
@@ -108,22 +109,24 @@ def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
             if len(cells) < 6:
                 continue
 
-            recipe_name = clean_text(cells[1].get_text())
+            recipe_name = clean_text(cells[1].get_text(separator=' '))
             recipe_id = normalize_id(recipe_name)
 
             # Level and Skill
             skill_str = "none"
             level = 1
-            skill_match = re.search(r'([A-Za-z\s]+)\s*lvl\.\s*(\d+)', cells[2].get_text(strip=True), re.IGNORECASE)
+            skill_text = clean_text(cells[2].get_text(separator=' '))
+            skill_match = re.search(r'([A-Za-z\s]+?)\s*lvl\.\s*(\d+)', skill_text, re.IGNORECASE)
             if skill_match:
-                skill_str = normalize_id(skill_match.group(1))
+                skill_str = normalize_id(skill_match.group(1).strip())
                 level = int(skill_match.group(2))
 
             # Service
             service_id = "none"
-            service_match = re.search(r'Needs\s+(.+?)\s+service', cells[3].get_text(strip=True), re.IGNORECASE)
+            service_text = clean_text(cells[3].get_text(separator=' '))
+            service_match = re.search(r'Needs\s+(.+?)\s+service', service_text, re.IGNORECASE)
             if service_match:
-                service_id = normalize_id(service_match.group(1))
+                service_id = normalize_id(service_match.group(1).strip())
 
             # Materials
             materials = []
@@ -133,10 +136,10 @@ def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
             for br in materials_cell.find_all('br'):
                 br.replace_with('\n')
             
-            raw_text = materials_cell.get_text(separator='')
+            # Use separator=' ' so text doesn't mash together
+            raw_text = materials_cell.get_text(separator=' ')
             
             # Heal 'or' statements that were visually wrapped with <br> on the wiki
-            # This converts "Pine plank or \n Spruce plank" into "Pine plank or Spruce plank"
             raw_text = re.sub(r'(?i)\s+or\s*\n\s*', ' or ', raw_text)
             raw_text = re.sub(r'(?i)\s*\n\s*or\s+', ' or ', raw_text)
             
@@ -175,10 +178,11 @@ def parse_item_recipe_page(html_content: str, wiki_slug: str) -> list[Recipe]:
             # Output Item
             output_qty = 1
             output_item_id = "none"
-            out_match = re.match(r'([\d,]+)\s*x\s*(.+)', cells[5].get_text(strip=True))
+            output_text = clean_text(cells[5].get_text(separator=' '))
+            out_match = re.match(r'([\d,]+)\s*x\s*(.+)', output_text, re.IGNORECASE)
             if out_match:
                 output_qty = int(out_match.group(1).replace(',', ''))
-                output_item_id = normalize_id(out_match.group(2))
+                output_item_id = normalize_id(out_match.group(2).strip())
 
             # Merge with XP Data
             xp_stats = xp_data_map.get(recipe_name, {"base_xp": 0.0, "base_steps": 0, "max_efficiency": 0.0})

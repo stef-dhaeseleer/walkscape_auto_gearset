@@ -23,9 +23,8 @@ def calculate_steps(
     level_eff = min(0.25, level_diff * 0.0125)
 
     total_added_eff = level_eff + player_work_efficiency
-    effective_eff = min(total_added_eff, activity.max_efficiency)
+    efficiency_multiplier = min(1.0 + total_added_eff, activity.max_efficiency)
 
-    efficiency_multiplier = 1.0 + effective_eff
     step_multiplier_factor = 1.0 - player_minus_steps_percent
 
     base_over_eff = activity.base_steps / efficiency_multiplier

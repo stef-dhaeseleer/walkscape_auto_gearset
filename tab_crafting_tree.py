@@ -147,7 +147,10 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                 node.inputs.clear()
                 if hasattr(node, 'selected_activity_inputs'):
                     node.selected_activity_inputs.clear()
-                
+                if hasattr(node, '_pet_auto_checked'):
+                    delattr(node, '_pet_auto_checked')
+                node.selected_pet_id = None
+                node.selected_pet_level = None
                 if node.source_type == "recipe":
                     recipe = game_data_dict['recipes'].get(node.source_id)
                     if recipe and recipe.materials:

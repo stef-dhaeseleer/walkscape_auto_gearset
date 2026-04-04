@@ -941,3 +941,37 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     )
                 else:
                     st.info("No ability charges used.")
+
+            st.write("") 
+            c_consumables1, c_unused = st.columns(2)
+            
+            with c_consumables1:
+                st.markdown("##### 🧪 Consumables Needed")
+                st.caption("Total units needed based on steps active and consumable duration.")
+                import math
+                cons_data = []
+                for cons_id, steps in root.metrics["consumable_steps_needed"].items():
+                    final_steps = steps * target_amount
+                    cons_obj = game_data_dict['consumables'].get(cons_id)
+                    if cons_obj and final_steps > 0:
+                        qty_needed = math.ceil(final_steps / cons_obj.duration)
+                        cons_data.append({
+                            "Consumable": cons_obj.name,
+                            "Steps Active": final_steps,
+                            "Duration (steps)": cons_obj.duration,
+                            "Qty Needed": qty_needed
+                        })
+                if cons_data:
+                    st.dataframe(
+                        pd.DataFrame(cons_data).sort_values(by="Qty Needed", ascending=False),
+                        column_config={
+                            "Consumable": st.column_config.TextColumn("Consumable"),
+                            "Steps Active": st.column_config.NumberColumn("Steps Active", format="%.0f"),
+                            "Duration (steps)": st.column_config.NumberColumn("Duration (steps)", format="%d"),
+                            "Qty Needed": st.column_config.NumberColumn("Qty Needed", format="%d"),
+                        },
+                        hide_index=True,
+                        width="stretch"
+                    )
+                else:
+                    st.info("No consumables used in this crafting chain.")

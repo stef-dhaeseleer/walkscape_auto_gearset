@@ -460,8 +460,9 @@ def calculate_node_metrics(
         "raw_materials": defaultdict(float),
         "stats_used": {},
         "steps_breakdown": defaultdict(float),
-        "pet_steps_gained": defaultdict(float),      
-        "ability_charges_used": defaultdict(float) 
+        "pet_steps_gained": defaultdict(float),
+        "ability_charges_used": defaultdict(float),
+        "consumable_steps_needed": defaultdict(float)
     }
 
     if node.source_type == "bank":
@@ -494,6 +495,7 @@ def calculate_node_metrics(
                 if lvl.level == pet_lvl and lvl.abilities:
                     active_ability = lvl.abilities[0]
         
+    cons = None
     if getattr(node, 'selected_consumable_id', None):
         cons = game_data.get('consumables', {}).get(node.selected_consumable_id)
         if cons: gear_set_eval.consumable = cons
@@ -629,7 +631,8 @@ def calculate_node_metrics(
             res["steps"] = normal_steps
             res["steps_breakdown"][f"Recipe: {recipe_obj.name}"] += normal_steps
             if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
-            
+            if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
+
         isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
         for sk in GATHERING_SKILLS | ARTISAN_SKILLS:
@@ -654,6 +657,7 @@ def calculate_node_metrics(
             for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (input_ratio * stp)
             for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
             for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
+            for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
 
     # ==========================================
     # ACTIVITY
@@ -675,7 +679,8 @@ def calculate_node_metrics(
                     res["steps"] = normal_steps
                     res["steps_breakdown"][f"Activity: {activity_obj.name}"] += normal_steps
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
-                
+                    if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
+
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
                 isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
@@ -704,6 +709,7 @@ def calculate_node_metrics(
                     for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (input_ratio * stp)
                     for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
                     for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
+                    for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
 
                 break
 
@@ -737,7 +743,8 @@ def calculate_node_metrics(
                     res["steps"] = normal_steps
                     res["steps_breakdown"][f"Chest: {chest_obj.name}"] += normal_steps
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
-                
+                    if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
+
                 p_chest_eff = steps_per_action / (steps_per_chest * (1.0 + DA) * (1.0 + DR))
                 xp_per_chest = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_chest_eff)
                 isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality

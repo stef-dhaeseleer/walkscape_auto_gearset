@@ -157,6 +157,11 @@ QUALITY_RANK = {
     EquipmentQuality.NONE: -1
 }
 
+QUALITY_NAMES = [
+    EquipmentQuality.NORMAL.value, EquipmentQuality.GOOD.value, EquipmentQuality.GREAT.value,
+    EquipmentQuality.EXCELLENT.value, EquipmentQuality.PERFECT.value, EquipmentQuality.ETERNAL.value,
+]
+
 class OPTIMAZATION_TARGET(str, Enum):
     reward_rolls = "reward_rolls"
     xp = "xp"

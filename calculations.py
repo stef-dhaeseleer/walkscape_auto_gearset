@@ -2,7 +2,7 @@ import math
 from typing import Dict, List, Optional, Any, Set, Tuple, Union
 from collections import defaultdict
 from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout,Location 
-from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS,GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality
+from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS, GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality, QUALITY_NAMES
 import re
 
 # ============================================================================
@@ -48,7 +48,6 @@ def calculate_quality_probabilities(
     band_starts = [0, 100, 200, 300, 400, 500]
     start_weights = [1000.0, 200.0, 50.0, 10.0, 2.5, 0.05]
     min_weights = [4.0, 4.0, 4.0, 4.0, 2.0, 0.05]
-    quality_names = ["Normal", "Good", "Great", "Excellent", "Perfect", "Eternal"]
     
     current_weights = []
 
@@ -70,9 +69,9 @@ def calculate_quality_probabilities(
              current_weights[i] = current_weights[i+1]
 
     total_weight = sum(current_weights)
-    if total_weight == 0: return {k: 0.0 for k in quality_names}
+    if total_weight == 0: return {k: 0.0 for k in QUALITY_NAMES}
     
-    base_pct = {k: (w / total_weight) for k, w in zip(quality_names, current_weights)}
+    base_pct = {k: (w / total_weight) for k, w in zip(QUALITY_NAMES, current_weights)}
     
     # --- FINE MATERIAL PROBABILITY TRANSFER ---
     if is_fine_materials:

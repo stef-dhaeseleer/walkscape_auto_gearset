@@ -197,7 +197,7 @@ class Activity(BaseEntity):
     base_steps: int = 0
     base_xp: float = 0.0
     secondary_xp: Dict[SkillName, float] = Field(default_factory=dict)
-    max_efficiency: float = 0.0 
+    max_efficiency: float = 1.0
     requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
     faction_rewards: Tuple[FactionReward, ...] = Field(default_factory=tuple)
     materials: Tuple[Tuple[RecipeMaterial, ...], ...] = Field(default_factory=tuple)   
@@ -228,7 +228,7 @@ class Recipe(BaseEntity):
     materials: Tuple[Tuple[RecipeMaterial, ...], ...] = Field(default_factory=tuple)
     base_xp: float = 0.0
     base_steps: int = 0
-    max_efficiency: float = 0.0
+    max_efficiency: float = 1.0
 
 class Location(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)

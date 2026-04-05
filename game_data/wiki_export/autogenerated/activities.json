@@ -10,7 +10,7 @@
     "base_steps": 543,
     "base_xp": 466.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -133,7 +133,7 @@
     "base_steps": 600,
     "base_xp": 225.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -290,7 +290,7 @@
     "base_steps": 300,
     "base_xp": 30.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -352,7 +352,7 @@
     "base_steps": 482,
     "base_xp": 398.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -469,7 +469,7 @@
     "base_steps": 80,
     "base_xp": 22.0,
     "secondary_xp": {},
-    "max_efficiency": 0.25,
+    "max_efficiency": 1.25,
     "requirements": [
       {
         "type": "skill_level",
@@ -558,7 +558,7 @@
     "base_steps": 222,
     "base_xp": 99.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -660,7 +660,7 @@
     "base_steps": 109,
     "base_xp": 104.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -792,7 +792,7 @@
     "base_steps": 135,
     "base_xp": 150.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -918,7 +918,7 @@
     "base_steps": 135,
     "base_xp": 150.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -1051,7 +1051,7 @@
     "base_steps": 229,
     "base_xp": 177.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -1192,7 +1192,7 @@
     "base_steps": 50,
     "base_xp": 9.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -1286,7 +1286,7 @@
     "secondary_xp": {
       "smithing": 22.0
     },
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -1424,7 +1424,7 @@
     "secondary_xp": {
       "agility": 26.0
     },
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -1583,7 +1583,7 @@
       "agility": 150.0,
       "foraging": 800.0
     },
-    "max_efficiency": 1.3,
+    "max_efficiency": 2.3,
     "requirements": [
       {
         "type": "skill_level",
@@ -1810,7 +1810,7 @@
     "base_steps": 247,
     "base_xp": 87.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -1863,7 +1863,7 @@
     "base_steps": 110,
     "base_xp": 58.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -1980,7 +1980,7 @@
     "secondary_xp": {
       "agility": 16.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -2099,7 +2099,7 @@
     "base_steps": 120,
     "base_xp": 120.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -2207,7 +2207,7 @@
     "base_steps": 155,
     "base_xp": 38.0,
     "secondary_xp": {},
-    "max_efficiency": 0.25,
+    "max_efficiency": 1.25,
     "requirements": [
       {
         "type": "skill_level",
@@ -2279,7 +2279,7 @@
     "base_steps": 70,
     "base_xp": 60.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -2379,7 +2379,7 @@
     "base_steps": 35,
     "base_xp": 10.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -2478,7 +2478,7 @@
     "base_steps": 101,
     "base_xp": 100.0,
     "secondary_xp": {},
-    "max_efficiency": 1.5,
+    "max_efficiency": 2.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -2564,7 +2564,7 @@
     "base_steps": 90,
     "base_xp": 97.0,
     "secondary_xp": {},
-    "max_efficiency": 1.1,
+    "max_efficiency": 2.1,
     "requirements": [
       {
         "type": "skill_level",
@@ -2653,7 +2653,7 @@
     "base_steps": 65,
     "base_xp": 46.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -2743,7 +2743,7 @@
     "base_steps": 60,
     "base_xp": 38.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -2823,7 +2823,7 @@
     "base_steps": 50,
     "base_xp": 19.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -2914,7 +2914,7 @@
     "base_steps": 50,
     "base_xp": 29.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -2993,7 +2993,7 @@
     "base_steps": 70,
     "base_xp": 60.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -3083,7 +3083,7 @@
     "base_steps": 58,
     "base_xp": 50.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -3182,7 +3182,7 @@
     "base_steps": 150,
     "base_xp": 125.0,
     "secondary_xp": {},
-    "max_efficiency": 2.0,
+    "max_efficiency": 3.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -3268,7 +3268,7 @@
     "base_steps": 344,
     "base_xp": 227.0,
     "secondary_xp": {},
-    "max_efficiency": 0.65,
+    "max_efficiency": 1.65,
     "requirements": [
       {
         "type": "skill_level",
@@ -3386,7 +3386,7 @@
     "secondary_xp": {
       "agility": 38.0
     },
-    "max_efficiency": 1.4,
+    "max_efficiency": 2.4,
     "requirements": [
       {
         "type": "skill_level",
@@ -3534,7 +3534,7 @@
     "secondary_xp": {
       "fishing": 74.0
     },
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -3677,7 +3677,7 @@
     "base_steps": 149,
     "base_xp": 104.0,
     "secondary_xp": {},
-    "max_efficiency": 1.25,
+    "max_efficiency": 2.25,
     "requirements": [
       {
         "type": "skill_level",
@@ -3746,7 +3746,7 @@
     "base_steps": 157,
     "base_xp": 96.0,
     "secondary_xp": {},
-    "max_efficiency": 1.3,
+    "max_efficiency": 2.3,
     "requirements": [
       {
         "type": "skill_level",
@@ -3826,7 +3826,7 @@
     "base_steps": 10000,
     "base_xp": 10.0,
     "secondary_xp": {},
-    "max_efficiency": 0.0,
+    "max_efficiency": 1.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -3873,7 +3873,7 @@
     "base_steps": 10000,
     "base_xp": 10.0,
     "secondary_xp": {},
-    "max_efficiency": 0.0,
+    "max_efficiency": 1.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -3924,7 +3924,7 @@
     "base_steps": 10000,
     "base_xp": 10.0,
     "secondary_xp": {},
-    "max_efficiency": 0.0,
+    "max_efficiency": 1.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -3970,7 +3970,7 @@
     "base_steps": 10000,
     "base_xp": 10.0,
     "secondary_xp": {},
-    "max_efficiency": 0.0,
+    "max_efficiency": 1.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -4018,7 +4018,7 @@
     "secondary_xp": {
       "agility": 62.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -4217,7 +4217,7 @@
     "base_steps": 2500,
     "base_xp": 600.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -4277,7 +4277,7 @@
     "base_steps": 2500,
     "base_xp": 600.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -4349,7 +4349,7 @@
     "secondary_xp": {
       "agility": 11.0
     },
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -4455,7 +4455,7 @@
     "base_steps": 300,
     "base_xp": 30.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -4517,7 +4517,7 @@
     "base_steps": 460,
     "base_xp": 500.0,
     "secondary_xp": {},
-    "max_efficiency": 1.2,
+    "max_efficiency": 2.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -4629,7 +4629,7 @@
     "base_steps": 220,
     "base_xp": 265.0,
     "secondary_xp": {},
-    "max_efficiency": 1.2,
+    "max_efficiency": 2.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -4741,7 +4741,7 @@
     "secondary_xp": {
       "agility": 3.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -4903,7 +4903,7 @@
     "base_steps": 500,
     "base_xp": 375.0,
     "secondary_xp": {},
-    "max_efficiency": 0.4,
+    "max_efficiency": 1.4,
     "requirements": [
       {
         "type": "skill_level",
@@ -5046,7 +5046,7 @@
     "base_steps": 680,
     "base_xp": 392.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -5109,7 +5109,7 @@
     "base_steps": 567,
     "base_xp": 345.0,
     "secondary_xp": {},
-    "max_efficiency": 1.5,
+    "max_efficiency": 2.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -5173,7 +5173,7 @@
     "secondary_xp": {
       "agility": 12.0
     },
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -5274,7 +5274,7 @@
     "secondary_xp": {
       "fishing": 12.0
     },
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -5466,7 +5466,7 @@
     "base_steps": 108,
     "base_xp": 94.0,
     "secondary_xp": {},
-    "max_efficiency": 1.25,
+    "max_efficiency": 2.25,
     "requirements": [
       {
         "type": "skill_level",
@@ -5591,7 +5591,7 @@
     "base_steps": 110,
     "base_xp": 114.0,
     "secondary_xp": {},
-    "max_efficiency": 1.1,
+    "max_efficiency": 2.1,
     "requirements": [
       {
         "type": "skill_level",
@@ -5694,7 +5694,7 @@
     "base_steps": 888,
     "base_xp": 448.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -5783,7 +5783,7 @@
     "base_steps": 70,
     "base_xp": 25.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -5882,7 +5882,7 @@
     "base_steps": 147,
     "base_xp": 143.0,
     "secondary_xp": {},
-    "max_efficiency": 1.1,
+    "max_efficiency": 2.1,
     "requirements": [
       {
         "type": "skill_level",
@@ -5996,7 +5996,7 @@
     "secondary_xp": {
       "smithing": 50.0
     },
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -6132,7 +6132,7 @@
     "base_steps": 53,
     "base_xp": 34.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -6246,7 +6246,7 @@
     "secondary_xp": {
       "crafting": 21.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -6362,7 +6362,7 @@
     "base_steps": 320,
     "base_xp": 362.0,
     "secondary_xp": {},
-    "max_efficiency": 1.5,
+    "max_efficiency": 2.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -6461,7 +6461,7 @@
     "base_steps": 430,
     "base_xp": 193.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -6514,7 +6514,7 @@
     "base_steps": 68,
     "base_xp": 49.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -6635,7 +6635,7 @@
     "secondary_xp": {
       "woodcutting": 35.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -6762,7 +6762,7 @@
     "base_steps": 75,
     "base_xp": 22.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -6851,7 +6851,7 @@
     "base_steps": 188,
     "base_xp": 57.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -6970,7 +6970,7 @@
     "secondary_xp": {
       "agility": 6.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -7092,7 +7092,7 @@
     "base_steps": 197,
     "base_xp": 117.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -7190,7 +7190,7 @@
     "secondary_xp": {
       "foraging": 60.0
     },
-    "max_efficiency": 1.3,
+    "max_efficiency": 2.3,
     "requirements": [
       {
         "type": "skill_level",
@@ -7436,7 +7436,7 @@
     "base_steps": 300,
     "base_xp": 195.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -7560,7 +7560,7 @@
     "base_steps": 100,
     "base_xp": 90.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -7699,7 +7699,7 @@
     "base_steps": 163,
     "base_xp": 108.0,
     "secondary_xp": {},
-    "max_efficiency": 1.5,
+    "max_efficiency": 2.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -7812,7 +7812,7 @@
     "base_steps": 80,
     "base_xp": 48.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -7907,7 +7907,7 @@
     "base_steps": 50,
     "base_xp": 12.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -8012,7 +8012,7 @@
     "base_steps": 127,
     "base_xp": 88.0,
     "secondary_xp": {},
-    "max_efficiency": 1.3,
+    "max_efficiency": 2.3,
     "requirements": [
       {
         "type": "skill_level",
@@ -8137,7 +8137,7 @@
     "base_steps": 132,
     "base_xp": 95.0,
     "secondary_xp": {},
-    "max_efficiency": 1.2,
+    "max_efficiency": 2.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -8239,7 +8239,7 @@
     "base_steps": 105,
     "base_xp": 78.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -8334,7 +8334,7 @@
     "base_steps": 68,
     "base_xp": 48.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -8439,7 +8439,7 @@
     "base_steps": 60,
     "base_xp": 29.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -8544,7 +8544,7 @@
     "base_steps": 56,
     "base_xp": 39.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -8649,7 +8649,7 @@
     "base_steps": 90,
     "base_xp": 58.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -8744,7 +8744,7 @@
     "base_steps": 86,
     "base_xp": 58.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -8846,7 +8846,7 @@
     "base_steps": 65,
     "base_xp": 22.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -8951,7 +8951,7 @@
     "base_steps": 225,
     "base_xp": 132.0,
     "secondary_xp": {},
-    "max_efficiency": 2.0,
+    "max_efficiency": 3.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -9063,7 +9063,7 @@
     "base_steps": 125,
     "base_xp": 120.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -9195,7 +9195,7 @@
     "base_steps": 57,
     "base_xp": 23.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -9317,7 +9317,7 @@
     "secondary_xp": {
       "agility": 13.0
     },
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -9441,7 +9441,7 @@
     "secondary_xp": {
       "hunting": 77.0
     },
-    "max_efficiency": 1.2,
+    "max_efficiency": 2.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -9592,7 +9592,7 @@
     "base_steps": 100,
     "base_xp": 16.0,
     "secondary_xp": {},
-    "max_efficiency": 0.2,
+    "max_efficiency": 1.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -9674,7 +9674,7 @@
     "base_steps": 6000,
     "base_xp": 30000.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -9727,7 +9727,7 @@
     "base_steps": 8500,
     "base_xp": 5000.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -9840,7 +9840,7 @@
     "base_steps": 119,
     "base_xp": 94.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -9962,7 +9962,7 @@
     "base_steps": 500,
     "base_xp": 200.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -10025,7 +10025,7 @@
     "base_steps": 225,
     "base_xp": 70.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -10091,7 +10091,7 @@
     "base_steps": 150,
     "base_xp": 125.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -10211,7 +10211,7 @@
     "base_steps": 95,
     "base_xp": 28.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -10331,7 +10331,7 @@
     "base_steps": 110,
     "base_xp": 64.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -10430,7 +10430,7 @@
     "base_steps": 125,
     "base_xp": 82.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -10596,7 +10596,7 @@
     "base_steps": 7505,
     "base_xp": 2400.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -10680,7 +10680,7 @@
     "base_steps": 105,
     "base_xp": 70.0,
     "secondary_xp": {},
-    "max_efficiency": 1.5,
+    "max_efficiency": 2.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -10802,7 +10802,7 @@
     "base_steps": 165,
     "base_xp": 152.0,
     "secondary_xp": {},
-    "max_efficiency": 1.4,
+    "max_efficiency": 2.4,
     "requirements": [
       {
         "type": "skill_level",
@@ -10884,7 +10884,7 @@
     "base_steps": 318,
     "base_xp": 172.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -10947,7 +10947,7 @@
     "base_steps": 100,
     "base_xp": 50.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -10998,7 +10998,7 @@
     "base_steps": 120,
     "base_xp": 30.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -11115,7 +11115,7 @@
     "base_steps": 56,
     "base_xp": 22.0,
     "secondary_xp": {},
-    "max_efficiency": 0.7,
+    "max_efficiency": 1.7,
     "requirements": [
       {
         "type": "skill_level",
@@ -11259,7 +11259,7 @@
     "secondary_xp": {
       "agility": 232.0
     },
-    "max_efficiency": 1.5,
+    "max_efficiency": 2.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -11432,7 +11432,7 @@
     "base_steps": 10000,
     "base_xp": 4000.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -11495,7 +11495,7 @@
     "base_steps": 74,
     "base_xp": 59.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -11604,7 +11604,7 @@
     "base_steps": 172,
     "base_xp": 68.0,
     "secondary_xp": {},
-    "max_efficiency": 0.3,
+    "max_efficiency": 1.3,
     "requirements": [
       {
         "type": "skill_level",
@@ -11690,7 +11690,7 @@
     "base_steps": 39,
     "base_xp": 8.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -11772,7 +11772,7 @@
     "base_steps": 400,
     "base_xp": 400.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -11881,7 +11881,7 @@
     "base_steps": 55,
     "base_xp": 12.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -11986,7 +11986,7 @@
     "base_steps": 55,
     "base_xp": 12.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -12066,7 +12066,7 @@
     "base_steps": 56,
     "base_xp": 32.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -12188,7 +12188,7 @@
     "base_steps": 70,
     "base_xp": 22.0,
     "secondary_xp": {},
-    "max_efficiency": 0.6,
+    "max_efficiency": 1.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -12283,7 +12283,7 @@
     "base_steps": 200,
     "base_xp": 200.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -12422,7 +12422,7 @@
     "base_steps": 92,
     "base_xp": 30.0,
     "secondary_xp": {},
-    "max_efficiency": 1.1,
+    "max_efficiency": 2.1,
     "requirements": [
       {
         "type": "skill_level",
@@ -12555,7 +12555,7 @@
       "woodcutting": 10.0,
       "agility": 10.0
     },
-    "max_efficiency": 0.2,
+    "max_efficiency": 1.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -12673,7 +12673,7 @@
     "secondary_xp": {
       "agility": 62.0
     },
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -12874,7 +12874,7 @@
     "secondary_xp": {
       "agility": 70.0
     },
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -13015,7 +13015,7 @@
     "base_steps": 100,
     "base_xp": 90.0,
     "secondary_xp": {},
-    "max_efficiency": 0.9,
+    "max_efficiency": 1.9,
     "requirements": [
       {
         "type": "skill_level",
@@ -13174,7 +13174,7 @@
     "base_steps": 300,
     "base_xp": 180.0,
     "secondary_xp": {},
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",
@@ -13293,7 +13293,7 @@
     "base_steps": 150,
     "base_xp": 155.0,
     "secondary_xp": {},
-    "max_efficiency": 1.1,
+    "max_efficiency": 2.1,
     "requirements": [
       {
         "type": "skill_level",
@@ -13422,7 +13422,7 @@
     "base_steps": 734,
     "base_xp": 460.0,
     "secondary_xp": {},
-    "max_efficiency": 1.6,
+    "max_efficiency": 2.6,
     "requirements": [
       {
         "type": "skill_level",
@@ -13538,7 +13538,7 @@
     "base_steps": 300,
     "base_xp": 30.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -13640,7 +13640,7 @@
     "base_steps": 2500,
     "base_xp": 600.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -13703,7 +13703,7 @@
     "base_steps": 2500,
     "base_xp": 600.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -13766,7 +13766,7 @@
     "base_steps": 2500,
     "base_xp": 600.0,
     "secondary_xp": {},
-    "max_efficiency": 1.0,
+    "max_efficiency": 2.0,
     "requirements": [
       {
         "type": "skill_level",
@@ -13831,7 +13831,7 @@
     "secondary_xp": {
       "agility": 28.0
     },
-    "max_efficiency": 1.2,
+    "max_efficiency": 2.2,
     "requirements": [
       {
         "type": "skill_level",
@@ -13970,7 +13970,7 @@
     "base_steps": 294,
     "base_xp": 161.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -14086,7 +14086,7 @@
     "base_steps": 53,
     "base_xp": 14.0,
     "secondary_xp": {},
-    "max_efficiency": 0.5,
+    "max_efficiency": 1.5,
     "requirements": [
       {
         "type": "skill_level",
@@ -14187,7 +14187,7 @@
     "secondary_xp": {
       "agility": 100.0
     },
-    "max_efficiency": 0.8,
+    "max_efficiency": 1.8,
     "requirements": [
       {
         "type": "skill_level",

@@ -280,7 +280,7 @@ def overlay_recipes(dry_run=False):
 
             mwe = detail.get('maxWorkEfficiency')
             if mwe is not None:
-                new_eff = round(mwe - 1.0, 4)
+                new_eff = round(mwe, 4)
                 if wiki.get('max_efficiency') != new_eff:
                     changes.append(f"eff→{new_eff}")
                     wiki['max_efficiency'] = new_eff
@@ -348,7 +348,7 @@ def overlay_recipes(dry_run=False):
                 'materials': material_groups,
                 'base_xp': xp_map.get(ps, 0),
                 'base_steps': detail.get('workRequired', 0),
-                'max_efficiency': round((detail.get('maxWorkEfficiency') or 1.0) - 1.0, 4),
+                'max_efficiency': round((detail.get('maxWorkEfficiency') or 1.0), 4),
             })
             print(f"  [{i}/{len(api_list)}] {name}... + NEW ({ps} lv{level})")
             added += 1
@@ -417,7 +417,7 @@ def overlay(dry_run=False):
 
             mwe = detail.get('maxWorkEfficiency')
             if mwe is not None:
-                new_eff = round(mwe - 1.0, 4)
+                new_eff = round(mwe, 4)
                 if wiki.get('max_efficiency') != new_eff:
                     changes.append(f"eff→{new_eff}")
                     wiki['max_efficiency'] = new_eff
@@ -467,7 +467,7 @@ def overlay(dry_run=False):
                 'base_steps': detail.get('workRequired', 0),
                 'base_xp': xp_map.get(ps, 0),
                 'secondary_xp': {s: x for s, x in xp_map.items() if s != ps},
-                'max_efficiency': round((detail.get('maxWorkEfficiency') or 1.0) - 1.0, 4),
+                'max_efficiency': round((detail.get('maxWorkEfficiency') or 1.0), 4),
                 'requirements': parse_api_requirements(detail),
                 'faction_rewards': [],
                 'loot_tables': tables,

@@ -740,6 +740,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     st.session_state['selected_cons'] = selected_cons
                     st.session_state['selected_target_list'] = weighted_targets
                     st.session_state['normalization_context'] = optimizer.last_normalization_context
+                    st.session_state['is_recipe'] = is_recipe
 
         if 'best_gear' in st.session_state:
             best_gear = st.session_state['best_gear']
@@ -750,9 +751,10 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             saved_service_stats = st.session_state.get('service_stats', {})
             saved_pet = st.session_state.get('selected_pet')
             saved_cons = st.session_state.get('selected_cons')
-            saved_materials = st.session_state.get('selected_input_materials', []) 
+            saved_materials = st.session_state.get('selected_input_materials', [])
             weighted_targets_saved = st.session_state.get('selected_target_list', [])
             norm_context_saved = st.session_state.get('normalization_context', {})
+            saved_is_recipe = st.session_state.get('is_recipe', False)
             
             opt_duration = st.session_state.get('opt_duration', 0.0)
 
@@ -874,37 +876,38 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
 
                 st.dataframe(pd.DataFrame(loadout_data), hide_index=True, width="stretch")
 
-                quality_probs = calculate_quality_probabilities(
-                    activity_min_level=saved_activity.level,
-                    player_skill_level=saved_skill_lvl,
-                    quality_bonus=stats.get("quality_outcome", 0),
-                    is_fine_materials=context.get("is_fine_materials", False),
-                    is_equipment_upgrade=context.get("is_equipment_upgrade", False),
-                )
-                nmc = stats.get("no_materials_consumed", 0)
-                dr = stats.get("double_rewards", 0)
-                materials_per_attempt = 1.0 - nmc
-                outputs_per_attempt = 1.0 + dr
-                cumulative = 0.0
-                quality_rows = []
-                for name in reversed(QUALITY_NAMES):
-                    p = quality_probs.get(name, 0.0)
-                    cumulative += p
-                    inputs_exact = f"{materials_per_attempt / (p * outputs_per_attempt):.2f}"
+                if saved_is_recipe:
+                    quality_probs = calculate_quality_probabilities(
+                        activity_min_level=saved_activity.level,
+                        player_skill_level=saved_skill_lvl,
+                        quality_bonus=stats.get("quality_outcome", 0),
+                        is_fine_materials=context.get("is_fine_materials", False),
+                        is_equipment_upgrade=context.get("is_equipment_upgrade", False),
+                    )
+                    nmc = stats.get("no_materials_consumed", 0)
+                    dr = stats.get("double_rewards", 0)
+                    materials_per_attempt = 1.0 - nmc
+                    outputs_per_attempt = 1.0 + dr
+                    cumulative = 0.0
+                    quality_rows = []
+                    for name in reversed(QUALITY_NAMES):
+                        p = quality_probs.get(name, 0.0)
+                        cumulative += p
+                        inputs_exact = f"{materials_per_attempt / (p * outputs_per_attempt):.2f}"
 
-                    if cumulative < 1:
-                        inputs_or_better = f"{materials_per_attempt / (cumulative * outputs_per_attempt):.2f}"
-                    else:
-                        inputs_or_better = "N/A"
-                    quality_rows.insert(0, {
-                        "Quality": name,
-                        "Probability": f"{p * 100:.3f}%",
-                        "Inputs/Craft": inputs_exact,
-                        "Probability (≥)": f"{cumulative * 100:.3f}%",
-                        "Inputs/Craft (≥)": inputs_or_better,
-                    })
-                with st.expander("🎲 Quality Probabilities / Inputs needed", expanded=False):
-                    st.dataframe(pd.DataFrame(quality_rows), hide_index=True, width="stretch")
+                        if cumulative < 1:
+                            inputs_or_better = f"{materials_per_attempt / (cumulative * outputs_per_attempt):.2f}"
+                        else:
+                            inputs_or_better = "N/A"
+                        quality_rows.insert(0, {
+                            "Quality": name,
+                            "Probability": f"{p * 100:.3f}%",
+                            "Inputs/Craft": inputs_exact,
+                            "Probability (≥)": f"{cumulative * 100:.3f}%",
+                            "Inputs/Craft (≥)": inputs_or_better,
+                        })
+                    with st.expander("🎲 Quality Probabilities / Inputs needed", expanded=False):
+                        st.dataframe(pd.DataFrame(quality_rows), hide_index=True, width="stretch")
 
                 with st.expander("🔍 Detailed Item Breakdown", expanded=False):
                     st.caption("Inspect active modifiers and conditions for each item.")

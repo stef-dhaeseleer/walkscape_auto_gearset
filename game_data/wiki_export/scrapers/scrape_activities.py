@@ -167,7 +167,7 @@ def parse_infobox(infobox, activity_data):
                 max_eff_match = re.search(r'(\d+(?:\.\d+)?)\s*%', data_text)
                 if max_eff_match:
                     max_eff_pct = float(max_eff_match.group(1))
-                    activity_data['max_efficiency'] = round((max_eff_pct / 100.0) - 1.0, 2)
+                    activity_data['max_efficiency'] = round(max_eff_pct / 100.0, 2)
             except: pass
         
         elif 'Reputation' in header_text and 'Faction' not in header_text:
@@ -574,7 +574,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         'base_steps': 0,
         'base_xp': 0.0,
         'secondary_xp': {},
-        'max_efficiency': 0.0,
+        'max_efficiency': 1.0,
         'faction_reputation': {}
     }
     

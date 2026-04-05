@@ -869,11 +869,18 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 st.markdown("##### 📈 XP Breakdown")
                 st.caption("Experience gained by skill.")
                 xp_data = []
+                steps_by_skill = root.metrics.get("steps_by_skill", {})
                 for skill, amt in root.metrics["xp"].items():
                     if amt > 0:
+                        skill_steps = steps_by_skill.get(skill, 0) * target_amount
+                        xp_total = amt * target_amount
+                        xp_per_step_total = xp_total / total_steps if total_steps > 0 else 0
+                        xp_per_step_skill = xp_total / skill_steps if skill_steps > 0 else 0
                         xp_data.append({
                             "Skill": skill.title(),
-                            "XP": f"{amt * target_amount:,.1f}"
+                            "XP": f"{xp_total:,.1f}",
+                            "XP/Step (skill)": f"{xp_per_step_skill:,.3f}",
+                            "XP/Step (total)": f"{xp_per_step_total:,.3f}",
                         })
                 if xp_data:
                     st.dataframe(pd.DataFrame(xp_data).sort_values(by="Skill"), hide_index=True, width="stretch")

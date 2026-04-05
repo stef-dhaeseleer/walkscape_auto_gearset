@@ -459,12 +459,13 @@ def calculate_node_metrics(
     from ui_utils import build_activity_context, synthesize_activity_from_recipe, extract_modifier_stats
     
     res = {
-        "steps": float('inf'), 
+        "steps": float('inf'),
         "xp": defaultdict(float),
         "shopping_list": defaultdict(float),
         "raw_materials": defaultdict(float),
         "stats_used": {},
         "steps_breakdown": defaultdict(float),
+        "steps_by_skill": defaultdict(float),
         "pet_steps_gained": defaultdict(float),
         "ability_charges_used": defaultdict(float),
         "consumable_steps_needed": defaultdict(float)
@@ -635,6 +636,7 @@ def calculate_node_metrics(
         else:
             res["steps"] = normal_steps
             res["steps_breakdown"][f"Recipe: {recipe_obj.name}"] += normal_steps
+            if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
             if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
             if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
 
@@ -647,19 +649,20 @@ def calculate_node_metrics(
         for input_id, child_node in node.inputs.items():
             req_amount = child_node.base_requirement_amount
             input_ratio = ((1.0 - NMC) * req_amount) / ((1.0 + DR) * q_out * p_valid_quality)
-            
+
             # Pass user_state and locations down into the recursion
             child_metrics = calculate_node_metrics(
-                child_node, loadouts, game_data, drop_calc, player_skill_levels, 
-                user_state, locations, 
+                child_node, loadouts, game_data, drop_calc, player_skill_levels,
+                user_state, locations,
                 global_use_fine=global_use_fine
             )
-            
+
             res["steps"] += (input_ratio * child_metrics["steps"])
             for sk, xpv in child_metrics["xp"].items(): res["xp"][sk] += (input_ratio * xpv)
             for item_k, amt in child_metrics["shopping_list"].items(): res["shopping_list"][item_k] += (input_ratio * amt)
             for item_k, amt in child_metrics["raw_materials"].items(): res["raw_materials"][item_k] += (input_ratio * amt)
             for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (input_ratio * stp)
+            for sk, stp in child_metrics["steps_by_skill"].items(): res["steps_by_skill"][sk] += (input_ratio * stp)
             for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
             for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
             for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
@@ -683,6 +686,7 @@ def calculate_node_metrics(
                 else:
                     res["steps"] = normal_steps
                     res["steps_breakdown"][f"Activity: {activity_obj.name}"] += normal_steps
+                    if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
                     if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
 
@@ -695,23 +699,24 @@ def calculate_node_metrics(
                     gain_xp = stats.get(f"gain_{sk}_xp", 0.0)
                     if gain_xp > 0:
                         res["xp"][sk] += gain_xp * actions_needed
-                        
+
                 for input_id, child_node in node.inputs.items():
                     req_amount = child_node.base_requirement_amount
                     # For activities, NMC does not apply! DA consumes extra materials, so it factors back in.
                     input_ratio = (req_amount * drop["Steps"] * (1.0 + DA)) / (steps_per_action * p_valid_quality)
-                    
+
                     child_metrics = calculate_node_metrics(
-                        child_node, loadouts, game_data, drop_calc, player_skill_levels, 
-                        user_state, locations, 
+                        child_node, loadouts, game_data, drop_calc, player_skill_levels,
+                        user_state, locations,
                         global_use_fine=False
                     )
-                    
+
                     res["steps"] += (input_ratio * child_metrics["steps"])
                     for sk, xpv in child_metrics["xp"].items(): res["xp"][sk] += (input_ratio * xpv)
                     for item_k, amt in child_metrics["shopping_list"].items(): res["shopping_list"][item_k] += (input_ratio * amt)
                     for item_k, amt in child_metrics["raw_materials"].items(): res["raw_materials"][item_k] += (input_ratio * amt)
                     for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (input_ratio * stp)
+                    for sk, stp in child_metrics["steps_by_skill"].items(): res["steps_by_skill"][sk] += (input_ratio * stp)
                     for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
                     for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
                     for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
@@ -747,6 +752,7 @@ def calculate_node_metrics(
                 else:
                     res["steps"] = normal_steps
                     res["steps_breakdown"][f"Chest: {chest_obj.name}"] += normal_steps
+                    if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
                     if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
 

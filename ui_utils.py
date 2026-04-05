@@ -18,7 +18,7 @@ from drop_calculator import DropCalculator
 
 # --- GLOBAL TARGET CONFIG ---
 TARGET_CATEGORIES = {
-    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine",],
+    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine", "Xp Per Material"],
     "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
     "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
     "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
@@ -736,6 +736,8 @@ def format_target_metric(t_name, raw_val, base_steps):
     elif "reward rolls" in t_name_lower:
         human_val = 1.0 / raw_val if raw_val > 0 else 0
         return f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
+    elif "xp per material" in t_name_lower:
+        return f"{raw_val:.2f} XP/Mat"
     elif "xp" in t_name_lower:
         return f"{raw_val:.2f} XP/Step"
     elif "chests" in t_name_lower:

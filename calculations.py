@@ -204,6 +204,13 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         xp_mult = 1.0 + stats.get("xp_percent", 0)
         flat_xp = stats.get("flat_xp", 0)
         val = (((base_xp + flat_xp) * xp_mult) * da_mult)
+    elif target == OPTIMAZATION_TARGET.xp_per_material:
+        mats = activity.materials[0] if activity.materials else ()
+        total_mats = max(1, sum(m.amount for m in mats))
+        base_xp = activity.base_xp or 0
+        xp_mult = 1.0 + stats.get("xp_percent", 0)
+        flat_xp = stats.get("flat_xp", 0)
+        val = ((base_xp + flat_xp) * xp_mult * nmc_mult) / total_mats
     elif target == OPTIMAZATION_TARGET.chests:
         val = ((1.0 + stats.get("chest_finding", 0)) * da_mult * dr_mult) / steps
     elif target == OPTIMAZATION_TARGET.chests_no_steps:

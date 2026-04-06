@@ -892,7 +892,10 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     quality_rows = []
                     for name in reversed(QUALITY_NAMES):
                         p = quality_probs.get(name, 0.0)
+                        if p == 0.0:
+                            p = 0.0000000001
                         cumulative += p
+
                         inputs_exact = f"{materials_per_attempt / (p * outputs_per_attempt):.2f}"
 
                         if cumulative < 1:

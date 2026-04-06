@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import math
 import os
+import re
 import uuid
 from collections import Counter
 from typing import List, Dict, Tuple, Any, Optional
@@ -727,6 +728,24 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
                 return pet.id, eval_lvl_obj.level
 
     return None, None
+
+
+def get_pet_charges_gained(pet_name: str, steps: float, game_data_dict: dict) -> Optional[float]:
+    """Return ability charges gained by walking `steps` with the named pet.
+
+    Looks up the pet's first step-based ability cooldown and divides steps by
+    that cooldown value. Returns None if the pet has no step-based cooldown.
+    """
+    for pet in game_data_dict['pets'].values():
+        if pet.name == pet_name:
+            for lvl in pet.levels:
+                for ab in lvl.abilities:
+                    if ab.cooldown and "steps" in ab.cooldown.lower():
+                        m = re.search(r'([\d,]+)\s*steps', ab.cooldown, re.IGNORECASE)
+                        if m:
+                            cd_steps = int(m.group(1).replace(',', ''))
+                            return steps / cd_steps
+    return None
 
 
 def format_target_metric(t_name, raw_val, base_steps):

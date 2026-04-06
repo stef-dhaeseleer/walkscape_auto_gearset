@@ -75,6 +75,7 @@ class RequirementType(str, Enum):
     UNIQUE_TOOLS = "unique_tools"
     SPECIFIC_ACTIVITY = "specific_activity"
     INPUT_KEYWORD = "input_keyword"
+    PET_ABILITY = "pet_ability"
 
 class StatName(str, Enum):
     # Core

@@ -8,6 +8,7 @@ from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from
 from calculations import calculate_node_metrics
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
+from tree_optimizer import TreeNodeOptimizer, TREE_GOAL_OPTIONS
 
 @st.dialog("⚙️ Choose Optimization Targets")
 def node_target_dialog(node: CraftingNode):
@@ -112,10 +113,44 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations, us
     if st.button("Save & Close", type="primary"):
         st.rerun()
 
-def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locations, user_state: dict, level: int = 0):
+def _run_tree_opt(node, scope, optimizer_context, game_data_dict, drop_calc, locations, user_state, is_root=False):
+    """Build a TreeNodeOptimizer, run it for the given scope, then refresh metrics."""
+    valid_json = user_state.get("valid_json", False)
+    user_skills_map = user_state.get("user_skills_map", {})
+    player_skill_levels = {k: calculate_level_from_xp(v) for k, v in user_skills_map.items()} if valid_json else {}
+    char_lvl = user_state.get("calculated_char_lvl", 99) if valid_json else 99
+
+    gear_opt = GearOptimizer(optimizer_context["all_items_raw"], locations)
+    tree_opt = TreeNodeOptimizer(
+        gear_optimizer=gear_opt,
+        game_data_dict=game_data_dict,
+        drop_calc=drop_calc,
+        locations=locations,
+        user_state=user_state,
+        player_skill_levels=player_skill_levels,
+        char_lvl=char_lvl,
+        loadouts=optimizer_context["loadouts"],
+        goal=optimizer_context["tree_opt_goal"],
+        global_quality=optimizer_context["global_quality"],
+        global_use_fine=optimizer_context["global_use_fine"],
+    )
+
+    progress_bar = st.progress(0, text="Running tree optimizer…")
+
+    def on_progress(done, total):
+        pct = min(done / total, 1.0) if total > 0 else 1.0
+        progress_bar.progress(pct, text=f"Evaluating candidates… ({done}/{total})")
+
+    tree_opt.optimize(node, scope=scope, progress_callback=on_progress)
+    tree_opt.update_metrics(node, is_root=is_root)
+    progress_bar.empty()
+
+
+def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locations, user_state: dict, level: int = 0, optimizer_context: dict = None):
     icon = {"recipe": "🔨", "activity": "🪓", "chest": "🧰", "bank": "🏦"}.get(node.source_type, "📦")
     item_name = node.item_id.replace('_', ' ').title()
-    title = f"{icon} {item_name} (x{node.base_requirement_amount})"
+    auto_badge = " 🤖" if getattr(node, '_tree_opt_done', False) else ""
+    title = f"{icon} {item_name} (x{node.base_requirement_amount}){auto_badge}"
     
     with st.expander(title, expanded=(level < 2)):
         c1, c2, c3 = st.columns([3, 3, 2])
@@ -138,6 +173,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             
             if new_label != current_label:
                 selected_src = next(s for s in node.available_sources if s["label"] == new_label)
+                node._tree_opt_done = False
                 node.source_type = selected_src["type"]
                 if selected_src["type"] == "chest":
                     node.source_id, node.parent_activity_id = selected_src["id"].split("::")
@@ -498,11 +534,29 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                                 st.rerun()
 
             
+        # --- Tree Optimizer per-node buttons ---
+        if optimizer_context and node.source_type != "bank" and len(node.available_sources) > 1:
+            st.divider()
+            opt_c1, opt_c2, opt_c3 = st.columns([2, 2, 3])
+            with opt_c1:
+                if st.button("⚡ This Node", key=f"opt_node_{node.node_id}", help="Optimize source & gear for this node only"):
+                    _run_tree_opt(node, "node", optimizer_context, game_data_dict, drop_calc, locations, user_state, is_root=(level == 0))
+                    st.rerun()
+            with opt_c2:
+                if st.button("⚡ Node + Children", key=f"opt_sub_{node.node_id}", help="Optimize this node and all nodes below it"):
+                    _run_tree_opt(node, "subtree", optimizer_context, game_data_dict, drop_calc, locations, user_state, is_root=(level == 0))
+                    st.rerun()
+            with opt_c3:
+                if getattr(node, '_tree_opt_done', False):
+                    if st.button("↩ Reset to Manual", key=f"opt_reset_{node.node_id}", help="Clear auto-optimization for this node"):
+                        node._tree_opt_done = False
+                        st.rerun()
+
         if node.inputs:
             st.markdown("###### ⬇️ Requires:")
             with st.container(border=False):
                 for child_id, child_node in node.inputs.items():
-                    render_tree_node(child_node, game_data_dict, drop_calc, locations, user_state, level + 1)
+                    render_tree_node(child_node, game_data_dict, drop_calc, locations, user_state, level + 1, optimizer_context=optimizer_context)
 
 def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers, user_state, drop_calc, locations, services, all_pets, all_consumables, all_materials):
     st.subheader("Crafting Tree Calculator")
@@ -571,28 +625,34 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
         root = st.session_state['crafting_tree_root']
         target_item_id = st.session_state.get('tree_target_item', root.item_id)
         
+        # Compute player levels once — shared by both manual Calculate and tree optimizer.
+        valid_json = user_state.get("valid_json", False)
+        user_skills_map = user_state.get("user_skills_map", {})
+        player_skill_levels = {k: calculate_level_from_xp(v) for k, v in user_skills_map.items()} if valid_json else {}
+        char_lvl = user_state.get("calculated_char_lvl", 99) if valid_json else 99
+
         st.markdown("### ⚙️ Global Settings")
         c_g1, c_g2, c_g3, c_g4 = st.columns(4)
-        
+
         with c_g1:
             target_amount = st.number_input("Target Quantity", min_value=1, value=1, step=1)
-            
+
         with c_g2:
             daily_steps = st.number_input("Est. Daily Steps", min_value=1000, value=10000, step=1000, help="Used to estimate real-world time.")
-        
+
         with c_g3:
             is_equipment = any(
-                item.id == target_item_id or item.id.startswith(f"{target_item_id}_") 
+                item.id == target_item_id or item.id.startswith(f"{target_item_id}_")
                 for item in all_items_raw
             )
-            
+
             if is_equipment:
                 qualities = [q for q in EquipmentQuality]
                 st.session_state['global_quality'] = st.selectbox("Target Quality", options=qualities, index=0)
             else:
                 st.session_state['global_quality'] = "Normal"
                 st.caption("*(Target Quality N/A)*")
-        
+
         with c_g4:
             st.write("")
             st.write("")
@@ -601,35 +661,72 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 new_fine_val = st.checkbox("💎 Fine Materials", value=st.session_state.get('global_fine', False))
                 if new_fine_val != st.session_state.get('global_fine', False):
                     st.session_state['global_fine'] = new_fine_val
-                    
+
                     def force_fine_targets(n):
                         if n.source_type == "activity" and getattr(n, 'loadout_id', None) == "AUTO":
                             target_name = "Fine" if new_fine_val else "Reward Rolls"
                             n.auto_optimize_target = [{"id": 0, "target": target_name, "weight": 100}]
                         for child in n.inputs.values():
                             force_fine_targets(child)
-                            
+
                     force_fine_targets(root)
                     st.rerun()
             else:
                 st.session_state['global_fine'] = False
 
+        # --- Tree Optimizer Controls ---
+        st.markdown("### 🤖 Auto-Optimize Tree *(optional)*")
+        opt_col1, opt_col2, opt_col3 = st.columns([3, 2, 2])
+        with opt_col1:
+            goal_keys = list(TREE_GOAL_OPTIONS.keys())
+            goal_labels = list(TREE_GOAL_OPTIONS.values())
+            current_goal = st.session_state.get('tree_opt_goal', 'minimize_steps')
+            goal_idx = goal_keys.index(current_goal) if current_goal in goal_keys else 0
+            selected_goal_label = st.selectbox(
+                "Optimization Goal",
+                options=goal_labels,
+                index=goal_idx,
+                key="tree_opt_goal_select",
+                help="The objective used when comparing source options across all nodes.",
+            )
+            selected_goal = goal_keys[goal_labels.index(selected_goal_label)]
+            st.session_state['tree_opt_goal'] = selected_goal
+        with opt_col2:
+            st.write("")
+            st.write("")
+            if st.button("⚡ Optimize Full Tree", type="secondary", help="Try every source/gear combination on all nodes and apply the best configuration. This may take a while."):
+                optimizer_context_full = {
+                    "all_items_raw": all_items_raw,
+                    "loadouts": st.session_state.get('saved_loadouts', {}),
+                    "tree_opt_goal": selected_goal,
+                    "global_quality": st.session_state.get('global_quality', 'Normal'),
+                    "global_use_fine": st.session_state.get('global_fine', False),
+                }
+                with st.spinner("Running full tree optimization…"):
+                    _run_tree_opt(root, "full", optimizer_context_full, game_data_dict, drop_calc, locations, user_state, is_root=True)
+                st.rerun()
+        with opt_col3:
+            st.caption("Per-node ⚡ buttons are available inside each node expander.")
+
+        optimizer_context = {
+            "all_items_raw": all_items_raw,
+            "loadouts": st.session_state.get('saved_loadouts', {}),
+            "tree_opt_goal": selected_goal,
+            "global_quality": st.session_state.get('global_quality', 'Normal'),
+            "global_use_fine": st.session_state.get('global_fine', False),
+        }
+
         st.divider()
-        
-        render_tree_node(root, game_data_dict, drop_calc, locations, user_state)       
+
+        render_tree_node(root, game_data_dict, drop_calc, locations, user_state, optimizer_context=optimizer_context)
         st.divider()
         if st.button("🧮 Calculate True Cost & Run Optimizers", type="primary"):
-            
-            valid_json = user_state.get("valid_json", False)
-            user_skills_map = user_state.get("user_skills_map", {})
-            player_skill_levels = {k: calculate_level_from_xp(v) for k, v in user_skills_map.items()} if valid_json else {}
-            
+
             optimizer = GearOptimizer(all_items_raw, locations)
             owned_item_counts = user_state.get("item_counts", {}) if valid_json else {}
             ap = user_state.get("user_ap", 0) if valid_json else 0
             reputation = user_state.get("user_reputation", {}) if valid_json else {}
             collectibles = user_state.get("owned_collectibles", []) if valid_json else []
-            char_lvl = user_state.get("calculated_char_lvl", 99) if valid_json else 99
 
             with st.spinner("Optimizing gear and calculating cascading steps..."):
                 def run_and_save_metrics(node, is_root=False):

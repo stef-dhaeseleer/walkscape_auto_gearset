@@ -508,4 +508,4 @@ class CraftingNode(BaseModel):
     selected_pet_level: Optional[int] = None
     selected_consumable_id: Optional[str] = None
     selected_activity_inputs: Dict[int, str] = Field(default_factory=dict)
-    use_pet_ability: bool = False 
+    use_pet_ability: bool = False

@@ -127,6 +127,8 @@ class TreeNodeOptimizer:
         node: CraftingNode,
         scope: str = "subtree",
         progress_callback: Optional[Callable[[int, int], None]] = None,
+        node_start_callback: Optional[Callable[[str, int], None]] = None,
+        node_done_callback: Optional[Callable[[str, str, str, float], None]] = None,
     ) -> None:
         """
         Optimize *node* in-place according to *scope*.
@@ -137,11 +139,15 @@ class TreeNodeOptimizer:
             "full"    — identical to "subtree" (alias for clarity when called from root).
 
         progress_callback(done, total) is called after each gear-optimizer run.
+        node_start_callback(item_id, num_configs) is called when a node begins evaluation.
+        node_done_callback(item_id, source_type, source_id, score) is called when a node's best config is chosen.
         """
         self._memo.clear()
         self._ops_done = 0
-        self._ops_total = max(self._estimate_ops(node, scope), 1)
+        self._ops_total = 0
         self._progress_cb = progress_callback
+        self._node_start_cb = node_start_callback
+        self._node_done_cb = node_done_callback
 
         if scope == "node":
             self._opt_single(node, is_root=True)
@@ -184,6 +190,10 @@ class TreeNodeOptimizer:
         Recursively optimize this node and all children.
         Returns the best achievable score for the subtree.
         """
+        # Respect user-set bank override — don't re-optimize bank nodes.
+        if node.source_type == "bank":
+            return 0.0
+
         cache_key = (node.item_id, node.base_requirement_amount)
         if cache_key in self._memo:
             cached_state, cached_score = self._memo[cache_key]
@@ -194,6 +204,12 @@ class TreeNodeOptimizer:
         configs = self._enumerate_configs(node)
         if not configs:
             return float("inf")
+
+        # Dynamic progress: add this node's configs to the total now.
+        self._ops_total += len(configs)
+
+        if self._node_start_cb:
+            self._node_start_cb(node.item_id, len(configs))
 
         best_score: Optional[float] = None
         best_state: Optional[dict] = None
@@ -227,6 +243,14 @@ class TreeNodeOptimizer:
             node._tree_opt_done = True
             self._memo[cache_key] = (best_state, best_score)
 
+        if self._node_done_cb and best_state is not None:
+            self._node_done_cb(
+                node.item_id,
+                best_state["source_type"],
+                best_state["source_id"],
+                best_score if best_score is not None else float("inf"),
+            )
+
         return best_score if best_score is not None else float("inf")
 
     def _opt_single(self, node: CraftingNode, is_root: bool = False) -> None:
@@ -234,9 +258,19 @@ class TreeNodeOptimizer:
         Optimize only this node's source and gear.
         The existing children (inputs) are reused unchanged for scoring.
         """
+        # Respect user-set bank override.
+        if node.source_type == "bank":
+            return
+
         configs = self._enumerate_configs(node)
         if not configs:
             return
+
+        # Dynamic progress: add this node's configs to the total now.
+        self._ops_total += len(configs)
+
+        if self._node_start_cb:
+            self._node_start_cb(node.item_id, len(configs))
 
         # Preserve existing children so each candidate can reference them.
         saved_inputs = dict(node.inputs)
@@ -272,6 +306,14 @@ class TreeNodeOptimizer:
             _apply_state(node, best_state)
             node._tree_opt_done = True
 
+        if self._node_done_cb and best_state is not None:
+            self._node_done_cb(
+                node.item_id,
+                best_state["source_type"],
+                best_state["source_id"],
+                best_score if best_score is not None else float("inf"),
+            )
+
     # -----------------------------------------------------------------------
     # Config enumeration
     # -----------------------------------------------------------------------
@@ -285,15 +327,7 @@ class TreeNodeOptimizer:
             src_id_raw: str = source["id"]
 
             if src_type == "bank":
-                configs.append({
-                    "source_type": "bank",
-                    "source_id": "bank",
-                    "parent_activity_id": None,
-                    "material_choices": {},
-                    "activity_inputs": {},
-                    "service_id": None,
-                    "location_id": None,
-                })
+                # Bank is a user-only choice — skip it in automatic optimization.
                 continue
 
             if src_type == "chest":
@@ -564,15 +598,6 @@ class TreeNodeOptimizer:
     # -----------------------------------------------------------------------
     # Progress tracking
     # -----------------------------------------------------------------------
-
-    def _estimate_ops(self, node: CraftingNode, scope: str) -> int:
-        """Rough upper-bound on gear-optimizer calls for progress bar initialisation."""
-        configs = self._enumerate_configs(node)
-        ops = len(configs)
-        if scope != "node":
-            for child in node.inputs.values():
-                ops += self._estimate_ops(child, scope)
-        return max(ops, 1)
 
     def _tick(self) -> None:
         self._ops_done += 1

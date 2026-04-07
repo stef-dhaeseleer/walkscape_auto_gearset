@@ -113,6 +113,16 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations, us
     if st.button("Save & Close", type="primary"):
         st.rerun()
 
+def _clear_widget_keys(node):
+    """Recursively clear cached Streamlit widget keys so dropdowns reflect optimizer results."""
+    for key_prefix in ("src_", "ld_"):
+        key = f"{key_prefix}{node.node_id}"
+        if key in st.session_state:
+            del st.session_state[key]
+    for child in node.inputs.values():
+        _clear_widget_keys(child)
+
+
 def _run_tree_opt(node, scope, optimizer_context, game_data_dict, drop_calc, locations, user_state, is_root=False):
     """Build a TreeNodeOptimizer, run it for the given scope, then refresh metrics."""
     valid_json = user_state.get("valid_json", False)
@@ -136,14 +146,49 @@ def _run_tree_opt(node, scope, optimizer_context, game_data_dict, drop_calc, loc
     )
 
     progress_bar = st.progress(0, text="Running tree optimizer…")
+    log_container = st.container()
+    log_lines = []
 
     def on_progress(done, total):
         pct = min(done / total, 1.0) if total > 0 else 1.0
         progress_bar.progress(pct, text=f"Evaluating candidates… ({done}/{total})")
 
-    tree_opt.optimize(node, scope=scope, progress_callback=on_progress)
+    def on_node_start(item_id, num_configs):
+        item_name = item_id.replace('_', ' ').title()
+        line = f"**Optimizing** {item_name} — {num_configs} options…"
+        log_lines.append(line)
+        log_container.markdown(line)
+
+    def on_node_done(item_id, source_type, source_id, score):
+        item_name = item_id.replace('_', ' ').title()
+        source_icon = {"recipe": "🔨", "activity": "🪓", "chest": "🧰", "bank": "🏦"}.get(source_type, "📦")
+        source_label = source_id.replace('_', ' ').title()
+        goal = optimizer_context.get("tree_opt_goal", "minimize_steps")
+        if score == float('inf'):
+            line = f"&nbsp;&nbsp;→ {item_name}: {source_icon} {source_label} (no valid config)"
+        elif goal == "minimize_steps":
+            line = f"&nbsp;&nbsp;→ {item_name}: {source_icon} {source_label} ({score:,.1f} steps)"
+        elif goal == "maximize_xp":
+            line = f"&nbsp;&nbsp;→ {item_name}: {source_icon} {source_label} ({-score:,.1f} XP)"
+        elif goal == "maximize_xp_per_step":
+            line = f"&nbsp;&nbsp;→ {item_name}: {source_icon} {source_label} ({-score:,.2f} XP/step)"
+        else:
+            line = f"&nbsp;&nbsp;→ {item_name}: {source_icon} {source_label} (score: {score:,.1f})"
+        log_lines.append(line)
+        log_container.markdown(line)
+
+    tree_opt.optimize(
+        node, scope=scope,
+        progress_callback=on_progress,
+        node_start_callback=on_node_start,
+        node_done_callback=on_node_done,
+    )
     tree_opt.update_metrics(node, is_root=is_root)
+    _clear_widget_keys(node)
     progress_bar.empty()
+
+    # Persist log lines so they survive st.rerun()
+    st.session_state['tree_opt_log'] = log_lines
 
 
 def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locations, user_state: dict, level: int = 0, optimizer_context: dict = None):
@@ -770,6 +815,12 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 st.rerun()
         with opt_col3:
             st.caption("Per-node ⚡ buttons are available inside each node expander.")
+
+        # Show persisted optimizer log from the last run
+        if st.session_state.get('tree_opt_log'):
+            with st.expander("🤖 Last Optimization Results", expanded=True):
+                for line in st.session_state['tree_opt_log']:
+                    st.markdown(line, unsafe_allow_html=True)
 
         optimizer_context = {
             "all_items_raw": all_items_raw,

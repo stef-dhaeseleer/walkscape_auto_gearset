@@ -1,0 +1,1528 @@
+[
+  {
+    "id": "azurazera__casbrant_fields",
+    "name": "Azurazera → Casbrant Fields",
+    "start": "azurazera",
+    "end": "casbrant_fields",
+    "distance": 605,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "azurazera__centaham",
+    "name": "Azurazera → Centaham",
+    "start": "azurazera",
+    "end": "centaham",
+    "distance": 800,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "azurazera__coldington",
+    "name": "Azurazera → Coldington",
+    "start": "azurazera",
+    "end": "coldington",
+    "distance": 370,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "barbantok__casbrant_fields",
+    "name": "Barbantok → Casbrant Fields",
+    "start": "barbantok",
+    "end": "casbrant_fields",
+    "distance": 358,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "barbantok__nomad_woods",
+    "name": "Barbantok → Nomad Woods",
+    "start": "barbantok",
+    "end": "nomad_woods",
+    "distance": 341,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "beach_of_woes__disenchanted_forest",
+    "name": "Beach of Woes → Disenchanted Forest",
+    "start": "beach_of_woes",
+    "end": "disenchanted_forest",
+    "distance": 160,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bilgemont_port__blackspell_port",
+    "name": "Bilgemont Port → Blackspell Port",
+    "start": "bilgemont_port",
+    "end": "blackspell_port",
+    "distance": 1378,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bilgemont_port__everhaven",
+    "name": "Bilgemont Port → Everhaven",
+    "start": "bilgemont_port",
+    "end": "everhaven",
+    "distance": 903,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackrane__blackwater_fields",
+    "name": "Blackrane → Blackwater Fields",
+    "start": "blackrane",
+    "end": "blackwater_fields",
+    "distance": 900,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackrane__kildome_cross",
+    "name": "Blackrane → Kildome Cross",
+    "start": "blackrane",
+    "end": "kildome_cross",
+    "distance": 880,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackspell_port__bilgemont_port",
+    "name": "Blackspell Port → Bilgemont Port",
+    "start": "blackspell_port",
+    "end": "bilgemont_port",
+    "distance": 1378,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackspell_port__old_arena_ruins",
+    "name": "Blackspell Port → Old Arena Ruins",
+    "start": "blackspell_port",
+    "end": "old_arena_ruins",
+    "distance": 650,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackspell_port__red_coast",
+    "name": "Blackspell Port → Red Coast",
+    "start": "blackspell_port",
+    "end": "red_coast",
+    "distance": 550,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackwater_fields__blackrane",
+    "name": "Blackwater Fields → Blackrane",
+    "start": "blackwater_fields",
+    "end": "blackrane",
+    "distance": 900,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "blackwater_fields__stalking_yew_woods",
+    "name": "Blackwater Fields → Stalking Yew Woods",
+    "start": "blackwater_fields",
+    "end": "stalking_yew_woods",
+    "distance": 1080,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "black_eye_peak__sanguine_hills",
+    "name": "Black Eye Peak → Sanguine Hills",
+    "start": "black_eye_peak",
+    "end": "sanguine_hills",
+    "distance": 1300,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "black_eye_peak__winters_end",
+    "name": "Black Eye Peak → Winter's End",
+    "start": "black_eye_peak",
+    "end": "winters_end",
+    "distance": 565,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bog_bottom__bog_top",
+    "name": "Bog Bottom → Bog Top",
+    "start": "bog_bottom",
+    "end": "bog_top",
+    "distance": 752,
+    "region": "gdte",
+    "keyword_counts": {
+      "advanced diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bog_top__bog_bottom",
+    "name": "Bog Top → Bog Bottom",
+    "start": "bog_top",
+    "end": "bog_bottom",
+    "distance": 752,
+    "region": "gdte",
+    "keyword_counts": {
+      "advanced diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bog_top__halfling_campgrounds",
+    "name": "Bog Top → Halfling Campgrounds",
+    "start": "bog_top",
+    "end": "halfling_campgrounds",
+    "distance": 793,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bog_top__halfmaw_hideout",
+    "name": "Bog Top → Halfmaw Hideout",
+    "start": "bog_top",
+    "end": "halfmaw_hideout",
+    "distance": 1200,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "bog_top__witched_woods",
+    "name": "Bog Top → Witched Woods",
+    "start": "bog_top",
+    "end": "witched_woods",
+    "distance": 1200,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "casbrants_grave__port_skildar",
+    "name": "Casbrant's Grave → Port Skildar",
+    "start": "casbrants_grave",
+    "end": "port_skildar",
+    "distance": 747,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "casbrants_grave__vastalume",
+    "name": "Casbrant's Grave → Vastalume",
+    "start": "casbrants_grave",
+    "end": "vastalume",
+    "distance": 1326,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "casbrant_fields__azurazera",
+    "name": "Casbrant Fields → Azurazera",
+    "start": "casbrant_fields",
+    "end": "azurazera",
+    "distance": 605,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "casbrant_fields__barbantok",
+    "name": "Casbrant Fields → Barbantok",
+    "start": "casbrant_fields",
+    "end": "barbantok",
+    "distance": 358,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "casbrant_fields__centaham",
+    "name": "Casbrant Fields → Centaham",
+    "start": "casbrant_fields",
+    "end": "centaham",
+    "distance": 280,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "casbrant_fields__nurturing_nook_springs",
+    "name": "Casbrant Fields → Nurturing Nook Springs",
+    "start": "casbrant_fields",
+    "end": "nurturing_nook_springs",
+    "distance": 280,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__azurazera",
+    "name": "Centaham → Azurazera",
+    "start": "centaham",
+    "end": "azurazera",
+    "distance": 800,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__casbrant_fields",
+    "name": "Centaham → Casbrant Fields",
+    "start": "centaham",
+    "end": "casbrant_fields",
+    "distance": 280,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__coldington",
+    "name": "Centaham → Coldington",
+    "start": "centaham",
+    "end": "coldington",
+    "distance": 650,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__fort_of_permafrost",
+    "name": "Centaham → Fort of Permafrost",
+    "start": "centaham",
+    "end": "fort_of_permafrost",
+    "distance": 695,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__frusenholm",
+    "name": "Centaham → Frusenholm",
+    "start": "centaham",
+    "end": "frusenholm",
+    "distance": 617,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__nurturing_nook_springs",
+    "name": "Centaham → Nurturing Nook Springs",
+    "start": "centaham",
+    "end": "nurturing_nook_springs",
+    "distance": 405,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "centaham__port_skildar",
+    "name": "Centaham → Port Skildar",
+    "start": "centaham",
+    "end": "port_skildar",
+    "distance": 550,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "coldington__azurazera",
+    "name": "Coldington → Azurazera",
+    "start": "coldington",
+    "end": "azurazera",
+    "distance": 370,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "coldington__centaham",
+    "name": "Coldington → Centaham",
+    "start": "coldington",
+    "end": "centaham",
+    "distance": 650,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "coldington__horn_of_respite",
+    "name": "Coldington → Horn of Respite",
+    "start": "coldington",
+    "end": "horn_of_respite",
+    "distance": 627,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "coldington__port_skildar",
+    "name": "Coldington → Port Skildar",
+    "start": "coldington",
+    "end": "port_skildar",
+    "distance": 354,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "crown_of_cinders__myriadian_arc",
+    "name": "Crown of Cinders → Myriadian Arc",
+    "start": "crown_of_cinders",
+    "end": "myriadian_arc",
+    "distance": 495,
+    "region": "wrentmark",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": "Navigate Desert"
+  },
+  {
+    "id": "darktide_trench__vastalume",
+    "name": "Darktide Trench → Vastalume",
+    "start": "darktide_trench",
+    "end": "vastalume",
+    "distance": 2000,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "expert diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "disenchanted_forest__beach_of_woes",
+    "name": "Disenchanted Forest → Beach of Woes",
+    "start": "disenchanted_forest",
+    "end": "beach_of_woes",
+    "distance": 160,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "disenchanted_forest__kallaheim",
+    "name": "Disenchanted Forest → Kallaheim",
+    "start": "disenchanted_forest",
+    "end": "kallaheim",
+    "distance": 450,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "disenchanted_forest__pit_of_pittance",
+    "name": "Disenchanted Forest → Pit of Pittance",
+    "start": "disenchanted_forest",
+    "end": "pit_of_pittance",
+    "distance": 144,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "elaras_lagoon__vastalume",
+    "name": "Elara's Lagoon → Vastalume",
+    "start": "elaras_lagoon",
+    "end": "vastalume",
+    "distance": 1170,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "everhaven__bilgemont_port",
+    "name": "Everhaven → Bilgemont Port",
+    "start": "everhaven",
+    "end": "bilgemont_port",
+    "distance": 903,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "everhaven__salsfirth",
+    "name": "Everhaven → Salsfirth",
+    "start": "everhaven",
+    "end": "salsfirth",
+    "distance": 1160,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "farsand_coast__salsfirth",
+    "name": "Farsand Coast → Salsfirth",
+    "start": "farsand_coast",
+    "end": "salsfirth",
+    "distance": 550,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "fort_of_permafrost__centaham",
+    "name": "Fort of Permafrost → Centaham",
+    "start": "fort_of_permafrost",
+    "end": "centaham",
+    "distance": 695,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "fort_of_permafrost__frusenholm",
+    "name": "Fort of Permafrost → Frusenholm",
+    "start": "fort_of_permafrost",
+    "end": "frusenholm",
+    "distance": 650,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "fort_of_permafrost__noiseless_pass",
+    "name": "Fort of Permafrost → Noiseless Pass",
+    "start": "fort_of_permafrost",
+    "end": "noiseless_pass",
+    "distance": 229,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": "Jarvonian letter of passage",
+    "ability_requirement": null
+  },
+  {
+    "id": "frostbite_mountain__kallaheim",
+    "name": "Frostbite Mountain → Kallaheim",
+    "start": "frostbite_mountain",
+    "end": "kallaheim",
+    "distance": 890,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "frostbite_mountain__norsack_plains",
+    "name": "Frostbite Mountain → Norsack Plains",
+    "start": "frostbite_mountain",
+    "end": "norsack_plains",
+    "distance": 650,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "frusenholm__centaham",
+    "name": "Frusenholm → Centaham",
+    "start": "frusenholm",
+    "end": "centaham",
+    "distance": 617,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "frusenholm__fort_of_permafrost",
+    "name": "Frusenholm → Fort of Permafrost",
+    "start": "frusenholm",
+    "end": "fort_of_permafrost",
+    "distance": 650,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "frusenholm__kallaheim",
+    "name": "Frusenholm → Kallaheim",
+    "start": "frusenholm",
+    "end": "kallaheim",
+    "distance": 840,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "frusenholm__norsack_plains",
+    "name": "Frusenholm → Norsack Plains",
+    "start": "frusenholm",
+    "end": "norsack_plains",
+    "distance": 872,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "frusenholm__nurturing_nook_springs",
+    "name": "Frusenholm → Nurturing Nook Springs",
+    "start": "frusenholm",
+    "end": "nurturing_nook_springs",
+    "distance": 550,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "granfiddich__granfiddich_shores",
+    "name": "Granfiddich → Granfiddich Shores",
+    "start": "granfiddich",
+    "end": "granfiddich_shores",
+    "distance": 390,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "granfiddich__mangrove_forest",
+    "name": "Granfiddich → Mangrove Forest",
+    "start": "granfiddich",
+    "end": "mangrove_forest",
+    "distance": 1183,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "granfiddich__warrenfield",
+    "name": "Granfiddich → Warrenfield",
+    "start": "granfiddich",
+    "end": "warrenfield",
+    "distance": 1180,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "granfiddich_shores__granfiddich",
+    "name": "Granfiddich Shores → Granfiddich",
+    "start": "granfiddich_shores",
+    "end": "granfiddich",
+    "distance": 390,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "granfiddich_shores__kelp_forest",
+    "name": "Granfiddich Shores → Kelp Forest",
+    "start": "granfiddich_shores",
+    "end": "kelp_forest",
+    "distance": 650,
+    "region": "gdte",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "granfiddich_shores__tendon_wet_fields",
+    "name": "Granfiddich Shores → Tendon Wet Fields",
+    "start": "granfiddich_shores",
+    "end": "tendon_wet_fields",
+    "distance": 1050,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "halfling_campgrounds__bog_top",
+    "name": "Halfling Campgrounds → Bog Top",
+    "start": "halfling_campgrounds",
+    "end": "bog_top",
+    "distance": 793,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "halfling_campgrounds__halfmaw_hideout",
+    "name": "Halfling Campgrounds → Halfmaw Hideout",
+    "start": "halfling_campgrounds",
+    "end": "halfmaw_hideout",
+    "distance": 1040,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "halfling_campgrounds__witched_woods",
+    "name": "Halfling Campgrounds → Witched Woods",
+    "start": "halfling_campgrounds",
+    "end": "witched_woods",
+    "distance": 1365,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "halfmaw_hideout__bog_top",
+    "name": "Halfmaw Hideout → Bog Top",
+    "start": "halfmaw_hideout",
+    "end": "bog_top",
+    "distance": 1200,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "halfmaw_hideout__halfling_campgrounds",
+    "name": "Halfmaw Hideout → Halfling Campgrounds",
+    "start": "halfmaw_hideout",
+    "end": "halfling_campgrounds",
+    "distance": 1040,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "halfmaw_hideout__old_arena_ruins",
+    "name": "Halfmaw Hideout → Old Arena Ruins",
+    "start": "halfmaw_hideout",
+    "end": "old_arena_ruins",
+    "distance": 900,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "horn_of_respite__coldington",
+    "name": "Horn of Respite → Coldington",
+    "start": "horn_of_respite",
+    "end": "coldington",
+    "distance": 627,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "horn_of_respite__sanguine_hills",
+    "name": "Horn of Respite → Sanguine Hills",
+    "start": "horn_of_respite",
+    "end": "sanguine_hills",
+    "distance": 950,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kallaheim__disenchanted_forest",
+    "name": "Kallaheim → Disenchanted Forest",
+    "start": "kallaheim",
+    "end": "disenchanted_forest",
+    "distance": 450,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kallaheim__frostbite_mountain",
+    "name": "Kallaheim → Frostbite Mountain",
+    "start": "kallaheim",
+    "end": "frostbite_mountain",
+    "distance": 890,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kallaheim__frusenholm",
+    "name": "Kallaheim → Frusenholm",
+    "start": "kallaheim",
+    "end": "frusenholm",
+    "distance": 840,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kallaheim__norsack_plains",
+    "name": "Kallaheim → Norsack Plains",
+    "start": "kallaheim",
+    "end": "norsack_plains",
+    "distance": 870,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kallaheim__nurturing_nook_springs",
+    "name": "Kallaheim → Nurturing Nook Springs",
+    "start": "kallaheim",
+    "end": "nurturing_nook_springs",
+    "distance": 390,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kallaheim__pit_of_pittance",
+    "name": "Kallaheim → Pit of Pittance",
+    "start": "kallaheim",
+    "end": "pit_of_pittance",
+    "distance": 450,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kelp_forest__granfiddich_shores",
+    "name": "Kelp Forest → Granfiddich Shores",
+    "start": "kelp_forest",
+    "end": "granfiddich_shores",
+    "distance": 650,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kelp_forest__vastalume",
+    "name": "Kelp Forest → Vastalume",
+    "start": "kelp_forest",
+    "end": "vastalume",
+    "distance": 1140,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kildome_cross__blackrane",
+    "name": "Kildome Cross → Blackrane",
+    "start": "kildome_cross",
+    "end": "blackrane",
+    "distance": 880,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "kildome_cross__myriadian_arc",
+    "name": "Kildome Cross → Myriadian Arc",
+    "start": "kildome_cross",
+    "end": "myriadian_arc",
+    "distance": 950,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": "Navigate Desert"
+  },
+  {
+    "id": "mangrove_forest__granfiddich",
+    "name": "Mangrove Forest → Granfiddich",
+    "start": "mangrove_forest",
+    "end": "granfiddich",
+    "distance": 1183,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "mangrove_forest__noiseless_pass",
+    "name": "Mangrove Forest → Noiseless Pass",
+    "start": "mangrove_forest",
+    "end": "noiseless_pass",
+    "distance": 585,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "mangrove_forest__salsfirth",
+    "name": "Mangrove Forest → Salsfirth",
+    "start": "mangrove_forest",
+    "end": "salsfirth",
+    "distance": 346,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "myriadian_arc__crown_of_cinders",
+    "name": "Myriadian Arc → Crown of Cinders",
+    "start": "myriadian_arc",
+    "end": "crown_of_cinders",
+    "distance": 495,
+    "region": "wrentmark",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": "Navigate Desert"
+  },
+  {
+    "id": "myriadian_arc__kildome_cross",
+    "name": "Myriadian Arc → Kildome Cross",
+    "start": "myriadian_arc",
+    "end": "kildome_cross",
+    "distance": 950,
+    "region": "wrentmark",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": "Navigate Desert"
+  },
+  {
+    "id": "noiseless_pass__fort_of_permafrost",
+    "name": "Noiseless Pass → Fort of Permafrost",
+    "start": "noiseless_pass",
+    "end": "fort_of_permafrost",
+    "distance": 229,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "noiseless_pass__mangrove_forest",
+    "name": "Noiseless Pass → Mangrove Forest",
+    "start": "noiseless_pass",
+    "end": "mangrove_forest",
+    "distance": 585,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "nomad_woods__barbantok",
+    "name": "Nomad Woods → Barbantok",
+    "start": "nomad_woods",
+    "end": "barbantok",
+    "distance": 341,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "norsack_plains__frostbite_mountain",
+    "name": "Norsack Plains → Frostbite Mountain",
+    "start": "norsack_plains",
+    "end": "frostbite_mountain",
+    "distance": 650,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "norsack_plains__frusenholm",
+    "name": "Norsack Plains → Frusenholm",
+    "start": "norsack_plains",
+    "end": "frusenholm",
+    "distance": 872,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "norsack_plains__kallaheim",
+    "name": "Norsack Plains → Kallaheim",
+    "start": "norsack_plains",
+    "end": "kallaheim",
+    "distance": 870,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "norsack_plains__winter_waves_glacier",
+    "name": "Norsack Plains → Winter Waves Glacier",
+    "start": "norsack_plains",
+    "end": "winter_waves_glacier",
+    "distance": 1080,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": "Mysterious northern map",
+    "ability_requirement": null
+  },
+  {
+    "id": "nurturing_nook_springs__casbrant_fields",
+    "name": "Nurturing Nook Springs → Casbrant Fields",
+    "start": "nurturing_nook_springs",
+    "end": "casbrant_fields",
+    "distance": 280,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "nurturing_nook_springs__centaham",
+    "name": "Nurturing Nook Springs → Centaham",
+    "start": "nurturing_nook_springs",
+    "end": "centaham",
+    "distance": 405,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "nurturing_nook_springs__frusenholm",
+    "name": "Nurturing Nook Springs → Frusenholm",
+    "start": "nurturing_nook_springs",
+    "end": "frusenholm",
+    "distance": 550,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "nurturing_nook_springs__kallaheim",
+    "name": "Nurturing Nook Springs → Kallaheim",
+    "start": "nurturing_nook_springs",
+    "end": "kallaheim",
+    "distance": 390,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "skis": 1
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "old_arena_ruins__blackspell_port",
+    "name": "Old Arena Ruins → Blackspell Port",
+    "start": "old_arena_ruins",
+    "end": "blackspell_port",
+    "distance": 650,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "old_arena_ruins__halfmaw_hideout",
+    "name": "Old Arena Ruins → Halfmaw Hideout",
+    "start": "old_arena_ruins",
+    "end": "halfmaw_hideout",
+    "distance": 900,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "old_arena_ruins__red_coast",
+    "name": "Old Arena Ruins → Red Coast",
+    "start": "old_arena_ruins",
+    "end": "red_coast",
+    "distance": 450,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "old_arena_ruins__warrenfield",
+    "name": "Old Arena Ruins → Warrenfield",
+    "start": "old_arena_ruins",
+    "end": "warrenfield",
+    "distance": 450,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "pit_of_pittance__disenchanted_forest",
+    "name": "Pit of Pittance → Disenchanted Forest",
+    "start": "pit_of_pittance",
+    "end": "disenchanted_forest",
+    "distance": 144,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "pit_of_pittance__kallaheim",
+    "name": "Pit of Pittance → Kallaheim",
+    "start": "pit_of_pittance",
+    "end": "kallaheim",
+    "distance": 450,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "port_skildar__casbrants_grave",
+    "name": "Port Skildar → Casbrant's Grave",
+    "start": "port_skildar",
+    "end": "casbrants_grave",
+    "distance": 747,
+    "region": "jarvonia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "port_skildar__centaham",
+    "name": "Port Skildar → Centaham",
+    "start": "port_skildar",
+    "end": "centaham",
+    "distance": 550,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "port_skildar__coldington",
+    "name": "Port Skildar → Coldington",
+    "start": "port_skildar",
+    "end": "coldington",
+    "distance": 354,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "red_coast__blackspell_port",
+    "name": "Red Coast → Blackspell Port",
+    "start": "red_coast",
+    "end": "blackspell_port",
+    "distance": 550,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "red_coast__old_arena_ruins",
+    "name": "Red Coast → Old Arena Ruins",
+    "start": "red_coast",
+    "end": "old_arena_ruins",
+    "distance": 450,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "salsfirth__everhaven",
+    "name": "Salsfirth → Everhaven",
+    "start": "salsfirth",
+    "end": "everhaven",
+    "distance": 1160,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "salsfirth__farsand_coast",
+    "name": "Salsfirth → Farsand Coast",
+    "start": "salsfirth",
+    "end": "farsand_coast",
+    "distance": 550,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "salsfirth__mangrove_forest",
+    "name": "Salsfirth → Mangrove Forest",
+    "start": "salsfirth",
+    "end": "mangrove_forest",
+    "distance": 346,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "salsfirth__witched_woods",
+    "name": "Salsfirth → Witched Woods",
+    "start": "salsfirth",
+    "end": "witched_woods",
+    "distance": 1016,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "sanguine_hills__black_eye_peak",
+    "name": "Sanguine Hills → Black Eye Peak",
+    "start": "sanguine_hills",
+    "end": "black_eye_peak",
+    "distance": 1300,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": "Black eye peak wilderness permit",
+    "ability_requirement": null
+  },
+  {
+    "id": "sanguine_hills__horn_of_respite",
+    "name": "Sanguine Hills → Horn of Respite",
+    "start": "sanguine_hills",
+    "end": "horn_of_respite",
+    "distance": 950,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "stalking_yew_woods__blackwater_fields",
+    "name": "Stalking Yew Woods → Blackwater Fields",
+    "start": "stalking_yew_woods",
+    "end": "blackwater_fields",
+    "distance": 1080,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "stalking_yew_woods__wraithwater",
+    "name": "Stalking Yew Woods → Wraithwater",
+    "start": "stalking_yew_woods",
+    "end": "wraithwater",
+    "distance": 441,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "tendon_wet_fields__granfiddich_shores",
+    "name": "Tendon Wet Fields → Granfiddich Shores",
+    "start": "tendon_wet_fields",
+    "end": "granfiddich_shores",
+    "distance": 1050,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "tendon_wet_fields__wraithwater",
+    "name": "Tendon Wet Fields → Wraithwater",
+    "start": "tendon_wet_fields",
+    "end": "wraithwater",
+    "distance": 1313,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "underwater_cave__vastalume",
+    "name": "Underwater Cave → Vastalume",
+    "start": "underwater_cave",
+    "end": "vastalume",
+    "distance": 900,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "advanced diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "vastalume__casbrants_grave",
+    "name": "Vastalume → Casbrant's Grave",
+    "start": "vastalume",
+    "end": "casbrants_grave",
+    "distance": 1326,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "vastalume__darktide_trench",
+    "name": "Vastalume → Darktide Trench",
+    "start": "vastalume",
+    "end": "darktide_trench",
+    "distance": 2000,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "expert diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "vastalume__elaras_lagoon",
+    "name": "Vastalume → Elara's Lagoon",
+    "start": "vastalume",
+    "end": "elaras_lagoon",
+    "distance": 1170,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "vastalume__kelp_forest",
+    "name": "Vastalume → Kelp Forest",
+    "start": "vastalume",
+    "end": "kelp_forest",
+    "distance": 1140,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "vastalume__underwater_cave",
+    "name": "Vastalume → Underwater Cave",
+    "start": "vastalume",
+    "end": "underwater_cave",
+    "distance": 900,
+    "region": "syrenthia",
+    "keyword_counts": {
+      "advanced diving gear": 3
+    },
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "warrenfield__granfiddich",
+    "name": "Warrenfield → Granfiddich",
+    "start": "warrenfield",
+    "end": "granfiddich",
+    "distance": 1180,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "warrenfield__old_arena_ruins",
+    "name": "Warrenfield → Old Arena Ruins",
+    "start": "warrenfield",
+    "end": "old_arena_ruins",
+    "distance": 450,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "winters_end__black_eye_peak",
+    "name": "Winter's End → Black Eye Peak",
+    "start": "winters_end",
+    "end": "black_eye_peak",
+    "distance": 565,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "winter_waves_glacier__norsack_plains",
+    "name": "Winter Waves Glacier → Norsack Plains",
+    "start": "winter_waves_glacier",
+    "end": "norsack_plains",
+    "distance": 1080,
+    "region": "jarvonia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "witched_woods__bog_top",
+    "name": "Witched Woods → Bog Top",
+    "start": "witched_woods",
+    "end": "bog_top",
+    "distance": 1200,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "witched_woods__halfling_campgrounds",
+    "name": "Witched Woods → Halfling Campgrounds",
+    "start": "witched_woods",
+    "end": "halfling_campgrounds",
+    "distance": 1365,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "witched_woods__salsfirth",
+    "name": "Witched Woods → Salsfirth",
+    "start": "witched_woods",
+    "end": "salsfirth",
+    "distance": 1016,
+    "region": "gdte",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  },
+  {
+    "id": "wraithwater__stalking_yew_woods",
+    "name": "Wraithwater → Stalking Yew Woods",
+    "start": "wraithwater",
+    "end": "stalking_yew_woods",
+    "distance": 441,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": "Charter of the drowned",
+    "ability_requirement": null
+  },
+  {
+    "id": "wraithwater__tendon_wet_fields",
+    "name": "Wraithwater → Tendon Wet Fields",
+    "start": "wraithwater",
+    "end": "tendon_wet_fields",
+    "distance": 1313,
+    "region": "wallisia",
+    "keyword_counts": {},
+    "collectible_requirement": null,
+    "ability_requirement": null
+  }
+]

@@ -11,6 +11,7 @@ from ui_sidebar import render_sidebar, render_user_data_section
 from tab_crafting_tree import render_crafting_tree_tab
 from tab_optimizer import render_optimizer_tab
 from tab_data_entry import render_data_entry_tab
+from tab_travelling import render_travelling_tab
 
 # --- Page Config ---
 st.set_page_config(
@@ -92,7 +93,7 @@ def main():
             print("Error parsing browser data:", e)
 
     # Load Base Data globally
-    all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables, all_containers, all_materials = load_data()   
+    all_items_raw, activities, recipes, locations, services, all_collectibles_raw, all_pets, all_consumables, all_containers, all_materials, all_routes = load_data()
     
     # --- 2. Inject Custom Entities into Base Data ---
     if st.session_state.get('custom_entities'):
@@ -120,21 +121,26 @@ def main():
     with st.container():
         user_state = render_user_data_section(is_mobile, all_collectibles_raw)
 
-    tab_opt, tab_tree, tab_entry = st.tabs(["🎯 Single Optimizer", "🌳 Crafting Tree Calculator", "📝 Data Entry"])
-    
+    tab_opt, tab_tree, tab_travel, tab_entry = st.tabs(["🎯 Single Optimizer", "🌳 Crafting Tree Calculator", "🚶 Travelling", "📝 Data Entry"])
+
     with tab_tree:
         render_crafting_tree_tab(
-            recipes, all_items_raw, activities, all_containers, 
+            recipes, all_items_raw, activities, all_containers,
             user_state, drop_calc, locations, services, all_pets, all_consumables, all_materials
         )
     with tab_opt:
         render_optimizer_tab(
-            is_mobile, user_state, all_items_raw, activities, recipes, 
+            is_mobile, user_state, all_items_raw, activities, recipes,
             locations, services, all_pets, all_consumables, all_materials, drop_calc, WIKI_URL
+        )
+    with tab_travel:
+        render_travelling_tab(
+            user_state, all_items_raw, all_routes, locations,
+            all_pets, all_consumables, all_materials
         )
     with tab_entry:
         render_data_entry_tab(
-            all_items_raw, activities, locations, services, 
+            all_items_raw, activities, locations, services,
             all_pets, all_consumables, all_materials
         )
 

@@ -4,6 +4,7 @@ Scrape routes from the Walkscape wiki Routes page.
 Generates routes.py with all route data.
 """
 
+import json
 from bs4 import BeautifulSoup
 from scraper_utils import *
 
@@ -14,6 +15,14 @@ CACHE_FILE = get_cache_file('routes_cache.html')
 
 # Create validator instance
 validator = ScraperValidator()
+
+def name_to_enum(name):
+    """Convert a display name to UPPER_SNAKE_CASE enum format."""
+    return re.sub(r'[^A-Z0-9]+', '_', name.upper().replace("'", "")).strip('_')
+
+def normalize_id(name):
+    """Convert a display name to lowercase_snake_case ID (matching locations.json format)."""
+    return name.lower().replace("'", "").replace("-", "_").replace(" ", "_").strip()
 
 def parse_requirement(note_text):
     """Parse requirement from note text into keyword_counts format."""
@@ -75,32 +84,52 @@ def parse_requirement(note_text):
     
     return None
 
+def get_region_for_table(table):
+    """Determine the region name from the heading preceding a table."""
+    # Walk backwards through siblings to find the nearest heading
+    current = table.find_previous(['h2', 'h3'])
+    if current:
+        heading_text = clean_text(current.get_text()).lower()
+        # Map wiki section names to region IDs
+        if 'jarvonia' in heading_text:
+            return 'jarvonia'
+        elif 'gdte' in heading_text or 'grand duchy' in heading_text or 'trellin' in heading_text:
+            return 'gdte'
+        elif 'syrenthia' in heading_text:
+            return 'syrenthia'
+        elif 'wallisia' in heading_text:
+            return 'wallisia'
+        elif 'wrentmark' in heading_text:
+            return 'wrentmark'
+    return ''
+
 def parse_routes():
     """Parse all routes from the cached HTML file."""
     html = download_page(ROUTES_URL, CACHE_FILE, rescrape=RESCRAPE)
     if not html:
         return []
-    
+
     soup = BeautifulSoup(html, 'html.parser')
     routes = []
-    
+
     # Find all wikitable tables
     tables = soup.find_all('table', class_='wikitable')
-    
+
     for table in tables:
+        region = get_region_for_table(table)
         rows = table.find_all('tr')[1:]  # Skip header row
-        
+
         for row in rows:
             cells = row.find_all('td')
             if len(cells) < 6:
                 continue
-            
+
             # New format: 7 columns
             # 0: icon, 1: start location, 2: icon, 3: end location, 4: direction, 5: distance, 6: requirements
             start_loc = clean_text(cells[1].get_text())
             end_loc = clean_text(cells[3].get_text())
             distance_text = clean_text(cells[5].get_text())
-            
+
             # Parse distance
             try:
                 distance = int(distance_text)
@@ -108,27 +137,30 @@ def parse_routes():
                 print(f"Warning: Could not parse distance '{distance_text}' for {start_loc} -> {end_loc}")
                 validator.add_item_issue(f"{start_loc} -> {end_loc}", [f"Invalid distance: {distance_text}"])
                 continue
-            
+
             # Parse requirements from requirements column
             requirement = None
             if len(cells) >= 7:
                 note_text = clean_text(cells[6].get_text())
                 requirement = parse_requirement(note_text)
-            
-            # Convert location names to enum format
+
+            # Convert location names to enum format (for .py output)
             start_enum = name_to_enum(start_loc)
             end_enum = name_to_enum(end_loc)
-            
+
             # Create route entry
             route = {
                 'start': start_enum,
                 'end': end_enum,
+                'start_name': start_loc,
+                'end_name': end_loc,
                 'distance': distance,
-                'requirement': requirement
+                'requirement': requirement,
+                'region': region,
             }
-            
+
             routes.append(route)
-    
+
     return routes
 
 def generate_routes_module(routes):
@@ -182,12 +214,52 @@ def generate_routes_module(routes):
         lines.append('}')
         write_lines(f, lines)
     
-    print(f"✓ Generated {output_file} with {len(routes)} routes")
+    print(f"Generated {output_file} with {len(routes)} routes")
+
+def generate_routes_json(routes):
+    """Generate routes.json for the Streamlit app."""
+    output_file = get_output_file('routes.json')
+
+    print(f"\nGenerating {output_file}...")
+
+    json_routes = []
+    for route in sorted(routes, key=lambda r: (r['start'], r['end'])):
+        start_id = normalize_id(route['start_name'])
+        end_id = normalize_id(route['end_name'])
+
+        entry = {
+            'id': f"{start_id}__{end_id}",
+            'name': f"{route['start_name']} \u2192 {route['end_name']}",
+            'start': start_id,
+            'end': end_id,
+            'distance': route['distance'],
+            'region': route['region'],
+            'keyword_counts': {},
+            'collectible_requirement': None,
+            'ability_requirement': None,
+        }
+
+        if route['requirement']:
+            req_type, req_value = route['requirement']
+            if req_type == 'keyword_counts':
+                entry['keyword_counts'] = req_value
+            elif req_type == 'collectible':
+                entry['collectible_requirement'] = req_value
+            elif req_type == 'ability':
+                entry['ability_requirement'] = req_value
+
+        json_routes.append(entry)
+
+    with open(output_file, 'w', encoding='utf-8') as f:
+        json.dump(json_routes, f, indent=2, ensure_ascii=False)
+
+    print(f"Generated {output_file} with {len(json_routes)} routes")
 
 if __name__ == '__main__':
     routes = parse_routes()
     print(f"\nFound {len(routes)} routes")
     generate_routes_module(routes)
-    
+    generate_routes_json(routes)
+
     # Report validation issues (routes don't have stats, but we track other issues)
     validator.report()

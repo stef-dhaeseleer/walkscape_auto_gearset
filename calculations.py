@@ -34,6 +34,42 @@ def calculate_steps(
     val_floored = max(10.0, after_flat)
     return int(math.ceil(val_floored))
 
+def calculate_travelling_xp(base_distance: int, agility_level: int) -> float:
+    """
+    Travelling XP formula from the wiki.
+    XP = base_distance * 0.096736 * e^(0.016592 * agility_level)
+    This does NOT incorporate gear/efficiency — purely distance and agility.
+    """
+    return base_distance * 0.096736 * math.exp(0.016592 * agility_level)
+
+def calculate_travelling_steps(
+    base_distance: int,
+    agility_level: int,
+    work_efficiency: float,
+    flat_step_reduction: int,
+    percent_step_reduction: float,
+) -> int:
+    """
+    Calculates total travelling steps following the wiki formula.
+    Unlike regular activities, travelling has NO efficiency cap.
+
+    1. Efficiency = 1.0 + (agility_level * 0.005) + equipment_work_efficiency
+    2. Adjusted = base_distance / efficiency
+    3. Per-action = adjusted / 10
+    4. After step reduction = per_action - flat_reduction (min 10)
+    5. Round up
+    6. Total display steps = rounded * 10
+    """
+    efficiency = 1.0 + (agility_level * 0.005) + work_efficiency
+    adjusted = base_distance / efficiency
+    per_action = adjusted / 10.0
+    step_multiplier = 1.0 - percent_step_reduction
+    after_percent = per_action * step_multiplier
+    after_flat = after_percent - float(flat_step_reduction)
+    rounded = max(10.0, after_flat)
+    rounded = math.ceil(rounded)
+    return rounded * 10
+
 def calculate_quality_probabilities(
     activity_min_level: int,
     player_skill_level: int,

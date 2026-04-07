@@ -232,8 +232,20 @@ class Recipe(BaseEntity):
 
 class Location(BaseEntity):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
-    
+
     tags: Tuple[str, ...] = Field(default_factory=tuple)
+
+class Route(BaseEntity):
+    model_config = ConfigDict(use_enum_values=True, frozen=True)
+
+    wiki_slug: str = ""
+    start: str
+    end: str
+    distance: int
+    region: str = ""
+    keyword_counts: Dict[str, int] = Field(default_factory=dict)
+    collectible_requirement: Optional[str] = None
+    ability_requirement: Optional[str] = None
 
 class Consumable(BaseItem):
     model_config = ConfigDict(use_enum_values=True, frozen=True)
@@ -417,6 +429,7 @@ class GearSet(BaseModel):
                             if c_target == active_skill: pass
                             elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
                             elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                            elif c_target == "agility" and active_skill == "traveling": pass
                             else: applies = False
                     elif c_type == ConditionType.LOCATION:
                         if not loc_id: applies = False

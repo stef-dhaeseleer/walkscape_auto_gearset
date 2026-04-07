@@ -571,8 +571,10 @@ def load_data():
     collectibles_path = f"{base_path}/collectibles.json"
     materials_path = f"{base_path}/materials.json"
     
-    items, activities, recipes, locations, services, collectibles, materials = load_game_data(
-        equipment_path, act_path, rec_path, loc_path, services_path, collectibles_path, materials_path
+    routes_path = f"{base_path}/routes.json"
+
+    items, activities, recipes, locations, services, collectibles, materials, routes = load_game_data(
+        equipment_path, act_path, rec_path, loc_path, services_path, collectibles_path, materials_path=materials_path, routes_path=routes_path
     )
     
     pets = []
@@ -606,7 +608,7 @@ def load_data():
                 for c_data in cont_data: containers.append(Container(**c_data))
         except Exception as e: st.error(f"Error loading containers.json: {e}")
             
-    return items, activities, recipes, locations, services, collectibles, pets, consumables, containers, materials
+    return items, activities, recipes, locations, services, collectibles, pets, consumables, containers, materials, routes
 
 
 def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, drop_calc, user_ap: int = 0, total_lvl: int = 0, use_owned: bool = False, owned_pets: dict = None) -> Tuple[Optional[str], Optional[int]]:

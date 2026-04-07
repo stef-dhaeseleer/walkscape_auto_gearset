@@ -424,11 +424,20 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             if node.metrics:
                 steps = node.metrics.get("steps", 0)
                 if steps != float('inf') and steps > 0:
-                    total_xp = sum(node.metrics.get("xp", {}).values())
-                    xp_per_step = total_xp / steps if steps > 0 else 0
                     st.markdown(f"<div style='text-align:right; color:#4ade80; font-weight:bold;'>{steps:,.1f} Steps/ea</div>", unsafe_allow_html=True)
-                    if xp_per_step > 0:
-                        st.markdown(f"<div style='text-align:right; color:#60a5fa; font-size:0.85em;'>{xp_per_step:,.2f} XP/step</div>", unsafe_allow_html=True)
+                    local_skill = None
+                    if node.source_type == "recipe":
+                        r = game_data_dict['recipes'].get(node.source_id)
+                        if r: local_skill = r.skill.lower()
+                    elif node.source_type in ["activity", "chest"]:
+                        act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
+                        a = game_data_dict['activities'].get(act_id)
+                        if a: local_skill = a.primary_skill.lower()
+                    if local_skill:
+                        skill_xp = node.metrics.get("xp", {}).get(local_skill, 0)
+                        if skill_xp > 0:
+                            xp_per_step = skill_xp / steps
+                            st.markdown(f"<div style='text-align:right; color:#60a5fa; font-size:0.85em;'>{xp_per_step:,.2f} XP/step</div>", unsafe_allow_html=True)
                 elif steps == 0:
                     st.markdown(f"<div style='text-align:right; color:#94a3b8; font-weight:bold;'>From Bank</div>", unsafe_allow_html=True)
                 else:

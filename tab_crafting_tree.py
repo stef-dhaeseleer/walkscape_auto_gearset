@@ -445,7 +445,65 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                         node.use_pet_ability = new_val
                         st.rerun()
 
-        st.write("") 
+        # --- Gear Set Overview (dropdown) ---
+        gear_set = None
+        if node.source_type != "bank":
+            if getattr(node, 'loadout_id', None) == "AUTO" and getattr(node, 'auto_gear_set', None):
+                gear_set = node.auto_gear_set
+            elif getattr(node, 'loadout_id', None) and node.loadout_id in st.session_state.get('saved_loadouts', {}):
+                gear_set = st.session_state['saved_loadouts'][node.loadout_id].gear_set
+
+        if gear_set:
+            with st.expander("🛡️ Gear Set Overview", expanded=False):
+                # Left two columns: worn gear, Right two columns: tools
+                gear_col1, gear_col2, tool_col1, tool_col2 = st.columns(4)
+
+                worn_items = []
+                pet_str = "None"
+                if gear_set.pet:
+                    pet_lvl = getattr(gear_set.pet, 'active_level', None)
+                    pet_str = f"{gear_set.pet.name} (Lvl {pet_lvl})" if pet_lvl else gear_set.pet.name
+                worn_items.append(("🐾 Pet", pet_str))
+
+                cons_str = "None"
+                if gear_set.consumable:
+                    cons_str = gear_set.consumable.name
+                worn_items.append(("🧪 Consumable", cons_str))
+
+                for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
+                    item = getattr(gear_set, slot.lower())
+                    worn_items.append((slot, item.name if item else "None"))
+
+                for i in range(2):
+                    r_name = "None"
+                    if i < len(gear_set.rings) and gear_set.rings[i]:
+                        r_name = gear_set.rings[i].name
+                    worn_items.append((f"Ring {i+1}", r_name))
+
+                mid = (len(worn_items) + 1) // 2
+                with gear_col1:
+                    for slot, name in worn_items[:mid]:
+                        st.markdown(f"**{slot}**  \n{name}")
+                with gear_col2:
+                    for slot, name in worn_items[mid:]:
+                        st.markdown(f"**{slot}**  \n{name}")
+
+                tool_items = []
+                for i in range(6):
+                    t_name = "-"
+                    if i < len(gear_set.tools) and gear_set.tools[i]:
+                        t_name = gear_set.tools[i].name
+                    tool_items.append((f"Tool {i+1}", t_name))
+
+                tool_mid = (len(tool_items) + 1) // 2
+                with tool_col1:
+                    for slot, name in tool_items[:tool_mid]:
+                        st.markdown(f"**{slot}**  \n{name}")
+                with tool_col2:
+                    for slot, name in tool_items[tool_mid:]:
+                        st.markdown(f"**{slot}**  \n{name}")
+
+        st.write("")
         if node.source_type == "recipe":
             recipe = game_data_dict['recipes'].get(node.source_id)
             if recipe:

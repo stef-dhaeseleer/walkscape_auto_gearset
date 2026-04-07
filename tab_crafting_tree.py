@@ -424,7 +424,11 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             if node.metrics:
                 steps = node.metrics.get("steps", 0)
                 if steps != float('inf') and steps > 0:
+                    total_xp = sum(node.metrics.get("xp", {}).values())
+                    xp_per_step = total_xp / steps if steps > 0 else 0
                     st.markdown(f"<div style='text-align:right; color:#4ade80; font-weight:bold;'>{steps:,.1f} Steps/ea</div>", unsafe_allow_html=True)
+                    if xp_per_step > 0:
+                        st.markdown(f"<div style='text-align:right; color:#60a5fa; font-size:0.85em;'>{xp_per_step:,.2f} XP/step</div>", unsafe_allow_html=True)
                 elif steps == 0:
                     st.markdown(f"<div style='text-align:right; color:#94a3b8; font-weight:bold;'>From Bank</div>", unsafe_allow_html=True)
                 else:

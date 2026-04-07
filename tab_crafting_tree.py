@@ -470,15 +470,20 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     cons_str = gear_set.consumable.name
                 worn_items.append(("🧪 Consumable", cons_str))
 
+                slot_emojis = {
+                    "Head": "🪖", "Chest": "👕", "Legs": "👖", "Feet": "👢",
+                    "Back": "🎒", "Cape": "🦸", "Neck": "📿", "Hands": "🧤",
+                    "Primary": "⚔️", "Secondary": "🛡️",
+                }
                 for slot in ["Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Primary", "Secondary"]:
                     item = getattr(gear_set, slot.lower())
-                    worn_items.append((slot, item.name if item else "None"))
+                    worn_items.append((f"{slot_emojis[slot]} {slot}", item.name if item else "None"))
 
                 for i in range(2):
                     r_name = "None"
                     if i < len(gear_set.rings) and gear_set.rings[i]:
                         r_name = gear_set.rings[i].name
-                    worn_items.append((f"Ring {i+1}", r_name))
+                    worn_items.append((f"💍 Ring {i+1}", r_name))
 
                 mid = (len(worn_items) + 1) // 2
                 with gear_col1:
@@ -493,7 +498,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     t_name = "-"
                     if i < len(gear_set.tools) and gear_set.tools[i]:
                         t_name = gear_set.tools[i].name
-                    tool_items.append((f"Tool {i+1}", t_name))
+                    tool_items.append((f"🔧 Tool {i+1}", t_name))
 
                 tool_mid = (len(tool_items) + 1) // 2
                 with tool_col1:

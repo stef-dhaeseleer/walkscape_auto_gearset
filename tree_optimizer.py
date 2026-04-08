@@ -51,6 +51,13 @@ _GOAL_TO_AUTO_TARGET_NAME: Dict[str, str] = {
     "maximize_xp_per_step": "Xp",
 }
 
+# Activities where keyword inputs are interchangeable and should be collapsed
+# to a single representative item to avoid combinatorial explosion.
+# Maps activity_id -> {slot_index: keyword}
+COLLAPSED_INPUT_ACTIVITIES: Dict[str, Dict[int, str]] = {
+    "bird_feeding": {0: "plant"},
+}
+
 
 # ---------------------------------------------------------------------------
 # Main class
@@ -399,6 +406,8 @@ class TreeNodeOptimizer:
             if not input_reqs:
                 return [{"material_choices": {}, "activity_inputs": {}, "service_id": None}]
 
+            collapsed_slots = COLLAPSED_INPUT_ACTIVITIES.get(src_id, {})
+
             req_opts: List[List[Tuple[int, Optional[str]]]] = []
             for i, req in enumerate(input_reqs):
                 rtype = getattr(req.type, "value", req.type)
@@ -406,13 +415,25 @@ class TreeNodeOptimizer:
 
                 if rtype in ("keyword_count", "input_keyword") and req.target:
                     kw = req.target.lower().replace("_", " ").strip()
-                    for mat in (
-                        list(gd.get("materials", {}).values())
-                        + list(gd.get("consumables", {}).values())
-                    ):
-                        if hasattr(mat, "keywords") and mat.keywords:
-                            if kw in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
-                                valid_ids.append(mat.id)
+
+                    if i in collapsed_slots:
+                        # Collapse: pick just the first normal material as representative.
+                        for mat in (
+                            list(gd.get("materials", {}).values())
+                            + list(gd.get("consumables", {}).values())
+                        ):
+                            if hasattr(mat, "keywords") and mat.keywords:
+                                if kw in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
+                                    valid_ids.append(mat.id)
+                                    break
+                    else:
+                        for mat in (
+                            list(gd.get("materials", {}).values())
+                            + list(gd.get("consumables", {}).values())
+                        ):
+                            if hasattr(mat, "keywords") and mat.keywords:
+                                if kw in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
+                                    valid_ids.append(mat.id)
                 elif rtype == "item" and req.target:
                     valid_ids.append(req.target.lower())
 
@@ -468,6 +489,7 @@ class TreeNodeOptimizer:
             if activity:
                 act_inputs: Dict[int, str] = config.get("activity_inputs", {})
                 node.selected_activity_inputs = dict(act_inputs)
+                collapsed_slots = COLLAPSED_INPUT_ACTIVITIES.get(node.source_id, {})
                 input_reqs = [
                     r for r in activity.requirements
                     if getattr(r.type, "value", r.type) in ("keyword_count", "input_keyword", "item")
@@ -477,6 +499,12 @@ class TreeNodeOptimizer:
                     if mat_id:
                         child = build_default_tree(mat_id, gd, self._drop_calc)
                         child.base_requirement_amount = req.value
+                        if i in collapsed_slots:
+                            child.source_type = "bank"
+                            child.source_id = "bank"
+                            child.inputs = {}
+                            child.available_sources = [{"type": "bank", "label": "From Bank", "id": "bank"}]
+                            child._collapsed_input = True
                         node.inputs[f"{mat_id}_{i}"] = child
 
     # -----------------------------------------------------------------------

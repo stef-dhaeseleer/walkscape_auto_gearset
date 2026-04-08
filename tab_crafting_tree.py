@@ -479,6 +479,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     """
                     components.html(js_code, height=50)
 
+        if getattr(node, '_collapsed_input', False):
+            st.info("This input has been simplified for optimization — any item with the matching keyword is equivalent.")
+
         # Show Local Node Math Breakdown
         if node.metrics and node.metrics.get("stats_used") and node.source_type != "bank":
             stats = node.metrics["stats_used"]

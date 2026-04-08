@@ -7721,6 +7721,13 @@
         "value": 1,
         "input_skill": null,
         "input_level": null
+      },
+      {
+        "type": "pet_ability",
+        "target": "Navigate Desert",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8024,6 +8031,13 @@
       {
         "type": "keyword_count",
         "target": "pickaxe",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
+      },
+      {
+        "type": "pet_ability",
+        "target": "Navigate Desert",
         "value": 1,
         "input_skill": null,
         "input_level": null
@@ -8349,6 +8363,13 @@
         "value": 1,
         "input_skill": null,
         "input_level": null
+      },
+      {
+        "type": "pet_ability",
+        "target": "Navigate Desert",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
       }
     ],
     "faction_rewards": [],
@@ -8556,6 +8577,13 @@
       {
         "type": "keyword_count",
         "target": "pickaxe",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
+      },
+      {
+        "type": "pet_ability",
+        "target": "Navigate Desert",
         "value": 1,
         "input_skill": null,
         "input_level": null
@@ -8970,6 +8998,13 @@
       {
         "type": "keyword_count",
         "target": "req_mining_60_pickaxe",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
+      },
+      {
+        "type": "pet_ability",
+        "target": "Navigate Desert",
         "value": 1,
         "input_skill": null,
         "input_level": null

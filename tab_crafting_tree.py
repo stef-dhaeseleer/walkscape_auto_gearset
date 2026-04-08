@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from models import CraftingNode
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET
-from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet
+from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained
 from calculations import calculate_node_metrics
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
@@ -869,11 +869,18 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 st.markdown("##### 📈 XP Breakdown")
                 st.caption("Experience gained by skill.")
                 xp_data = []
+                steps_by_skill = root.metrics.get("steps_by_skill", {})
                 for skill, amt in root.metrics["xp"].items():
                     if amt > 0:
+                        skill_steps = steps_by_skill.get(skill, 0) * target_amount
+                        xp_total = amt * target_amount
+                        xp_per_step_total = xp_total / total_steps if total_steps > 0 else 0
+                        xp_per_step_skill = xp_total / skill_steps if skill_steps > 0 else 0
                         xp_data.append({
                             "Skill": skill.title(),
-                            "XP": f"{amt * target_amount:,.1f}"
+                            "XP": f"{xp_total:,.1f}",
+                            "XP/Step (skill)": f"{xp_per_step_skill:,.3f}",
+                            "XP/Step (total)": f"{xp_per_step_total:,.3f}",
                         })
                 if xp_data:
                     st.dataframe(pd.DataFrame(xp_data).sort_values(by="Skill"), hide_index=True, width="stretch")
@@ -915,13 +922,17 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 for pet_name, steps in root.metrics["pet_steps_gained"].items():
                     final_steps = steps * target_amount
                     if final_steps > 0:
-                        pet_data.append({"Pet": pet_name, "Steps Gained": final_steps})
+                        charges = get_pet_charges_gained(pet_name, final_steps, game_data_dict)
+                        pet_data.append({"Pet": pet_name, "Steps Walked": final_steps, "Charges Gained": charges})
                 if pet_data:
-                    df_pets = pd.DataFrame(pet_data).sort_values(by="Steps Gained", ascending=False)
+                    df_pets = pd.DataFrame(pet_data).sort_values(by="Steps Walked", ascending=False)
                     st.dataframe(
-                        df_pets, 
-                        column_config={"Steps Gained": st.column_config.NumberColumn("Steps Walked", format="%.0f")},
-                        hide_index=True, 
+                        df_pets,
+                        column_config={
+                            "Steps Walked": st.column_config.NumberColumn("Steps Walked", format="%.0f"),
+                            "Charges Gained": st.column_config.NumberColumn("Charges Gained", format="%.1f"),
+                        },
+                        hide_index=True,
                         width="stretch"
                     )
                 else:

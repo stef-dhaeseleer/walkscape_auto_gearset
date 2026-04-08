@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import math
 import os
+import re
 import uuid
 from collections import Counter
 from typing import List, Dict, Tuple, Any, Optional
@@ -18,7 +19,7 @@ from drop_calculator import DropCalculator
 
 # --- GLOBAL TARGET CONFIG ---
 TARGET_CATEGORIES = {
-    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine",],
+    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine", "Xp Per Material"],
     "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
     "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
     "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
@@ -609,6 +610,18 @@ def load_data():
     return items, activities, recipes, locations, services, collectibles, pets, consumables, containers, materials
 
 
+def get_pet_ability_map(game_data_dict: dict) -> Dict[str, List[str]]:
+    """Returns a map of {ability_name: [pet_id, ...]} for all pets and their abilities."""
+    ability_map: Dict[str, List[str]] = {}
+    for pet in game_data_dict.get('pets', {}).values():
+        for lvl in pet.levels:
+            for ab in lvl.abilities:
+                ability_map.setdefault(ab.name, [])
+                if pet.id not in ability_map[ab.name]:
+                    ability_map[ab.name].append(pet.id)
+    return ability_map
+
+
 def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, drop_calc, user_ap: int = 0, total_lvl: int = 0, use_owned: bool = False, owned_pets: dict = None) -> Tuple[Optional[str], Optional[int]]:
     """Finds the best pet for a node based on stats, falling back to ability charging."""
     if not game_data_dict.get('pets'): return None, None
@@ -627,9 +640,42 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
     context = build_activity_context(activity_obj, user_ap, total_lvl, loc_map, drop_calc, getattr(node, 'selected_location_id', None))
     act_skill = (context.get("skill") or "").lower()
     loc_tags = context.get("location_tags", set())
-    loc_id = (context.get("location_id") or "").lower() 
+    loc_id = (context.get("location_id") or "").lower()
 
-    # 2. Phase 1: Find a pet that gives active stats
+    # 2. If the activity requires a specific pet ability, that pet is mandatory
+    required_abilities = [
+        r.target for r in getattr(activity_obj, 'requirements', [])
+        if r.type == RequirementType.PET_ABILITY and r.target
+    ]
+    if required_abilities:
+        ability_map = get_pet_ability_map(game_data_dict)
+        for ability_name in required_abilities:
+            provider_ids = ability_map.get(ability_name, [])
+            for pid in provider_ids:
+                pet = game_data_dict['pets'].get(pid)
+                if not pet: continue
+                if use_owned and pid not in owned_pets: continue
+                if use_owned and pid in owned_pets:
+                    target_lvl = owned_pets[pid]["level"]
+                    eval_lvl_obj = next((l for l in pet.levels if l.level == target_lvl), None)
+                    if not eval_lvl_obj:
+                        valid = [l for l in pet.levels if l.level <= target_lvl]
+                        eval_lvl_obj = valid[-1] if valid else None
+                else:
+                    eval_lvl_obj = pet.levels[-1] if pet.levels else None
+                if eval_lvl_obj:
+                    return pet.id, eval_lvl_obj.level
+        # Required pet not available (not owned or not in data) — still return first provider if any
+        for ability_name in required_abilities:
+            provider_ids = ability_map.get(ability_name, [])
+            for pid in provider_ids:
+                pet = game_data_dict['pets'].get(pid)
+                if not pet: continue
+                eval_lvl_obj = pet.levels[-1] if pet.levels else None
+                if eval_lvl_obj:
+                    return pet.id, eval_lvl_obj.level
+
+    # 3. Phase 1: Find a pet that gives active stats
     for pet in game_data_dict['pets'].values():
         # Skip if we are strictly using owned items and we don't own this pet
         if use_owned and pet.id not in owned_pets:
@@ -674,7 +720,7 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
         if helps:
             return pet.id, eval_lvl_obj.level
 
-    # 3. Phase 2: Find a pet that can charge an active ability (Fallback)
+    # 4. Phase 2: Find a pet that can charge an active ability (Fallback)
     for pet in game_data_dict['pets'].values():
         # Skip if we are strictly using owned items and we don't own this pet
         if use_owned and pet.id not in owned_pets:
@@ -729,6 +775,24 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
     return None, None
 
 
+def get_pet_charges_gained(pet_name: str, steps: float, game_data_dict: dict) -> Optional[float]:
+    """Return ability charges gained by walking `steps` with the named pet.
+
+    Looks up the pet's first step-based ability cooldown and divides steps by
+    that cooldown value. Returns None if the pet has no step-based cooldown.
+    """
+    for pet in game_data_dict['pets'].values():
+        if pet.name == pet_name:
+            for lvl in pet.levels:
+                for ab in lvl.abilities:
+                    if ab.cooldown and "steps" in ab.cooldown.lower():
+                        m = re.search(r'([\d,]+)\s*steps', ab.cooldown, re.IGNORECASE)
+                        if m:
+                            cd_steps = int(m.group(1).replace(',', ''))
+                            return steps / cd_steps
+    return None
+
+
 def format_target_metric(t_name, raw_val, base_steps):
     t_name_lower = t_name.lower()
     if "no steps" in t_name_lower:
@@ -736,6 +800,8 @@ def format_target_metric(t_name, raw_val, base_steps):
     elif "reward rolls" in t_name_lower:
         human_val = 1.0 / raw_val if raw_val > 0 else 0
         return f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
+    elif "xp per material" in t_name_lower:
+        return f"{raw_val:.2f} XP/Mat"
     elif "xp" in t_name_lower:
         return f"{raw_val:.2f} XP/Step"
     elif "chests" in t_name_lower:

@@ -75,6 +75,7 @@ class RequirementType(str, Enum):
     UNIQUE_TOOLS = "unique_tools"
     SPECIFIC_ACTIVITY = "specific_activity"
     INPUT_KEYWORD = "input_keyword"
+    PET_ABILITY = "pet_ability"
 
 class StatName(str, Enum):
     # Core
@@ -182,7 +183,8 @@ class OPTIMAZATION_TARGET(str, Enum):
     coins_no_chests = "coins_no_chests"
     coins_no_fines = "coins_no_fines"
     coins_no_chests_no_fines = "coins_no_chests_no_fines"
-    
+    xp_per_material = "xp_per_material"
+
     exp_no_steps = "exp_no_steps"
     chests_no_steps = "chests_no_steps"
     reward_rolls_no_steps = "reward_rolls_no_steps"
@@ -214,6 +216,7 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},
     OPTIMAZATION_TARGET.coins_no_chests_no_fines: COIN_BASE_STATS,
 
+    OPTIMAZATION_TARGET.xp_per_material: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.NO_MATERIALS_CONSUMED},
     OPTIMAZATION_TARGET.exp_no_steps: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.DOUBLE_ACTION},
     OPTIMAZATION_TARGET.chests_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS, StatName.CHEST_FINDING},
     OPTIMAZATION_TARGET.reward_rolls_no_steps: {StatName.DOUBLE_ACTION, StatName.DOUBLE_REWARDS},

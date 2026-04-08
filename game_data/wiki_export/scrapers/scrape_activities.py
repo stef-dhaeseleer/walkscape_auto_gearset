@@ -211,13 +211,13 @@ def parse_requirements_text(req_text, activity_data):
         activity = clean_text(completion_match.group(1))
         count = int(completion_match.group(2))
         activity_data['requirements']['activity_completions'][activity] = count
-    exact_item_match = re.search(r'Have\s+item\s+(.+?)\s+equipped', text, re.IGNORECASE)
+    exact_item_match = re.search(r'Have\s+item\s+(.+?)\s+equipped', req_text, re.IGNORECASE)
     if exact_item_match:
         item_name = exact_item_match.group(1).strip().lower().replace(" ", "_")
         activity_data['requirements']['keyword_counts'][f'exact_item_{item_name}'] = 1
 
     # 2. Tool Level Requirement (e.g., "Have Hatchet Hatchet equipped that requires at least Woodcutting Woodcutting level [50]")
-    level_req_match = re.search(r'Have\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+equipped\s+that\s+requires\s+at\s+least\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+level\s*\[?(\d+)\]?', text, re.IGNORECASE)
+    level_req_match = re.search(r'Have\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+equipped\s+that\s+requires\s+at\s+least\s+(?:[A-Za-z]+\s+)?([A-Za-z]+)\s+level\s*\[?(\d+)\]?', req_text, re.IGNORECASE)
     if level_req_match:
         keyword = level_req_match.group(1).lower()
         skill = level_req_match.group(2).lower()
@@ -281,6 +281,14 @@ def parse_requirements_section(soup, activity_data):
                     ap_match = re.search(r'\[(\d+)\].*?achievement point', li_text, re.IGNORECASE)
                     if ap_match:
                         activity_data['requirements']['achievement_points'] = int(ap_match.group(1))
+
+                # Pet ability requirement: "While having <ability_name> ability available."
+                if 'ability available' in li_text.lower():
+                    ability_link = li.find('a', href=re.compile(r'Abilities', re.I))
+                    if ability_link:
+                        ability_name = clean_text(ability_link.get_text())
+                        if ability_name and ability_name not in activity_data['requirements']['pet_abilities']:
+                            activity_data['requirements']['pet_abilities'].append(ability_name)
 
         if 'light source' in text.lower():
             match = re.search(r'\[(\d+)\].*?light\s+sources?', text, re.IGNORECASE)
@@ -568,7 +576,8 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
             'reputation': {},
             'activity_completions': {},
             'tool_equipped': None,
-            'unique_tools': 0
+            'unique_tools': 0,
+            'pet_abilities': []
         },
         'loot_tables': [], 
         'base_steps': 0,
@@ -620,6 +629,9 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         reqs_list.append(Requirement(type=RequirementType.TOOL_EQUIPPED, target=data['requirements']['tool_equipped'].lower(), value=1))
     if data['requirements']['unique_tools'] > 0:
         reqs_list.append(Requirement(type=RequirementType.UNIQUE_TOOLS, value=data['requirements']['unique_tools']))
+
+    for ability_name in data['requirements']['pet_abilities']:
+        reqs_list.append(Requirement(type=RequirementType.PET_ABILITY, target=ability_name, value=1))
 
     rewards_list = []
     for fac, amt in data['faction_reputation'].items():

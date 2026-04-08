@@ -329,7 +329,7 @@ DUAL_FORMAT_STATS = {
 SKILL_KEYWORDS = [
     'agility', 'carpentry', 'cooking', 'crafting', 'fishing',
     'foraging', 'mining', 'smithing', 'trinketry', 'woodcutting',
-    'traveling', 'global'
+    'traveling', 'tailoring','hunting','global'
 ]
 
 # Activities (not skills) - stats for these should be excluded or handled separately

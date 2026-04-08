@@ -127,8 +127,8 @@
         "value": 2.0,
         "conditions": [
           {
-            "type": "global",
-            "target": null,
+            "type": "skill_activity",
+            "target": "hunting",
             "value": null
           }
         ]
@@ -277,8 +277,8 @@
         "value": 1.0,
         "conditions": [
           {
-            "type": "global",
-            "target": null,
+            "type": "skill_activity",
+            "target": "hunting",
             "value": null
           }
         ]
@@ -295,8 +295,8 @@
         "value": 1.0,
         "conditions": [
           {
-            "type": "global",
-            "target": null,
+            "type": "skill_activity",
+            "target": "tailoring",
             "value": null
           }
         ]

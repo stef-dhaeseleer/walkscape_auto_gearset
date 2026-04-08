@@ -414,7 +414,6 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     if sel_loc_name:
                         selected_location_id = loc_name_to_id[sel_loc_name]
 
-            # --- NEW: Dynamic Input Material Selection ---
             if is_recipe and getattr(selected_obj, 'materials', None):
                 st.markdown("**Input Materials**")
                 for i, mat_group in enumerate(selected_obj.materials):
@@ -604,11 +603,13 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             if is_recipe and selected_service:
                 final_activity = synthesize_activity_from_recipe(selected_obj, selected_service)
                 extra_passive_stats = extract_modifier_stats(selected_service.modifiers)
-            for mat in selected_input_materials:
-                if mat.modifiers:
-                    mat_stats = extract_modifier_stats(mat.modifiers)
-                    for k, v in mat_stats.items():
-                        extra_passive_stats[k] = extra_passive_stats.get(k, 0.0) + v
+
+            if not is_recipe:
+                for mat in selected_input_materials:
+                    if mat.modifiers:
+                        mat_stats = extract_modifier_stats(mat.modifiers)
+                        for k, v in mat_stats.items():
+                            extra_passive_stats[k] = extra_passive_stats.get(k, 0.0) + v
 
             player_lvl = calculated_char_lvl if valid_json else 99
             final_skill_lvl = 99
@@ -1005,7 +1006,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     if saved_materials:
                         for i, mat in enumerate(saved_materials):
                             st.markdown(f"<div class='item-header'>📦 Input {i+1}: {mat.name}</div>", unsafe_allow_html=True)
-                            if mat.modifiers:
+                            if mat.modifiers and not saved_is_recipe:
                                 html_mods = ""
                                 for mod in mat.modifiers:
                                     is_active = True

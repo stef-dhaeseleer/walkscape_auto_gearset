@@ -569,6 +569,43 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     for slot, name in tool_items[tool_mid:]:
                         st.markdown(f"**{slot}**  \n{name}")
 
+        # --- Debug Info ---
+        if node.metrics and node.metrics.get("debug") and node.source_type != "bank":
+            with st.expander("🐛 Debug Info", expanded=False):
+                dbg = node.metrics["debug"]
+                st.code(
+                    f"node.item_id:          {dbg.get('node_item_id')}\n"
+                    f"target_item_id:        {dbg.get('target_item_id')}\n"
+                    f"global_use_fine:       {dbg.get('global_use_fine')}\n"
+                    f"source_type:           {dbg.get('source_type')}\n"
+                    f"source_id:             {dbg.get('source_id')}\n"
+                    f"activity_id:           {dbg.get('activity_id')}\n"
+                    f"activity_name:         {dbg.get('activity_name')}\n"
+                    f"\n--- Step Calculation ---\n"
+                    f"activity_base_steps:   {dbg.get('activity_base_steps')}\n"
+                    f"activity_obj_type:     {dbg.get('activity_obj_type')}\n"
+                    f"activity_dict_base_steps:{dbg.get('activity_obj_dict_base_steps')}\n"
+                    f"all_matching_activities:{dbg.get('all_matching_activities')}\n"
+                    f"same_object_as_gamedata:{dbg.get('same_object')}\n"
+                    f"activity_max_efficiency:{dbg.get('activity_max_efficiency')}\n"
+                    f"activity_level:        {dbg.get('activity_level')}\n"
+                    f"player_lvl:            {dbg.get('player_lvl')}\n"
+                    f"WE (work_efficiency):  {dbg.get('WE')}\n"
+                    f"flat_step_reduction:   {dbg.get('flat_step_reduction')}\n"
+                    f"percent_step_reduction:{dbg.get('percent_step_reduction')}\n"
+                    f"steps_per_action:      {dbg.get('steps_per_action')}\n"
+                    f"\n--- Drop Calculation ---\n"
+                    f"fine_material_finding: {dbg.get('fine_material_finding')}\n"
+                    f"matched_target:        {dbg.get('matched_target')}\n"
+                    f"matched_drop:          {dbg.get('matched_drop')}\n"
+                    f"p_valid_quality:       {node.metrics.get('stats_used', {}).get('p_valid_quality')}\n"
+                    f"steps (result):        {node.metrics.get('steps')}\n",
+                    language=None
+                )
+                if dbg.get("drop_table"):
+                    st.caption("Full drop table from `get_drop_table()`:")
+                    st.dataframe(pd.DataFrame(dbg["drop_table"]), hide_index=True)
+
         st.write("")
         if node.source_type == "recipe":
             recipe = game_data_dict['recipes'].get(node.source_id)

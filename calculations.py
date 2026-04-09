@@ -606,6 +606,15 @@ def calculate_node_metrics(
         "p_valid_quality": p_valid_quality,
         "base_steps": activity_obj.base_steps if activity_obj else 0
     }
+    res["debug"] = {
+        "node_item_id": node.item_id,
+        "target_item_id": target_item_id,
+        "global_use_fine": global_use_fine,
+        "source_type": node.source_type,
+        "source_id": node.source_id,
+        "activity_id": activity_obj.id if activity_obj else None,
+        "activity_name": activity_obj.name if activity_obj else None,
+    }
  
     is_using_ability = False
     instant_pet = None
@@ -673,8 +682,32 @@ def calculate_node_metrics(
     elif node.source_type == "activity":
         steps_per_action = calculate_steps(activity_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
         drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
+        res["debug"]["steps_per_action"] = steps_per_action
+        res["debug"]["player_lvl"] = player_lvl
+        res["debug"]["activity_level"] = activity_obj.level
+        res["debug"]["activity_base_steps"] = activity_obj.base_steps
+        res["debug"]["activity_obj_type"] = type(activity_obj).__name__
+        res["debug"]["activity_obj_dict_base_steps"] = activity_obj.__dict__.get("base_steps", "NOT_IN_DICT") if hasattr(activity_obj, '__dict__') else "NO_DICT"
+        # Check all activities in game_data with this ID
+        all_matches = [(a_id, a.base_steps) for a_id, a in game_data.get('activities', {}).items() if a_id == activity_obj.id]
+        res["debug"]["all_matching_activities"] = all_matches
+        res["debug"]["activity_obj_id_python"] = id(activity_obj)
+        res["debug"]["game_data_obj_id_python"] = id(game_data.get('activities', {}).get(activity_obj.id))
+        res["debug"]["same_object"] = activity_obj is game_data.get('activities', {}).get(activity_obj.id)
+        res["debug"]["activity_max_efficiency"] = activity_obj.max_efficiency
+        res["debug"]["WE"] = WE
+        res["debug"]["flat_step_reduction"] = int(stats.get("flat_step_reduction", 0))
+        res["debug"]["percent_step_reduction"] = stats.get("percent_step_reduction", 0.0)
+        res["debug"]["fine_material_finding"] = stats.get("fine_material_finding", 0.0)
+        res["debug"]["drop_table"] = [
+            {k: round(v, 6) if isinstance(v, float) else v for k, v in d.items()}
+            for d in drop_table
+        ]
+        res["debug"]["drop_table_items"] = [d["Item"] for d in drop_table]
+        matched_drop = None
         for drop in drop_table:
             if drop["Item"] == target_item_id:
+                matched_drop = drop
                 normal_steps = drop["Steps"] / p_valid_quality
                 actions_needed = normal_steps / steps_per_action
                 
@@ -722,6 +755,8 @@ def calculate_node_metrics(
                     for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
 
                 break
+        res["debug"]["matched_drop"] = matched_drop
+        res["debug"]["matched_target"] = target_item_id
 
     # ==========================================
     # CHEST

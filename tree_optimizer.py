@@ -563,6 +563,8 @@ class TreeNodeOptimizer:
             return None
 
         gear_targets = TREE_GOAL_TO_GEAR_TARGETS.get(self.goal, [(OPTIMAZATION_TARGET.reward_rolls, 100.0)])
+        if self._global_use_fine and self.goal == "minimize_steps":
+            gear_targets = [(OPTIMAZATION_TARGET.fine, 100.0)]
 
         node_context = build_activity_context(
             activity_obj,
@@ -654,7 +656,10 @@ class TreeNodeOptimizer:
     # -----------------------------------------------------------------------
 
     def _make_auto_target(self) -> List[Dict]:
-        name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")
+        if self._global_use_fine and self.goal == "minimize_steps":
+            name = "Fine"
+        else:
+            name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")
         return [{"id": 0, "target": name, "weight": 100}]
 
 

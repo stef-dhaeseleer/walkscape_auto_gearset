@@ -37,11 +37,12 @@ TREE_GOAL_OPTIONS: Dict[str, str] = {
     "maximize_xp_per_step": "📈 Maximize XP per Step",
 }
 
-# Map a tree goal to the GearOptimizer target used while evaluating candidates.
-TREE_GOAL_TO_GEAR_TARGET: Dict[str, OPTIMAZATION_TARGET] = {
-    "minimize_steps":    OPTIMAZATION_TARGET.reward_rolls,
-    "maximize_xp":       OPTIMAZATION_TARGET.xp,
-    "maximize_xp_per_step": OPTIMAZATION_TARGET.xp,
+# Map a tree goal to the GearOptimizer target(s) used while evaluating candidates.
+TREE_GOAL_TO_GEAR_TARGETS: Dict[str, List[Tuple[OPTIMAZATION_TARGET, float]]] = {
+    "minimize_steps":       [(OPTIMAZATION_TARGET.reward_rolls, 100.0)],
+    "maximize_xp":          [(OPTIMAZATION_TARGET.xp, 100.0)],
+    "maximize_xp_per_step": [(OPTIMAZATION_TARGET.xp, 50.0),
+                             (OPTIMAZATION_TARGET.reward_rolls, 50.0)],
 }
 
 # Map a tree goal to the auto_optimize_target name stored on the node.
@@ -282,18 +283,22 @@ class TreeNodeOptimizer:
         # Preserve existing children so each candidate can reference them.
         saved_inputs = dict(node.inputs)
         saved_act_inputs = dict(node.selected_activity_inputs)
+        original_source_type = node.source_type
 
         best_score: Optional[float] = None
         best_state: Optional[dict] = None
 
         for config in configs:
             work = _fresh_node(node)
-            # Restore existing children before each trial.
-            work.inputs = dict(saved_inputs)
-            work.selected_activity_inputs = dict(saved_act_inputs)
-
-            # Apply only the source-level parts of this config (no input rebuild).
-            _apply_source_level(work, config)
+            # Rebuild children from scratch for this config so they match its source type.
+            self._apply_config(work, config)
+            # When source type matches the original, overlay the user's existing
+            # (possibly already-optimized) children back onto the fresh defaults.
+            if config["source_type"] == original_source_type:
+                for key in saved_inputs:
+                    if key in work.inputs:
+                        work.inputs[key] = saved_inputs[key]
+                work.selected_activity_inputs = dict(saved_act_inputs)
 
             gear = self._run_gear_opt(work)
             work.auto_gear_set = gear
@@ -339,25 +344,29 @@ class TreeNodeOptimizer:
 
             if src_type == "chest":
                 parts = src_id_raw.split("::")
-                configs.append({
-                    "source_type": "chest",
-                    "source_id": parts[0],
-                    "parent_activity_id": parts[1] if len(parts) > 1 else None,
-                    "material_choices": {},
-                    "activity_inputs": {},
-                    "service_id": None,
-                    "location_id": None,
-                })
+                parent_act_id = parts[1] if len(parts) > 1 else None
+                loc_ids = self._get_location_ids("activity", parent_act_id) if parent_act_id else [None]
+                for loc_id in loc_ids:
+                    configs.append({
+                        "source_type": "chest",
+                        "source_id": parts[0],
+                        "parent_activity_id": parent_act_id,
+                        "material_choices": {},
+                        "activity_inputs": {},
+                        "service_id": None,
+                        "location_id": loc_id,
+                    })
                 continue
 
             for combo in self._input_combos(src_type, src_id_raw):
-                configs.append({
-                    "source_type": src_type,
-                    "source_id": src_id_raw,
-                    "parent_activity_id": None,
-                    **combo,
-                    "location_id": None,
-                })
+                for loc_id in self._get_location_ids(src_type, src_id_raw):
+                    configs.append({
+                        "source_type": src_type,
+                        "source_id": src_id_raw,
+                        "parent_activity_id": None,
+                        **combo,
+                        "location_id": loc_id,
+                    })
 
         return configs
 
@@ -450,6 +459,14 @@ class TreeNodeOptimizer:
             return combos
 
         return [{"material_choices": {}, "activity_inputs": {}, "service_id": None}]
+
+    def _get_location_ids(self, src_type: str, src_id: Optional[str]) -> List[Optional[str]]:
+        """Return location IDs to try for a source. Falls back to [None]."""
+        if src_type == "activity" and src_id:
+            activity = self._gd.get("activities", {}).get(src_id)
+            if activity and activity.locations:
+                return list(activity.locations)
+        return [None]
 
     # -----------------------------------------------------------------------
     # Config application
@@ -545,7 +562,7 @@ class TreeNodeOptimizer:
         if not activity_obj:
             return None
 
-        gear_target = TREE_GOAL_TO_GEAR_TARGET.get(self.goal, OPTIMAZATION_TARGET.reward_rolls)
+        gear_targets = TREE_GOAL_TO_GEAR_TARGETS.get(self.goal, [(OPTIMAZATION_TARGET.reward_rolls, 100.0)])
 
         node_context = build_activity_context(
             activity_obj,
@@ -589,7 +606,7 @@ class TreeNodeOptimizer:
                 activity=activity_obj,
                 player_level=self._char_lvl,
                 player_skill_level=player_lvl,
-                optimazation_target=[(gear_target, 100.0)],
+                optimazation_target=gear_targets,
                 owned_item_counts=self._owned_item_counts,
                 achievement_points=self._ap,
                 user_reputation=self._reputation,

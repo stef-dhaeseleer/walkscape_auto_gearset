@@ -632,6 +632,18 @@ def calculate_node_metrics(
     # ==========================================
     if node.source_type == "recipe":
         steps_per_action = calculate_steps(recipe_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
+        res["debug"]["activity_base_steps"] = activity_obj.base_steps
+        res["debug"]["activity_obj_type"] = type(activity_obj).__name__
+        res["debug"]["activity_obj_dict_base_steps"] = activity_obj.__dict__.get("base_steps", "NOT_IN_DICT") if hasattr(activity_obj, "__dict__") else "NO_DICT"
+        res["debug"]["all_matching_activities"] = None
+        res["debug"]["same_object"] = None
+        res["debug"]["activity_max_efficiency"] = activity_obj.max_efficiency
+        res["debug"]["activity_level"] = min_level
+        res["debug"]["player_lvl"] = player_lvl
+        res["debug"]["WE"] = WE
+        res["debug"]["flat_step_reduction"] = int(stats.get("flat_step_reduction", 0))
+        res["debug"]["percent_step_reduction"] = stats.get("percent_step_reduction", 0.0)
+        res["debug"]["steps_per_action"] = steps_per_action
         q_out = recipe_obj.output_quantity
         
         actions_needed = 1.0 / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)

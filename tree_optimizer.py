@@ -27,7 +27,7 @@ import logging
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 from models import CraftingNode, GearSet
-from utils.constants import OPTIMAZATION_TARGET
+from utils.constants import OPTIMAZATION_TARGET, GATHERING_SKILLS
 
 logger = logging.getLogger(__name__)
 
@@ -592,7 +592,7 @@ class TreeNodeOptimizer:
             return None
 
         gear_targets = TREE_GOAL_TO_GEAR_TARGETS.get(self.goal, [(OPTIMAZATION_TARGET.reward_rolls, 100.0)])
-        if self._global_use_fine and self.goal == "minimize_steps":
+        if self._global_use_fine and self.goal == "minimize_steps" and skill_name.lower() in GATHERING_SKILLS:
             gear_targets = [(OPTIMAZATION_TARGET.fine, 100.0)]
 
         node_context = build_activity_context(

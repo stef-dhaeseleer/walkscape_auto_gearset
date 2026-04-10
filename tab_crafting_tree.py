@@ -9,6 +9,7 @@ from calculations import calculate_node_metrics
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
 from tree_optimizer import TreeNodeOptimizer, TREE_GOAL_OPTIONS
+from utils.data_loader import load_blocklist
 
 @st.dialog("⚙️ Choose Optimization Targets")
 def node_target_dialog(node: CraftingNode):
@@ -143,6 +144,8 @@ def _run_tree_opt(node, scope, optimizer_context, game_data_dict, drop_calc, loc
         goal=optimizer_context["tree_opt_goal"],
         global_quality=optimizer_context["global_quality"],
         global_use_fine=optimizer_context["global_use_fine"],
+        gear_mode=optimizer_context.get("gear_mode", "inventory"),
+        blocklist_ids=optimizer_context.get("blocklist_ids"),
     )
 
     progress_bar = st.progress(0, text="Running tree optimizer…")
@@ -852,7 +855,38 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
             )
             selected_goal = goal_keys[goal_labels.index(selected_goal_label)]
             st.session_state['tree_opt_goal'] = selected_goal
+
+        # --- Gear Mode Selector ---
+        gear_mode_options = {
+            "inventory": "📦 My Inventory",
+            "all_gear": "🌟 All Gear (Best Quality)",
+            "all_minus_blocklist": "🚫 All Gear minus Blocklist",
+        }
+        gear_mode_keys = list(gear_mode_options.keys())
+        gear_mode_labels = list(gear_mode_options.values())
+        current_gear_mode = st.session_state.get('tree_gear_mode', 'inventory')
+        gear_mode_idx = gear_mode_keys.index(current_gear_mode) if current_gear_mode in gear_mode_keys else 0
         with opt_col2:
+            selected_gear_mode_label = st.selectbox(
+                "Gear Pool",
+                options=gear_mode_labels,
+                index=gear_mode_idx,
+                key="tree_gear_mode_select",
+                help=(
+                    "**My Inventory** — Only gear you own.\n\n"
+                    "**All Gear (Best Quality)** — Every item in the game at highest quality. True theoretical best.\n\n"
+                    "**All Gear minus Blocklist** — Same as above but excluding items in `game_data/blocklist.txt` (ethereal items by default)."
+                ),
+            )
+            selected_gear_mode = gear_mode_keys[gear_mode_labels.index(selected_gear_mode_label)]
+            st.session_state['tree_gear_mode'] = selected_gear_mode
+
+        # Load blocklist when needed
+        blocklist_ids = set()
+        if selected_gear_mode == "all_minus_blocklist":
+            blocklist_ids = load_blocklist()
+
+        with opt_col3:
             st.write("")
             st.write("")
             if st.button("⚡ Optimize Full Tree", type="secondary", help="Try every source/gear combination on all nodes and apply the best configuration. This may take a while."):
@@ -862,12 +896,25 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     "tree_opt_goal": selected_goal,
                     "global_quality": st.session_state.get('global_quality', 'Normal'),
                     "global_use_fine": st.session_state.get('global_fine', False),
+                    "gear_mode": selected_gear_mode,
+                    "blocklist_ids": blocklist_ids,
                 }
                 with st.spinner("Running full tree optimization…"):
                     _run_tree_opt(root, "full", optimizer_context_full, game_data_dict, drop_calc, locations, user_state, is_root=True)
                 st.rerun()
-        with opt_col3:
-            st.caption("Per-node ⚡ buttons are available inside each node expander.")
+
+        # --- Blocklist display ---
+        if selected_gear_mode == "all_minus_blocklist" and blocklist_ids:
+            with st.expander(f"🚫 Blocklist ({len(blocklist_ids)} items excluded) — edit `game_data/blocklist.txt` to change", expanded=False):
+                # Build a name lookup from all_items_raw for display
+                id_to_name = {item.id.lower(): item.name for item in all_items_raw}
+                blocklist_display = sorted(
+                    [{"ID": bid, "Name": id_to_name.get(bid, bid.replace("_", " ").title())} for bid in blocklist_ids],
+                    key=lambda x: x["Name"],
+                )
+                st.dataframe(blocklist_display, use_container_width=True, hide_index=True)
+        elif selected_gear_mode == "all_gear":
+            st.caption("Using **all gear** in the game at highest available quality — no ownership restrictions.")
 
         # Show persisted optimizer log from the last run
         if st.session_state.get('tree_opt_log'):
@@ -881,6 +928,8 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
             "tree_opt_goal": selected_goal,
             "global_quality": st.session_state.get('global_quality', 'Normal'),
             "global_use_fine": st.session_state.get('global_fine', False),
+            "gear_mode": selected_gear_mode,
+            "blocklist_ids": blocklist_ids,
         }
 
         st.divider()
@@ -890,7 +939,11 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
         if st.button("🧮 Calculate True Cost & Run Optimizers", type="primary"):
 
             optimizer = GearOptimizer(all_items_raw, locations)
-            owned_item_counts = user_state.get("item_counts", {}) if valid_json else {}
+            if selected_gear_mode == "inventory":
+                owned_item_counts = user_state.get("item_counts", {}) if valid_json else {}
+            else:
+                owned_item_counts = None
+            calc_blocklist = blocklist_ids if selected_gear_mode == "all_minus_blocklist" else set()
             ap = user_state.get("user_ap", 0) if valid_json else 0
             reputation = user_state.get("user_reputation", {}) if valid_json else {}
             collectibles = user_state.get("owned_collectibles", []) if valid_json else []
@@ -1007,7 +1060,8 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                 context_override=node_context,
                                 pet=pet_obj,
                                 consumable=cons_obj,
-                                extra_passive_stats=extra_passives
+                                extra_passive_stats=extra_passives,
+                                blacklisted_ids=calc_blocklist,
                             )
                             node.auto_gear_set = opt_result[0] 
                     

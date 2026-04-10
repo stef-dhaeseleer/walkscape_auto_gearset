@@ -24,7 +24,7 @@ in many branches) are solved only once.
 import copy
 import itertools
 import logging
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 from models import CraftingNode, GearSet
 from utils.constants import OPTIMAZATION_TARGET
@@ -88,6 +88,8 @@ class TreeNodeOptimizer:
     goal             : One of the keys in TREE_GOAL_OPTIONS.
     global_quality   : Target quality string for the root node ("Normal", "Good", …).
     global_use_fine  : Whether fine materials are globally enabled.
+    gear_mode        : "inventory" (default), "all_gear", or "all_minus_blocklist".
+    blocklist_ids    : Set of item IDs to exclude when gear_mode is "all_minus_blocklist".
     """
 
     def __init__(
@@ -103,6 +105,8 @@ class TreeNodeOptimizer:
         goal: str = "minimize_steps",
         global_quality: str = "Normal",
         global_use_fine: bool = False,
+        gear_mode: str = "inventory",
+        blocklist_ids: Optional[Set[str]] = None,
     ) -> None:
         self._optimizer = gear_optimizer
         self._gd = game_data_dict
@@ -116,9 +120,15 @@ class TreeNodeOptimizer:
         self.goal = goal
         self._global_quality = global_quality
         self._global_use_fine = global_use_fine
+        self._gear_mode = gear_mode
+        self._blocklist_ids: Set[str] = blocklist_ids or set()
 
         # Derived from user_state for gear optimizer calls
-        self._owned_item_counts: dict = user_state.get("item_counts", {})
+        # When gear_mode is not "inventory", ownership is bypassed (None = unlimited).
+        if gear_mode == "inventory":
+            self._owned_item_counts: Optional[dict] = user_state.get("item_counts", {})
+        else:
+            self._owned_item_counts = None
         self._ap: int = user_state.get("user_ap", 0)
         self._reputation: dict = user_state.get("user_reputation", {})
         self._collectibles: list = user_state.get("owned_collectibles", [])
@@ -636,6 +646,7 @@ class TreeNodeOptimizer:
                 pet=pet_obj,
                 consumable=cons_obj,
                 extra_passive_stats=extra_passives,
+                blacklisted_ids=self._blocklist_ids if self._gear_mode == "all_minus_blocklist" else None,
             )
             return result[0]
         except Exception:

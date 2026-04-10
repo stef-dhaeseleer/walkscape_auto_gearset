@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 import json
 import pandas as pd
 from models import CraftingNode
-from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET
+from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET, GATHERING_SKILLS, ARTISAN_SKILLS
 from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained
 from calculations import calculate_node_metrics
 from gear_optimizer import GearOptimizer
@@ -851,8 +851,23 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     st.session_state['global_fine'] = new_fine_val
 
                     def force_fine_targets(n):
-                        if n.source_type == "activity" and getattr(n, 'loadout_id', None) == "AUTO":
-                            target_name = "Fine" if new_fine_val else "Reward Rolls"
+                        if getattr(n, 'loadout_id', None) == "AUTO":
+                            if n.source_type == "activity":
+                                act = game_data_dict.get('activities', {}).get(n.source_id)
+                                skill = act.primary_skill.lower() if act else ""
+                            elif n.source_type == "recipe":
+                                recipe = game_data_dict.get('recipes', {}).get(n.source_id)
+                                skill = recipe.skill.lower() if recipe else ""
+                            else:
+                                skill = ""
+                            if not new_fine_val:
+                                target_name = "Reward Rolls"
+                            elif skill in GATHERING_SKILLS:
+                                target_name = "Fine"
+                            elif skill in ARTISAN_SKILLS:
+                                target_name = "Materials From Input"
+                            else:
+                                target_name = "Reward Rolls"
                             n.auto_optimize_target = [{"id": 0, "target": target_name, "weight": 100}]
                         for child in n.inputs.values():
                             force_fine_targets(child)

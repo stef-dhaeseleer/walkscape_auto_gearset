@@ -27,7 +27,7 @@ import logging
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 from models import CraftingNode, GearSet
-from utils.constants import OPTIMAZATION_TARGET, GATHERING_SKILLS
+from utils.constants import OPTIMAZATION_TARGET, GATHERING_SKILLS, ARTISAN_SKILLS
 
 logger = logging.getLogger(__name__)
 
@@ -594,8 +594,11 @@ class TreeNodeOptimizer:
             return None
 
         gear_targets = TREE_GOAL_TO_GEAR_TARGETS.get(self.goal, [(OPTIMAZATION_TARGET.reward_rolls, 100.0)])
-        if self._global_use_fine and self.goal == "minimize_steps" and skill_name.lower() in GATHERING_SKILLS:
-            gear_targets = [(OPTIMAZATION_TARGET.fine, 100.0)]
+        if self._global_use_fine and self.goal == "minimize_steps":
+            if skill_name.lower() in GATHERING_SKILLS:
+                gear_targets = [(OPTIMAZATION_TARGET.fine, 100.0)]
+            elif skill_name.lower() in ARTISAN_SKILLS:
+                gear_targets = [(OPTIMAZATION_TARGET.materials_from_input, 100.0)]
 
         node_context = build_activity_context(
             activity_obj,
@@ -702,8 +705,13 @@ class TreeNodeOptimizer:
             act = self._gd.get("activities", {}).get(act_id)
             if act:
                 skill_name = act.primary_skill
-        if self._global_use_fine and self.goal == "minimize_steps" and skill_name.lower() in GATHERING_SKILLS:
-            name = "Fine"
+        if self._global_use_fine and self.goal == "minimize_steps":
+            if skill_name.lower() in GATHERING_SKILLS:
+                name = "Fine"
+            elif skill_name.lower() in ARTISAN_SKILLS:
+                name = "Materials From Input"
+            else:
+                name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")
         else:
             name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")
         return [{"id": 0, "target": name, "weight": 100}]

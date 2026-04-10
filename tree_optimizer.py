@@ -264,7 +264,7 @@ class TreeNodeOptimizer:
             gear = self._run_gear_opt(work)
             work.auto_gear_set = gear
             work.loadout_id = "AUTO"
-            work.auto_optimize_target = self._make_auto_target()
+            work.auto_optimize_target = self._make_auto_target(work)
             work._tree_opt_done = True
 
             self._tick()
@@ -278,6 +278,7 @@ class TreeNodeOptimizer:
         if best_state is not None:
             _apply_state(node, best_state)
             node._tree_opt_done = True
+            node._tree_opt_score = best_score
             self._memo[cache_key] = (_deep_copy_state(best_state), best_score)
 
         if self._node_done_cb and best_state is not None:
@@ -332,7 +333,7 @@ class TreeNodeOptimizer:
             gear = self._run_gear_opt(work)
             work.auto_gear_set = gear
             work.loadout_id = "AUTO"
-            work.auto_optimize_target = self._make_auto_target()
+            work.auto_optimize_target = self._make_auto_target(work)
             work._tree_opt_done = True
 
             self._tick()
@@ -346,6 +347,7 @@ class TreeNodeOptimizer:
         if best_state is not None:
             _apply_state(node, best_state)
             node._tree_opt_done = True
+            node._tree_opt_score = best_score
 
         if self._node_done_cb and best_state is not None:
             self._node_done_cb(
@@ -689,8 +691,18 @@ class TreeNodeOptimizer:
     # Misc
     # -----------------------------------------------------------------------
 
-    def _make_auto_target(self) -> List[Dict]:
-        if self._global_use_fine and self.goal == "minimize_steps":
+    def _make_auto_target(self, node: CraftingNode) -> List[Dict]:
+        skill_name = ""
+        if node.source_type == "recipe":
+            recipe = self._gd["recipes"].get(node.source_id)
+            if recipe:
+                skill_name = recipe.skill
+        elif node.source_type in ("activity", "chest"):
+            act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
+            act = self._gd.get("activities", {}).get(act_id)
+            if act:
+                skill_name = act.primary_skill
+        if self._global_use_fine and self.goal == "minimize_steps" and skill_name.lower() in GATHERING_SKILLS:
             name = "Fine"
         else:
             name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")

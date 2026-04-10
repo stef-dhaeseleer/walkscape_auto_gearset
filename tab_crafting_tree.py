@@ -576,14 +576,24 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
         if node.metrics and node.metrics.get("debug") and node.source_type != "bank":
             with st.expander("🐛 Debug Info", expanded=False):
                 dbg = node.metrics["debug"]
+                stats_used = node.metrics.get('stats_used', {})
+                src_type = dbg.get('source_type')
                 st.code(
                     f"node.item_id:          {dbg.get('node_item_id')}\n"
                     f"target_item_id:        {dbg.get('target_item_id')}\n"
                     f"global_use_fine:       {dbg.get('global_use_fine')}\n"
-                    f"source_type:           {dbg.get('source_type')}\n"
+                    f"source_type:           {src_type}\n"
                     f"source_id:             {dbg.get('source_id')}\n"
                     f"activity_id:           {dbg.get('activity_id')}\n"
                     f"activity_name:         {dbg.get('activity_name')}\n"
+                    f"\n--- Optimizer ---\n"
+                    f"gear_target:           {dbg.get('gear_target')}\n"
+                    f"tree_opt_score:        {dbg.get('tree_opt_score')}\n"
+                    f"\n--- Stats ---\n"
+                    f"DA (double_action):    {dbg.get('DA')}\n"
+                    f"DR (double_rewards):   {dbg.get('DR')}\n"
+                    + (f"NMC (no_mat_consumed): {dbg.get('NMC')}\n" if src_type == "recipe" else "")
+                    + f"quality_outcome:       {dbg.get('quality_outcome')}\n"
                     f"\n--- Step Calculation ---\n"
                     f"activity_base_steps:   {dbg.get('activity_base_steps')}\n"
                     f"activity_obj_type:     {dbg.get('activity_obj_type')}\n"
@@ -597,11 +607,17 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     f"flat_step_reduction:   {dbg.get('flat_step_reduction')}\n"
                     f"percent_step_reduction:{dbg.get('percent_step_reduction')}\n"
                     f"steps_per_action:      {dbg.get('steps_per_action')}\n"
-                    f"\n--- Drop Calculation ---\n"
+                    + (
+                        f"\n--- Recipe Output ---\n"
+                        f"output_quantity:       {dbg.get('output_quantity')}\n"
+                        f"actions_needed:        {dbg.get('actions_needed')}\n"
+                        if src_type == "recipe" else ""
+                    )
+                    + f"\n--- Drop Calculation ---\n"
                     f"fine_material_finding: {dbg.get('fine_material_finding')}\n"
                     f"matched_target:        {dbg.get('matched_target')}\n"
                     f"matched_drop:          {dbg.get('matched_drop')}\n"
-                    f"p_valid_quality:       {node.metrics.get('stats_used', {}).get('p_valid_quality')}\n"
+                    f"p_valid_quality:       {stats_used.get('p_valid_quality')}\n"
                     f"steps (result):        {node.metrics.get('steps')}\n",
                     language=None
                 )
@@ -618,10 +634,14 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     opts = [s.id for s in compat_services]
                     def format_srv(x):
                         return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
-                    idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
+                    srv_key = f"inl_srv_{node.node_id}"
+                    current_srv = getattr(node, 'selected_service_id', None)
+                    if current_srv in opts:
+                        st.session_state[srv_key] = current_srv
+                    idx = opts.index(current_srv) if current_srv in opts else 0
                     
-                    new_srv = st.selectbox("📌 Service Override", opts, index=idx, format_func=format_srv, key=f"inl_srv_{node.node_id}")
-                    if new_srv != (getattr(node, 'selected_service_id', None) or "None"):
+                    new_srv = st.selectbox("📌 Service Override", opts, index=idx, format_func=format_srv, key=srv_key)
+                    if new_srv != (current_srv or "None"):
                         node.selected_service_id = new_srv if new_srv != "None" else None
                         st.rerun()
                         
@@ -631,10 +651,14 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                 opts = list(act.locations)
                 def format_loc(x):
                     return next((loc.name for loc in locations if loc.id == x), x)
-                idx = opts.index(node.selected_location_id) if getattr(node, 'selected_location_id', None) in opts else 0
+                loc_key = f"inl_loc_{node.node_id}"
+                current_loc = getattr(node, 'selected_location_id', None)
+                if current_loc in opts:
+                    st.session_state[loc_key] = current_loc
+                idx = opts.index(current_loc) if current_loc in opts else 0
                 
-                new_loc = st.selectbox("📌 Location Override", opts, index=idx, format_func=format_loc, key=f"inl_loc_{node.node_id}")
-                if new_loc != (getattr(node, 'selected_location_id', None) or "None"):
+                new_loc = st.selectbox("📌 Location Override", opts, index=idx, format_func=format_loc, key=loc_key)
+                if new_loc != (current_loc or "None"):
                     node.selected_location_id = new_loc if new_loc != "None" else None
                     st.rerun()
                     

@@ -513,3 +513,4 @@ class CraftingNode(BaseModel):
     # Flags set by tree optimizer (not persisted but safe for in-process use)
     _tree_opt_done: bool = PrivateAttr(default=False)
     _collapsed_input: bool = PrivateAttr(default=False)
+    _tree_opt_score: Optional[float] = PrivateAttr(default=None)

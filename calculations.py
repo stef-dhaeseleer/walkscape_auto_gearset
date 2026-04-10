@@ -614,6 +614,10 @@ def calculate_node_metrics(
         "source_id": node.source_id,
         "activity_id": activity_obj.id if activity_obj else None,
         "activity_name": activity_obj.name if activity_obj else None,
+        "gear_target": node.auto_optimize_target[0]["target"] if getattr(node, "auto_optimize_target", None) else None,
+        "tree_opt_score": getattr(node, "_tree_opt_score", None),
+        "DA": DA,
+        "DR": DR,
     }
  
     is_using_ability = False
@@ -644,10 +648,14 @@ def calculate_node_metrics(
         res["debug"]["flat_step_reduction"] = int(stats.get("flat_step_reduction", 0))
         res["debug"]["percent_step_reduction"] = stats.get("percent_step_reduction", 0.0)
         res["debug"]["steps_per_action"] = steps_per_action
+        res["debug"]["NMC"] = NMC
+        res["debug"]["quality_outcome"] = stats.get("quality_outcome", 0)
         q_out = recipe_obj.output_quantity
         
         actions_needed = 1.0 / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)
         normal_steps = actions_needed * steps_per_action
+        res["debug"]["output_quantity"] = q_out
+        res["debug"]["actions_needed"] = round(actions_needed, 6)
         
         if is_using_ability:
             res["steps"] = 0.0
@@ -710,6 +718,7 @@ def calculate_node_metrics(
         res["debug"]["WE"] = WE
         res["debug"]["flat_step_reduction"] = int(stats.get("flat_step_reduction", 0))
         res["debug"]["percent_step_reduction"] = stats.get("percent_step_reduction", 0.0)
+        res["debug"]["quality_outcome"] = stats.get("quality_outcome", 0)
         res["debug"]["fine_material_finding"] = stats.get("fine_material_finding", 0.0)
         res["debug"]["drop_table"] = [
             {k: round(v, 6) if isinstance(v, float) else v for k, v in d.items()}

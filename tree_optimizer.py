@@ -39,6 +39,7 @@ TREE_GOAL_OPTIONS: Dict[str, str] = {
     "minimize_steps": "⚡ Minimize Steps (Fastest Production)",
     "maximize_xp": "📚 Maximize Total XP",
     "maximize_xp_per_step": "📈 Maximize XP per Step",
+    "maximize_craft_xp_per_step": "🔨 Maximize Root Skill XP per Step",
 }
 
 # Map a tree goal to the GearOptimizer target(s) used while evaluating candidates.
@@ -47,6 +48,7 @@ TREE_GOAL_TO_GEAR_TARGETS: Dict[str, List[Tuple[OPTIMAZATION_TARGET, float]]] = 
     "maximize_xp":          [(OPTIMAZATION_TARGET.xp, 100.0)],
     "maximize_xp_per_step": [(OPTIMAZATION_TARGET.xp, 50.0),
                              (OPTIMAZATION_TARGET.reward_rolls, 50.0)],
+    "maximize_craft_xp_per_step": [(OPTIMAZATION_TARGET.reward_rolls, 100.0)],
 }
 
 # Map a tree goal to the auto_optimize_target name stored on the node.
@@ -54,6 +56,7 @@ _GOAL_TO_AUTO_TARGET_NAME: Dict[str, str] = {
     "minimize_steps":    "Reward Rolls",
     "maximize_xp":       "Xp",
     "maximize_xp_per_step": "Xp",
+    "maximize_craft_xp_per_step": "Reward Rolls",
 }
 
 # Activities where keyword inputs are interchangeable and should be collapsed
@@ -160,6 +163,18 @@ class TreeNodeOptimizer:
         self._progress_cb = progress_callback
         self._node_start_cb = node_start_callback
         self._node_done_cb = node_done_callback
+
+        # Detect root skill for craft-xp-per-step goal.
+        self._root_skill: Optional[str] = None
+        if self.goal == "maximize_craft_xp_per_step":
+            if node.source_type == "recipe":
+                recipe = self._gd.get("recipes", {}).get(node.source_id)
+                if recipe:
+                    self._root_skill = recipe.skill.lower()
+            elif node.source_type == "activity":
+                activity = self._gd.get("activities", {}).get(node.source_id)
+                if activity:
+                    self._root_skill = activity.primary_skill.lower()
 
         if scope == "node":
             self._opt_single(node, is_root=True)
@@ -644,7 +659,7 @@ class TreeNodeOptimizer:
                 global_target_quality=quality,
                 global_use_fine=self._global_use_fine,
             )
-            return _metrics_to_score(metrics, self.goal)
+            return _metrics_to_score(metrics, self.goal, self._root_skill)
         except Exception:
             logger.warning("Scoring failed for node %s (source=%s)",
                            node.item_id, node.source_id, exc_info=True)
@@ -755,7 +770,7 @@ def _deep_copy_state(state: Dict[str, Any]) -> Dict[str, Any]:
     return copy.deepcopy(state)
 
 
-def _metrics_to_score(metrics: Optional[Dict], goal: str) -> float:
+def _metrics_to_score(metrics: Optional[Dict], goal: str, root_skill: Optional[str] = None) -> float:
     """Convert a metrics dict to a comparable score (lower is always better)."""
     if not metrics:
         return float("inf")
@@ -767,4 +782,11 @@ def _metrics_to_score(metrics: Optional[Dict], goal: str) -> float:
         steps = metrics.get("steps", 0.0)
         xp = sum(metrics.get("xp", {}).values())
         return -(xp / steps) if steps > 0 else float("inf")
+    if goal == "maximize_craft_xp_per_step":
+        steps = metrics.get("steps", 0.0)
+        xp_by_skill = metrics.get("xp", {})
+        root_xp = sum(v for k, v in xp_by_skill.items() if k.lower() == root_skill) if root_skill else 0.0
+        if root_xp > 0 and steps > 0:
+            return -(root_xp / steps)
+        return steps if steps > 0 else float("inf")
     return metrics.get("steps", float("inf"))

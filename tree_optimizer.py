@@ -21,11 +21,15 @@ Memoization: within one optimize() call, results are cached by
 in many branches) are solved only once.
 """
 
+import copy
 import itertools
+import logging
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from models import CraftingNode, GearSet
 from utils.constants import OPTIMAZATION_TARGET
+
+logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
 # Public constants
@@ -117,7 +121,7 @@ class TreeNodeOptimizer:
         self._collectibles: list = user_state.get("owned_collectibles", [])
 
         # Memo cache cleared at the start of each optimize() call.
-        # key: (item_id, base_requirement_amount)
+        # key: (item_id, base_requirement_amount, frozenset_of_source_types)
         # value: (node_state_dict, score)
         self._memo: Dict[Tuple, Tuple] = {}
 
@@ -202,10 +206,10 @@ class TreeNodeOptimizer:
         if node.source_type == "bank":
             return 0.0
 
-        cache_key = (node.item_id, node.base_requirement_amount)
+        cache_key = _memo_key(node)
         if cache_key in self._memo:
             cached_state, cached_score = self._memo[cache_key]
-            _apply_state(node, cached_state)
+            _apply_state(node, _deep_copy_state(cached_state))
             node._tree_opt_done = True
             return cached_score
 
@@ -249,7 +253,7 @@ class TreeNodeOptimizer:
         if best_state is not None:
             _apply_state(node, best_state)
             node._tree_opt_done = True
-            self._memo[cache_key] = (best_state, best_score)
+            self._memo[cache_key] = (_deep_copy_state(best_state), best_score)
 
         if self._node_done_cb and best_state is not None:
             self._node_done_cb(
@@ -620,6 +624,8 @@ class TreeNodeOptimizer:
             )
             return result[0]
         except Exception:
+            logger.warning("Gear optimizer failed for node %s (source=%s)",
+                           node.item_id, node.source_id, exc_info=True)
             return None
 
     # -----------------------------------------------------------------------
@@ -640,6 +646,8 @@ class TreeNodeOptimizer:
             )
             return _metrics_to_score(metrics, self.goal)
         except Exception:
+            logger.warning("Scoring failed for node %s (source=%s)",
+                           node.item_id, node.source_id, exc_info=True)
             return float("inf")
 
     # -----------------------------------------------------------------------
@@ -680,6 +688,9 @@ class _WrappedRecipe:
         self.max_efficiency = r.max_efficiency
         self.locations: list = []
         self.requirements: list = []
+        self.modifiers: list = getattr(r, "modifiers", [])
+        self.keywords: tuple = getattr(r, "keywords", ())
+        self.reward_type: Optional[str] = getattr(r, "reward_type", None)
 
 
 def _fresh_node(src: CraftingNode) -> CraftingNode:
@@ -731,13 +742,17 @@ def _apply_state(node: CraftingNode, state: Dict[str, Any]) -> None:
     node.inputs = dict(state["inputs"])
 
 
-def _apply_source_level(node: CraftingNode, config: Dict) -> None:
-    """Apply source/service/location from config without touching inputs."""
-    node.source_type = config["source_type"]
-    node.source_id = config["source_id"]
-    node.parent_activity_id = config["parent_activity_id"]
-    node.selected_service_id = config.get("service_id")
-    node.selected_location_id = config.get("location_id")
+def _memo_key(node: CraftingNode) -> Tuple:
+    """Build a cache key that includes item identity and available source types."""
+    source_sig = frozenset(
+        (s["type"], s["id"]) for s in node.available_sources
+    )
+    return (node.item_id, node.base_requirement_amount, source_sig)
+
+
+def _deep_copy_state(state: Dict[str, Any]) -> Dict[str, Any]:
+    """Deep-copy a captured state so memoized children are not shared."""
+    return copy.deepcopy(state)
 
 
 def _metrics_to_score(metrics: Optional[Dict], goal: str) -> float:

@@ -11,9 +11,6 @@
 # By default this file contains all Ethereal (Eternal quality) items.
 # ============================================================================
 
-aerofibril_bracers_ethereal  # Aerofibril bracers (Eternal)
-aerofibril_plastron_ethereal  # Aerofibril plastron (Eternal)
-aerofibril_shorts_ethereal  # Aerofibril shorts (Eternal)
 amulet_of_bat_ethereal  # Amulet of bat (Eternal)
 amulet_of_beaver_ethereal  # Amulet of beaver (Eternal)
 amulet_of_circular_root_ethereal  # Amulet of circular root (Eternal)

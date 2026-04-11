@@ -189,6 +189,9 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
     
     is_fine = context.get("is_fine_materials", False) if context else False
     is_upg = context.get("is_equipment_upgrade", False) if context else False
+    
+    fine_conversion_rate = min(1.0, 0.01 * (1.0 + stats.get("fine_material_finding", 0.0)))
+    
     val = 0.0
     if target == OPTIMAZATION_TARGET.reward_rolls:
         val = (da_mult * dr_mult) / steps
@@ -259,20 +262,63 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         val = (score_q * da_mult * dr_mult) / steps
 
     elif target == OPTIMAZATION_TARGET.tokens_per_step:
-        chance = stats.get("find_adventurers_guild_token", 0) / 100.0
+        chance = stats.get("find_adventurers_guild_token", 0)
         val = (chance * da_mult * dr_mult) / steps
     elif target == OPTIMAZATION_TARGET.ectoplasm_per_step:
-        chance = stats.get("find_ectoplasm", 0) / 100.0
+        chance = stats.get("find_ectoplasm", 0)
         val = (chance * da_mult * dr_mult) / steps
-    elif target == OPTIMAZATION_TARGET.gems:
-        # Multiplier (e.g. +20% find gems) enhances base gems from the activity
+    elif target == OPTIMAZATION_TARGET.fine_ectoplasm_per_step:
+        chance = stats.get("find_ectoplasm", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.sea_shells_per_step:
+        chance = stats.get("find_sea_shells", 0)
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.fine_sea_shells_per_step:
+        chance = stats.get("find_sea_shells", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.crustacean_per_step:
+        chance = stats.get("find_crustacean", 0)
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.fine_crustacean_per_step:
+        chance = stats.get("find_crustacean", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.fibrous_plant_per_step:
+        chance = stats.get("find_fibrous_plant", 0)
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.fine_fibrous_plant_per_step:
+        chance = stats.get("find_fibrous_plant", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.fishing_bait_per_step:
+        chance = stats.get("find_fishing_bait", 0)
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.fine_fishing_bait_per_step:
+        chance = stats.get("find_fishing_bait", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.gold_nugget_per_step:
+        chance = stats.get("find_gold_nugget", 0)
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.fine_gold_nugget_per_step:
+        chance = stats.get("find_gold_nugget", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.find_random_gem_per_step:
+        chance = stats.get("find_random_gem", 0)
+        val = (chance * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.find_random_fine_gem_per_step:
+        chance = stats.get("find_random_gem", 0)
+        val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
+
+    elif target == OPTIMAZATION_TARGET.gem_finding:
         gem_mult = 1.0 + stats.get("find_gems", 0)
-        # Flat chance (e.g. 0.1% chance to find random gem) drops independently
-        flat_gems = stats.get("find_random_gem", 0) / 100.0
-        
-        # (Note: Strictly speaking, gem_mult only works if the activity natively drops gems, 
-        # but for target scoring, summing their relative value allows the optimizer to weigh them together).
-        val = ((gem_mult) + flat_gems) * da_mult * dr_mult / steps
+        val = (gem_mult * da_mult * dr_mult) / steps
+    elif target == OPTIMAZATION_TARGET.gem_finding_fine:
+        gem_mult = 1.0 + stats.get("find_gems", 0)
+        val = (gem_mult * fine_conversion_rate * da_mult * dr_mult) / steps
 
     elif target == OPTIMAZATION_TARGET.collectibles:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult) / steps
@@ -290,15 +336,12 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         allow_chests = target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_fines]
         allow_fines = target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_chests]
         
-        fine_bonus = stats.get("fine_material_finding", 0.0)
         chest_bonus = stats.get("chest_finding", 0.0)
 
         if allow_fines:
-            fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))
             ev_normal = base_normal * (1.0 - fine_conversion_rate)
             ev_fine = base_fine * fine_conversion_rate
         else:
-            fine_conversion_rate = 0.0
             ev_normal = base_normal
             ev_fine = 0.0
             
@@ -308,7 +351,7 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         special_ev_map = context.get("special_ev_map", {})
         
         for stat_key, ev_data in special_ev_map.items():
-            chance = stats.get(stat_key, 0.0) / 100.0
+            chance = stats.get(stat_key, 0.0)
             if chance <= 0: continue
             
             is_chest = stat_key in ["chance_to_find_bird_nest", "find_coin_pouch", "find_skill_chest"]

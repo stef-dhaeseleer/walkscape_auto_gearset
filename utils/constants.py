@@ -169,16 +169,34 @@ class OPTIMAZATION_TARGET(str, Enum):
     chests = "chests"
     materials_from_input = "materials_from_input"
     fine = "fine"
+    collectibles = "collectibles"
+    #
     eternal_per_input = "eternal_per_input"
     good_per_step = "good_per_step"
     great_per_step = "great_per_step"
     excellent_per_step = "excellent_per_step"
     perfect_per_step = "perfect_per_step"
     eternal_per_step = "eternal_per_step"
+   
     tokens_per_step = "tokens_per_step"
     ectoplasm_per_step = "ectoplasm_per_step"
-    gems = "gems"
-    collectibles = "collectibles"
+    fine_ectoplasm_per_step = "fine_ectoplasm_per_step"
+    sea_shells_per_step = "sea_shells_per_step"
+    fine_sea_shells_per_step = "fine_sea_shells_per_step"
+    crustacean_per_step = "crustacean_per_step"
+    fine_crustacean_per_step = "fine_crustacean_per_step"
+    fibrous_plant_per_step = "fibrous_plant_per_step"
+    fine_fibrous_plant_per_step = "fine_fibrous_plant_per_step"
+    fishing_bait_per_step = "fishing_bait_per_step"
+    fine_fishing_bait_per_step = "fine_fishing_bait_per_step"
+    gold_nugget_per_step = "gold_nugget_per_step"
+    fine_gold_nugget_per_step = "fine_gold_nugget_per_step"
+    find_random_gem_per_step = "find_random_gem_per_step"
+    find_random_fine_gem_per_step = "find_random_fine_gem_per_step"
+    gem_finding = "gem_finding"
+    gem_finding_fine = "gem_finding_fine"
+
+
     coins = "coins"
     coins_no_chests = "coins_no_chests"
     coins_no_fines = "coins_no_fines"
@@ -210,7 +228,24 @@ TARGET_TO_STATS = {
     
     OPTIMAZATION_TARGET.tokens_per_step: REWARD_ROLL_STATS | {StatName.FIND_ADVENTURERS_GUILD_TOKEN},
     OPTIMAZATION_TARGET.ectoplasm_per_step: REWARD_ROLL_STATS | {StatName.FIND_ECTOPLASM},
-    OPTIMAZATION_TARGET.gems: REWARD_ROLL_STATS | {StatName.FIND_GEMS, StatName.FIND_RANDOM_GEM},
+    OPTIMAZATION_TARGET.fine_ectoplasm_per_step: REWARD_ROLL_STATS | {StatName.FIND_ECTOPLASM, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.sea_shells_per_step: REWARD_ROLL_STATS | {StatName.FIND_SEA_SHELLS},
+    OPTIMAZATION_TARGET.fine_sea_shells_per_step: REWARD_ROLL_STATS | {StatName.FIND_SEA_SHELLS, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.crustacean_per_step: REWARD_ROLL_STATS | {StatName.FIND_CRUSTACEAN},
+    OPTIMAZATION_TARGET.fine_crustacean_per_step: REWARD_ROLL_STATS | {StatName.FIND_CRUSTACEAN, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.fibrous_plant_per_step: REWARD_ROLL_STATS | {StatName.FIND_FIBROUS_PLANT},
+    OPTIMAZATION_TARGET.fine_fibrous_plant_per_step: REWARD_ROLL_STATS | {StatName.FIND_FIBROUS_PLANT, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.fishing_bait_per_step: REWARD_ROLL_STATS | {StatName.FIND_FISHING_BAIT},
+    OPTIMAZATION_TARGET.fine_fishing_bait_per_step: REWARD_ROLL_STATS | {StatName.FIND_FISHING_BAIT, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.gold_nugget_per_step: REWARD_ROLL_STATS | {StatName.FIND_GOLD_NUGGET},
+    OPTIMAZATION_TARGET.fine_gold_nugget_per_step: REWARD_ROLL_STATS | {StatName.FIND_GOLD_NUGGET, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.find_random_gem_per_step: REWARD_ROLL_STATS | {StatName.FIND_RANDOM_GEM},
+    OPTIMAZATION_TARGET.find_random_fine_gem_per_step: REWARD_ROLL_STATS | {StatName.FIND_RANDOM_GEM, StatName.FINE_MATERIAL_FINDING},
+    OPTIMAZATION_TARGET.gem_finding: REWARD_ROLL_STATS | {StatName.FIND_GEMS},
+    OPTIMAZATION_TARGET.gem_finding_fine: REWARD_ROLL_STATS | {StatName.FIND_GEMS, StatName.FINE_MATERIAL_FINDING},
+    
+    
+    
     OPTIMAZATION_TARGET.coins: COIN_BASE_STATS | {StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_chests: COIN_BASE_STATS | {StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},
@@ -239,7 +274,13 @@ PERCENTAGE_STATS = {
     StatName.BONUS_XP_PERCENT, StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING,
     StatName.FIND_BIRD_NESTS, StatName.FIND_COLLECTIBLES, StatName.FIND_GEMS,
     StatName.FIND_RANDOM_GEM, StatName.FIND_FIBROUS_PLANT, StatName.FIND_CRUSTACEAN,
-    StatName.FIND_SKILL_CHEST, StatName.FIND_SEA_SHELLS, StatName.FIND_GOLD
+    StatName.FIND_SKILL_CHEST, StatName.FIND_SEA_SHELLS, StatName.FIND_GOLD,
+
+    StatName.FIND_RANDOM_GEM, StatName.FIND_FIBROUS_PLANT, StatName.FIND_CRUSTACEAN,
+    StatName.FIND_SKILL_CHEST, StatName.FIND_SEA_SHELLS, StatName.FIND_GOLD,
+    StatName.FIND_ECTOPLASM, StatName.FIND_FISHING_BAIT, StatName.FIND_GOLD_NUGGET,
+    StatName.FIND_ADVENTURERS_GUILD_TOKEN, StatName.FIND_COIN_POUCH, 
+    StatName.FIND_JUNK, StatName.CHANCE_TO_FIND_BIRD_NEST
 }
 class ActivityLootTableType(str, Enum):
     MAIN = "main"

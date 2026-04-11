@@ -19,9 +19,15 @@ from drop_calculator import DropCalculator
 
 # --- GLOBAL TARGET CONFIG ---
 TARGET_CATEGORIES = {
-    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine", "Xp Per Material"],
+    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine", "Xp Per Material","Collectibles"],
     "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
-    "Drops & Materials": [ "Gems", "Collectibles", "Tokens Per Step", "Ectoplasm Per Step", ],
+    "Drops & Materials": [ 
+        "Tokens Per Step", "Ectoplasm Per Step", "Fine Ectoplasm Per Step",
+        "Sea Shells Per Step", "Fine Sea Shells Per Step", "Crustacean Per Step", "Fine Crustacean Per Step",
+        "Fibrous Plant Per Step", "Fine Fibrous Plant Per Step", "Fishing Bait Per Step", "Fine Fishing Bait Per Step",
+        "Gold Nugget Per Step", "Fine Gold Nugget Per Step",
+        "Find Random Gem Per Step", "Find Random Fine Gem Per Step", "Gem Finding", "Gem Finding Fine"
+    ],
     "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
     "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps", "Collectibles No Steps"]
 }
@@ -828,11 +834,11 @@ def format_target_metric(t_name, raw_val, base_steps):
         human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
         display_tier_name = t_name.split()[0].title()
         return f"{human_val:.2f} Steps/{display_tier_name}" if raw_val > 0 else f"∞ Steps/{display_tier_name}"
-    elif "tokens" in t_name_lower:
+    
+    elif "per step" in t_name_lower and not ("xp" in t_name_lower or "quality" in t_name_lower or "eternal" in t_name_lower):
+        # A catch-all for all our new specific item trigger drops
         human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-        return f"{human_val:.2f} Steps/Token" if raw_val > 0 else "∞ Steps/Token"
-    elif "ectoplasm" in t_name_lower:
-        human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
-        return f"{human_val:.2f} Steps/Ecto" if raw_val > 0 else "∞ Steps/Ecto"
+        item_label = t_name.split(" Per Step")[0]
+        return f"{human_val:.2f} Steps / {item_label}" if raw_val > 0 else f"∞ Steps / {item_label}"
     else:
         return f"{raw_val:.4f}"

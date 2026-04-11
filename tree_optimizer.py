@@ -796,9 +796,20 @@ def _memo_key(node: CraftingNode) -> Tuple:
     return (node.item_id, node.base_requirement_amount, source_sig)
 
 
+def _reassign_node_ids(node: CraftingNode) -> None:
+    """Recursively assign fresh node_ids so memoized copies don't collide in the UI."""
+    import uuid
+    node.node_id = str(uuid.uuid4())[:8]
+    for child in node.inputs.values():
+        _reassign_node_ids(child)
+
+
 def _deep_copy_state(state: Dict[str, Any]) -> Dict[str, Any]:
     """Deep-copy a captured state so memoized children are not shared."""
-    return copy.deepcopy(state)
+    new_state = copy.deepcopy(state)
+    for child in new_state.get("inputs", {}).values():
+        _reassign_node_ids(child)
+    return new_state
 
 
 def _metrics_to_score(metrics: Optional[Dict], goal: str, root_skill: Optional[str] = None) -> float:

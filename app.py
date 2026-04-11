@@ -43,6 +43,7 @@ def init_session_state():
 
     if 'saved_loadouts' not in st.session_state: st.session_state['saved_loadouts'] = {}
     if 'crafting_tree_root' not in st.session_state: st.session_state['crafting_tree_root'] = None
+    if 'tree_snapshots' not in st.session_state: st.session_state['tree_snapshots'] = []
 
 def main():
     init_session_state()

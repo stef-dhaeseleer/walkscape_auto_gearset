@@ -1,8 +1,10 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import json
+import copy
 import pandas as pd
-from models import CraftingNode
+from datetime import datetime
+from models import CraftingNode, GearSet
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET, GATHERING_SKILLS, ARTISAN_SKILLS
 from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained
 from calculations import calculate_node_metrics
@@ -10,6 +12,277 @@ from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
 from tree_optimizer import TreeNodeOptimizer, TREE_GOAL_OPTIONS
 from utils.data_loader import load_blocklist
+
+MAX_SNAPSHOTS = 5
+
+# ---------------------------------------------------------------------------
+# Snapshot helpers
+# ---------------------------------------------------------------------------
+
+def _extract_node_metrics(node: CraftingNode, result: dict = None) -> dict:
+    """Walk the tree and collect per-node metrics into a flat dict keyed by (item_id, source_id)."""
+    if result is None:
+        result = {}
+    if node.metrics:
+        key = f"{node.item_id}|{node.source_type}|{node.source_id or ''}"
+        result[key] = {
+            "item_id": node.item_id,
+            "item_name": node.item_id.replace('_', ' ').title(),
+            "source_type": node.source_type,
+            "source_id": node.source_id,
+            "steps": node.metrics.get("steps", float('inf')),
+            "xp": dict(node.metrics.get("xp", {})),
+            "stats_used": dict(node.metrics.get("stats_used", {})),
+        }
+    for child in node.inputs.values():
+        _extract_node_metrics(child, result)
+    return result
+
+
+def _take_snapshot(root: CraftingNode, gear_mode: str, goal: str) -> dict:
+    """Create a snapshot dict from the current tree state."""
+    mode_labels = {"inventory": "My Inventory", "all_gear": "All Gear", "all_minus_blocklist": "All minus Blocklist"}
+    return {
+        "name": f"{mode_labels.get(gear_mode, gear_mode)} — {datetime.now().strftime('%H:%M:%S')}",
+        "gear_mode": gear_mode,
+        "goal": goal,
+        "root_steps": root.metrics.get("steps", float('inf')) if root.metrics else float('inf'),
+        "root_xp": dict(root.metrics.get("xp", {})) if root.metrics else {},
+        "root_raw_materials": dict(root.metrics.get("raw_materials", {})) if root.metrics else {},
+        "node_metrics": _extract_node_metrics(root),
+    }
+
+
+# ---------------------------------------------------------------------------
+# Upgrade suggestion helpers
+# ---------------------------------------------------------------------------
+
+def _get_node_activity_and_context(node: CraftingNode, game_data_dict: dict, drop_calc, locations, user_state: dict):
+    """Build the activity object, gear targets, and context needed to run the optimizer for a node."""
+    extra_passives = {}
+    activity_obj = None
+    skill_name = ""
+
+    if node.source_type == "recipe":
+        recipe_obj = game_data_dict['recipes'].get(node.source_id)
+        if not recipe_obj:
+            return None, None, None, None, {}
+        skill_name = recipe_obj.skill
+        svc_id = getattr(node, 'selected_service_id', None)
+        if svc_id:
+            srv = game_data_dict.get('services', {}).get(svc_id)
+            if srv:
+                activity_obj = synthesize_activity_from_recipe(recipe_obj, srv)
+                extra_passives = extract_modifier_stats(srv.modifiers)
+        if not activity_obj:
+            from tree_optimizer import _WrappedRecipe
+            activity_obj = _WrappedRecipe(recipe_obj)
+
+    elif node.source_type in ("activity", "chest"):
+        act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
+        activity_obj = game_data_dict['activities'].get(act_id)
+        if activity_obj:
+            skill_name = activity_obj.primary_skill
+
+    if not activity_obj:
+        return None, None, None, None, {}
+
+    # Build gear targets from node's auto_optimize_target
+    gear_targets = []
+    if getattr(node, 'auto_optimize_target', None):
+        for t_dict in node.auto_optimize_target:
+            target_enum_name = t_dict["target"].replace(" ", "_").lower()
+            try:
+                enum_target = OPTIMAZATION_TARGET[target_enum_name]
+                gear_targets.append((enum_target, float(t_dict["weight"])))
+            except KeyError:
+                continue
+    if not gear_targets:
+        gear_targets = [(OPTIMAZATION_TARGET.reward_rolls, 100.0)]
+
+    loc_map = {loc.id: loc for loc in locations}
+    node_context = build_activity_context(
+        activity_obj,
+        user_state.get("user_ap", 0),
+        user_state.get("user_total_level", 0),
+        loc_map, drop_calc,
+        getattr(node, 'selected_location_id', None),
+    )
+
+    # Extract passives from selected activity inputs
+    if node.source_type == "activity" and hasattr(activity_obj, 'requirements'):
+        input_reqs = [r for r in activity_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]
+        for i, req in enumerate(input_reqs):
+            mat_id = node.selected_activity_inputs.get(i)
+            if mat_id:
+                mat_obj = game_data_dict.get('materials', {}).get(mat_id) or game_data_dict.get('consumables', {}).get(mat_id)
+                if mat_obj:
+                    if getattr(mat_obj, 'modifiers', None):
+                        for k, v in extract_modifier_stats(mat_obj.modifiers).items():
+                            extra_passives[k] = extra_passives.get(k, 0.0) + v
+                    if getattr(mat_obj, 'keywords', None):
+                        for kw in mat_obj.keywords:
+                            norm_kw = kw.lower().replace("_", " ").strip()
+                            node_context["required_keywords"].pop(norm_kw, None)
+
+    node_context["is_fine_materials"] = st.session_state.get('global_fine', False)
+    return activity_obj, skill_name, gear_targets, node_context, extra_passives
+
+
+def find_upgrade_suggestions(node: CraftingNode, all_items_raw, game_data_dict: dict, drop_calc,
+                             locations, user_state: dict, player_skill_levels: dict, char_lvl: int):
+    """
+    Compare the user's current gear for a node against the 'all minus blocklist' ceiling
+    and return a list of per-slot upgrade suggestions sorted by local step impact.
+    
+    Returns list of dicts: [{slot, current_item, upgrade_item, baseline_steps, upgraded_steps, steps_saved, pct_improvement}, ...]
+    """
+    baseline_gear = getattr(node, 'auto_gear_set', None)
+    if not baseline_gear:
+        return [], "No optimized gear set on this node. Run the optimizer first."
+
+    activity_obj, skill_name, gear_targets, node_context, extra_passives = \
+        _get_node_activity_and_context(node, game_data_dict, drop_calc, locations, user_state)
+    if not activity_obj:
+        return [], "Could not resolve activity for this node."
+
+    player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
+    blocklist_ids = load_blocklist()
+
+    pet_obj = game_data_dict.get('pets', {}).get(getattr(node, 'selected_pet_id', None))
+    if pet_obj:
+        pet_obj = pet_obj.copy(update={"active_level": getattr(node, 'selected_pet_level', 1)})
+    cons_obj = game_data_dict.get('consumables', {}).get(getattr(node, 'selected_consumable_id', None))
+
+    ap = user_state.get("user_ap", 0)
+    reputation = user_state.get("user_reputation", {})
+    collectibles = user_state.get("owned_collectibles", [])
+
+    # 1. Run ceiling optimizer (all gear minus blocklist)
+    optimizer = GearOptimizer(all_items_raw, locations)
+    ceiling_result = optimizer.optimize(
+        activity=activity_obj,
+        player_level=char_lvl,
+        player_skill_level=player_lvl,
+        optimazation_target=gear_targets,
+        owned_item_counts=None,  # unlimited — all gear
+        achievement_points=ap,
+        user_reputation=reputation,
+        owned_collectibles=collectibles,
+        context_override=node_context,
+        pet=pet_obj,
+        consumable=cons_obj,
+        extra_passive_stats=extra_passives,
+        blacklisted_ids=blocklist_ids,
+    )
+    ceiling_gear = ceiling_result[0]
+    if not ceiling_gear:
+        return [], "Ceiling optimizer returned no result."
+
+    # 2. Calculate baseline steps (local node only)
+    from calculations import calculate_node_metrics as _calc
+    baseline_metrics = node.metrics
+    baseline_steps = baseline_metrics.get("steps", float('inf')) if baseline_metrics else float('inf')
+
+    # 3. Compare slot-by-slot and evaluate marginal impact of each swap
+    NAMED_SLOTS = ["head", "chest", "legs", "feet", "back", "cape", "neck", "hands", "primary", "secondary"]
+    suggestions = []
+
+    def _item_id(item):
+        return item.id if item else None
+
+    def _item_name(item):
+        return item.name if item else "Empty"
+
+    def _evaluate_swap(test_gear: GearSet) -> float:
+        """Calculate local node steps with a modified gear set."""
+        original_gear = node.auto_gear_set
+        node.auto_gear_set = test_gear
+        try:
+            test_metrics = _calc(
+                node, st.session_state.get('saved_loadouts', {}),
+                game_data_dict, drop_calc, player_skill_levels,
+                user_state, locations,
+                global_target_quality="Normal",
+                global_use_fine=st.session_state.get('global_fine', False),
+            )
+            return test_metrics.get("steps", float('inf'))
+        except Exception:
+            return float('inf')
+        finally:
+            node.auto_gear_set = original_gear
+
+    # Named slots
+    for slot in NAMED_SLOTS:
+        current = getattr(baseline_gear, slot, None)
+        ceiling_item = getattr(ceiling_gear, slot, None)
+        if _item_id(current) == _item_id(ceiling_item):
+            continue
+        test_gear = baseline_gear.clone()
+        setattr(test_gear, slot, ceiling_item)
+        swapped_steps = _evaluate_swap(test_gear)
+        if swapped_steps < baseline_steps:
+            suggestions.append({
+                "slot": slot.title(),
+                "current_item": _item_name(current),
+                "upgrade_item": _item_name(ceiling_item),
+                "baseline_steps": baseline_steps,
+                "upgraded_steps": swapped_steps,
+                "steps_saved": baseline_steps - swapped_steps,
+                "pct_improvement": ((baseline_steps - swapped_steps) / baseline_steps * 100) if baseline_steps > 0 else 0,
+            })
+
+    # Rings (positional)
+    for i in range(2):
+        current = baseline_gear.rings[i] if i < len(baseline_gear.rings) else None
+        ceiling_item = ceiling_gear.rings[i] if i < len(ceiling_gear.rings) else None
+        if _item_id(current) == _item_id(ceiling_item):
+            continue
+        test_gear = baseline_gear.clone()
+        test_rings = list(test_gear.rings)
+        while len(test_rings) <= i:
+            test_rings.append(None)
+        test_rings[i] = ceiling_item
+        test_gear.rings = [r for r in test_rings if r is not None]
+        swapped_steps = _evaluate_swap(test_gear)
+        if swapped_steps < baseline_steps:
+            suggestions.append({
+                "slot": f"Ring {i+1}",
+                "current_item": _item_name(current),
+                "upgrade_item": _item_name(ceiling_item),
+                "baseline_steps": baseline_steps,
+                "upgraded_steps": swapped_steps,
+                "steps_saved": baseline_steps - swapped_steps,
+                "pct_improvement": ((baseline_steps - swapped_steps) / baseline_steps * 100) if baseline_steps > 0 else 0,
+            })
+
+    # Tools (positional)
+    for i in range(max(len(baseline_gear.tools), len(ceiling_gear.tools))):
+        current = baseline_gear.tools[i] if i < len(baseline_gear.tools) else None
+        ceiling_item = ceiling_gear.tools[i] if i < len(ceiling_gear.tools) else None
+        if _item_id(current) == _item_id(ceiling_item):
+            continue
+        test_gear = baseline_gear.clone()
+        test_tools = list(test_gear.tools)
+        while len(test_tools) <= i:
+            test_tools.append(None)
+        test_tools[i] = ceiling_item
+        test_gear.tools = [t for t in test_tools if t is not None]
+        swapped_steps = _evaluate_swap(test_gear)
+        if swapped_steps < baseline_steps:
+            suggestions.append({
+                "slot": f"Tool {i+1}",
+                "current_item": _item_name(current),
+                "upgrade_item": _item_name(ceiling_item),
+                "baseline_steps": baseline_steps,
+                "upgraded_steps": swapped_steps,
+                "steps_saved": baseline_steps - swapped_steps,
+                "pct_improvement": ((baseline_steps - swapped_steps) / baseline_steps * 100) if baseline_steps > 0 else 0,
+            })
+
+    suggestions.sort(key=lambda s: s["steps_saved"], reverse=True)
+    return suggestions, None
+
 
 @st.dialog("⚙️ Choose Optimization Targets")
 def node_target_dialog(node: CraftingNode):
@@ -725,7 +998,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
         # --- Tree Optimizer per-node buttons ---
         if optimizer_context and node.source_type != "bank" and len(node.available_sources) > 1:
             st.divider()
-            opt_c1, opt_c2, opt_c3 = st.columns([2, 2, 3])
+            opt_c1, opt_c2, opt_c3, opt_c4 = st.columns([2, 2, 2, 3])
             with opt_c1:
                 if st.button("⚡ This Node", key=f"opt_node_{node.node_id}", help="Optimize source & gear for this node only"):
                     _run_tree_opt(node, "node", optimizer_context, game_data_dict, drop_calc, locations, user_state, is_root=(level == 0))
@@ -735,9 +1008,67 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     _run_tree_opt(node, "subtree", optimizer_context, game_data_dict, drop_calc, locations, user_state, is_root=(level == 0))
                     st.rerun()
             with opt_c3:
+                has_gear = getattr(node, 'auto_gear_set', None) is not None and node.metrics
+                if st.button("🔍 Find Upgrades", key=f"upg_btn_{node.node_id}",
+                             disabled=not has_gear,
+                             help="Compare your gear to the best available and show upgrade suggestions. Requires optimization first."):
+                    st.session_state[f"upg_show_{node.node_id}"] = True
+            with opt_c4:
                 if getattr(node, '_tree_opt_done', False):
                     if st.button("↩ Reset to Manual", key=f"opt_reset_{node.node_id}", help="Clear auto-optimization for this node"):
                         node._tree_opt_done = False
+                        st.rerun()
+
+            # --- Upgrade suggestions display ---
+            if st.session_state.get(f"upg_show_{node.node_id}", False):
+                with st.expander("🔍 Upgrade Suggestions", expanded=True):
+                    valid_json = user_state.get("valid_json", False)
+                    user_skills_map = user_state.get("user_skills_map", {})
+                    p_skill_levels = {k: calculate_level_from_xp(v) for k, v in user_skills_map.items()} if valid_json else {}
+                    p_char_lvl = user_state.get("calculated_char_lvl", 99) if valid_json else 99
+
+                    with st.spinner("Analyzing upgrades…"):
+                        suggestions, err = find_upgrade_suggestions(
+                            node, optimizer_context["all_items_raw"],
+                            game_data_dict, drop_calc, locations, user_state,
+                            p_skill_levels, p_char_lvl,
+                        )
+
+                    if err:
+                        st.warning(err)
+                    elif not suggestions:
+                        st.success("Your gear is already optimal for this node! No upgrades found.")
+                    else:
+                        total_saved = sum(s["steps_saved"] for s in suggestions)
+                        baseline = suggestions[0]["baseline_steps"]
+                        total_pct = (total_saved / baseline * 100) if baseline > 0 else 0
+                        st.markdown(f"**Total potential improvement:** {total_saved:,.2f} steps/ea ({total_pct:,.1f}%) if all upgrades are applied individually.")
+                        st.caption("Each row shows the impact of swapping *just that slot* into your current gear.")
+
+                        upgrade_rows = []
+                        for s in suggestions:
+                            upgrade_rows.append({
+                                "Slot": s["slot"],
+                                "Current": s["current_item"],
+                                "Upgrade To": s["upgrade_item"],
+                                "Steps Saved": s["steps_saved"],
+                                "Improvement": f"{s['pct_improvement']:.1f}%",
+                            })
+                        st.dataframe(
+                            pd.DataFrame(upgrade_rows),
+                            column_config={
+                                "Slot": st.column_config.TextColumn("Slot"),
+                                "Current": st.column_config.TextColumn("Current Item"),
+                                "Upgrade To": st.column_config.TextColumn("Upgrade To"),
+                                "Steps Saved": st.column_config.NumberColumn("Steps Saved", format="%.2f"),
+                                "Improvement": st.column_config.TextColumn("Improvement"),
+                            },
+                            hide_index=True,
+                            use_container_width=True,
+                        )
+
+                    if st.button("Close", key=f"upg_close_{node.node_id}"):
+                        st.session_state[f"upg_show_{node.node_id}"] = False
                         st.rerun()
 
         if node.inputs:
@@ -954,6 +1285,29 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 st.dataframe(blocklist_display, use_container_width=True, hide_index=True)
         elif selected_gear_mode == "all_gear":
             st.caption("Using **all gear** in the game at highest available quality — no ownership restrictions.")
+
+        # --- Snapshot Controls ---
+        snap_col1, snap_col2 = st.columns([2, 5])
+        with snap_col1:
+            has_metrics = root.metrics and root.metrics.get("steps", float('inf')) != float('inf')
+            if st.button("📸 Save Snapshot", disabled=not has_metrics,
+                         help="Store current tree metrics for comparison. Run 'Calculate True Cost' first."):
+                snapshots = st.session_state.get('tree_snapshots', [])
+                new_snap = _take_snapshot(root, selected_gear_mode, selected_goal)
+                if len(snapshots) >= MAX_SNAPSHOTS:
+                    snapshots.pop(0)
+                snapshots.append(new_snap)
+                st.session_state['tree_snapshots'] = snapshots
+                st.toast(f"Snapshot saved: **{new_snap['name']}**")
+                st.rerun()
+        with snap_col2:
+            snapshots = st.session_state.get('tree_snapshots', [])
+            if snapshots:
+                snap_names = [s['name'] for s in snapshots]
+                st.caption(f"📸 **Saved:** {' · '.join(snap_names)}")
+                if st.button("🗑️ Clear All Snapshots", key="clear_snapshots"):
+                    st.session_state['tree_snapshots'] = []
+                    st.rerun()
 
         # Show persisted optimizer log from the last run
         if st.session_state.get('tree_opt_log'):
@@ -1346,3 +1700,104 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     )
                 else:
                     st.info("No consumables used in this crafting chain.")
+
+            # ==========================================
+            # SNAPSHOT COMPARISON SECTION
+            # ==========================================
+            snapshots = st.session_state.get('tree_snapshots', [])
+            if len(snapshots) >= 2:
+                st.divider()
+                st.markdown("### 📊 Snapshot Comparison")
+                st.caption("Compare saved optimization results across different gear pools to identify where your gear is weakest.")
+
+                # --- Summary comparison cards ---
+                snap_cols = st.columns(len(snapshots))
+                for i, snap in enumerate(snapshots):
+                    with snap_cols[i]:
+                        snap_steps = snap.get("root_steps", float('inf'))
+                        snap_xp = sum(snap.get("root_xp", {}).values())
+                        st.markdown(
+                            f"<div style='background-color:#0f172a; padding:12px; border-radius:8px; border: 1px solid #334155;'>"
+                            f"<h5 style='margin:0; color:#e2e8f0;'>{snap['name']}</h5>"
+                            f"<span style='color:#4ade80; font-size:1.1em; font-weight:bold;'>{snap_steps:,.1f} steps/ea</span><br>"
+                            f"<span style='color:#60a5fa; font-size:0.9em;'>{snap_xp:,.0f} total XP</span>"
+                            f"</div>",
+                            unsafe_allow_html=True,
+                        )
+
+                st.write("")
+
+                # --- Pick two snapshots to compare ---
+                cmp_col1, cmp_col2 = st.columns(2)
+                snap_names = [s['name'] for s in snapshots]
+                with cmp_col1:
+                    base_idx = st.selectbox("Baseline (your gear)", options=range(len(snap_names)), format_func=lambda i: snap_names[i], index=0, key="snap_cmp_base")
+                with cmp_col2:
+                    ceil_idx = st.selectbox("Ceiling (target)", options=range(len(snap_names)), format_func=lambda i: snap_names[i], index=min(1, len(snap_names)-1), key="snap_cmp_ceil")
+
+                base_snap = snapshots[base_idx]
+                ceil_snap = snapshots[ceil_idx]
+
+                # --- Per-node delta table ---
+                base_nodes = base_snap.get("node_metrics", {})
+                ceil_nodes = ceil_snap.get("node_metrics", {})
+                all_keys = set(base_nodes.keys()) | set(ceil_nodes.keys())
+
+                rows = []
+                for key in all_keys:
+                    b = base_nodes.get(key)
+                    c = ceil_nodes.get(key)
+                    if not b or not c:
+                        continue
+                    b_steps = b.get("steps", float('inf'))
+                    c_steps = c.get("steps", float('inf'))
+                    if b_steps == float('inf') or c_steps == float('inf'):
+                        continue
+                    if b_steps == 0 and c_steps == 0:
+                        continue
+                    delta = b_steps - c_steps
+                    pct = (delta / b_steps * 100) if b_steps > 0 else 0
+                    rows.append({
+                        "Node": b.get("item_name", key),
+                        "Source": (b.get("source_type", "") or "").title(),
+                        f"Steps ({base_snap['name']})": b_steps,
+                        f"Steps ({ceil_snap['name']})": c_steps,
+                        "Δ Steps": delta,
+                        "Improvement %": pct,
+                    })
+
+                if rows:
+                    rows.sort(key=lambda r: r["Δ Steps"], reverse=True)
+                    df_cmp = pd.DataFrame(rows)
+                    total_base = base_snap.get("root_steps", 0)
+                    total_ceil = ceil_snap.get("root_steps", 0)
+                    total_delta = total_base - total_ceil
+                    total_pct = (total_delta / total_base * 100) if total_base > 0 else 0
+
+                    if total_delta > 0:
+                        st.markdown(
+                            f"**Overall gap:** {total_delta:,.1f} steps/ea ({total_pct:,.1f}% improvement potential) "
+                            f"— {total_base:,.1f} → {total_ceil:,.1f}"
+                        )
+                    elif total_delta < 0:
+                        st.markdown(
+                            f"**Baseline is faster** by {-total_delta:,.1f} steps/ea — no improvement needed!"
+                        )
+                    else:
+                        st.markdown("**Both snapshots are equal** — no differences found.")
+
+                    st.dataframe(
+                        df_cmp,
+                        column_config={
+                            "Node": st.column_config.TextColumn("Node"),
+                            "Source": st.column_config.TextColumn("Source"),
+                            f"Steps ({base_snap['name']})": st.column_config.NumberColumn(f"Steps ({base_snap['name']})", format="%.1f"),
+                            f"Steps ({ceil_snap['name']})": st.column_config.NumberColumn(f"Steps ({ceil_snap['name']})", format="%.1f"),
+                            "Δ Steps": st.column_config.NumberColumn("Δ Steps", format="%.1f"),
+                            "Improvement %": st.column_config.NumberColumn("Improvement %", format="%.1f%%"),
+                        },
+                        hide_index=True,
+                        use_container_width=True,
+                    )
+                else:
+                    st.info("No comparable nodes found between the selected snapshots. Make sure both were run on the same tree.")

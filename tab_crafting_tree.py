@@ -710,9 +710,25 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                         a = game_data_dict['activities'].get(act_id)
                         if a: local_skill = a.primary_skill.lower()
                     if local_skill:
-                        skill_xp = node.metrics.get("xp", {}).get(local_skill, 0)
-                        if skill_xp > 0:
-                            xp_per_step = skill_xp / steps
+                        local_steps_val = node.metrics.get("local_steps", 0)
+                        local_skill_xp = node.metrics.get("local_xp", {}).get(local_skill, 0)
+                        tree_skill_xp = node.metrics.get("xp", {}).get(local_skill, 0)
+                        has_local = local_steps_val > 0 and local_skill_xp > 0
+                        has_tree = steps > 0 and tree_skill_xp > 0
+                        if has_local and has_tree:
+                            local_xps = local_skill_xp / local_steps_val
+                            tree_xps = tree_skill_xp / steps
+                            same = abs(local_xps - tree_xps) / max(abs(local_xps), 1e-9) < 0.001
+                            if same:
+                                st.markdown(f"<div style='text-align:right; color:#60a5fa; font-size:0.85em;'>{local_xps:,.2f} XP/step</div>", unsafe_allow_html=True)
+                            else:
+                                st.markdown(
+                                    f"<div style='text-align:right; color:#60a5fa; font-size:0.85em;' title='XP per step for this node only'>{local_xps:,.2f} XP/step <span style='color:#94a3b8;'>(local)</span></div>"
+                                    f"<div style='text-align:right; color:#818cf8; font-size:0.8em;' title='XP per step across this entire subtree'>{tree_xps:,.2f} XP/step <span style='color:#94a3b8;'>(tree)</span></div>",
+                                    unsafe_allow_html=True
+                                )
+                        elif has_tree:
+                            xp_per_step = tree_skill_xp / steps
                             st.markdown(f"<div style='text-align:right; color:#60a5fa; font-size:0.85em;'>{xp_per_step:,.2f} XP/step</div>", unsafe_allow_html=True)
                 elif steps == 0:
                     st.markdown(f"<div style='text-align:right; color:#94a3b8; font-weight:bold;'>From Bank</div>", unsafe_allow_html=True)

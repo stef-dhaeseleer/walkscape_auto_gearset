@@ -461,6 +461,8 @@ def calculate_node_metrics(
     res = {
         "steps": float('inf'),
         "xp": defaultdict(float),
+        "local_steps": 0.0,
+        "local_xp": defaultdict(float),
         "shopping_list": defaultdict(float),
         "raw_materials": defaultdict(float),
         "stats_used": {},
@@ -671,6 +673,8 @@ def calculate_node_metrics(
 
         isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
+        res["local_steps"] = normal_steps if not is_using_ability else 0.0
+        if skill_name: res["local_xp"][skill_name.lower()] += isolated_xp
         for sk in GATHERING_SKILLS | ARTISAN_SKILLS:
             gain_xp = stats.get(f"gain_{sk}_xp", 0.0)
             if gain_xp > 0:
@@ -747,6 +751,8 @@ def calculate_node_metrics(
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
                 isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
+                res["local_steps"] = normal_steps if not is_using_ability else 0.0
+                if skill_name: res["local_xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
 
                 for sk in GATHERING_SKILLS | ARTISAN_SKILLS:
@@ -816,6 +822,8 @@ def calculate_node_metrics(
                 xp_per_chest = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_chest_eff)
                 isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality
                 if skill_name: res["xp"][skill_name.lower()] += isolated_xp
+                res["local_steps"] = normal_steps if not is_using_ability else 0.0
+                if skill_name: res["local_xp"][skill_name.lower()] += isolated_xp
                 res["raw_materials"][target_item_id] += 1.0
 
     return res

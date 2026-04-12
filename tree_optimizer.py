@@ -599,6 +599,8 @@ class TreeNodeOptimizer:
                 gear_targets = [(OPTIMAZATION_TARGET.fine, 100.0)]
             elif skill_name.lower() in ARTISAN_SKILLS:
                 gear_targets = [(OPTIMAZATION_TARGET.materials_from_input, 100.0)]
+        elif self.goal == "maximize_craft_xp_per_step" and self._root_skill and skill_name.lower() == self._root_skill:
+            gear_targets = [(OPTIMAZATION_TARGET.xp, 100.0)]
 
         node_context = build_activity_context(
             activity_obj,
@@ -712,6 +714,8 @@ class TreeNodeOptimizer:
                 name = "Materials From Input"
             else:
                 name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")
+        elif self.goal == "maximize_craft_xp_per_step" and self._root_skill and skill_name.lower() == self._root_skill:
+            name = "Xp"
         else:
             name = _GOAL_TO_AUTO_TARGET_NAME.get(self.goal, "Reward Rolls")
         return [{"id": 0, "target": name, "weight": 100}]

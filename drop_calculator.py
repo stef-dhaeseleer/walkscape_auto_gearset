@@ -115,6 +115,10 @@ class DropCalculator:
         # Total multiplier for output quantity (not frequency)
         steps_per_roll = action_steps / ((1.0 + da_val) * (1.0 + dr_val))
 
+        # --- EXTRACT FINE CONVERSION RATE ---
+        fine_bonus = stats.get("fine_material_finding", 0.0)
+        fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))
+
         # 3. Process Standard Loot Tables
         act_dict = activity.model_dump() if hasattr(activity, "model_dump") else activity.__dict__
         loot_tables = act_dict.get("loot_tables", [])
@@ -152,9 +156,6 @@ class DropCalculator:
                 # Check Fine Material
                 fine_id = self.fine_material_map.get(item_id)
                 if fine_id:
-                    fine_bonus = stats.get("fine_material_finding", 0.0)
-                    fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))
-                    
                     prob_fine = final_prob * fine_conversion_rate
                     prob_normal = final_prob * (1.0 - fine_conversion_rate)
 
@@ -165,11 +166,9 @@ class DropCalculator:
 
         # 4. Process Special Finds
         for stat_key, reward_data in SPECIAL_FIND_MAP.items():
-            stat_val = stats.get(stat_key, 0.0)
-            if stat_val <= 0:
+            chance = stats.get(stat_key, 0.0)
+            if chance <= 0:
                 continue
-
-            chance = stat_val / 100.0 
 
             if isinstance(reward_data, list):
                 for tuple_data in reward_data:
@@ -178,9 +177,23 @@ class DropCalculator:
                     else:
                         sub_item, sub_weight = tuple_data
                         sub_qty = 1.0
-                    self._add_row(rows, sub_item, chance * sub_weight, steps_per_roll, sub_qty)
+                    
+                    final_prob = chance * sub_weight
+                    fine_id = self.fine_material_map.get(sub_item)
+                    
+                    if fine_id:
+                        self._add_row(rows, sub_item, final_prob * (1.0 - fine_conversion_rate), steps_per_roll, sub_qty)
+                        self._add_row(rows, fine_id, final_prob * fine_conversion_rate, steps_per_roll, sub_qty)
+                    else:
+                        self._add_row(rows, sub_item, final_prob, steps_per_roll, sub_qty)
             else:
-                self._add_row(rows, reward_data, chance, steps_per_roll, 1.0)
+                fine_id = self.fine_material_map.get(reward_data)
+                
+                if fine_id:
+                    self._add_row(rows, reward_data, chance * (1.0 - fine_conversion_rate), steps_per_roll, 1.0)
+                    self._add_row(rows, fine_id, chance * fine_conversion_rate, steps_per_roll, 1.0)
+                else:
+                    self._add_row(rows, reward_data, chance, steps_per_roll, 1.0)
 
         return rows
     

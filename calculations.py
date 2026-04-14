@@ -218,6 +218,8 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         val = ((1.0 + stats.get("chest_finding", 0)) * da_mult * dr_mult) / steps
     elif target == OPTIMAZATION_TARGET.chests_no_steps:
         val = ((1.0 + stats.get("chest_finding", 0)) * da_mult * dr_mult)
+    elif target == OPTIMAZATION_TARGET.chests_per_material:
+        val = (1.0 + stats.get("chest_finding", 0)) * dr_mult * nmc_mult
     elif target == OPTIMAZATION_TARGET.materials_from_input:
         val = (dr_mult * nmc_mult)
     elif target == OPTIMAZATION_TARGET.fine:

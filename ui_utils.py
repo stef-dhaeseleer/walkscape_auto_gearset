@@ -19,7 +19,7 @@ from drop_calculator import DropCalculator
 
 # --- GLOBAL TARGET CONFIG ---
 TARGET_CATEGORIES = {
-    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine", "Xp Per Material","Collectibles"],
+    "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine","Collectibles"],
     "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
     "Drops & Materials": [ 
         "Tokens Per Step", "Ectoplasm Per Step", "Fine Ectoplasm Per Step",
@@ -29,7 +29,8 @@ TARGET_CATEGORIES = {
         "Find Random Gem Per Step", "Find Random Fine Gem Per Step", "Gem Finding", "Gem Finding Fine"
     ],
     "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
-    "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps", "Collectibles No Steps"]
+    "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps", "Collectibles No Steps"],
+    "Misc":["Chests Per Material", "Xp Per Material"]
 }
 
 def find_category(target_name):
@@ -808,6 +809,9 @@ def format_target_metric(t_name, raw_val, base_steps):
         return f"{human_val:.2f} Steps/Roll" if raw_val > 0 else "∞ Steps/Roll"
     elif "xp per material" in t_name_lower:
         return f"{raw_val:.2f} XP/Mat"
+    elif "chests per material" in t_name_lower:
+        materials_per_chest = 250.0 / raw_val if raw_val > 0 else 0
+        return f"{materials_per_chest:.1f} Materials per Chest"
     elif "xp" in t_name_lower:
         return f"{raw_val:.2f} XP/Step"
     elif "chests" in t_name_lower:

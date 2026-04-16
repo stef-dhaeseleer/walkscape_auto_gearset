@@ -50,15 +50,26 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations, us
     if node.source_type == "recipe":
         recipe = game_data_dict['recipes'].get(node.source_id)
         if recipe:
-            compat_services = get_compatible_services(recipe, list(game_data_dict['services'].values()))
-            if compat_services:
-                opts = ["None"] + [s.id for s in compat_services]
-                def format_srv(x):
-                    if x == "None": return "None"
-                    return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
-                idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
-                new_srv = st.selectbox("Service", opts, index=idx, format_func=format_srv)
-                node.selected_service_id = new_srv if new_srv != "None" else None
+            if recipe.service.lower() != "none":
+                compat_services = get_compatible_services(recipe, list(game_data_dict['services'].values()))
+                if compat_services:
+                    opts = ["None"] + [s.id for s in compat_services]
+                    def format_srv(x):
+                        if x == "None": return "None"
+                        return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
+                    idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
+                    new_srv = st.selectbox("Service", opts, index=idx, format_func=format_srv)
+                    node.selected_service_id = new_srv if new_srv != "None" else None
+            else:
+                # Location selection for recipes with NO service
+                opts = [loc.id for loc in locations]
+                def format_loc(x):
+                    return next((loc.name for loc in locations if loc.id == x), x)
+                # Default to the first location if none is set
+                if not getattr(node, 'selected_location_id', None) or node.selected_location_id not in opts:
+                    node.selected_location_id = opts[0]
+                idx = opts.index(node.selected_location_id)
+                node.selected_location_id = st.selectbox("Location", opts, index=idx, format_func=format_loc)
 
     # 2. Location (Activities only)
     elif node.source_type == "activity":
@@ -413,16 +424,31 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
         if node.source_type == "recipe":
             recipe = game_data_dict['recipes'].get(node.source_id)
             if recipe:
-                compat_services = get_compatible_services(recipe, list(game_data_dict['services'].values()))
-                if compat_services:
-                    opts = [s.id for s in compat_services]
-                    def format_srv(x):
-                        return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
-                    idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
+                if recipe.service.lower() != "none":
+                    compat_services = get_compatible_services(recipe, list(game_data_dict['services'].values()))
+                    if compat_services:
+                        opts = [s.id for s in compat_services]
+                        def format_srv(x):
+                            return next((f"{s.name} ({s.location})" for s in compat_services if s.id == x), x)
+                        idx = opts.index(node.selected_service_id) if getattr(node, 'selected_service_id', None) in opts else 0
+                        
+                        new_srv = st.selectbox("📌 Service Override", opts, index=idx, format_func=format_srv, key=f"inl_srv_{node.node_id}")
+                        if new_srv != (getattr(node, 'selected_service_id', None) or "None"):
+                            node.selected_service_id = new_srv if new_srv != "None" else None
+                            st.rerun()
+                else:
+                    # Inline Location Override for recipes with NO service
+                    opts = [loc.id for loc in locations]
+                    def format_loc(x):
+                        return next((loc.name for loc in locations if loc.id == x), x)
+                    # Default to the first location if none is set
+                    if not getattr(node, 'selected_location_id', None) or node.selected_location_id not in opts:
+                        node.selected_location_id = opts[0]
+                    idx = opts.index(node.selected_location_id)
                     
-                    new_srv = st.selectbox("📌 Service Override", opts, index=idx, format_func=format_srv, key=f"inl_srv_{node.node_id}")
-                    if new_srv != (getattr(node, 'selected_service_id', None) or "None"):
-                        node.selected_service_id = new_srv if new_srv != "None" else None
+                    new_loc = st.selectbox("📌 Location Override", opts, index=idx, format_func=format_loc, key=f"inl_loc_{node.node_id}")
+                    if new_loc != node.selected_location_id:
+                        node.selected_location_id = new_loc
                         st.rerun()
                         
         elif node.source_type == "activity":

@@ -383,8 +383,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             selected_obj = combined_map[selected_key]
             if isinstance(selected_obj, Recipe):
                 is_recipe = True
-                
                 if selected_obj.service.lower() != "none":
+                    # 1. Recipe WITH Service (No location dropdown, tied to service)
                     compatible_services = get_compatible_services(selected_obj, services)
                     if compatible_services:
                         s_names = [f"{s.name} ({s.location})" for s in compatible_services]
@@ -403,6 +403,16 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                             st.markdown(html, unsafe_allow_html=True)
                     else:
                         st.error("No compatible services found for this recipe!")
+                else:
+                    # 2. Recipe WITHOUT Service (Universal Location Override allowed)
+                    all_loc_names = ["None"] + sorted([loc.name for loc in locations])
+                    sel_loc_name = st.selectbox("Select Location", all_loc_names, index=0)
+                    
+                    if sel_loc_name == "None":
+                        selected_location_id = "NONE_SELECTED"
+                    else:
+                        selected_location_id = next((loc.id for loc in locations if loc.name == sel_loc_name), None)
+
             
             elif isinstance(selected_obj, Activity):
                 if selected_obj.locations:
@@ -654,7 +664,12 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                             norm_kw = kw.lower().replace("_", " ").strip()
                             req_kw.pop(norm_kw, None)
                 
-                if not is_recipe and selected_location_id:
+                if is_recipe and selected_obj.service.lower() == "none":
+                    if selected_location_id == "NONE_SELECTED":
+                        current_loc_id = None
+                    else:
+                        current_loc_id = selected_location_id
+                elif not is_recipe and selected_location_id:
                     current_loc_id = selected_location_id
                 else:
                     current_loc_id = final_activity.locations[0] if final_activity.locations else None

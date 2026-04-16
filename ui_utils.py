@@ -194,6 +194,9 @@ def filter_user_items(all_items: List[Equipment], user_data: Dict) -> List[Equip
         return all_items
 
 def get_compatible_services(recipe: Recipe, all_services: List[Service]) -> List[Service]:
+    if recipe.service.lower() == "none":
+        return []
+
     compatible = []
     recipe_tier_req = "basic"
     is_cursed_req = "cursed" in recipe.service.lower()

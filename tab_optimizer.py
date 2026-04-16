@@ -383,24 +383,26 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             selected_obj = combined_map[selected_key]
             if isinstance(selected_obj, Recipe):
                 is_recipe = True
-                compatible_services = get_compatible_services(selected_obj, services)
-                if compatible_services:
-                    s_names = [f"{s.name} ({s.location})" for s in compatible_services]
-                    selected_s_name = st.selectbox("Select Service", s_names)
-                    selected_service = next((s for s in compatible_services if f"{s.name} ({s.location})" == selected_s_name), None)
-                    if selected_service and (selected_service.modifiers or selected_service.requirements):
-                        st.caption("Service Effects:")
-                        html = ""
-                        for mod in selected_service.modifiers:
-                            val = mod.value
-                            if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
-                            html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
-                        for req in selected_service.requirements:
-                            if req.type == RequirementType.KEYWORD_COUNT:
-                                html += f"<span class='service-mod'>Req: {req.value}x {req.target.replace('_',' ').title()}</span>"
-                        st.markdown(html, unsafe_allow_html=True)
-                else:
-                    st.error("No compatible services found for this recipe!")
+                
+                if selected_obj.service.lower() != "none":
+                    compatible_services = get_compatible_services(selected_obj, services)
+                    if compatible_services:
+                        s_names = [f"{s.name} ({s.location})" for s in compatible_services]
+                        selected_s_name = st.selectbox("Select Service", s_names)
+                        selected_service = next((s for s in compatible_services if f"{s.name} ({s.location})" == selected_s_name), None)
+                        if selected_service and (selected_service.modifiers or selected_service.requirements):
+                            st.caption("Service Effects:")
+                            html = ""
+                            for mod in selected_service.modifiers:
+                                val = mod.value
+                                if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
+                                html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
+                            for req in selected_service.requirements:
+                                if req.type == RequirementType.KEYWORD_COUNT:
+                                    html += f"<span class='service-mod'>Req: {req.value}x {req.target.replace('_',' ').title()}</span>"
+                            st.markdown(html, unsafe_allow_html=True)
+                    else:
+                        st.error("No compatible services found for this recipe!")
             
             elif isinstance(selected_obj, Activity):
                 if selected_obj.locations:
@@ -568,7 +570,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         st.write("")
         st.write("")
         can_run = (selected_obj is not None) and (len(weighted_targets) > 0)
-        if is_recipe and not selected_service: can_run = False
+        if is_recipe and selected_obj.service.lower() != "none" and not selected_service: 
+            can_run = False
         run_opt = st.button("🚀 Optimize", type="primary", width="stretch", disabled=not can_run)
 
     st.divider()
@@ -600,9 +603,25 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             final_activity = selected_obj
             extra_passive_stats = {}
             
-            if is_recipe and selected_service:
-                final_activity = synthesize_activity_from_recipe(selected_obj, selected_service)
-                extra_passive_stats = extract_modifier_stats(selected_service.modifiers)
+            if is_recipe:
+                if selected_service:
+                    final_activity = synthesize_activity_from_recipe(selected_obj, selected_service)
+                    extra_passive_stats = extract_modifier_stats(selected_service.modifiers)
+                else:
+                    class WrappedRecipe:
+                        def __init__(self, r):
+                            self.id = r.id
+                            self.name = r.name
+                            self.primary_skill = r.skill
+                            self.level = r.level
+                            self.base_xp = r.base_xp
+                            self.base_steps = r.base_steps
+                            self.max_efficiency = r.max_efficiency
+                            self.locations = []
+                            self.requirements = []
+                            self.materials = []
+
+                    final_activity = WrappedRecipe(selected_obj)
 
             if not is_recipe:
                 for mat in selected_input_materials:

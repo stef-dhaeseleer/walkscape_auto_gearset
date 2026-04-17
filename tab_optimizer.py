@@ -1181,15 +1181,16 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                     for idx in slots_to_test:
                                         test_gear = best_gear.clone()
                                         while len(test_gear.tools) <= idx: test_gear.tools.append(None)
+                                        test_gear.tools[idx] = None 
+
+                                        if test_gear.violates_restrictions(item): continue
+
                                         test_gear.tools[idx] = item
                                         test_gear.tools = [t for t in test_gear.tools if t is not None]
-                                        
+
                                         # Strict duplicate check
                                         tool_ids = [t.id for t in test_gear.tools]
-                                        if len(tool_ids) != len(set(tool_ids)): continue
-                                        
-                                        if test_gear.violates_restrictions(item): continue
-                                            
+                                        if len(tool_ids) != len(set(tool_ids)): continue                                           
                                         test_analysis = analyze_score(test_gear, saved_activity, saved_skill_lvl, display_target, context, passive_stats=passive_stats, normalization_context=norm_context_saved)
                                         if test_analysis["score"] > best_tool_score:
                                             best_tool_score = test_analysis["score"]

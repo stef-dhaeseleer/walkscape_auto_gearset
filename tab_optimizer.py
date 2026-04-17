@@ -203,7 +203,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         with tab_blacklist:
             b_col1, b_col2 = st.columns([5, 1])
             with b_col1:
-                filter_opts = ["All", "Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Rings", "Primary & Secondary", "Tools"]
+                filter_opts = ["All", "Head", "Chest", "Legs", "Feet", "Back", "Cape", "Neck", "Hands", "Rings", "Primary & Secondary", "Tools"]
                 active_filter = st.segmented_control(
                     "Filter by Slot",
                     options=filter_opts,
@@ -223,7 +223,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
             
             def get_filter_cat(item):
                 s = item.slot.lower()
-                if s in ["head", "chest", "legs", "feet", "back"]: return s.title()
+                if s in ["head", "chest", "legs", "feet", "back","hands"]: return s.title()
                 if s in ["neck"]: return "Neck"
                 if s in ["ring"]: return "Rings"
                 if s in ["cape"]: return "Cape"

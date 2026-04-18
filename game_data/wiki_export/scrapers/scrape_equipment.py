@@ -286,23 +286,45 @@ def parse_attribute_lines(lines, item_name="Unknown") -> list[Modifier]:
 
 
 
-
-
-
 def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
     soup = BeautifulSoup(html_content, 'html.parser')
     keywords = []
-    value = 0
+    base_value = 0
     slot = EquipmentSlot.UNKNOWN
+    values_by_quality = {}
     
-    infobox = soup.find('table', class_='ItemInfobox')
-    if infobox:
+    # 1. FIND ALL INFOBOXES (to capture tier-specific values)
+    infoboxes = soup.find_all('table', class_='ItemInfobox')
+    
+    for idx, infobox in enumerate(infoboxes):
+        current_quality_str = None
+        current_value = 0
+        
         for row in infobox.find_all('tr'):
             header = row.find('th')
             if not header: continue
+            
             text = header.get_text()
             
-            if 'Slot' in text:
+            # --- Detect Quality Tier ---
+            # Try finding quality in the main header: e.g., <th colspan="2"><b>Item</b><br/>(Normal)</th>
+            if header.has_attr('colspan'):
+                match = re.search(r'\((Normal|Good|Great|Excellent|Perfect|Eternal)\)', text, re.IGNORECASE)
+                if match:
+                    current_quality_str = match.group(1).capitalize()
+            
+            # Fallback: Look inside the "Quality:" row
+            if 'Quality:' in text and not current_quality_str:
+                q_cell = row.find('td')
+                if q_cell:
+                    q_link = q_cell.find('a')
+                    if q_link and q_link.get('title'):
+                        match = re.search(r'(Normal|Good|Great|Excellent|Perfect|Eternal)', q_link.get('title'), re.IGNORECASE)
+                        if match:
+                            current_quality_str = match.group(1).capitalize()
+
+            # --- Extract Shared Properties (Only needed from the 1st infobox) ---
+            if 'Slot' in text and idx == 0:
                 slot_cell = row.find('td')
                 if slot_cell:
                     slot_txt = slot_cell.get_text().strip().lower()
@@ -315,23 +337,35 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                         elif clean_slot in [e.value for e in EquipmentSlot]:
                             slot = EquipmentSlot(clean_slot)
             
-            # --- FIX: Exclude 'Search Keyword' to prevent overwriting ---
-            if 'Keyword' in text and 'Search' not in text:
+            if 'Keyword' in text and 'Search' not in text and idx == 0:
                 kw_cell = row.find('td')
                 if kw_cell:
-                    # Extract text from links, ignoring image-only links which resolve to empty strings
                     raw_kws = [k.get_text().strip() for k in kw_cell.find_all('a')]
                     new_keywords = [k for k in raw_kws if k]
                     if new_keywords:
                         keywords.extend(new_keywords)
             
+            # --- Extract Value for THIS specific infobox ---
             if 'Value' in text and 'Fine Value' not in text:
                 val_cell = row.find('td')
                 if val_cell:
-                    v_match = re.search(r'(\d+)', val_cell.get_text())
-                    if v_match: value = int(v_match.group(1))
+                    v_text = val_cell.get_text().replace(',', '') # Handle 1,000s
+                    v_match = re.search(r'(\d+)', v_text)
+                    if v_match: 
+                        current_value = int(v_match.group(1))
+                        # Save the first one as our fallback/base value
+                        if idx == 0:
+                            base_value = current_value
+        
+        # Store the value keyed by its EquipmentQuality Enum
+        if current_quality_str:
+            try:
+                enum_q = EquipmentQuality(current_quality_str)
+                values_by_quality[enum_q] = current_value
+            except ValueError:
+                pass
 
-    # --- NEW: Synthesize exact_item keyword ---
+    # --- Synthesize exact_item keyword ---
     clean_slug = slug.replace('Special:MyLanguage/', '')
     clean_slug = unquote(clean_slug)
     base_name = clean_slug.lower().replace("'", "").replace("-", "_").replace(" ", "_")
@@ -346,8 +380,8 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
             wiki_slug=slug,
             name=item_name,
             uuid=uuid,
-            value=value,
-            keywords=tuple(keywords), # Use tuple for frozen Pydantic models
+            value=base_value,
+            keywords=tuple(keywords), 
             slot=slot,
             quality=EquipmentQuality.NONE,
             requirements=requirements,
@@ -361,6 +395,7 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
         current = current.find_next_sibling()
         if not current: break
         
+        # 2. GENERATE TIERED EQUIPMENT
         if current.name == 'table' and 'wikitable' in current.get('class', []):
             rows = current.find_all('tr')[1:]
             for row in rows:
@@ -373,6 +408,9 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                     except ValueError:
                         quality_enum = EquipmentQuality.NORMAL
                     
+                    # Fetch tier-specific value (fallback to base_value if missing)
+                    item_value = values_by_quality.get(quality_enum, base_value)
+                    
                     attr_cell = cells[2]
                     for br in attr_cell.find_all('br'): br.replace_with('\n')
                     stat_lines = [l.strip() for l in attr_cell.get_text().split('\n') if l.strip()]
@@ -383,8 +421,8 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                         wiki_slug=slug,
                         name=f"{item_name} ({quality_str})",
                         uuid=uuid,
-                        value=value,
-                        keywords=tuple(keywords), # Use tuple for frozen Pydantic models
+                        value=item_value,
+                        keywords=tuple(keywords), 
                         slot=slot,
                         quality=quality_enum,
                         requirements=requirements,
@@ -392,6 +430,7 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                     ))
             break
         
+        # GENERATE SINGLE/NO TIER EQUIPMENT
         elif current.name == 'p':
             for br in current.find_all('br'): br.replace_with('\n')
             stat_lines = [l.strip() for l in current.get_text().split('\n') if l.strip()]
@@ -402,8 +441,8 @@ def parse_item_page(html_content, item_name, slug, uuid) -> list[Equipment]:
                 wiki_slug=slug,
                 name=item_name,
                 uuid=uuid,
-                value=value,
-                keywords=tuple(keywords), # Use tuple for frozen Pydantic models
+                value=base_value,
+                keywords=tuple(keywords), 
                 slot=slot,
                 quality=EquipmentQuality.NONE,
                 requirements=requirements,

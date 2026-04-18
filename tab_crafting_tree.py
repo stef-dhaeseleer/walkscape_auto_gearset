@@ -873,7 +873,7 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                 st.markdown(f"<div style='background-color:#0f172a; padding:15px; border-radius:8px; border: 1px solid #1e293b;'>"
                             f"<h4 style='margin:0; color:#e2e8f0;'>Side Drops Value</h4>"
                             f"<h2 style='margin:0; color:#fbbf24;'>{side_value:,.0f} 🪙</h2>"
-                            f"<span style='color:#94a3b8;'>Sell value of all byproducts, chests, and tokens</span>"
+                            f"<span style='color:#94a3b8;'>Sell value of all byproducts and chests</span>"
                             f"</div>", unsafe_allow_html=True)
             with c_fin2:
                 color = "#4ade80" if net_profit >= 0 else "#f87171"

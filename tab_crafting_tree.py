@@ -692,6 +692,8 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                             self.locations = []
                                             self.requirements = []
                                             self.materials = []
+                                            self.output_item_id = r.output_item_id
+                                            self.output_quantity = r.output_quantity
                                     activity_obj = WrappedRecipe(recipe_obj)
                                     
                         elif node.source_type in ["activity", "chest"]:
@@ -807,6 +809,38 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
             total_steps = root.metrics["steps"] * target_amount
             days_est = total_steps / daily_steps
             
+            # --- PRE-CALCULATE FINANCIALS & DROPS ---
+            raw_material_cost = 0.0
+            for item_id, amt in root.metrics["raw_materials"].items():
+                raw_material_cost += (amt * target_amount) * drop_calc.item_values.get(item_id, 0.0)
+
+            target_value = 0.0
+            side_value = 0.0
+            
+            base_target_id = target_item_id.replace("_fine", "")
+            qualities_data = []
+            side_drops_data = []
+
+            for drop_id, amt in root.metrics.get("drops_gained", {}).items():
+                final_amt = amt * target_amount
+                
+                # Ignore mathematically insignificant fractions
+                if final_amt < 0.001: 
+                    continue
+                
+                display_name = drop_id.replace("_", " ").title()
+                val_per_unit = drop_calc.container_evs.get(drop_id, drop_calc.item_values.get(drop_id, 0.0))
+                total_val = final_amt * val_per_unit
+                
+                if drop_id.startswith(base_target_id):
+                    qualities_data.append({"Item": display_name, "Yield": final_amt, "Value": total_val})
+                    target_value += total_val
+                else:
+                    side_drops_data.append({"Item": display_name, "Yield": final_amt, "Value": total_val})
+                    side_value += total_val
+
+            net_profit = (target_value + side_value) - raw_material_cost
+            
             # --- Key Metrics Cards ---
             c_sum1, c_sum2, c_sum3 = st.columns(3)
             with c_sum1:
@@ -817,13 +851,9 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                             f"</div>", unsafe_allow_html=True)
                 
             with c_sum2:
-                cost = 0.0
-                for item_id, amt in root.metrics["raw_materials"].items():
-                    cost += (amt * target_amount) * drop_calc.item_values.get(item_id, 0.0)
-                
                 st.markdown(f"<div style='background-color:#0f172a; padding:15px; border-radius:8px; border: 1px solid #1e293b;'>"
                             f"<h4 style='margin:0; color:#e2e8f0;'>Total Material Cost</h4>"
-                            f"<h2 style='margin:0; color:#f87171;'>{cost:,.0f} 🪙</h2>"
+                            f"<h2 style='margin:0; color:#f87171;'>{raw_material_cost:,.0f} 🪙</h2>"
                             f"<span style='color:#94a3b8;'>Value of all gathered & banked inputs</span>"
                             f"</div>", unsafe_allow_html=True)
                 
@@ -837,6 +867,22 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                             f"<span style='color:#94a3b8;'>Avg: <b>{avg_xp:,.2f}</b> XP/Step</span>"
                             f"</div>", unsafe_allow_html=True)
 
+            st.write("")
+            c_fin1, c_fin2 = st.columns(2)
+            with c_fin1:
+                st.markdown(f"<div style='background-color:#0f172a; padding:15px; border-radius:8px; border: 1px solid #1e293b;'>"
+                            f"<h4 style='margin:0; color:#e2e8f0;'>Side Drops Value</h4>"
+                            f"<h2 style='margin:0; color:#fbbf24;'>{side_value:,.0f} 🪙</h2>"
+                            f"<span style='color:#94a3b8;'>Sell value of all byproducts, chests, and tokens</span>"
+                            f"</div>", unsafe_allow_html=True)
+            with c_fin2:
+                color = "#4ade80" if net_profit >= 0 else "#f87171"
+                st.markdown(f"<div style='background-color:#0f172a; padding:15px; border-radius:8px; border: 1px solid #1e293b;'>"
+                            f"<h4 style='margin:0; color:#e2e8f0;'>Net Profit</h4>"
+                            f"<h2 style='margin:0; color:{color};'>{net_profit:,.0f} 🪙</h2>"
+                            f"<span style='color:#94a3b8;'>Total Yield ({target_value + side_value:,.0f} 🪙) - Material Cost</span>"
+                            f"</div>", unsafe_allow_html=True)
+            
             st.write("")
             
             # --- Details Tables ---
@@ -857,7 +903,6 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     st.dataframe(pd.DataFrame(shopping_data), hide_index=True, width="stretch")
                 else:
                     st.info("No raw materials required from the bank! (Everything gathered via activities).")
-                    
 
             with c_det2:
                 st.markdown("##### 🪙 Material Cost Breakdown")
@@ -1016,3 +1061,46 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                     )
                 else:
                     st.info("No consumables used in this crafting chain.")
+                    
+            # --- NEW STEP 4: DROPS & BYPRODUCTS UI ---
+            st.write("")
+            st.markdown("---")
+            st.markdown("### 🎁 Crafting Outcomes & Side Drops")
+            st.caption("Displays the actual yield of the target item (including qualities) and all accumulated byproducts across the chain.")
+
+            c_drop1, c_drop2 = st.columns(2)
+            with c_drop1:
+                st.markdown("##### 🎯 Target Item Yield")
+                st.caption("Expected distribution of qualities.")
+                if qualities_data:
+                    df_qual = pd.DataFrame(qualities_data).sort_values(by="Yield", ascending=False)
+                    st.dataframe(
+                        df_qual,
+                        column_config={
+                            "Item": st.column_config.TextColumn("Item"),
+                            "Yield": st.column_config.NumberColumn("Quantity Yielded", format="%.2f"),
+                            "Value": st.column_config.NumberColumn("Total Value", format="%.1f 🪙")
+                        },
+                        hide_index=True,
+                        width="stretch"
+                    )
+                else:
+                    st.info("No target items generated (this usually means the target couldn't be crafted).")
+
+            with c_drop2:
+                st.markdown("##### 📦 Side Drops & Byproducts")
+                st.caption("Chests, tokens, gems, and gathered materials.")
+                if side_drops_data:
+                    df_side = pd.DataFrame(side_drops_data).sort_values(by="Yield", ascending=False)
+                    st.dataframe(
+                        df_side,
+                        column_config={
+                            "Item": st.column_config.TextColumn("Item"),
+                            "Yield": st.column_config.NumberColumn("Quantity Yielded", format="%.2f"),
+                            "Value": st.column_config.NumberColumn("Total Value", format="%.1f 🪙")
+                        },
+                        hide_index=True,
+                        width="stretch"
+                    )
+                else:
+                    st.info("No side drops accumulated.")

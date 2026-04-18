@@ -163,6 +163,15 @@ QUALITY_NAMES = [
     EquipmentQuality.EXCELLENT.value, EquipmentQuality.PERFECT.value, EquipmentQuality.ETERNAL.value,
 ]
 
+QUALITY_SUFFIX_MAP = {
+    "Normal": "_common",
+    "Good": "_uncommon",
+    "Great": "_rare",
+    "Excellent": "_epic",
+    "Perfect": "_legendary",
+    "Eternal": "_ethereal"
+}
+
 class OPTIMAZATION_TARGET(str, Enum):
     reward_rolls = "reward_rolls"
     xp = "xp"

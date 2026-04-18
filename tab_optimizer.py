@@ -630,6 +630,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                             self.locations = []
                             self.requirements = []
                             self.materials = []
+                            self.output_item_id = r.output_item_id
+                            self.output_quantity = r.output_quantity
 
                     final_activity = WrappedRecipe(selected_obj)
 

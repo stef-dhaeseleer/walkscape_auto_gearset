@@ -208,6 +208,8 @@ class Activity(BaseEntity):
     chest_roll_worth: float = 0.0
     fine_roll_worth: float = 0.0
     
+    output_item_id: Optional[str] = None
+    output_quantity: Optional[int] = None
     @property
     def level(self) -> int:
         for req in self.requirements:

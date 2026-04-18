@@ -513,7 +513,8 @@ def calculate_node_metrics(
         "steps_by_skill": defaultdict(float),
         "pet_steps_gained": defaultdict(float),
         "ability_charges_used": defaultdict(float),
-        "consumable_steps_needed": defaultdict(float)
+        "consumable_steps_needed": defaultdict(float),
+        "drops_gained": defaultdict(float)
     }
 
     if node.source_type == "bank":
@@ -620,22 +621,25 @@ def calculate_node_metrics(
     
     # --- Quality Probability ---
     p_valid_quality = 1.0
+    
+    # 1. Always evaluate if it's an equipment upgrade (needed for drop calc)
+    is_equipment_upgrade = False
+    if recipe_obj and hasattr(recipe_obj, 'materials'):
+        for mat_group in recipe_obj.materials:
+            for mat in mat_group:
+                base_id = mat.item_id.replace("_fine", "")
+                has_fine = (base_id in drop_calc.fine_material_map or 
+                            f"{base_id}_fine" in game_data.get('materials', {}) or 
+                            f"{base_id}_fine" in game_data.get('consumables', {}))
+                if not has_fine:
+                    is_equipment_upgrade = True
+                    break
+            if is_equipment_upgrade: break
+
+    # 2. Then check the target quality rank
     if global_target_quality not in ["Normal", "None"]:
         from utils.constants import QUALITY_RANK
         target_rank = QUALITY_RANK.get(global_target_quality, 0)
-        
-        is_equipment_upgrade = False
-        if recipe_obj and hasattr(recipe_obj, 'materials'):
-            for mat_group in recipe_obj.materials:
-                for mat in mat_group:
-                    base_id = mat.item_id.replace("_fine", "")
-                    has_fine = (base_id in drop_calc.fine_material_map or 
-                                f"{base_id}_fine" in game_data.get('materials', {}) or 
-                                f"{base_id}_fine" in game_data.get('consumables', {}))
-                    if not has_fine:
-                        is_equipment_upgrade = True
-                        break
-                if is_equipment_upgrade: break
         
         probs = calculate_quality_probabilities(
             min_level, player_lvl, stats.get("quality_outcome", 0),
@@ -645,7 +649,6 @@ def calculate_node_metrics(
         valid_tiers = [q.value for q, r in QUALITY_RANK.items() if r >= target_rank and q != "None"]
         p_valid_quality = sum(probs.get(q, 0.0) for q in valid_tiers)
         if p_valid_quality <= 0.00001: return res
-
     res["stats_used"] = {
         "DA": DA, "DR": DR, "NMC": NMC, "WE": WE, "XP_BONUS": XP_BONUS,
         "p_valid_quality": p_valid_quality,
@@ -672,6 +675,14 @@ def calculate_node_metrics(
         
         actions_needed = 1.0 / ((1.0 + DA) * (1.0 + DR) * q_out * p_valid_quality)
         normal_steps = actions_needed * steps_per_action
+
+        drop_table = drop_calc.get_drop_table(
+                recipe_obj, stats, player_lvl, 
+                is_fine_materials=global_use_fine, 
+                is_equipment_upgrade=is_equipment_upgrade
+            )
+        for d in drop_table:
+            res["drops_gained"][d["Item"]] += normal_steps / d["Steps"]
         
         if is_using_ability:
             res["steps"] = 0.0
@@ -711,6 +722,8 @@ def calculate_node_metrics(
             for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
             for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
             for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
+            for d_id, amt in child_metrics["drops_gained"].items(): res["drops_gained"][d_id] += (input_ratio * amt)
+            res["drops_gained"][child_node.item_id] = max(0.0, res["drops_gained"][child_node.item_id] - input_ratio)
 
     # ==========================================
     # ACTIVITY
@@ -722,6 +735,9 @@ def calculate_node_metrics(
             if drop["Item"] == target_item_id:
                 normal_steps = drop["Steps"] / p_valid_quality
                 actions_needed = normal_steps / steps_per_action
+                
+                for d in drop_table:
+                    res["drops_gained"][d["Item"]] += normal_steps / d["Steps"]
                 
                 if is_using_ability:
                     res["steps"] = 0.0
@@ -765,7 +781,8 @@ def calculate_node_metrics(
                     for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (input_ratio * stp)
                     for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (input_ratio * chg)
                     for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (input_ratio * stp)
-
+                    for d_id, amt in child_metrics["drops_gained"].items(): res["drops_gained"][d_id] += (input_ratio * amt)
+                    res["drops_gained"][child_node.item_id] = max(0.0, res["drops_gained"][child_node.item_id] - input_ratio)
                 break
 
     # ==========================================
@@ -788,7 +805,19 @@ def calculate_node_metrics(
                 normal_steps = (steps_per_chest / expected_items_per_chest) / p_valid_quality
                 actions_needed = normal_steps / steps_per_action
 
-
+                # 1. Add all activity drops (this includes the chests we found)
+                for d in drop_table:
+                    res["drops_gained"][d["Item"]] += normal_steps / d["Steps"]
+                    
+                # 2. Subtract the chests we had to open
+                chests_opened = normal_steps / steps_per_chest
+                res["drops_gained"][node.source_id] -= chests_opened
+                
+                # 3. Add the items that came out of the opened chests
+                for d in chest_obj.drops:
+                    avg_q = (d.min_quantity + d.max_quantity) / 2.0
+                    chance = (d.chance or 0.0) / 100.0
+                    res["drops_gained"][d.item_id] += chests_opened * chance * avg_q
                 if is_using_ability:
                     res["steps"] = 0.0
                     charges = actions_needed / get_actions_per_charge(instant_ability.effect)

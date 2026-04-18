@@ -234,7 +234,9 @@ def synthesize_activity_from_recipe(recipe: Recipe, service: Service) -> Activit
         base_xp=recipe.base_xp,
         max_efficiency=recipe.max_efficiency,
         requirements=tuple(combined_reqs),
-        modifiers=service.modifiers 
+        modifiers=service.modifiers,
+        output_item_id=recipe.output_item_id,
+        output_quantity=recipe.output_quantity
     )
 
 def extract_modifier_stats(modifiers: List[Modifier]) -> Dict[str, float]:

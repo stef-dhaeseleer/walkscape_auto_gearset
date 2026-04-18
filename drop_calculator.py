@@ -3,13 +3,12 @@ import os
 from typing import Dict, List, Any, Optional, Set, Tuple
 
 # Import the exact step calculation logic used in the optimizer
-from calculations import calculate_steps
-from utils.constants import SPECIAL_FIND_MAP
+from calculations import calculate_steps, calculate_quality_probabilities
+from utils.constants import SPECIAL_FIND_MAP, QUALITY_SUFFIX_MAP
 
 # ===========================================================================
 # STATIC DATA
 # ===========================================================================
-
 
 class DropCalculator:
     def __init__(self):
@@ -30,6 +29,7 @@ class DropCalculator:
         Attempts to load from the standard path, falling back to local if needed.
         """
         files_to_load = {
+            "equipment": "equipment.json",
             "materials": "materials.json",
             "consumables": "consumables.json",
             "containers": "containers.json",
@@ -50,14 +50,13 @@ class DropCalculator:
                     with open(path, 'r', encoding='utf-8') as f:
                         loaded_data[key] = json.load(f)
                 else:
-                    # Fail silently or log if needed; empty lists handle missing data gracefully
                     loaded_data[key] = []
             except Exception as e:
                 print(f"Error loading {filename}: {e}")
                 loaded_data[key] = []
 
         # Process Loaded Data
-        all_items = loaded_data.get("materials", []) + loaded_data.get("consumables", [])
+        all_items = loaded_data.get("equipment", []) + loaded_data.get("materials", []) + loaded_data.get("consumables", [])
         containers = loaded_data.get("containers", [])
         collectibles = loaded_data.get("collectibles", [])
 
@@ -92,7 +91,8 @@ class DropCalculator:
                 self.container_evs[c_id] = float(c.get("total_expected_value", 0.0))
 
     def get_drop_table(self, activity: Any, stats: Dict[str, float], 
-                       player_skill_lvl: int) -> List[Dict[str, Any]]:
+                       player_skill_lvl: int, is_fine_materials: bool = False, 
+                       is_equipment_upgrade: bool = False) -> List[Dict[str, Any]]:
         rows = []
         
         # 1. Calculate Steps
@@ -112,59 +112,115 @@ class DropCalculator:
         da_val = stats.get("double_action", 0.0)
         dr_val = stats.get("double_rewards", 0.0)
         
-        # Total multiplier for output quantity (not frequency)
+        # Total multiplier for frequency of rolls
         steps_per_roll = action_steps / ((1.0 + da_val) * (1.0 + dr_val))
 
         # --- EXTRACT FINE CONVERSION RATE ---
         fine_bonus = stats.get("fine_material_finding", 0.0)
         fine_conversion_rate = min(1.0, 0.01 * (1.0 + fine_bonus))
 
-        # 3. Process Standard Loot Tables
-        act_dict = activity.model_dump() if hasattr(activity, "model_dump") else activity.__dict__
-        loot_tables = act_dict.get("loot_tables", [])
+        is_recipe = getattr(activity, "output_item_id", None) is not None
 
-        for table in loot_tables:
-            rolls = table.get("rolls", 1)
-            table_type = table.get("type", "main")
-            drops = table.get("drops", [])
+        if is_recipe:
+            # ==========================================
+            # RECIPE OUTPUTS
+            # ==========================================
+            base_id = activity.output_item_id
+            avg_quantity = float(activity.output_quantity)
             
-            for drop in drops:
-                item_id = drop.get("item_id")
-                base_chance = drop.get("chance", 0.0)
+            # Detect if this is an equipment item by checking if a "Good" (_uncommon) or "Normal" (_common) variant exists in game data
+            is_equipment = f"{base_id}_uncommon" in self.item_values or f"{base_id}_common" in self.item_values
+
+            if is_equipment:
+                quality_bonus = stats.get("quality_outcome", 0.0)
+                probs = calculate_quality_probabilities(
+                    activity.level, player_skill_lvl, quality_bonus,
+                    is_fine_materials=is_fine_materials,
+                    is_equipment_upgrade=is_equipment_upgrade
+                )
                 
-                min_q = drop.get("min_quantity", 1)
-                max_q = drop.get("max_quantity", 1)
-                avg_quantity = (min_q + max_q) / 2.0
-                
-                if item_id == "nothing" or base_chance <= 0:
-                    continue
-
-                multiplier = 1.0
-
-                # Check Modifiers
-                if item_id in self.chest_ids:
-                    multiplier += stats.get("chest_finding", 0.0)
-                if item_id == "bird_nest":
-                    multiplier += stats.get("find_bird_nests", 0.0)
-                if item_id in self.collectible_ids:
-                    multiplier += stats.get("find_collectibles", 0.0)
-                if table_type == "gem":
-                     multiplier += stats.get("find_gems", 0.0)
-
-                final_prob = (base_chance / 100.0) * multiplier * rolls
-
-                # Check Fine Material
-                fine_id = self.fine_material_map.get(item_id)
-                if fine_id:
-                    prob_fine = final_prob * fine_conversion_rate
-                    prob_normal = final_prob * (1.0 - fine_conversion_rate)
-
-                    self._add_row(rows, item_id, prob_normal, steps_per_roll, avg_quantity)
-                    self._add_row(rows, fine_id, prob_fine, steps_per_roll, avg_quantity)
+                for qual_name, prob in probs.items():
+                    if prob > 0:
+                        suffix = QUALITY_SUFFIX_MAP.get(qual_name, "")
+                        q_id = f"{base_id}{suffix}"
+                        
+                        # Fallback for base items that might not use the _common suffix natively
+                        if q_id not in self.item_values and qual_name == "Normal":
+                            q_id = base_id
+                            
+                        self._add_row(rows, q_id, prob, steps_per_roll, avg_quantity)
+            else:
+                # Material or Consumable Output
+                if is_fine_materials:
+                    fine_id = self.fine_material_map.get(base_id, f"{base_id}_fine")
+                    self._add_row(rows, fine_id, 1.0, steps_per_roll, avg_quantity)
                 else:
-                    self._add_row(rows, item_id, final_prob, steps_per_roll, avg_quantity)
+                    fine_id = self.fine_material_map.get(base_id)
+                    if fine_id and fine_conversion_rate > 0:
+                        self._add_row(rows, base_id, 1.0 - fine_conversion_rate, steps_per_roll, avg_quantity)
+                        self._add_row(rows, fine_id, fine_conversion_rate, steps_per_roll, avg_quantity)
+                    else:
+                        self._add_row(rows, base_id, 1.0, steps_per_roll, avg_quantity)
 
-        # 4. Process Special Finds
+            # Recipe Specific Chest Drop (1/250 Base Chance)
+            activity_skill = getattr(activity, "primary_skill", getattr(activity, "skill", ""))
+            chest_id = f"{activity_skill}_chest"
+            base_chest_chance = 0.004
+            chest_multiplier = 1.0 + stats.get("chest_finding", 0.0)
+            final_chest_prob = base_chest_chance * chest_multiplier
+            self._add_row(rows, chest_id, final_chest_prob, steps_per_roll, 1.0)
+            
+        else:
+            # ==========================================
+            # ACTIVITY OUTPUTS
+            # ==========================================
+            act_dict = activity.model_dump() if hasattr(activity, "model_dump") else activity.__dict__
+            loot_tables = act_dict.get("loot_tables", [])
+
+            for table in loot_tables:
+                rolls = table.get("rolls", 1)
+                table_type = table.get("type", "main")
+                drops = table.get("drops", [])
+                
+                for drop in drops:
+                    item_id = drop.get("item_id")
+                    base_chance = drop.get("chance", 0.0)
+                    
+                    min_q = drop.get("min_quantity", 1)
+                    max_q = drop.get("max_quantity", 1)
+                    avg_quantity = (min_q + max_q) / 2.0
+                    
+                    if item_id == "nothing" or base_chance <= 0:
+                        continue
+
+                    multiplier = 1.0
+
+                    # Check Modifiers
+                    if item_id in self.chest_ids:
+                        multiplier += stats.get("chest_finding", 0.0)
+                    if item_id == "bird_nest":
+                        multiplier += stats.get("find_bird_nests", 0.0)
+                    if item_id in self.collectible_ids:
+                        multiplier += stats.get("find_collectibles", 0.0)
+                    if table_type == "gem":
+                         multiplier += stats.get("find_gems", 0.0)
+
+                    final_prob = (base_chance / 100.0) * multiplier * rolls
+
+                    # Check Fine Material
+                    fine_id = self.fine_material_map.get(item_id)
+                    if fine_id:
+                        prob_fine = final_prob * fine_conversion_rate
+                        prob_normal = final_prob * (1.0 - fine_conversion_rate)
+
+                        self._add_row(rows, item_id, prob_normal, steps_per_roll, avg_quantity)
+                        self._add_row(rows, fine_id, prob_fine, steps_per_roll, avg_quantity)
+                    else:
+                        self._add_row(rows, item_id, final_prob, steps_per_roll, avg_quantity)
+
+        # ==========================================
+        # SPECIAL FINDS (Shared by Recipes & Activities)
+        # ==========================================
         for stat_key, reward_data in SPECIAL_FIND_MAP.items():
             chance = stats.get(stat_key, 0.0)
             if chance <= 0:

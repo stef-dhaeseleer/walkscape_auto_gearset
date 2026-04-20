@@ -22,7 +22,7 @@ TARGET_CATEGORIES = {
     "Main": ["Reward Rolls", "Xp", "Chests", "Materials From Input", "Fine","Collectibles"],
     "Quality": [ "Eternal Per Input","Good Per Step", "Great Per Step", "Excellent Per Step", "Perfect Per Step", "Eternal Per Step"],
     "Drops & Materials": [ 
-        "Tokens Per Step", "Ectoplasm Per Step", "Fine Ectoplasm Per Step",
+        "Tokens Per Step", "Bird Nests Per Step","Ectoplasm Per Step", "Fine Ectoplasm Per Step",
         "Sea Shells Per Step", "Fine Sea Shells Per Step", "Crustacean Per Step", "Fine Crustacean Per Step",
         "Fibrous Plant Per Step", "Fine Fibrous Plant Per Step", "Fishing Bait Per Step", "Fine Fishing Bait Per Step",
         "Gold Nugget Per Step", "Fine Gold Nugget Per Step",

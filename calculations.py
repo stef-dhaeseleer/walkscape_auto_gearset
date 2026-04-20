@@ -275,7 +275,7 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
 
     elif target == OPTIMAZATION_TARGET.sea_shells_per_step:
         chance = stats.get("find_sea_shells", 0)
-        val = (chance * da_mult * dr_mult) / steps
+        val = (chance * da_mult * dr_mult) * 5.5 / steps
     elif target == OPTIMAZATION_TARGET.fine_sea_shells_per_step:
         chance = stats.get("find_sea_shells", 0)
         val = (chance * fine_conversion_rate * da_mult * dr_mult) / steps
@@ -327,7 +327,20 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
  
     elif target == OPTIMAZATION_TARGET.collectibles_no_steps:
         val = ((1.0 + stats.get("find_collectibles", 0)) * da_mult * dr_mult)
-
+    
+    elif target == OPTIMAZATION_TARGET.bird_nests_per_step:
+        base_bird_nest_chance = 0.0
+        
+        if hasattr(activity, 'loot_tables'):
+            for table in activity.loot_tables:
+                for drop in table.drops:
+                    if drop.item_id == "bird_nest":
+                        chance = drop.chance or 0.0
+                        avg_q = (drop.min_quantity + drop.max_quantity) / 2.0
+                        base_bird_nest_chance += (chance / 100.0) * table.rolls * avg_q
+                        
+        total_nest_yield_per_roll = (base_bird_nest_chance * (1.0 + stats.get("find_bird_nests", 0.0))) + stats.get("chance_to_find_bird_nest", 0.0)     
+        val = (total_nest_yield_per_roll * da_mult * dr_mult) / steps
     elif target in [OPTIMAZATION_TARGET.coins, OPTIMAZATION_TARGET.coins_no_chests, 
                     OPTIMAZATION_TARGET.coins_no_fines, OPTIMAZATION_TARGET.coins_no_chests_no_fines]:
         

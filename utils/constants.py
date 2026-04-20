@@ -204,6 +204,7 @@ class OPTIMAZATION_TARGET(str, Enum):
     find_random_fine_gem_per_step = "find_random_fine_gem_per_step"
     gem_finding = "gem_finding"
     gem_finding_fine = "gem_finding_fine"
+    bird_nests_per_step = "bird_nests_per_step"
 
 
     coins = "coins"
@@ -253,7 +254,7 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.find_random_fine_gem_per_step: REWARD_ROLL_STATS | {StatName.FIND_RANDOM_GEM, StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.gem_finding: REWARD_ROLL_STATS | {StatName.FIND_GEMS},
     OPTIMAZATION_TARGET.gem_finding_fine: REWARD_ROLL_STATS | {StatName.FIND_GEMS, StatName.FINE_MATERIAL_FINDING},
-    
+    OPTIMAZATION_TARGET.bird_nests_per_step: REWARD_ROLL_STATS | {StatName.FIND_BIRD_NESTS, StatName.CHANCE_TO_FIND_BIRD_NEST},
     
     
     OPTIMAZATION_TARGET.coins: COIN_BASE_STATS | {StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING},

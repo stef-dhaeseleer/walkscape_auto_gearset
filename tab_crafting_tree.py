@@ -194,6 +194,84 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     node.inputs[node.source_id] = child_node
                             
                 st.rerun()
+            if node.source_type == "custom":
+                st.markdown("###### 🔍 Select Global Source")
+                
+                # Combine all activities and recipes into a single list
+                act_map = {f"[Activity] {a.name}": ("activity", a.id) for a in game_data_dict['activities'].values()}
+                rec_map = {f"[Recipe] {r.name}": ("recipe", r.id) for r in game_data_dict['recipes'].values()}
+                combined_map = {**act_map, **rec_map}
+                combined_names = sorted(list(combined_map.keys()))
+                
+                custom_choice = st.selectbox(
+                    "Search Activity or Recipe", 
+                    options=["-- Select --"] + combined_names, 
+                    index=0, 
+                    key=f"custom_sel_{node.node_id}"
+                )
+                
+                if custom_choice != "-- Select --":
+                    chosen_type, chosen_id = combined_map[custom_choice]
+                    new_custom_label = f"{custom_choice} (Custom)"
+                    
+                    # 1. Inject this new choice into the main dropdown so the user can see/keep it
+                    if not any(s["label"] == new_custom_label for s in node.available_sources):
+                        node.available_sources.append({
+                            "type": chosen_type,
+                            "id": chosen_id,
+                            "label": new_custom_label
+                        })
+                    
+                    # 2. Morph the node into the chosen type
+                    node.source_type = chosen_type
+                    node.source_id = chosen_id
+                    
+                    # 3. Clear existing inputs & states
+                    node.inputs.clear()
+                    if hasattr(node, 'selected_activity_inputs'):
+                        node.selected_activity_inputs.clear()
+                    if hasattr(node, '_pet_auto_checked'):
+                        delattr(node, '_pet_auto_checked')
+                    node.selected_pet_id = None
+                    node.selected_pet_level = None
+                    
+                    # 4. Rebuild the child inputs for the newly morphed node
+                    if node.source_type == "recipe":
+                        recipe = game_data_dict['recipes'].get(node.source_id)
+                        if recipe and recipe.materials:
+                            for i, material_group in enumerate(recipe.materials):
+                                if not material_group: continue
+                                mat = material_group[0] 
+                                child_node = build_default_tree(mat.item_id, game_data_dict, drop_calc)
+                                child_node.base_requirement_amount = mat.amount
+                                node.inputs[f"{mat.item_id}_{i}"] = child_node
+
+                    elif node.source_type == "activity":
+                        activity_obj = game_data_dict['activities'].get(node.source_id)
+                        if activity_obj and hasattr(activity_obj, 'requirements'):
+                            input_reqs = [r for r in activity_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]
+                            for i, req in enumerate(input_reqs):
+                                req_type_val = getattr(req.type, 'value', req.type)
+                                kw_target = req.target.lower().replace("_", " ").strip() if req.target else ""
+
+                                first_valid_id = None
+                                if req_type_val in ('keyword_count', 'input_keyword'):
+                                    for mat in list(game_data_dict['materials'].values()) + list(game_data_dict['consumables'].values()):
+                                        if hasattr(mat, 'keywords') and mat.keywords:
+                                            if kw_target in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
+                                                first_valid_id = mat.id
+                                                break
+                                elif req_type_val == 'item':
+                                    first_valid_id = req.target.lower()
+
+                                if first_valid_id:
+                                    node.selected_activity_inputs[i] = first_valid_id
+                                    child_node = build_default_tree(first_valid_id, game_data_dict, drop_calc)
+                                    child_node.base_requirement_amount = req.value
+                                    node.inputs[f"{first_valid_id}_{i}"] = child_node
+
+                    # 5. Rerun the UI so the location/service overrides pop into existence!
+                    st.rerun()
 
             # --- RENDER ACTIVITY INPUT SELECTION ---
             if node.source_type == "activity":

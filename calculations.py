@@ -567,7 +567,11 @@ def calculate_node_metrics(
 
     target_item_id = node.item_id
     if global_use_fine and not target_item_id.endswith("_fine"):
-        target_item_id = f"{target_item_id}_fine"
+        base_id = target_item_id
+        if (base_id in drop_calc.fine_material_map or 
+            f"{base_id}_fine" in game_data.get('materials', {}) or 
+            f"{base_id}_fine" in game_data.get('consumables', {})):
+            target_item_id = f"{target_item_id}_fine"
 
     # 3. Resolve Activity & Service Synthesizing
     recipe_obj, activity_obj = None, None
@@ -582,12 +586,12 @@ def calculate_node_metrics(
         
         if recipe_obj: skill_name, min_level, base_xp = recipe_obj.skill, recipe_obj.level, recipe_obj.base_xp
 
-    elif node.source_type in ["activity", "chest"]:
-        act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
+    elif node.source_type == "activity":
+        act_id = node.source_id
         activity_obj = game_data['activities'].get(act_id)
         if activity_obj: skill_name, min_level, base_xp = activity_obj.primary_skill, activity_obj.level, activity_obj.base_xp
 
-    if not activity_obj: return res
+    if not activity_obj and node.source_type != "chest": return res
 
     player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
 
@@ -803,50 +807,73 @@ def calculate_node_metrics(
     # ==========================================
     elif node.source_type == "chest":
         chest_obj = game_data['chests'].get(node.source_id)
-        drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
-        steps_per_action = calculate_steps(activity_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0))
-        steps_per_chest = float('inf')
-        
-        for drop in drop_table:
-            if drop["Item"] == node.source_id:
-                steps_per_chest = drop["Steps"]
-                break
-                
-        if steps_per_chest != float('inf') and chest_obj:
-            expected_items_per_chest = sum((d.chance / 100.0) * ((d.min_quantity + d.max_quantity) / 2.0) for d in chest_obj.drops if d.item_id == target_item_id)
-            if expected_items_per_chest > 0:
-                normal_steps = (steps_per_chest / expected_items_per_chest) / p_valid_quality
-                actions_needed = normal_steps / steps_per_action
-
-                # 1. Add all activity drops (this includes the chests we found)
-                for d in drop_table:
-                    res["drops_gained"][d["Item"]] += normal_steps / d["Steps"]
+        if chest_obj:
+            is_target_fine = target_item_id.endswith("_fine")
+            base_target_id = target_item_id.replace("_fine", "")
+            
+            expected_items_per_chest = 0.0
+            for d in chest_obj.drops:
+                if d.item_id == base_target_id:
+                    chance = (d.chance or 0.0) / 100.0
+                    avg_q = (d.min_quantity + d.max_quantity) / 2.0
+                    raw_expected = chance * 4.0 * avg_q
                     
-                # 2. Subtract the chests we had to open
-                chests_opened = normal_steps / steps_per_chest
-                res["drops_gained"][node.source_id] -= chests_opened
+                    # Check if this item is eligible to be fine
+                    has_fine = (base_target_id in drop_calc.fine_material_map or 
+                                f"{base_target_id}_fine" in game_data.get('materials', {}) or 
+                                f"{base_target_id}_fine" in game_data.get('consumables', {}))
+                    
+                    if has_fine:
+                        if is_target_fine:
+                            expected_items_per_chest += raw_expected * 0.01
+                        else:
+                            expected_items_per_chest += raw_expected * 0.99
+                    elif not is_target_fine:
+                        expected_items_per_chest += raw_expected
+            
+            if expected_items_per_chest > 0:
+                chests_needed = 1.0 / expected_items_per_chest
                 
-                # 3. Add the items that came out of the opened chests
+                # Opening the chest itself costs 0 steps, but consumes the chests
+                res["steps"] = 0.0
+                res["drops_gained"][node.source_id] -= chests_needed
+                
+                # Add the items that came out of the opened chests (split fine/normal for ALL drops)
                 for d in chest_obj.drops:
                     avg_q = (d.min_quantity + d.max_quantity) / 2.0
                     chance = (d.chance or 0.0) / 100.0
-                    res["drops_gained"][d.item_id] += chests_opened * chance * avg_q
-                if is_using_ability:
-                    res["steps"] = 0.0
-                    charges = actions_needed / get_actions_per_charge(instant_ability.effect)
-                    res["ability_charges_used"][f"{instant_pet.name}: {instant_ability.name}"] += charges
-                    res["steps_breakdown"][f"⚡ Chest: {chest_obj.name} (Instant)"] += 0.0
-                else:
-                    res["steps"] = normal_steps
-                    res["steps_breakdown"][f"Chest: {chest_obj.name}"] += normal_steps
-                    if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
-                    if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
-                    if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
-
-                p_chest_eff = steps_per_action / (steps_per_chest * (1.0 + DA) * (1.0 + DR))
-                xp_per_chest = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_chest_eff)
-                isolated_xp = (xp_per_chest / expected_items_per_chest) / p_valid_quality
-                if skill_name: res["xp"][skill_name.lower()] += isolated_xp
+                    raw_yield = chests_needed * chance * 4.0 * avg_q
+                    
+                    has_fine = (d.item_id in drop_calc.fine_material_map or 
+                                f"{d.item_id}_fine" in game_data.get('materials', {}) or 
+                                f"{d.item_id}_fine" in game_data.get('consumables', {}))
+                    
+                    if has_fine:
+                        res["drops_gained"][d.item_id] += raw_yield * 0.99
+                        res["drops_gained"][f"{d.item_id}_fine"] += raw_yield * 0.01
+                    else:
+                        res["drops_gained"][d.item_id] += raw_yield
+                
+                # Delegate the step cost to the child node (which represents obtaining the chest!)
+                if node.source_id in node.inputs:
+                    child_node = node.inputs[node.source_id]
+                    child_metrics = calculate_node_metrics(
+                        child_node, loadouts, game_data, drop_calc, player_skill_levels,
+                        user_state, locations, global_target_quality=global_target_quality, global_use_fine=global_use_fine
+                    )
+                    
+                    # Multiply all child metrics by the number of chests we needed to farm
+                    res["steps"] += (chests_needed * child_metrics["steps"])
+                    for sk, xpv in child_metrics["xp"].items(): res["xp"][sk] += (chests_needed * xpv)
+                    for item_k, amt in child_metrics["shopping_list"].items(): res["shopping_list"][item_k] += (chests_needed * amt)
+                    for item_k, amt in child_metrics["raw_materials"].items(): res["raw_materials"][item_k] += (chests_needed * amt)
+                    for src, stp in child_metrics["steps_breakdown"].items(): res["steps_breakdown"][src] += (chests_needed * stp)
+                    for sk, stp in child_metrics["steps_by_skill"].items(): res["steps_by_skill"][sk] += (chests_needed * stp)
+                    for p_name, stp in child_metrics["pet_steps_gained"].items(): res["pet_steps_gained"][p_name] += (chests_needed * stp)
+                    for a_name, chg in child_metrics["ability_charges_used"].items(): res["ability_charges_used"][a_name] += (chests_needed * chg)
+                    for c_id, stp in child_metrics["consumable_steps_needed"].items(): res["consumable_steps_needed"][c_id] += (chests_needed * stp)
+                    for d_id, amt in child_metrics["drops_gained"].items(): res["drops_gained"][d_id] += (chests_needed * amt)
+                    
                 res["raw_materials"][target_item_id] += 1.0
 
     return res

@@ -8,7 +8,7 @@ from collections import Counter
 from typing import List, Dict, Tuple, Any, Optional
 
 from utils.data_loader import load_game_data
-from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, OPTIMAZATION_TARGET
+from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, OPTIMAZATION_TARGET, SPECIAL_FIND_MAP
 from calculations import calculate_steps, calculate_quality_probabilities
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -364,6 +364,25 @@ def build_default_tree(
             if drop.item_id == base_item_id or drop.item_id == target_item_id:
                 sources.append({"type": "chest", "id": chest_id, "label": f"[Chest] {chest_obj.name}"})
                 break
+    
+    # 4. Check for Global Drops (Special Finds)
+    is_global_drop = False
+    for stat_key, reward_data in SPECIAL_FIND_MAP.items():
+        if isinstance(reward_data, list):
+            for item_data in reward_data:
+                sub_item = item_data[0] if isinstance(item_data, tuple) else item_data
+                if sub_item == base_item_id:
+                    is_global_drop = True
+                    break
+        else:
+            if reward_data == base_item_id:
+                is_global_drop = True
+                
+        if is_global_drop: 
+            break
+
+    if is_global_drop:
+        sources.append({"type": "custom", "id": "custom", "label": "🔍 Choose Custom Activity/Recipe"})
     if not sources:
         visited.remove(target_item_id)
         return node
@@ -461,7 +480,11 @@ def calculate_node_cost(
     
     target_item_id = node.item_id
     if getattr(node, 'use_fine_materials', False) and not target_item_id.endswith("_fine"):
-        target_item_id = f"{target_item_id}_fine"
+        base_id = target_item_id
+        if (base_id in drop_calc.fine_material_map or 
+            f"{base_id}_fine" in game_data.get('materials', {}) or 
+            f"{base_id}_fine" in game_data.get('consumables', {})):
+            target_item_id = f"{target_item_id}_fine"
 
     recipe_obj, activity_obj = None, None
     skill_name, min_level = "", 1
@@ -472,8 +495,8 @@ def calculate_node_cost(
         if not recipe_obj: return float('inf')
         skill_name, min_level = recipe_obj.skill, recipe_obj.level
         node_context["skill"] = skill_name
-    elif node.source_type in ["activity", "chest"]:
-        act_id = node.source_id if node.source_type == "activity" else node.parent_activity_id
+    elif node.source_type == "activity":
+        act_id = node.source_id
         activity_obj = game_data['activities'].get(act_id)
         if not activity_obj: return float('inf')
         skill_name, min_level = activity_obj.primary_skill, activity_obj.level
@@ -562,22 +585,38 @@ def calculate_node_cost(
     elif node.source_type == "chest":
         chest_obj = game_data['chests'].get(node.source_id)
         if not chest_obj: return float('inf')
-        drop_table = drop_calc.get_drop_table(activity_obj, stats, player_lvl)
-        steps_per_chest = float('inf')
-        for drop in drop_table:
-            if drop["Item"] == node.source_id:
-                steps_per_chest = drop["Steps"]
-                break
-        if steps_per_chest == float('inf'): return float('inf')
+        
+        is_target_fine = target_item_id.endswith("_fine")
+        base_target_id = target_item_id.replace("_fine", "")
         
         expected_items_per_chest = 0.0
         for drop in chest_obj.drops:
-            if drop.item_id == target_item_id:
+            if drop.item_id == base_target_id:
                 chance = (drop.chance or 0.0) / 100.0
                 avg_q = (drop.min_quantity + drop.max_quantity) / 2.0
-                expected_items_per_chest += (chance * avg_q)
-        if expected_items_per_chest == 0: return float('inf')
-        return (steps_per_chest / expected_items_per_chest) / p_valid_quality
+                raw_expected = chance * 4.0 * avg_q
+                
+                has_fine = (base_target_id in drop_calc.fine_material_map or 
+                            f"{base_target_id}_fine" in game_data.get('materials', {}) or 
+                            f"{base_target_id}_fine" in game_data.get('consumables', {}))
+                
+                if has_fine:
+                    if is_target_fine:
+                        expected_items_per_chest += raw_expected * 0.01
+                    else:
+                        expected_items_per_chest += raw_expected * 0.99
+                elif not is_target_fine:
+                    expected_items_per_chest += raw_expected
+                
+        if expected_items_per_chest <= 0: return float('inf')
+        
+        chests_needed = 1.0 / expected_items_per_chest
+        child_cost = 0.0
+        
+        if node.source_id in node.inputs:
+            child_cost = calculate_node_cost(node.inputs[node.source_id], loadouts, game_data, drop_calc, player_skill_levels)
+            
+        return (chests_needed * child_cost) / p_valid_quality
 
     return 0.0
 

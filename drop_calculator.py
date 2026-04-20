@@ -61,34 +61,36 @@ class DropCalculator:
         collectibles = loaded_data.get("collectibles", [])
 
         # 1. Map Fine Materials
-        all_ids = {item.get("id") for item in all_items}
+        all_ids = {item.get("id").lower() for item in all_items if item.get("id")}
         for item in all_items:
             i_id = item.get("id")
-            fine_id = f"{i_id}_fine"
+            if not i_id: continue
+            i_id_lower = i_id.lower()
+            fine_id = f"{i_id_lower}_fine"
             if fine_id in all_ids:
-                self.fine_material_map[i_id] = fine_id
+                self.fine_material_map[i_id_lower] = fine_id
 
         # 2. Identify Chests
         for c in containers:
             c_id = c.get("id")
-            if c_id and c_id != "bird_nest":
-                self.chest_ids.add(c_id)
+            if c_id and c_id.lower() != "bird_nest":
+                self.chest_ids.add(c_id.lower())
 
         # 3. Identify Collectibles
         for c in collectibles:
             c_id = c.get("id")
             if c_id:
-                self.collectible_ids.add(c_id)
+                self.collectible_ids.add(c_id.lower())
 
         for item in all_items:
             i_id = item.get("id")
             if i_id:
-                self.item_values[i_id] = float(item.get("value", 0))
+                self.item_values[i_id.lower()] = float(item.get("value", 0))
                 
         for c in containers:
             c_id = c.get("id")
             if c_id:
-                self.container_evs[c_id] = float(c.get("total_expected_value", 0.0))
+                self.container_evs[c_id.lower()] = float(c.get("total_expected_value", 0.0))
 
     def get_drop_table(self, activity: Any, stats: Dict[str, float], 
                        player_skill_lvl: int, is_fine_materials: bool = False, 

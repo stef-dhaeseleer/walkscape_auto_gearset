@@ -136,13 +136,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             current_label = opts[0]
             if node.source_type != "bank":
                 for s in node.available_sources:
-                    if s["type"] == node.source_type:
-                        if node.source_type == "chest" and s["id"] == f"{node.source_id}::{node.parent_activity_id}":
-                            current_label = s["label"]
-                            break
-                        elif s["id"] == node.source_id:
-                            current_label = s["label"]
-                            break
+                    if s["type"] == node.source_type and s["id"] == node.source_id:
+                        current_label = s["label"]
+                        break
             
             idx = opts.index(current_label) if current_label in opts else 0
             new_label = st.selectbox("Source", options=opts, index=idx, key=f"src_{node.node_id}", label_visibility="collapsed")
@@ -150,10 +146,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             if new_label != current_label:
                 selected_src = next(s for s in node.available_sources if s["label"] == new_label)
                 node.source_type = selected_src["type"]
-                if selected_src["type"] == "chest":
-                    node.source_id, node.parent_activity_id = selected_src["id"].split("::")
-                else:
-                    node.source_id = selected_src["id"]
+                node.source_id = selected_src["id"]
                     
                 node.inputs.clear()
                 if hasattr(node, 'selected_activity_inputs'):
@@ -195,6 +188,10 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                                 child_node = build_default_tree(first_valid_id, game_data_dict, drop_calc)
                                 child_node.base_requirement_amount = req.value
                                 node.inputs[f"{first_valid_id}_{i}"] = child_node
+                elif node.source_type == "chest":
+                    child_node = build_default_tree(node.source_id, game_data_dict, drop_calc)
+                    child_node.base_requirement_amount = 1
+                    node.inputs[node.source_id] = child_node
                             
                 st.rerun()
 

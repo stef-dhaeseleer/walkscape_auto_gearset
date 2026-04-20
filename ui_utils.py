@@ -379,16 +379,10 @@ def build_default_tree(
     source_type = best_source["type"]
     source_id = best_source["id"]
     node.source_type = source_type
+    node.source_type = source_type
+    node.source_id = source_id
     
-    if source_type == "chest":
-        node.source_id = source_id
-        for act_id, act_obj in game_data['activities'].items():
-            drop_table = drop_calc.get_drop_table(act_obj, {}, 99)
-            if any(d["Item"] == source_id for d in drop_table):
-                node.parent_activity_id = act_id
-                break
-    else:
-        node.source_id = source_id
+
 
 # --- Recursively build inputs for Recipes ---
     if source_type == "recipe":
@@ -433,6 +427,20 @@ def build_default_tree(
                 )
                 child_node.base_requirement_amount = mat_group[0].amount
                 node.inputs[mat_item_id] = child_node
+    elif source_type == "chest":
+        # The chest itself becomes the input material!
+        child_node = build_default_tree(
+            target_item_id=source_id, # The chest ID is the target for the child node
+            game_data=game_data,
+            drop_calc=drop_calc,
+            global_target_quality=global_target_quality,
+            global_use_fine=False, 
+            visited=set(visited)
+        )
+        # We set this to 1. The fractional math (expected items per chest) 
+        # will be handled inside calculate_node_metrics later.
+        child_node.base_requirement_amount = 1 
+        node.inputs[source_id] = child_node
 
     visited.remove(target_item_id)
     return node

@@ -5,7 +5,7 @@ import pandas as pd
 from models import CraftingNode
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET
 from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained
-from calculations import calculate_node_metrics
+from calculations import calculate_node_metrics, solve_crafting_tree_lp
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
 
@@ -473,14 +473,6 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
 
         # Show Local Node Math Breakdown
         if node.metrics and node.metrics.get("stats_used") and node.source_type != "bank":
-            stats = node.metrics["stats_used"]
-            st.caption("🔍 **Local Node Math Breakdown**")
-            cols = st.columns(4)
-            cols[0].markdown(f"<span style='font-size:0.85em'>Double Action: **{stats.get('DA', 0)*100:.1f}%**</span>", unsafe_allow_html=True)
-            cols[1].markdown(f"<span style='font-size:0.85em'>Double Rewards: **{stats.get('DR', 0)*100:.1f}%**</span>", unsafe_allow_html=True)
-            cols[2].markdown(f"<span style='font-size:0.85em'>No Mats Consumed: **{stats.get('NMC', 0)*100:.1f}%**</span>", unsafe_allow_html=True)
-            cols[3].markdown(f"<span style='font-size:0.85em'>Target Quality Prob: **{stats.get('p_valid_quality', 1)*100:.2f}%**</span>", unsafe_allow_html=True)
-            
             applicable_abs = get_applicable_abilities(node, game_data_dict)
             
             if applicable_abs:
@@ -494,6 +486,51 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     if new_val != getattr(node, 'use_pet_ability', False):
                         node.use_pet_ability = new_val
                         st.rerun()
+
+        # --- EXPOSE HUMAN-INTUITIVE LP SOLVER STATS ---
+        if node.metrics and "lp_data" in node.metrics:
+            lp_data = node.metrics["lp_data"]
+            lp_actions = lp_data.get("actions", 0.0)
+            lp_steps = lp_data.get("steps", 0.0)
+            contribs = lp_data.get("contributions", [])
+            consumptions = lp_data.get("consumptions", [])
+            act_name = lp_data.get("source_name", "this activity").replace("Activity: ", "").replace("Recipe: ", "").replace("Chest: ", "")
+            
+            if lp_actions > 0.001 and node.source_type != "bank":
+                msg_html = f"Ran <strong>{lp_actions:,.1f}</strong> actions of {act_name} (Total: <strong>{lp_steps:,.0f}</strong> steps)."
+                
+                if contribs:
+                    msg_html += "<div style='margin-top: 5px;'><strong>Produced (Tree Essentials):</strong></div><ul style='margin-top: 2px; margin-bottom: 5px;'>"
+                    for c in contribs:
+                        display_name = c['item_id'].replace('_', ' ').title()
+                        msg_html += f"<li><strong>{c['amount']:,.2f} {display_name}</strong> <em>({c['percent']:,.1f}% of total needed)</em></li>"
+                    msg_html += "</ul>"
+                    
+                if consumptions:
+                    msg_html += "<div style='margin-top: 5px;'><strong>Consumed:</strong></div><ul style='margin-top: 2px; margin-bottom: 0px;'>"
+                    for c in consumptions:
+                        display_name = c['item_id'].replace('_', ' ').title()
+                        msg_html += f"<li><strong>{c['amount']:,.2f} {display_name}</strong></li>"
+                    msg_html += "</ul>"
+                
+                st.markdown(
+                    f"""
+                    <div style='background-color: rgba(46, 204, 113, 0.1); border-left: 3px solid #2ecc71; padding: 10px; margin-top: 10px; font-size: 0.9em; color: #a0aec0;'>
+                        {msg_html}
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
+                )
+            elif lp_actions <= 0.001:
+                st.markdown(
+                    """
+                    <div style='background-color: rgba(255, 255, 255, 0.05); border-left: 3px solid #718096; padding: 10px; margin-top: 10px; font-size: 0.9em; color: #718096;'>
+                        <strong>Skipped by Solver:</strong><br>
+                        This item requirement was fulfilled 100% by free byproducts from other activities in your tree!
+                    </div>
+                    """, 
+                    unsafe_allow_html=True
+                )
 
         st.write("") 
         if node.source_type == "recipe":
@@ -850,28 +887,54 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                 extra_passive_stats=extra_passives
                             )
                             node.auto_gear_set = opt_result[0] 
-                    
-                    # --- CALCULATE COST ---
+
+                    # -----------------------------------------------------
+                    # PASS 1: Local Recursive Math (Preserves UI & Gearsets)
+                    # -----------------------------------------------------
                     target_qual = st.session_state.get('global_quality', "Normal") if is_root else "Normal"
                     
                     node.metrics = calculate_node_metrics(
-                        node, st.session_state['saved_loadouts'], 
-                        game_data_dict, drop_calc, player_skill_levels,
-                        user_state, locations,  
-                        global_target_quality=target_qual,
-                        global_use_fine=st.session_state.get('global_fine', False)
+                        node, st.session_state['saved_loadouts'], game_data_dict, drop_calc, 
+                        player_skill_levels, user_state, locations,  
+                        global_target_quality=target_qual, global_use_fine=st.session_state.get('global_fine', False)
                     )
                     
-                    # --- EXPORT BASE64 ---
+                    # --- PREPARE EXPORT BASE64 ---
                     if getattr(node, 'loadout_id', None) == "AUTO" and getattr(node, 'auto_gear_set', None):
                         node.metrics["gear_set_base64"] = export_gearset(node.auto_gear_set)
                     elif getattr(node, 'loadout_id', None) and node.loadout_id in st.session_state['saved_loadouts']:
                         node.metrics["gear_set_base64"] = export_gearset(st.session_state['saved_loadouts'][node.loadout_id].gear_set)
-                        
-                    return node.metrics
-                
+
+                # 1. Run the Gear Optimizer across the whole tree and calculate local node math
                 run_and_save_metrics(root, is_root=True)
                 
+                # -----------------------------------------------------
+                # PASS 2: RUN THE LINEAR PROGRAMMING SOLVER! (Global Byproduct Sharing)
+                # -----------------------------------------------------
+                target_qual = st.session_state.get('global_quality', "Normal")
+                
+                success, msg, master_metrics = solve_crafting_tree_lp(
+                    root_node=root,
+                    loadouts=st.session_state['saved_loadouts'],
+                    game_data=game_data_dict,
+                    drop_calc=drop_calc,
+                    player_skill_levels=player_skill_levels,
+                    user_state=user_state,
+                    locations=locations,
+                    global_target_quality=target_qual,
+                    global_use_fine=st.session_state.get('global_fine', False)
+                )
+                
+                if success:
+                    # Safely inject the master summary numbers, but keep the root gearset AND LP Data!
+                    master_metrics["gear_set_base64"] = root.metrics.get("gear_set_base64")
+                    if "lp_data" in root.metrics:
+                        master_metrics["lp_data"] = root.metrics["lp_data"]
+                    root.metrics = master_metrics
+                else:
+                    st.error(f"**Mathematical Infeasibility Detected:**\n\n{msg}")
+                    root.metrics = {"steps": float('inf'), "stats_used": {}}
+                    
             st.rerun()
 
         # ==========================================

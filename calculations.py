@@ -4,7 +4,7 @@ from collections import defaultdict
 from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout,Location 
 from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS, GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality, QUALITY_NAMES
 import re
-
+from scipy.optimize import linprog
 # ============================================================================
 # CORE CALCULATIONS
 # ============================================================================
@@ -877,3 +877,297 @@ def calculate_node_metrics(
                 res["raw_materials"][target_item_id] += 1.0
 
     return res
+
+
+
+def extract_node_action_vector(
+    node: 'CraftingNode', loadouts: Dict[str, 'Loadout'], game_data: Dict[str, Any], 
+    drop_calc: Any, player_skill_levels: Dict[str, int], user_state: Dict[str, Any],
+    locations: List['Location'], global_target_quality: str = "Normal", global_use_fine: bool = False
+) -> Dict[str, Any]:
+    from collections import defaultdict
+    from ui_utils import build_activity_context, synthesize_activity_from_recipe, extract_modifier_stats
+    
+    if getattr(node, "loadout_id", None) == "AUTO" and getattr(node, "auto_gear_set", None):
+        base_gear = node.auto_gear_set
+    else:
+        loadout = loadouts.get(node.loadout_id) if getattr(node, "loadout_id", None) else None
+        base_gear = loadout.gear_set if loadout else None
+    
+    gear_set_eval = base_gear.clone() if base_gear else GearSet()
+
+    if getattr(node, 'selected_pet_id', None):
+        pet_obj = game_data.get('pets', {}).get(node.selected_pet_id)
+        if pet_obj: gear_set_eval.pet = pet_obj.model_copy(update={"active_level": getattr(node, 'selected_pet_level', 1) or 1})
+    if getattr(node, 'selected_consumable_id', None):
+        cons = game_data.get('consumables', {}).get(node.selected_consumable_id)
+        if cons: gear_set_eval.consumable = cons
+
+    recipe_obj, activity_obj = None, None
+    skill_name, min_level = "", 1
+    
+    if node.source_type == "recipe":
+        recipe_obj = game_data['recipes'].get(node.source_id)
+        activity_obj = recipe_obj 
+        if recipe_obj and getattr(node, 'selected_service_id', None):
+            srv = game_data.get('services', {}).get(node.selected_service_id)
+            if srv: activity_obj = synthesize_activity_from_recipe(recipe_obj, srv)
+        if recipe_obj: skill_name, min_level = recipe_obj.skill, recipe_obj.level
+    elif node.source_type in ["activity", "chest"]:
+        act_id = node.source_id if node.source_type == "activity" else getattr(node, 'parent_activity_id', None)
+        activity_obj = game_data['activities'].get(act_id)
+        if activity_obj: skill_name, min_level = activity_obj.primary_skill, activity_obj.level
+
+    player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
+    loc_map = {loc.id: loc for loc in locations}
+    
+    context = build_activity_context(activity_obj, user_state.get('user_ap', 0), user_state.get('user_total_level', 0), loc_map, drop_calc, getattr(node, 'selected_location_id', None))
+    stats = gear_set_eval.get_stats(context)
+    passive_stats = calculate_passive_stats(user_state.get('owned_collectibles', []), context)
+    
+    if hasattr(activity_obj, 'modifiers') and activity_obj.modifiers:
+        for k, v in extract_modifier_stats(activity_obj.modifiers).items(): passive_stats[k] = passive_stats.get(k, 0.0) + v
+    if node.source_type == "activity" and node.inputs:
+        for child_node in node.inputs.values():
+            mat_obj = game_data.get('materials', {}).get(child_node.item_id) or game_data.get('consumables', {}).get(child_node.item_id)
+            if mat_obj and hasattr(mat_obj, 'modifiers') and mat_obj.modifiers:
+                for k, v in extract_modifier_stats(mat_obj.modifiers).items(): passive_stats[k] = passive_stats.get(k, 0.0) + v       
+    for k, v in passive_stats.items(): stats[k] = stats.get(k, 0.0) + v
+
+    DA = min(1.0, stats.get("double_action", 0.0))
+    DR = min(1.0, stats.get("double_rewards", 0.0))
+    NMC = min(0.99, stats.get("no_materials_consumed", 0.0))
+    WE = stats.get("work_efficiency", 0.0)
+    
+    def _get_true_id(item_id):
+        if global_use_fine and not item_id.endswith("_fine"):
+            base = item_id.replace("_fine", "")
+            if base in drop_calc.fine_material_map or f"{base}_fine" in game_data.get('materials', {}) or f"{base}_fine" in game_data.get('consumables', {}):
+                return f"{base}_fine"
+        return item_id
+
+    target_item_id = _get_true_id(node.item_id)
+    is_using_ability = getattr(node, 'use_pet_ability', False)
+
+    is_equip_upgrade = False
+    if recipe_obj and hasattr(recipe_obj, 'materials'):
+        for mat_group in recipe_obj.materials:
+            for mat in mat_group:
+                base_id = mat.item_id.replace("_fine", "")
+                has_fine = (
+                    base_id in drop_calc.fine_material_map or 
+                    f"{base_id}_fine" in game_data.get('materials', {}) or 
+                    f"{base_id}_fine" in game_data.get('consumables', {})
+                )
+                if not has_fine:
+                    is_equip_upgrade = True
+                    break
+            if is_equip_upgrade: break
+
+   
+    p_valid_quality = 1.0
+    if global_target_quality not in ["Normal", "None"]:
+        from utils.constants import QUALITY_RANK
+        target_rank = QUALITY_RANK.get(global_target_quality, 0)
+        
+        probs = calculate_quality_probabilities(
+            min_level, player_lvl, stats.get("quality_outcome", 0), 
+            is_fine_materials=global_use_fine, 
+            is_equipment_upgrade=is_equip_upgrade
+        )
+        valid_tiers = [q.value for q, r in QUALITY_RANK.items() if r >= target_rank and q != "None"]
+        p_valid_quality = sum(probs.get(q, 0.0) for q in valid_tiers)
+
+    safe_p_valid = max(1e-6, p_valid_quality)
+
+    yields = defaultdict(float)
+    raw_produced = defaultdict(float) 
+    raw_consumed = defaultdict(float) 
+
+    
+    base_step = calculate_steps(activity_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0)) if activity_obj else 0.0
+    cost = 1e-6 if is_using_ability else base_step
+
+    if node.source_type == "bank":
+        cost = 0.0001
+        yields[target_item_id] += 1.0
+        raw_produced[target_item_id] += 1.0
+
+    elif node.source_type == "recipe":
+        out_qty = recipe_obj.output_quantity * (1.0 + DA) * (1.0 + DR) * safe_p_valid
+        yields[target_item_id] += out_qty
+        raw_produced[target_item_id] += out_qty
+        
+        for child_node in node.inputs.values():
+            cid = _get_true_id(child_node.item_id)
+            in_qty = child_node.base_requirement_amount * (1.0 + DA) * (1.0 - NMC)
+            yields[cid] -= in_qty
+            raw_consumed[cid] += in_qty
+            
+        for d in drop_calc.get_drop_table(recipe_obj, stats, player_lvl, is_fine_materials=global_use_fine):
+            if d["Item"].replace("_fine", "") == target_item_id.replace("_fine", ""):
+                continue 
+                
+            val = base_step / d["Steps"]
+            yields[d["Item"]] += val
+            raw_produced[d["Item"]] += val
+
+    elif node.source_type == "activity":
+        for child_node in node.inputs.values():
+            cid = _get_true_id(child_node.item_id)
+            in_qty = child_node.base_requirement_amount * (1.0 + DA)
+            yields[cid] -= in_qty
+            raw_consumed[cid] += in_qty
+            
+        for d in drop_calc.get_drop_table(activity_obj, stats, player_lvl, is_fine_materials=global_use_fine):
+            val = base_step / d["Steps"]
+            if d["Item"] == target_item_id:
+                yields[d["Item"]] += val * safe_p_valid
+                raw_produced[d["Item"]] += val * safe_p_valid
+            else:
+                yields[d["Item"]] += val
+                raw_produced[d["Item"]] += val
+
+    elif node.source_type == "chest":
+        chest_obj = game_data['chests'].get(node.source_id)
+        if chest_obj:
+            cost = 1e-6 if is_using_ability else 0.0
+            yields[node.source_id] -= 1.0
+            raw_consumed[node.source_id] += 1.0
+            for d in chest_obj.drops:
+                raw_yield = (d.chance or 0.0) / 100.0 * 4.0 * ((d.min_quantity + d.max_quantity) / 2.0)
+                if d.item_id in drop_calc.fine_material_map or f"{d.item_id}_fine" in game_data.get('materials', {}):
+                    yields[d.item_id] += raw_yield * 0.99
+                    raw_produced[d.item_id] += raw_yield * 0.99
+                    yields[f"{d.item_id}_fine"] += raw_yield * 0.01
+                    raw_produced[f"{d.item_id}_fine"] += raw_yield * 0.01
+                else:
+                    yields[d.item_id] += raw_yield
+                    raw_produced[d.item_id] += raw_yield
+                    
+    source_name = "Bank"
+    xp_yield = defaultdict(float)
+    if node.source_type == "recipe":
+        source_name = f"Recipe: {recipe_obj.name}"
+        if skill_name: xp_yield[skill_name.lower()] = ((getattr(activity_obj, 'base_xp', 0.0) + stats.get("flat_xp", 0.0)) * (1.0 + stats.get("xp_percent", 0.0)))
+    elif node.source_type == "activity":
+        source_name = f"Activity: {activity_obj.name}"
+        if skill_name: xp_yield[skill_name.lower()] = ((getattr(activity_obj, 'base_xp', 0.0) + stats.get("flat_xp", 0.0)) * (1.0 + stats.get("xp_percent", 0.0)))
+    elif node.source_type == "chest":
+        chest_obj = game_data['chests'].get(node.source_id)
+        source_name = f"Chest: {chest_obj.name}" if chest_obj else "Chest"
+
+    return {
+        "node_id": node.node_id, "cost": cost, "yields": dict(yields), 
+        "raw_produced": dict(raw_produced), "raw_consumed": dict(raw_consumed), # EXPORT NEW DATA
+        "target_item_id": target_item_id, "source_name": source_name, 
+        "skill_name": skill_name.lower() if skill_name else None, "xp_yield": dict(xp_yield),
+        "stats_used": {"DA": DA, "DR": DR, "NMC": NMC, "WE": WE, "p_valid_quality": p_valid_quality, "base_steps": getattr(activity_obj, 'base_steps', 0)}
+    }
+
+def solve_crafting_tree_lp(
+    root_node: 'CraftingNode', loadouts: Dict[str, 'Loadout'], game_data: Dict[str, Any], 
+    drop_calc: Any, player_skill_levels: Dict[str, int], user_state: Dict[str, Any],
+    locations: List['Location'], global_target_quality: str = "Normal", global_use_fine: bool = False
+) -> tuple[bool, str, dict]: 
+    from collections import defaultdict
+    from scipy.optimize import linprog
+    
+    nodes = []
+    def flatten(n):
+        nodes.append(n)
+        for child in n.inputs.values(): flatten(child)
+    flatten(root_node)
+    
+    vectors = []
+    for n in nodes:
+        node_qual = global_target_quality if n.node_id == root_node.node_id else "Normal"
+        vectors.append(extract_node_action_vector(n, loadouts, game_data, drop_calc, player_skill_levels, user_state, locations, node_qual, global_use_fine))
+        
+    all_items = set()
+    for vec in vectors:
+        for item_id in vec["yields"].keys(): all_items.add(item_id)
+            
+    c = [vec["cost"] for vec in vectors]
+    A_ub, b_ub = [], []
+    root_target_id = vectors[0]["target_item_id"]
+    root_target_amount = float(getattr(root_node, 'base_requirement_amount', 1.0))
+    
+    for item_id in all_items:
+        row = []
+        for vec in vectors: row.append(-vec["yields"].get(item_id, 0.0))
+        A_ub.append(row)
+        b_ub.append(-root_target_amount if item_id == root_target_id else 0.0)
+            
+    res = linprog(c, A_ub=A_ub, b_ub=b_ub, bounds=[(0, None)] * len(nodes), method='highs')
+    if not res.success: return False, f"The problem is infeasible. {res.message}", {}
+    
+    global_demand = defaultdict(float)
+    global_demand[root_target_id] += root_target_amount
+    for i, vec in enumerate(vectors):
+        multiplier = float(res.x[i])
+        for item_id, val in vec["raw_consumed"].items():
+            global_demand[item_id] += val * multiplier
+    
+    master_metrics = {
+        "steps": 0.0, "xp": defaultdict(float), "shopping_list": defaultdict(float),
+        "raw_materials": defaultdict(float), "stats_used": vectors[0]["stats_used"],
+        "steps_breakdown": defaultdict(float), "steps_by_skill": defaultdict(float),
+        "pet_steps_gained": defaultdict(float), "ability_charges_used": defaultdict(float),
+        "consumable_steps_needed": defaultdict(float), "drops_gained": defaultdict(float)
+    }
+    
+    for i, n in enumerate(nodes):
+        multiplier, vec = float(res.x[i]), vectors[i]
+        node_steps = multiplier * vec["cost"]
+        if node_steps >= 1e8 or vec["cost"] >= 1e8: node_steps = float('inf')
+        
+        contributions = []
+        consumptions = []
+        
+        if multiplier > 1e-8:
+            # Gather Produced (Only show items that the tree actually needs to keep UI clean)
+            for item_id, val in vec["raw_produced"].items():
+                amount = val * multiplier
+                if amount > 1e-8 and global_demand[item_id] > 1e-8:
+                    pct = min(100.0, (amount / global_demand[item_id]) * 100.0)
+                    contributions.append({"item_id": item_id, "amount": amount, "percent": pct})
+            
+            for item_id, val in vec["raw_consumed"].items():
+                amount = val * multiplier
+                if amount > 1e-8:
+                    consumptions.append({"item_id": item_id, "amount": amount})
+                    
+        if not hasattr(n, 'metrics') or n.metrics is None: n.metrics = {}
+        n.metrics["lp_data"] = {
+            "actions": multiplier, "steps": node_steps, 
+            "contributions": contributions, "consumptions": consumptions, 
+            "source_name": vec["source_name"]
+        }
+        
+        if multiplier > 1e-8 and node_steps < float('inf'):
+            t_id = vec["target_item_id"]
+            if n.source_type == "bank":
+                master_metrics["shopping_list"][t_id] += multiplier
+            else:
+                master_metrics["steps"] += node_steps
+                master_metrics["steps_breakdown"][vec["source_name"]] += node_steps
+                if vec["skill_name"]: master_metrics["steps_by_skill"][vec["skill_name"]] += node_steps
+                for sk, xp_val in vec["xp_yield"].items(): master_metrics["xp"][sk] += multiplier * xp_val
+                if getattr(n, 'selected_pet_id', None) and not getattr(n, 'use_pet_ability', False):
+                    pet_obj = game_data.get('pets', {}).get(n.selected_pet_id)
+                    if pet_obj: master_metrics["pet_steps_gained"][pet_obj.name] += node_steps
+                if getattr(n, 'selected_consumable_id', None):
+                    master_metrics["consumable_steps_needed"][n.selected_consumable_id] += node_steps
+
+            if n.source_type == "activity":
+                raw_yield = multiplier * vec["yields"].get(t_id, 0.0)
+                if raw_yield > 0: master_metrics["raw_materials"][t_id] += raw_yield
+            elif n.source_type == "chest":
+                master_metrics["raw_materials"][t_id] += multiplier
+                
+            for item, amount in vec["yields"].items():
+                if item != t_id and amount > 0: master_metrics["drops_gained"][item] += multiplier * amount
+
+    if master_metrics["steps"] >= 1e8: master_metrics["steps"] = float('inf')
+    return True, "Success", master_metrics

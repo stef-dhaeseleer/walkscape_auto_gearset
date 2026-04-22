@@ -1158,7 +1158,8 @@ def solve_crafting_tree_lp(
                     pet_obj = game_data.get('pets', {}).get(n.selected_pet_id)
                     if pet_obj: master_metrics["pet_steps_gained"][pet_obj.name] += node_steps
                 if getattr(n, 'selected_consumable_id', None):
-                    master_metrics["consumable_steps_needed"][n.selected_consumable_id] += node_steps
+                    node_da = vec["stats_used"].get("DA", 0.0)
+                    master_metrics["consumable_steps_needed"][n.selected_consumable_id] += node_steps * (1.0 + node_da)
 
             if n.source_type == "activity":
                 raw_yield = multiplier * vec["yields"].get(t_id, 0.0)

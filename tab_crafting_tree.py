@@ -472,7 +472,7 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                     components.html(js_code, height=50)
 
         # Show Local Node Math Breakdown
-        if node.metrics and node.metrics.get("stats_used") and node.source_type != "bank":
+        if node.source_type != "bank":
             applicable_abs = get_applicable_abilities(node, game_data_dict)
             
             if applicable_abs:

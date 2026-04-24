@@ -711,7 +711,7 @@ def calculate_node_metrics(
             res["steps_breakdown"][f"Recipe: {recipe_obj.name}"] += normal_steps
             if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
             if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
-            if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
+        if cons: res["consumable_steps_needed"][node.selected_consumable_id] +=normal_steps * (1 + DA)
 
         isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * q_out * p_valid_quality)
         if skill_name: res["xp"][skill_name.lower()] += isolated_xp
@@ -766,7 +766,9 @@ def calculate_node_metrics(
                     res["steps_breakdown"][f"Activity: {activity_obj.name}"] += normal_steps
                     if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
-                    if cons: res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
+
+                if cons: 
+                    res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
 
                 p_drop_q_drop = steps_per_action / (drop["Steps"] * (1.0 + DA) * (1.0 + DR))
                 isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * p_drop_q_drop * p_valid_quality)
@@ -1058,7 +1060,7 @@ def extract_node_action_vector(
         source_name = f"Chest: {chest_obj.name}" if chest_obj else "Chest"
 
     return {
-        "node_id": node.node_id, "cost": cost, "yields": dict(yields), 
+        "node_id": node.node_id, "cost": cost, "base_step": base_step, "yields": dict(yields), 
         "raw_produced": dict(raw_produced), "raw_consumed": dict(raw_consumed), # EXPORT NEW DATA
         "target_item_id": target_item_id, "source_name": source_name, 
         "skill_name": skill_name.lower() if skill_name else None, "xp_yield": dict(xp_yield),
@@ -1159,7 +1161,8 @@ def solve_crafting_tree_lp(
                     if pet_obj: master_metrics["pet_steps_gained"][pet_obj.name] += node_steps
                 if getattr(n, 'selected_consumable_id', None):
                     node_da = vec["stats_used"].get("DA", 0.0)
-                    master_metrics["consumable_steps_needed"][n.selected_consumable_id] += node_steps * (1.0 + node_da)
+                    actual_cons_steps = multiplier * vec.get("base_step", 0.0)
+                    master_metrics["consumable_steps_needed"][n.selected_consumable_id] += actual_cons_steps * (1.0 + node_da)
 
             if n.source_type == "activity":
                 raw_yield = multiplier * vec["yields"].get(t_id, 0.0)

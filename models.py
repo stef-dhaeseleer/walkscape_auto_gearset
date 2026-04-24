@@ -270,6 +270,7 @@ class Pet(BaseEntity):
     levels: Tuple[PetLevel, ...] = Field(default_factory=tuple)
     
     active_level: int = 1
+    use_pet_ability: bool = False
 
     @property
     def modifiers(self) -> Tuple[Modifier, ...]:

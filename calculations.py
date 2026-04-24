@@ -2,7 +2,7 @@ import math
 from typing import Dict, List, Optional, Any, Set, Tuple, Union
 from collections import defaultdict
 from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout,Location 
-from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS, GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality, QUALITY_NAMES
+from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS, GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality, QUALITY_NAMES, BUFF_PET_ABILITIES, INSTANT_ACTION_PET_ABILITIES
 import re
 from scipy.optimize import linprog
 # ============================================================================
@@ -497,9 +497,11 @@ class MockActivity:
         self.max_efficiency = max_efficiency
 
 def get_actions_per_charge(effect: str) -> int:
-    """Extracts the number of actions a pet ability completes instantly."""
+    """Extracts the number of actions a pet ability completes instantly or lasts for."""
     m = re.search(r'[Cc]ompletes (\d+) ', effect)
     if m: return int(m.group(1))
+    m2 = re.search(r'[Ee]ffect lasts for:\s*(\d+)', effect)
+    if m2: return int(m2.group(1))
     return 0
 
 def calculate_node_metrics(
@@ -624,6 +626,30 @@ def calculate_node_metrics(
                 mat_stats = extract_modifier_stats(mat_obj.modifiers)
                 for k, v in mat_stats.items():
                     passive_stats[k] = passive_stats.get(k, 0.0) + v       
+
+    is_using_ability = getattr(node, 'use_pet_ability', False)
+    instant_pet = None
+    instant_ability = None
+    buff_pet = None
+    buff_ability = None
+
+    if is_using_ability:
+        from ui_utils import get_applicable_abilities
+        from utils.constants import BUFF_PET_ABILITIES, INSTANT_ACTION_PET_ABILITIES
+        applicable = get_applicable_abilities(node, game_data)
+        if applicable:
+            pet_obj, ab = applicable[0]
+            if ab.name in INSTANT_ACTION_PET_ABILITIES:
+                if get_actions_per_charge(ab.effect) > 0:
+                    instant_pet = pet_obj
+                    instant_ability = ab
+            elif ab.name in BUFF_PET_ABILITIES:
+                buff_pet = pet_obj
+                buff_ability = ab
+                buff_stats = BUFF_PET_ABILITIES[ab.name].get("modifiers", {})
+                for k, v in buff_stats.items():
+                    passive_stats[k] = passive_stats.get(k, 0.0) + v
+
     # Combine everything
     for k, v in passive_stats.items():
         stats[k] = stats.get(k, 0.0) + v
@@ -672,17 +698,6 @@ def calculate_node_metrics(
         "base_steps": activity_obj.base_steps if activity_obj else 0
     }
  
-    is_using_ability = False
-    instant_pet = None
-    instant_ability = None
-
-    if getattr(node, 'use_pet_ability', False):
-        from ui_utils import get_applicable_abilities
-        applicable = get_applicable_abilities(node, game_data)
-        if applicable:
-            instant_pet, instant_ability = applicable[0] # Grab the first valid ability
-            if get_actions_per_charge(instant_ability.effect) > 0:
-                is_using_ability = True
     # ==========================================
     # RECIPE
     # ==========================================
@@ -701,7 +716,7 @@ def calculate_node_metrics(
         for d in drop_table:
             res["drops_gained"][d["Item"]] += normal_steps / d["Steps"]
         
-        if is_using_ability:
+        if instant_ability:
             res["steps"] = 0.0
             charges = actions_needed / get_actions_per_charge(instant_ability.effect)
             res["ability_charges_used"][f"{instant_pet.name}: {instant_ability.name}"] += charges
@@ -711,6 +726,9 @@ def calculate_node_metrics(
             res["steps_breakdown"][f"Recipe: {recipe_obj.name}"] += normal_steps
             if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
             if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
+            if buff_ability:
+                charges = actions_needed / get_actions_per_charge(buff_ability.effect)
+                res["ability_charges_used"][f"{buff_pet.name}: {buff_ability.name}"] += charges
         if cons: res["consumable_steps_needed"][node.selected_consumable_id] +=normal_steps * (1 + DA)
 
         isolated_xp = (((base_xp + FLAT_XP) * (1.0 + XP_BONUS))) / ((1.0 + DR) * q_out * p_valid_quality)
@@ -756,7 +774,7 @@ def calculate_node_metrics(
                 for d in drop_table:
                     res["drops_gained"][d["Item"]] += normal_steps / d["Steps"]
                 
-                if is_using_ability:
+                if instant_ability:
                     res["steps"] = 0.0
                     charges = actions_needed / get_actions_per_charge(instant_ability.effect)
                     res["ability_charges_used"][f"{instant_pet.name}: {instant_ability.name}"] += charges
@@ -766,6 +784,9 @@ def calculate_node_metrics(
                     res["steps_breakdown"][f"Activity: {activity_obj.name}"] += normal_steps
                     if skill_name: res["steps_by_skill"][skill_name.lower()] += normal_steps
                     if pet_obj: res["pet_steps_gained"][pet_obj.name] += normal_steps
+                    if buff_ability:
+                        charges = actions_needed / get_actions_per_charge(buff_ability.effect)
+                        res["ability_charges_used"][f"{buff_pet.name}: {buff_ability.name}"] += charges
 
                 if cons: 
                     res["consumable_steps_needed"][node.selected_consumable_id] += normal_steps * (1 + DA)
@@ -934,6 +955,23 @@ def extract_node_action_vector(
             mat_obj = game_data.get('materials', {}).get(child_node.item_id) or game_data.get('consumables', {}).get(child_node.item_id)
             if mat_obj and hasattr(mat_obj, 'modifiers') and mat_obj.modifiers:
                 for k, v in extract_modifier_stats(mat_obj.modifiers).items(): passive_stats[k] = passive_stats.get(k, 0.0) + v       
+
+    is_using_ability = getattr(node, 'use_pet_ability', False)
+    instant_ability = None
+
+    if is_using_ability:
+        from ui_utils import get_applicable_abilities
+        applicable = get_applicable_abilities(node, game_data)
+        if applicable:
+            pet_obj, ab = applicable[0]
+            if ab.name in INSTANT_ACTION_PET_ABILITIES:
+                if get_actions_per_charge(ab.effect) > 0:
+                    instant_ability = ab
+            elif ab.name in BUFF_PET_ABILITIES:
+                buff_stats = BUFF_PET_ABILITIES[ab.name].get("modifiers", {})
+                for k, v in buff_stats.items():
+                    passive_stats[k] = passive_stats.get(k, 0.0) + v
+
     for k, v in passive_stats.items(): stats[k] = stats.get(k, 0.0) + v
 
     DA = min(1.0, stats.get("double_action", 0.0))
@@ -949,7 +987,6 @@ def extract_node_action_vector(
         return item_id
 
     target_item_id = _get_true_id(node.item_id)
-    is_using_ability = getattr(node, 'use_pet_ability', False)
 
     is_equip_upgrade = False
     if recipe_obj and hasattr(recipe_obj, 'materials'):
@@ -988,7 +1025,7 @@ def extract_node_action_vector(
 
     
     base_step = calculate_steps(activity_obj, player_lvl, WE, int(stats.get("flat_step_reduction", 0)), stats.get("percent_step_reduction", 0.0)) if activity_obj else 0.0
-    cost = 1e-6 if is_using_ability else base_step
+    cost = 1e-6 if instant_ability else base_step
 
     if node.source_type == "bank":
         cost = 0.0001
@@ -1033,7 +1070,7 @@ def extract_node_action_vector(
     elif node.source_type == "chest":
         chest_obj = game_data['chests'].get(node.source_id)
         if chest_obj:
-            cost = 1e-6 if is_using_ability else 0.0
+            cost = 1e-6 if instant_ability else 0.0
             yields[node.source_id] -= 1.0
             raw_consumed[node.source_id] += 1.0
             for d in chest_obj.drops:

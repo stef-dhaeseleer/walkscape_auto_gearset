@@ -8,7 +8,7 @@ from collections import Counter
 from typing import List, Dict, Tuple, Any, Optional
 
 from utils.data_loader import load_game_data
-from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, OPTIMAZATION_TARGET, SPECIAL_FIND_MAP
+from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, BUFF_PET_ABILITIES, OPTIMAZATION_TARGET, SPECIAL_FIND_MAP
 from calculations import calculate_steps, calculate_quality_probabilities
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -281,11 +281,15 @@ def can_tree_use_fine(node: CraftingNode, drop_calc: 'DropCalculator') -> bool:
  
 def can_use_pet_ability(ability_name: str, node: CraftingNode, game_data_dict: dict) -> bool:
     """Checks if the equipped pet's ability can actually be used on this specific node."""
-    if ability_name not in INSTANT_ACTION_PET_ABILITIES:
+    reqs = None
+    if ability_name in INSTANT_ACTION_PET_ABILITIES:
+        reqs = INSTANT_ACTION_PET_ABILITIES[ability_name]
+    elif ability_name in BUFF_PET_ABILITIES:
+        reqs = BUFF_PET_ABILITIES[ability_name]
+    
+    if not reqs:
         return False
         
-    reqs = INSTANT_ACTION_PET_ABILITIES[ability_name]
-    
     if node.source_type not in reqs.get("allowed_source_types", []):
         return False
         
@@ -800,7 +804,7 @@ def get_best_auto_pet(node: CraftingNode, game_data_dict: dict, loc_map: dict, d
         
         for ab in eval_lvl_obj.abilities:
             # Ensure the ability is explicitly supported in our constants
-            if ab.name not in INSTANT_ACTION_PET_ABILITIES:
+            if ab.name not in INSTANT_ACTION_PET_ABILITIES and ab.name not in BUFF_PET_ABILITIES:
                 continue
                 
             # Ignore time-based cooldowns or abilities with no step requirement

@@ -3,7 +3,7 @@ from typing import Dict, List, Set, Optional, Tuple, Any, Union
 from collections import Counter as PyCounter, defaultdict
 
 from models import Equipment, Activity, GearSet, EquipmentSlot, Location, RequirementType, ConditionType, Collectible, Pet, Consumable
-from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, StatName
+from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, StatName, BUFF_PET_ABILITIES
 from calculations import calculate_score, calculate_steps, calculate_passive_stats, calculate_quality_probabilities, _calculate_single_target_score
 from candidates import CandidateSelector
 
@@ -78,6 +78,22 @@ class GearOptimizer:
         if extra_passive_stats:
             for k, v in extra_passive_stats.items():
                 passive_stats[k] = passive_stats.get(k, 0.0) + v
+
+        if pet and hasattr(pet, 'levels') and pet.levels and getattr(pet, 'use_pet_ability', False):
+            active_lvl = getattr(pet, 'active_level', pet.levels[-1].level)
+            lvl_obj = next((l for l in pet.levels if l.level == active_lvl), pet.levels[-1])
+            if lvl_obj:
+                for ab in lvl_obj.abilities:
+                    if ab.name in BUFF_PET_ABILITIES:
+                        reqs = BUFF_PET_ABILITIES[ab.name]
+                        act_skill = getattr(activity, 'primary_skill', '').lower()
+                        
+                        if reqs.get("skill") and act_skill != reqs["skill"].lower():
+                            continue
+                            
+                        buff_stats = reqs.get("modifiers", {})
+                        for k, v in buff_stats.items():
+                            passive_stats[k] = passive_stats.get(k, 0.0) + v
 
         # 4. Prepare Locks
         fixed_single_slots = {} 

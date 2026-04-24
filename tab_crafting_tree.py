@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 import json
 import pandas as pd
 from models import CraftingNode
-from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET
+from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET, INSTANT_ACTION_PET_ABILITIES, BUFF_PET_ABILITIES
 from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained
 from calculations import calculate_node_metrics, solve_crafting_tree_lp
 from gear_optimizer import GearOptimizer
@@ -478,8 +478,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
             if applicable_abs:
                 st.write("") 
                 for pet_obj, ab in applicable_abs:
+                    label = f"⚡ Use {ab.name} ({pet_obj.name}) - 0 Steps" if ab.name in INSTANT_ACTION_PET_ABILITIES else f"⚡ Use {ab.name} ({pet_obj.name}) - Buff"
                     new_val = st.checkbox(
-                        f"⚡ Use {ab.name} ({pet_obj.name}) - 0 Steps", 
+                        label, 
                         value=getattr(node, 'use_pet_ability', False), 
                         key=f"ab_{node.node_id}_{ab.name}"
                     )
@@ -854,7 +855,9 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                                     node_context["required_keywords"].pop(norm_kw, None)
                             
                             pet_obj = game_data_dict['pets'].get(getattr(node, 'selected_pet_id', None))
-                            if pet_obj: pet_obj = pet_obj.copy(update={"active_level": getattr(node, 'selected_pet_level', 1)})
+                            if pet_obj: 
+                                pet_obj = pet_obj.copy(update={"active_level": getattr(node, 'selected_pet_level', 1)})
+                                pet_obj.use_pet_ability = getattr(node, 'use_pet_ability', False)
                             
                             cons_obj = game_data_dict['consumables'].get(getattr(node, 'selected_consumable_id', None))
                             is_equipment_upgrade = False

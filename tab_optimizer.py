@@ -5,7 +5,7 @@ import time
 import pandas as pd
 from collections import defaultdict
 
-from utils.constants import StatName, PERCENTAGE_STATS, QUALITY_NAMES
+from utils.constants import StatName, PERCENTAGE_STATS, QUALITY_NAMES, BUFF_PET_ABILITIES
 from utils.export import export_gearset
 from calculations import calculate_passive_stats, calculate_score, analyze_score, calculate_quality_probabilities
 from gear_optimizer import GearOptimizer, OPTIMAZATION_TARGET
@@ -337,6 +337,21 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 
                 sel_level = st.selectbox("Pet Level", lvls, index=default_idx)
                 selected_pet = selected_pet.copy(update={"active_level": sel_level})
+                
+                has_buff = False
+                buff_name = ""
+                if selected_pet.levels:
+                    eval_lvl = next((l for l in selected_pet.levels if l.level == sel_level), selected_pet.levels[-1])
+                    for ab in eval_lvl.abilities:
+                        if ab.name in BUFF_PET_ABILITIES:
+                            has_buff = True
+                            buff_name = ab.name
+                            break
+                            
+                if has_buff:
+                    use_buff = st.checkbox(f"⚡ Use {buff_name} - Buff", key=f"opt_pet_buff_{selected_pet.id}")
+                    selected_pet.use_pet_ability = use_buff
+                    
                 st.caption(f"**Level {sel_level} Effects:**")
                 mods = selected_pet.modifiers
                 if not mods: st.caption("No modifiers.")
@@ -1000,8 +1015,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     if saved_pet:
                         st.markdown(f"<div class='item-header'>🐾 Pet: {saved_pet.name} (Lvl {saved_pet.active_level})</div>", unsafe_allow_html=True)
                         mods = saved_pet.modifiers
+                        html_mods = ""
                         if mods:
-                            html_mods = ""
                             for mod in mods:
                                 is_active = True
                                 fail_reasons = []
@@ -1015,6 +1030,25 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                 else:
                                     html_mods += f"<div class='mod-inactive'>❌ <b>{stat_name}</b>: +{val_str}</div>"
                                     for r in fail_reasons: html_mods += f"<div class='mod-condition'>↳ {r}</div>"
+                        
+                        if getattr(saved_pet, 'use_pet_ability', False) and saved_pet.levels:
+                            eval_lvl = next((l for l in saved_pet.levels if l.level == saved_pet.active_level), saved_pet.levels[-1])
+                            for ab in eval_lvl.abilities:
+                                if ab.name in BUFF_PET_ABILITIES:
+                                    reqs = BUFF_PET_ABILITIES[ab.name]
+                                    act_skill = getattr(saved_activity, 'primary_skill', '').lower()
+                                    if reqs.get("skill") and act_skill != reqs["skill"].lower():
+                                        html_mods += f"<div class='mod-inactive'>❌ <b>⚡ {ab.name}</b>: Wrong Skill</div>"
+                                        html_mods += f"<div class='mod-condition'>↳ Requires {reqs.get('skill', '').title()}</div>"
+                                    else:
+                                        buff_stats = reqs.get("modifiers", {})
+                                        for k, v in buff_stats.items():
+                                            is_pct = any(p.value == k for p in PERCENTAGE_STATS)
+                                            val_str = f"{v*100:g}%" if is_pct else f"{v:g}"
+                                            stat_name = k.replace('_', ' ').title()
+                                            html_mods += f"<div class='mod-active'>✅ <b>⚡ {ab.name} ({stat_name})</b>: +{val_str}</div>"
+
+                        if html_mods:
                             st.markdown(html_mods, unsafe_allow_html=True)
                         else: st.caption("No modifiers for this level.")
                         st.markdown("---")

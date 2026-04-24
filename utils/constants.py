@@ -388,3 +388,15 @@ INSTANT_ACTION_PET_ABILITIES = {
         "recipe_name_contains": "smelt" 
     },
 }
+
+BUFF_PET_ABILITIES = {
+    "The Hunt Is On": { # Tiger
+        "allowed_source_types": ["activity"],
+        "skill": "hunting",
+        "modifiers": {
+            "work_efficiency": 0.06,
+            "double_action": 0.03,
+            "flat_step_reduction": 2
+        }
+    },
+}

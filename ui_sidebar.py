@@ -3,9 +3,10 @@ import json
 import uuid
 from streamlit_js_eval import streamlit_js_eval
 from models import Loadout
+from utils.constants import GATHERING_SKILLS, ARTISAN_SKILLS, UTILITY_SKILLS
 from ui_utils import (
     calculate_char_level_from_steps, calculate_total_level, extract_user_counts, 
-    extract_user_reputation, get_user_collectibles
+    extract_user_reputation, get_user_collectibles, calculate_level_from_xp
 )
 
 def render_sidebar():
@@ -45,6 +46,7 @@ def render_user_data_section(is_mobile, all_collectibles_raw):
         "item_counts": {},
         "user_ap": 0,
         "user_total_level": 0,
+        "skill_group_levels": {},
         "owned_collectibles": [],
         "user_reputation": {},
         "owned_pets": {},
@@ -84,7 +86,11 @@ def render_user_data_section(is_mobile, all_collectibles_raw):
                 
                 if user_state["user_skills_map"]:
                     user_state["user_total_level"] = calculate_total_level(user_state["user_skills_map"])
-
+                    user_state["skill_group_levels"] = {
+                        "gathering": sum(calculate_level_from_xp(user_state["user_skills_map"].get(s, 0)) for s in GATHERING_SKILLS),
+                        "artisan": sum(calculate_level_from_xp(user_state["user_skills_map"].get(s, 0)) for s in ARTISAN_SKILLS),
+                        "utility": sum(calculate_level_from_xp(user_state["user_skills_map"].get(s, 0)) for s in UTILITY_SKILLS)
+                    }
                 if all_collectibles_raw:
                     user_state["owned_collectibles"] = get_user_collectibles(all_collectibles_raw, user_data)
                 

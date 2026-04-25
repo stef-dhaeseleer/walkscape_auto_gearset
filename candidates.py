@@ -70,6 +70,14 @@ class CandidateSelector:
                             if req.target.lower() == activity.primary_skill.lower() and req.value > player_skill_level:
                                 a_is_equippable = False
                                 break
+                        elif req.type == RequirementType.TOTAL_SKILL_LEVEL:
+                            if context.get("total_skill_level", 0) < req.value:
+                                a_is_equippable = False
+                                break
+                        elif req.type == RequirementType.SKILL_GROUP_LEVEL and req.target:
+                            if context.get("skill_group_levels", {}).get(req.target.lower(), 0) < req.value:
+                                a_is_equippable = False
+                                break
                     if not a_is_equippable: continue
                     
                     # 2. Tool Conflict Check: They must share a restriction to compete
@@ -174,8 +182,11 @@ class CandidateSelector:
                 if self._get_available_count(item, owned_item_counts) <= 0:
                     rejection_reason = "Not Owned"
             
-            # B. Check Requirements (Reputation)
+            # B. Check Requirements (Reputation & Skills)
             if not rejection_reason:
+                total_lvl = context.get("total_skill_level", 0)
+                group_lvls = context.get("skill_group_levels", {})
+
                 for req in item.requirements:
                     if req.type == RequirementType.REPUTATION and user_reputation is not None:
                         target_rep = req.target.lower() if req.target else ""
@@ -188,6 +199,15 @@ class CandidateSelector:
                             if player_skill_level < req.value:
                                 rejection_reason = f"Low {req.target.title()} Level ({req.value})"
                                 break
+                    # --- NEW CHECKS ---
+                    elif req.type == RequirementType.TOTAL_SKILL_LEVEL:
+                        if total_lvl < req.value:
+                            rejection_reason = f"Low Total Level ({req.value})"
+                            break
+                    elif req.type == RequirementType.SKILL_GROUP_LEVEL and req.target:
+                        if group_lvls.get(req.target.lower(), 0) < req.value:
+                            rejection_reason = f"Low {req.target.title()} Level ({req.value})"
+                            break
             
             # C. Check Activity Requirements (Keywords)
             provides_requirement = False

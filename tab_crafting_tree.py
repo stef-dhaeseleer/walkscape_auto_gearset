@@ -834,7 +834,7 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                 activity_obj, 
                                 user_state.get("user_ap", 0), 
                                 user_state.get("user_total_level", 0), 
-                                loc_map, drop_calc, getattr(node, 'selected_location_id', None)
+                                loc_map, drop_calc, getattr(node, 'selected_location_id', None),user_state.get("skill_group_levels", {}),
                             )
                             
                             # --- NEW: Extract Extra Passives & Forgive Requirements from Selected Inputs ---

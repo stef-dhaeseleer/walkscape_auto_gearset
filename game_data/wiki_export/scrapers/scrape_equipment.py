@@ -118,6 +118,26 @@ def parse_requirements(soup) -> list[Requirement]:
                 value=int(rep_match.group(1))
             ))
             continue
+
+        # Total skill level (e.g. "Have a [500] total skill level.")
+        total_skill_match = re.search(r'Have a\s*\[?(\d+)\]?\s*total skill level', text, re.IGNORECASE)
+        if total_skill_match:
+            requirements.append(Requirement(
+                type=RequirementType.TOTAL_SKILL_LEVEL, 
+                value=int(total_skill_match.group(1))
+            ))
+            continue
+
+        #% towards maximum skill group level (e.g. "Have 55% towards maximum Gathering level [270].")
+        max_skill_match = re.search(r'towards maximum\s+(\w+)\s+level\s*\[?(\d+)\]?', text, re.IGNORECASE)
+        if max_skill_match:
+            requirements.append(Requirement(
+                type=RequirementType.SKILL_GROUP_LEVEL, 
+                target=max_skill_match.group(1).lower(), 
+                value=int(max_skill_match.group(2))
+            ))
+            continue
+
     return requirements
 
 def parse_attribute_lines(lines, item_name="Unknown") -> list[Modifier]:

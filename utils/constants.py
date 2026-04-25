@@ -49,6 +49,9 @@ ARTISAN_SKILLS = {
     "smithing", "carpentry", "trinketry", "crafting", "cooking", "tailoring"
 }
 
+UTILITY_SKILLS = {
+    "agility", "traveling"
+}
 class ConditionType(str, Enum):
     GLOBAL = "global"
     LOCATION = "location"           
@@ -76,6 +79,8 @@ class RequirementType(str, Enum):
     SPECIFIC_ACTIVITY = "specific_activity"
     INPUT_KEYWORD = "input_keyword"
     PET_ABILITY = "pet_ability"
+    TOTAL_SKILL_LEVEL = "total_skill_level"
+    SKILL_GROUP_LEVEL = "skill_group_level"
 
 class StatName(str, Enum):
     # Core

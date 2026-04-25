@@ -141,7 +141,7 @@ def get_user_collectibles(all_collectibles: List[Collectible], user_data: Dict) 
             owned_objs.append(c)
     return owned_objs
 
-def build_activity_context(activity, user_ap: int, user_total_level: int, loc_map: Dict, drop_calc, selected_location_id: str = None) -> Dict:
+def build_activity_context(activity, user_ap: int, user_total_level: int, loc_map: Dict, drop_calc, selected_location_id: str = None, skill_group_levels: Dict = None) -> Dict:
     """Shared helper to build exact math context for both Optimizer and Crafting Tree."""
     req_kw = {}
     if hasattr(activity, 'requirements'):
@@ -165,6 +165,7 @@ def build_activity_context(activity, user_ap: int, user_total_level: int, loc_ma
         "required_keywords": req_kw,
         "achievement_points": user_ap,
         "total_skill_level": user_total_level,
+        "skill_group_levels": skill_group_levels or {},
         "special_ev_map": drop_calc.get_special_ev_map()
     }
 

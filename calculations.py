@@ -606,7 +606,9 @@ def calculate_node_metrics(
         user_total_level=user_state.get('user_total_level', 0), 
         loc_map=loc_map, 
         drop_calc=drop_calc, 
-        selected_location_id=getattr(node, 'selected_location_id', None)
+        selected_location_id=getattr(node, 'selected_location_id', None),
+        skill_group_levels=user_state.get('skill_group_levels', {}),
+
     )
 
     stats = gear_set_eval.get_stats(context)
@@ -944,7 +946,7 @@ def extract_node_action_vector(
     player_lvl = player_skill_levels.get(skill_name.lower(), 99) if skill_name else 99
     loc_map = {loc.id: loc for loc in locations}
     
-    context = build_activity_context(activity_obj, user_state.get('user_ap', 0), user_state.get('user_total_level', 0), loc_map, drop_calc, getattr(node, 'selected_location_id', None))
+    context = build_activity_context(activity_obj, user_state.get('user_ap', 0), user_state.get('user_total_level', 0), loc_map, drop_calc, getattr(node, 'selected_location_id', None),user_state.get('skill_group_levels', {}))
     stats = gear_set_eval.get_stats(context)
     passive_stats = calculate_passive_stats(user_state.get('owned_collectibles', []), context)
     

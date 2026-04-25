@@ -720,6 +720,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     "required_keywords": req_kw,
                     "achievement_points": user_ap,
                     "total_skill_level": user_total_level,
+                    "skill_group_levels": user_state.get("skill_group_levels", {}),
                     "special_ev_map": drop_calc.get_special_ev_map(),
                     "is_fine_materials": is_fine_materials,
                     "is_equipment_upgrade": is_equipment_upgrade

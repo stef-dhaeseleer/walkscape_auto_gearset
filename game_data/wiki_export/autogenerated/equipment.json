@@ -9897,7 +9897,15 @@
     "uuid": "8d4a7d80-43c5-4c93-9989-d5324285af00",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -9923,7 +9931,15 @@
     "uuid": "8d4a7d80-43c5-4c93-9989-d5324285af00",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -9960,7 +9976,15 @@
     "uuid": "8d4a7d80-43c5-4c93-9989-d5324285af00",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10008,7 +10032,15 @@
     "uuid": "8d4a7d80-43c5-4c93-9989-d5324285af00",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10056,7 +10088,15 @@
     "uuid": "8d4a7d80-43c5-4c93-9989-d5324285af00",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10115,7 +10155,15 @@
     "uuid": "8d4a7d80-43c5-4c93-9989-d5324285af00",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10174,7 +10222,15 @@
     "uuid": "f19091d6-37c5-4692-8034-711c88057e63",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10200,7 +10256,15 @@
     "uuid": "f19091d6-37c5-4692-8034-711c88057e63",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10237,7 +10301,15 @@
     "uuid": "f19091d6-37c5-4692-8034-711c88057e63",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10285,7 +10357,15 @@
     "uuid": "f19091d6-37c5-4692-8034-711c88057e63",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10333,7 +10413,15 @@
     "uuid": "f19091d6-37c5-4692-8034-711c88057e63",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10392,7 +10480,15 @@
     "uuid": "f19091d6-37c5-4692-8034-711c88057e63",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10451,7 +10547,15 @@
     "uuid": "3eb409ce-27b6-49f0-8912-f4e93349c8ff",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10477,7 +10581,15 @@
     "uuid": "3eb409ce-27b6-49f0-8912-f4e93349c8ff",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10514,7 +10626,15 @@
     "uuid": "3eb409ce-27b6-49f0-8912-f4e93349c8ff",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10562,7 +10682,15 @@
     "uuid": "3eb409ce-27b6-49f0-8912-f4e93349c8ff",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10610,7 +10738,15 @@
     "uuid": "3eb409ce-27b6-49f0-8912-f4e93349c8ff",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -10669,7 +10805,15 @@
     "uuid": "3eb409ce-27b6-49f0-8912-f4e93349c8ff",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 44,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -15945,7 +16089,15 @@
     "uuid": "b0fbc54f-00ff-485f-b7e2-7cb433444c70",
     "slot": "neck",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 500,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -16027,7 +16179,15 @@
     "uuid": "b0fbc54f-00ff-485f-b7e2-7cb433444c70",
     "slot": "neck",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 500,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -16109,7 +16269,15 @@
     "uuid": "b0fbc54f-00ff-485f-b7e2-7cb433444c70",
     "slot": "neck",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 500,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -16191,7 +16359,15 @@
     "uuid": "b0fbc54f-00ff-485f-b7e2-7cb433444c70",
     "slot": "neck",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 500,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -16273,7 +16449,15 @@
     "uuid": "b0fbc54f-00ff-485f-b7e2-7cb433444c70",
     "slot": "neck",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 500,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -16355,7 +16539,15 @@
     "uuid": "b0fbc54f-00ff-485f-b7e2-7cb433444c70",
     "slot": "neck",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 500,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -16436,7 +16628,15 @@
     "uuid": "9e606c22-22d6-49f3-9254-21e5369f29ab",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16473,7 +16673,15 @@
     "uuid": "9e606c22-22d6-49f3-9254-21e5369f29ab",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16521,7 +16729,15 @@
     "uuid": "9e606c22-22d6-49f3-9254-21e5369f29ab",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16580,7 +16796,15 @@
     "uuid": "9e606c22-22d6-49f3-9254-21e5369f29ab",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16650,7 +16874,15 @@
     "uuid": "9e606c22-22d6-49f3-9254-21e5369f29ab",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16731,7 +16963,15 @@
     "uuid": "9e606c22-22d6-49f3-9254-21e5369f29ab",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16812,7 +17052,15 @@
     "uuid": "8e075eac-60d6-4cb4-b3f4-7ea5f8d023b0",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16849,7 +17097,15 @@
     "uuid": "8e075eac-60d6-4cb4-b3f4-7ea5f8d023b0",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16897,7 +17153,15 @@
     "uuid": "8e075eac-60d6-4cb4-b3f4-7ea5f8d023b0",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -16956,7 +17220,15 @@
     "uuid": "8e075eac-60d6-4cb4-b3f4-7ea5f8d023b0",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17026,7 +17298,15 @@
     "uuid": "8e075eac-60d6-4cb4-b3f4-7ea5f8d023b0",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17107,7 +17387,15 @@
     "uuid": "8e075eac-60d6-4cb4-b3f4-7ea5f8d023b0",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17188,7 +17476,15 @@
     "uuid": "81c7122b-ee54-4b0e-ad8c-65e705a71e3a",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17225,7 +17521,15 @@
     "uuid": "81c7122b-ee54-4b0e-ad8c-65e705a71e3a",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17273,7 +17577,15 @@
     "uuid": "81c7122b-ee54-4b0e-ad8c-65e705a71e3a",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17332,7 +17644,15 @@
     "uuid": "81c7122b-ee54-4b0e-ad8c-65e705a71e3a",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17402,7 +17722,15 @@
     "uuid": "81c7122b-ee54-4b0e-ad8c-65e705a71e3a",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -17483,7 +17811,15 @@
     "uuid": "81c7122b-ee54-4b0e-ad8c-65e705a71e3a",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 71,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18146,7 +18482,15 @@
     "uuid": "e180759c-2a40-46c4-890d-0fbcfd2af448",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18172,7 +18516,15 @@
     "uuid": "e180759c-2a40-46c4-890d-0fbcfd2af448",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18209,7 +18561,15 @@
     "uuid": "e180759c-2a40-46c4-890d-0fbcfd2af448",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18257,7 +18617,15 @@
     "uuid": "e180759c-2a40-46c4-890d-0fbcfd2af448",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18316,7 +18684,15 @@
     "uuid": "e180759c-2a40-46c4-890d-0fbcfd2af448",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18386,7 +18762,15 @@
     "uuid": "e180759c-2a40-46c4-890d-0fbcfd2af448",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18467,7 +18851,15 @@
     "uuid": "0920283b-f376-46d6-92db-67c37533eab4",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18493,7 +18885,15 @@
     "uuid": "0920283b-f376-46d6-92db-67c37533eab4",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18530,7 +18930,15 @@
     "uuid": "0920283b-f376-46d6-92db-67c37533eab4",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18578,7 +18986,15 @@
     "uuid": "0920283b-f376-46d6-92db-67c37533eab4",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18637,7 +19053,15 @@
     "uuid": "0920283b-f376-46d6-92db-67c37533eab4",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18707,7 +19131,15 @@
     "uuid": "0920283b-f376-46d6-92db-67c37533eab4",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18788,7 +19220,15 @@
     "uuid": "b8339369-5803-4500-a4a6-7175c189cb49",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18814,7 +19254,15 @@
     "uuid": "b8339369-5803-4500-a4a6-7175c189cb49",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18851,7 +19299,15 @@
     "uuid": "b8339369-5803-4500-a4a6-7175c189cb49",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18899,7 +19355,15 @@
     "uuid": "b8339369-5803-4500-a4a6-7175c189cb49",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -18958,7 +19422,15 @@
     "uuid": "b8339369-5803-4500-a4a6-7175c189cb49",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -19028,7 +19500,15 @@
     "uuid": "b8339369-5803-4500-a4a6-7175c189cb49",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 270,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -21851,7 +22331,15 @@
     "uuid": "2395e156-6376-494a-9109-dbb939445234",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -21877,7 +22365,15 @@
     "uuid": "2395e156-6376-494a-9109-dbb939445234",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -21914,7 +22410,15 @@
     "uuid": "2395e156-6376-494a-9109-dbb939445234",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -21962,7 +22466,15 @@
     "uuid": "2395e156-6376-494a-9109-dbb939445234",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22021,7 +22533,15 @@
     "uuid": "2395e156-6376-494a-9109-dbb939445234",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22091,7 +22611,15 @@
     "uuid": "2395e156-6376-494a-9109-dbb939445234",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22161,7 +22689,15 @@
     "uuid": "c68ae98f-a334-495a-9ac6-bcfce1f7e19f",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22187,7 +22723,15 @@
     "uuid": "c68ae98f-a334-495a-9ac6-bcfce1f7e19f",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22224,7 +22768,15 @@
     "uuid": "c68ae98f-a334-495a-9ac6-bcfce1f7e19f",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22272,7 +22824,15 @@
     "uuid": "c68ae98f-a334-495a-9ac6-bcfce1f7e19f",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22331,7 +22891,15 @@
     "uuid": "c68ae98f-a334-495a-9ac6-bcfce1f7e19f",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22401,7 +22969,15 @@
     "uuid": "c68ae98f-a334-495a-9ac6-bcfce1f7e19f",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22471,7 +23047,15 @@
     "uuid": "cf225080-5321-4caf-90a0-9900ea2d39c3",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22497,7 +23081,15 @@
     "uuid": "cf225080-5321-4caf-90a0-9900ea2d39c3",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22534,7 +23126,15 @@
     "uuid": "cf225080-5321-4caf-90a0-9900ea2d39c3",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22582,7 +23182,15 @@
     "uuid": "cf225080-5321-4caf-90a0-9900ea2d39c3",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22641,7 +23249,15 @@
     "uuid": "cf225080-5321-4caf-90a0-9900ea2d39c3",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -22711,7 +23327,15 @@
     "uuid": "cf225080-5321-4caf-90a0-9900ea2d39c3",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 49,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24488,7 +25112,15 @@
     "uuid": "2e0deda7-9ab8-4bf0-a974-d6ce63d71e1b",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -24525,7 +25157,15 @@
     "uuid": "2e0deda7-9ab8-4bf0-a974-d6ce63d71e1b",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24573,7 +25213,15 @@
     "uuid": "2e0deda7-9ab8-4bf0-a974-d6ce63d71e1b",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24632,7 +25280,15 @@
     "uuid": "2e0deda7-9ab8-4bf0-a974-d6ce63d71e1b",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24702,7 +25358,15 @@
     "uuid": "2e0deda7-9ab8-4bf0-a974-d6ce63d71e1b",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24783,7 +25447,15 @@
     "uuid": "2e0deda7-9ab8-4bf0-a974-d6ce63d71e1b",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24864,7 +25536,15 @@
     "uuid": "8fad2ba1-7fc1-4762-a3a2-fbd431691671",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -24901,7 +25581,15 @@
     "uuid": "8fad2ba1-7fc1-4762-a3a2-fbd431691671",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -24949,7 +25637,15 @@
     "uuid": "8fad2ba1-7fc1-4762-a3a2-fbd431691671",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25008,7 +25704,15 @@
     "uuid": "8fad2ba1-7fc1-4762-a3a2-fbd431691671",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25078,7 +25782,15 @@
     "uuid": "8fad2ba1-7fc1-4762-a3a2-fbd431691671",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25159,7 +25871,15 @@
     "uuid": "8fad2ba1-7fc1-4762-a3a2-fbd431691671",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25240,7 +25960,15 @@
     "uuid": "a9c2adb3-5e5b-4f0c-be59-e09afb8b64a9",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -25277,7 +26005,15 @@
     "uuid": "a9c2adb3-5e5b-4f0c-be59-e09afb8b64a9",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25325,7 +26061,15 @@
     "uuid": "a9c2adb3-5e5b-4f0c-be59-e09afb8b64a9",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25384,7 +26128,15 @@
     "uuid": "a9c2adb3-5e5b-4f0c-be59-e09afb8b64a9",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25454,7 +26206,15 @@
     "uuid": "a9c2adb3-5e5b-4f0c-be59-e09afb8b64a9",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -25535,7 +26295,15 @@
     "uuid": "a9c2adb3-5e5b-4f0c-be59-e09afb8b64a9",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 206,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26480,7 +27248,15 @@
     "uuid": "e5dc01c0-49e1-49ba-975b-8e3ed6005d7e",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "fine_material_finding",
@@ -26506,7 +27282,15 @@
     "uuid": "e5dc01c0-49e1-49ba-975b-8e3ed6005d7e",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -26543,7 +27327,15 @@
     "uuid": "e5dc01c0-49e1-49ba-975b-8e3ed6005d7e",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26591,7 +27383,15 @@
     "uuid": "e5dc01c0-49e1-49ba-975b-8e3ed6005d7e",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26650,7 +27450,15 @@
     "uuid": "e5dc01c0-49e1-49ba-975b-8e3ed6005d7e",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26720,7 +27528,15 @@
     "uuid": "e5dc01c0-49e1-49ba-975b-8e3ed6005d7e",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26790,7 +27606,15 @@
     "uuid": "c9671adb-39c4-497f-8494-357d028e7f1d",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "fine_material_finding",
@@ -26816,7 +27640,15 @@
     "uuid": "c9671adb-39c4-497f-8494-357d028e7f1d",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -26853,7 +27685,15 @@
     "uuid": "c9671adb-39c4-497f-8494-357d028e7f1d",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26901,7 +27741,15 @@
     "uuid": "c9671adb-39c4-497f-8494-357d028e7f1d",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -26960,7 +27808,15 @@
     "uuid": "c9671adb-39c4-497f-8494-357d028e7f1d",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27030,7 +27886,15 @@
     "uuid": "c9671adb-39c4-497f-8494-357d028e7f1d",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27100,7 +27964,15 @@
     "uuid": "000739bd-81a3-4e75-95d4-2fd685a7c419",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "fine_material_finding",
@@ -27126,7 +27998,15 @@
     "uuid": "000739bd-81a3-4e75-95d4-2fd685a7c419",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "chest_finding",
@@ -27163,7 +28043,15 @@
     "uuid": "000739bd-81a3-4e75-95d4-2fd685a7c419",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27211,7 +28099,15 @@
     "uuid": "000739bd-81a3-4e75-95d4-2fd685a7c419",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27270,7 +28166,15 @@
     "uuid": "000739bd-81a3-4e75-95d4-2fd685a7c419",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27340,7 +28244,15 @@
     "uuid": "000739bd-81a3-4e75-95d4-2fd685a7c419",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 196,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27410,7 +28322,15 @@
     "uuid": "f943e195-5d2a-45d4-bc2f-bab6890cec82",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27436,7 +28356,15 @@
     "uuid": "f943e195-5d2a-45d4-bc2f-bab6890cec82",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27473,7 +28401,15 @@
     "uuid": "f943e195-5d2a-45d4-bc2f-bab6890cec82",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27521,7 +28457,15 @@
     "uuid": "f943e195-5d2a-45d4-bc2f-bab6890cec82",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27580,7 +28524,15 @@
     "uuid": "f943e195-5d2a-45d4-bc2f-bab6890cec82",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27639,7 +28591,15 @@
     "uuid": "f943e195-5d2a-45d4-bc2f-bab6890cec82",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27698,7 +28658,15 @@
     "uuid": "aa056b0e-a9f6-4345-8ff1-70b0196e5b5c",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27724,7 +28692,15 @@
     "uuid": "aa056b0e-a9f6-4345-8ff1-70b0196e5b5c",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27761,7 +28737,15 @@
     "uuid": "aa056b0e-a9f6-4345-8ff1-70b0196e5b5c",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27809,7 +28793,15 @@
     "uuid": "aa056b0e-a9f6-4345-8ff1-70b0196e5b5c",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27868,7 +28860,15 @@
     "uuid": "aa056b0e-a9f6-4345-8ff1-70b0196e5b5c",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27927,7 +28927,15 @@
     "uuid": "aa056b0e-a9f6-4345-8ff1-70b0196e5b5c",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -27986,7 +28994,15 @@
     "uuid": "70a3c053-636d-4358-875b-b78a375ce43b",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -28012,7 +29028,15 @@
     "uuid": "70a3c053-636d-4358-875b-b78a375ce43b",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -28049,7 +29073,15 @@
     "uuid": "70a3c053-636d-4358-875b-b78a375ce43b",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -28097,7 +29129,15 @@
     "uuid": "70a3c053-636d-4358-875b-b78a375ce43b",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -28156,7 +29196,15 @@
     "uuid": "70a3c053-636d-4358-875b-b78a375ce43b",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -28215,7 +29263,15 @@
     "uuid": "70a3c053-636d-4358-875b-b78a375ce43b",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "utility",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30256,7 +31312,15 @@
     "uuid": "7af1243d-5a7e-453e-b8a3-6c35300485e1",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30310,7 +31374,15 @@
     "uuid": "7af1243d-5a7e-453e-b8a3-6c35300485e1",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30375,7 +31447,15 @@
     "uuid": "7af1243d-5a7e-453e-b8a3-6c35300485e1",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30451,7 +31531,15 @@
     "uuid": "7af1243d-5a7e-453e-b8a3-6c35300485e1",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30538,7 +31626,15 @@
     "uuid": "7af1243d-5a7e-453e-b8a3-6c35300485e1",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30636,7 +31732,15 @@
     "uuid": "7af1243d-5a7e-453e-b8a3-6c35300485e1",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30734,7 +31838,15 @@
     "uuid": "a4cfc099-3252-4dd5-b4e8-cb82b8ee903a",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30788,7 +31900,15 @@
     "uuid": "a4cfc099-3252-4dd5-b4e8-cb82b8ee903a",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30853,7 +31973,15 @@
     "uuid": "a4cfc099-3252-4dd5-b4e8-cb82b8ee903a",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -30929,7 +32057,15 @@
     "uuid": "a4cfc099-3252-4dd5-b4e8-cb82b8ee903a",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31016,7 +32152,15 @@
     "uuid": "a4cfc099-3252-4dd5-b4e8-cb82b8ee903a",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31114,7 +32258,15 @@
     "uuid": "a4cfc099-3252-4dd5-b4e8-cb82b8ee903a",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31212,7 +32364,15 @@
     "uuid": "823eca2a-edff-4662-b36d-b358a9d15895",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31266,7 +32426,15 @@
     "uuid": "823eca2a-edff-4662-b36d-b358a9d15895",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31331,7 +32499,15 @@
     "uuid": "823eca2a-edff-4662-b36d-b358a9d15895",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31407,7 +32583,15 @@
     "uuid": "823eca2a-edff-4662-b36d-b358a9d15895",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31494,7 +32678,15 @@
     "uuid": "823eca2a-edff-4662-b36d-b358a9d15895",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31592,7 +32784,15 @@
     "uuid": "823eca2a-edff-4662-b36d-b358a9d15895",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 323,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31689,7 +32889,15 @@
     "uuid": "70601b04-fa9b-4aff-9022-562169ad249c",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31715,7 +32923,15 @@
     "uuid": "70601b04-fa9b-4aff-9022-562169ad249c",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31752,7 +32968,15 @@
     "uuid": "70601b04-fa9b-4aff-9022-562169ad249c",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31800,7 +33024,15 @@
     "uuid": "70601b04-fa9b-4aff-9022-562169ad249c",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31859,7 +33091,15 @@
     "uuid": "70601b04-fa9b-4aff-9022-562169ad249c",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31929,7 +33169,15 @@
     "uuid": "70601b04-fa9b-4aff-9022-562169ad249c",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -31999,7 +33247,15 @@
     "uuid": "40c740c8-9a91-4509-95cd-015792ad63a6",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32025,7 +33281,15 @@
     "uuid": "40c740c8-9a91-4509-95cd-015792ad63a6",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32062,7 +33326,15 @@
     "uuid": "40c740c8-9a91-4509-95cd-015792ad63a6",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32110,7 +33382,15 @@
     "uuid": "40c740c8-9a91-4509-95cd-015792ad63a6",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32169,7 +33449,15 @@
     "uuid": "40c740c8-9a91-4509-95cd-015792ad63a6",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32239,7 +33527,15 @@
     "uuid": "40c740c8-9a91-4509-95cd-015792ad63a6",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32309,7 +33605,15 @@
     "uuid": "798fdf5f-d682-4637-b461-e3d189e732a2",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32335,7 +33639,15 @@
     "uuid": "798fdf5f-d682-4637-b461-e3d189e732a2",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32372,7 +33684,15 @@
     "uuid": "798fdf5f-d682-4637-b461-e3d189e732a2",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32420,7 +33740,15 @@
     "uuid": "798fdf5f-d682-4637-b461-e3d189e732a2",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32479,7 +33807,15 @@
     "uuid": "798fdf5f-d682-4637-b461-e3d189e732a2",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -32549,7 +33885,15 @@
     "uuid": "798fdf5f-d682-4637-b461-e3d189e732a2",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "gathering",
+        "value": 123,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33423,7 +34767,15 @@
     "uuid": "d4194871-67b4-4b94-a833-e2b7ff72cfbe",
     "slot": "chest",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33460,7 +34812,15 @@
     "uuid": "d4194871-67b4-4b94-a833-e2b7ff72cfbe",
     "slot": "chest",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33497,7 +34857,15 @@
     "uuid": "d4194871-67b4-4b94-a833-e2b7ff72cfbe",
     "slot": "chest",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33534,7 +34902,15 @@
     "uuid": "d4194871-67b4-4b94-a833-e2b7ff72cfbe",
     "slot": "chest",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33571,7 +34947,15 @@
     "uuid": "d4194871-67b4-4b94-a833-e2b7ff72cfbe",
     "slot": "chest",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33608,7 +34992,15 @@
     "uuid": "d4194871-67b4-4b94-a833-e2b7ff72cfbe",
     "slot": "chest",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33645,7 +35037,15 @@
     "uuid": "7346baca-3ccd-4634-9bda-4d3e536f6ce4",
     "slot": "hands",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33682,7 +35082,15 @@
     "uuid": "7346baca-3ccd-4634-9bda-4d3e536f6ce4",
     "slot": "hands",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33719,7 +35127,15 @@
     "uuid": "7346baca-3ccd-4634-9bda-4d3e536f6ce4",
     "slot": "hands",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33756,7 +35172,15 @@
     "uuid": "7346baca-3ccd-4634-9bda-4d3e536f6ce4",
     "slot": "hands",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33793,7 +35217,15 @@
     "uuid": "7346baca-3ccd-4634-9bda-4d3e536f6ce4",
     "slot": "hands",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33830,7 +35262,15 @@
     "uuid": "7346baca-3ccd-4634-9bda-4d3e536f6ce4",
     "slot": "hands",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33867,7 +35307,15 @@
     "uuid": "20e9c82b-94b4-40dd-98e4-6d1a117f1044",
     "slot": "legs",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33904,7 +35352,15 @@
     "uuid": "20e9c82b-94b4-40dd-98e4-6d1a117f1044",
     "slot": "legs",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33941,7 +35397,15 @@
     "uuid": "20e9c82b-94b4-40dd-98e4-6d1a117f1044",
     "slot": "legs",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -33978,7 +35442,15 @@
     "uuid": "20e9c82b-94b4-40dd-98e4-6d1a117f1044",
     "slot": "legs",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -34015,7 +35487,15 @@
     "uuid": "20e9c82b-94b4-40dd-98e4-6d1a117f1044",
     "slot": "legs",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -34052,7 +35532,15 @@
     "uuid": "20e9c82b-94b4-40dd-98e4-6d1a117f1044",
     "slot": "legs",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "total_skill_level",
+        "target": null,
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "work_efficiency",
@@ -45098,7 +46586,15 @@
     "uuid": "81db13a9-a516-4526-b2f4-ca4f441f4fa4",
     "slot": "tools",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 265,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "inventory_space",
@@ -45125,7 +46621,15 @@
     "uuid": "81db13a9-a516-4526-b2f4-ca4f441f4fa4",
     "slot": "tools",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 265,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -45174,7 +46678,15 @@
     "uuid": "81db13a9-a516-4526-b2f4-ca4f441f4fa4",
     "slot": "tools",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 265,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -45223,7 +46735,15 @@
     "uuid": "81db13a9-a516-4526-b2f4-ca4f441f4fa4",
     "slot": "tools",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 265,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -45272,7 +46792,15 @@
     "uuid": "81db13a9-a516-4526-b2f4-ca4f441f4fa4",
     "slot": "tools",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 265,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -45321,7 +46849,15 @@
     "uuid": "81db13a9-a516-4526-b2f4-ca4f441f4fa4",
     "slot": "tools",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 265,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -62799,7 +64335,15 @@
     "uuid": "4df072d9-4c37-4253-819a-526e67efcfda",
     "slot": "tools",
     "quality": "Normal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 47,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "inventory_space",
@@ -62826,7 +64370,15 @@
     "uuid": "4df072d9-4c37-4253-819a-526e67efcfda",
     "slot": "tools",
     "quality": "Good",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 47,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -62875,7 +64427,15 @@
     "uuid": "4df072d9-4c37-4253-819a-526e67efcfda",
     "slot": "tools",
     "quality": "Great",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 47,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -62924,7 +64484,15 @@
     "uuid": "4df072d9-4c37-4253-819a-526e67efcfda",
     "slot": "tools",
     "quality": "Excellent",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 47,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -62973,7 +64541,15 @@
     "uuid": "4df072d9-4c37-4253-819a-526e67efcfda",
     "slot": "tools",
     "quality": "Perfect",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 47,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",
@@ -63022,7 +64598,15 @@
     "uuid": "4df072d9-4c37-4253-819a-526e67efcfda",
     "slot": "tools",
     "quality": "Eternal",
-    "requirements": [],
+    "requirements": [
+      {
+        "type": "skill_group_level",
+        "target": "artisan",
+        "value": 47,
+        "input_skill": null,
+        "input_level": null
+      }
+    ],
     "modifiers": [
       {
         "stat": "bonus_xp_percent",

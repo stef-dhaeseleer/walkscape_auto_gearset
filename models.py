@@ -90,6 +90,7 @@ class Material(BaseItem):
     model_config = ConfigDict(frozen=True)
     modifiers: Tuple[Modifier, ...] = Field(default_factory=tuple)
     special_sell: Optional[SpecialShopSell] = None
+    requirements: Tuple[Requirement, ...] = Field(default_factory=tuple)
 
 class RecipeMaterial(BaseModel):
     model_config = ConfigDict(frozen=True)

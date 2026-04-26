@@ -15,7 +15,7 @@ from ui_utils import (
     TARGET_CATEGORIES, find_category, filter_user_items, 
     get_compatible_services, synthesize_activity_from_recipe, 
     extract_modifier_stats, check_condition_details, calculate_level_from_xp,
-    get_best_auto_pet, format_target_metric
+    get_best_auto_pet, format_target_metric, is_material_level_valid
 )
 
 @st.dialog("Configure Target")
@@ -482,7 +482,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                 if hasattr(mat, 'keywords') and mat.keywords:
                                     mat_kws = [k.lower().replace("_", " ").strip() for k in mat.keywords]
                                     if kw_target in mat_kws:
-                                        valid_mats.append(mat)
+                                        if is_material_level_valid(mat, req):
+                                            valid_mats.append(mat)
                         elif req_type_val == 'item' and req.target:
                             item_target = req.target.lower()
                             for mat in all_materials + all_consumables:

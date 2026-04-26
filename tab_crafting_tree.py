@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from models import CraftingNode
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET, INSTANT_ACTION_PET_ABILITIES, BUFF_PET_ABILITIES
-from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained
+from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained, is_material_level_valid
 from calculations import calculate_node_metrics, solve_crafting_tree_lp
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
@@ -178,8 +178,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                                 for mat in list(game_data_dict['materials'].values()) + list(game_data_dict['consumables'].values()):
                                     if hasattr(mat, 'keywords') and mat.keywords:
                                         if kw_target in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
-                                            first_valid_id = mat.id
-                                            break
+                                            if is_material_level_valid(mat, req):
+                                                first_valid_id = mat.id
+                                                break
                             elif req_type_val == 'item':
                                 first_valid_id = req.target.lower()
 
@@ -259,8 +260,9 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                                     for mat in list(game_data_dict['materials'].values()) + list(game_data_dict['consumables'].values()):
                                         if hasattr(mat, 'keywords') and mat.keywords:
                                             if kw_target in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
-                                                first_valid_id = mat.id
-                                                break
+                                                if is_material_level_valid(mat, req):
+                                                    first_valid_id = mat.id
+                                                    break
                                 elif req_type_val == 'item':
                                     first_valid_id = req.target.lower()
 
@@ -292,7 +294,8 @@ def render_tree_node(node: CraftingNode, game_data_dict: dict, drop_calc, locati
                                     if hasattr(mat, 'keywords') and mat.keywords:
                                         mat_kws = [k.lower().replace("_", " ").strip() for k in mat.keywords]
                                         if kw_target in mat_kws:
-                                            valid_mats.append(mat)
+                                            if is_material_level_valid(mat, req):
+                                                valid_mats.append(mat)
                             elif req_type_val == 'item' and req.target:
                                 item_target = req.target.lower()
                                 for mat in list(game_data_dict['materials'].values()) + list(game_data_dict['consumables'].values()):

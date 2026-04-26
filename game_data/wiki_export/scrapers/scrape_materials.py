@@ -14,7 +14,8 @@ from urllib.parse import unquote
 # Add parent directory for imports
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-from models import Material, SpecialShopSell, Modifier, Condition, ConditionType, StatName
+from models import Material, SpecialShopSell, Modifier, Condition, ConditionType, StatName, Requirement
+from utils.constants import RequirementType
 from scraper_utils import *
 
 # Configuration
@@ -170,6 +171,37 @@ def parse_attribute_lines(lines, item_name="Unknown") -> list[Modifier]:
                 validator.add_unrecognized_stat(item_name, line)
         i = next_i
     return modifiers
+def parse_requirements_section(soup) -> list[Requirement]:
+    """Parse the requirements section for the material's minimum level."""
+    reqs = []
+    req_heading = soup.find('h1', id='Requirement') or soup.find('h1', id='Requirements')
+    if not req_heading: 
+        return reqs
+    
+    parent_div = req_heading.parent
+    if parent_div and 'mw-heading' in parent_div.get('class', []):
+        next_elem = parent_div.find_next_sibling()
+    else:
+        next_elem = req_heading.find_next_sibling()
+        
+    while next_elem:
+        # Stop parsing if we hit the next header
+        if next_elem.name in ['h1', 'h2'] or (next_elem.name == 'div' and 'mw-heading' in next_elem.get('class', [])): 
+            break
+        
+        text = next_elem.get_text()
+        # Matches: "At least Hunting lvl. 30."
+        skill_matches = re.findall(r'At least.*?([A-Za-z]+)\s+lvl?\.\s*(\d+)', text, re.IGNORECASE)
+        for skill_name, level in skill_matches:
+            reqs.append(Requirement(
+                type=RequirementType.SKILL_LEVEL, 
+                target=skill_name.lower(), 
+                value=int(level)
+            ))
+            
+        next_elem = next_elem.find_next_sibling()
+        
+    return reqs
 
 def extract_material_details(url, name):
     """Download individual material page to get its Coin Value, Special Sell, and Input Modifiers."""
@@ -183,7 +215,7 @@ def extract_material_details(url, name):
     
     if html:
         soup = BeautifulSoup(html, 'html.parser')
-        
+        item_reqs = parse_requirements_section(soup)
         # 1. Parse Value from Infobox
         infobox = soup.find('table', class_='ItemInfobox')
         if infobox:
@@ -252,7 +284,7 @@ def extract_material_details(url, name):
                         elif 'Quality_Fine' in qual_text:
                             fine_mods = parse_attribute_lines(stat_lines, f"{name} (Fine)")
 
-    return value, fine_value, special_sell_normal, special_sell_fine, normal_mods, fine_mods
+    return value, fine_value, special_sell_normal, special_sell_fine, normal_mods, fine_mods, item_reqs
 
 def parse_materials_list():
     print("Downloading Materials page...")
@@ -289,17 +321,18 @@ def parse_materials_list():
                     if raw_text.strip().lower() != 'none':
                         keywords = [clean_text(k) for k in raw_text.split(',') if k.strip()]
 
-            val, fine_val, special_norm, special_fine, n_mods, f_mods = extract_material_details(url, name)
+            val, fine_val, special_norm, special_fine, n_mods, f_mods, reqs = extract_material_details(url, name)
             
             materials.append(Material(
                 id=normalize_id(name), wiki_slug=slug, name=name, value=val,
-                keywords=keywords, special_sell=special_norm, modifiers=n_mods
+                keywords=keywords, special_sell=special_norm, modifiers=n_mods,
+                requirements=reqs
             ))
             
             materials.append(Material(
                 id=normalize_id(name + "_fine"), wiki_slug=slug, name=f"{name} (Fine)",
                 value=fine_val if fine_val else val, keywords=keywords, 
-                special_sell=special_fine, modifiers=f_mods
+                special_sell=special_fine, modifiers=f_mods, requirements=reqs
             ))
             print(f"  Processed: {name} (Mods: N:{len(n_mods)} F:{len(f_mods)})")
 

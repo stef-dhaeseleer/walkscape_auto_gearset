@@ -141,6 +141,22 @@ def get_user_collectibles(all_collectibles: List[Collectible], user_data: Dict) 
             owned_objs.append(c)
     return owned_objs
 
+def is_material_level_valid(mat, req) -> bool:
+    """Checks if a material meets the minimum skill level requirement of an activity input."""
+    if not getattr(req, 'input_level', None) or not getattr(req, 'input_skill', None):
+        return True 
+        
+    req_lvl = req.input_level
+    req_skill = req.input_skill.lower()
+    
+    mat_lvl = 1
+    if hasattr(mat, 'requirements') and mat.requirements:
+        for m_req in mat.requirements:
+            if getattr(m_req.type, 'value', m_req.type) == 'skill_level' and m_req.target and m_req.target.lower() == req_skill:
+                mat_lvl = m_req.value
+                break
+                
+    return mat_lvl >= req_lvl
 def build_activity_context(activity, user_ap: int, user_total_level: int, loc_map: Dict, drop_calc, selected_location_id: str = None, skill_group_levels: Dict = None) -> Dict:
     """Shared helper to build exact math context for both Optimizer and Crafting Tree."""
     req_kw = {}
@@ -434,23 +450,37 @@ def build_default_tree(
             child_node.base_requirement_amount = req_group[0].amount
             node.inputs[f"{mat_item_id}_{i}"] = child_node
             
-    # --- NEW: Recursively build inputs for Activities ---
+# --- NEW: Recursively build inputs for Activities ---
     elif source_type == "activity":
         activity_obj = game_data['activities'][source_id]
-        if hasattr(activity_obj, 'materials') and activity_obj.materials:
-            for i, mat_group in enumerate(activity_obj.materials):
-                mat_item_id = mat_group[0].item_id
+        if hasattr(activity_obj, 'requirements'):
+            input_reqs = [r for r in activity_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]
+            for i, req in enumerate(input_reqs):
+                req_type_val = getattr(req.type, 'value', req.type)
+                kw_target = req.target.lower().replace("_", " ").strip() if req.target else ""
                 
-                child_node = build_default_tree(
-                    target_item_id=mat_item_id,
-                    game_data=game_data,
-                    drop_calc=drop_calc,
-                    global_target_quality=global_target_quality,
-                    global_use_fine=False, 
-                    visited=set(visited)
-                )
-                child_node.base_requirement_amount = mat_group[0].amount
-                node.inputs[mat_item_id] = child_node
+                first_valid_id = None
+                if req_type_val in ('keyword_count', 'input_keyword'):
+                    for mat in list(game_data.get('materials', {}).values()) + list(game_data.get('consumables', {}).values()):
+                        if hasattr(mat, 'keywords') and mat.keywords:
+                            if kw_target in [k.lower().replace("_", " ").strip() for k in mat.keywords]:
+                                if is_material_level_valid(mat, req):
+                                    first_valid_id = mat.id
+                                    break
+                elif req_type_val == 'item':
+                    first_valid_id = req.target.lower()
+                    
+                if first_valid_id:
+                    child_node = build_default_tree(
+                        target_item_id=first_valid_id,
+                        game_data=game_data,
+                        drop_calc=drop_calc,
+                        global_target_quality=global_target_quality,
+                        global_use_fine=False, 
+                        visited=set(visited)
+                    )
+                    child_node.base_requirement_amount = req.value
+                    node.inputs[f"{first_valid_id}_{i}"] = child_node
     elif source_type == "chest":
         # The chest itself becomes the input material!
         child_node = build_default_tree(

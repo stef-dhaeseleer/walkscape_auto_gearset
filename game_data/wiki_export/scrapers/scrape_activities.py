@@ -322,6 +322,49 @@ def parse_requirements_section(soup, activity_data):
             activity_data['requirements']['keyword_counts'][f'req_{skill}_{level}_{keyword}'] = 1
         next_elem = next_elem.find_next_sibling()
 
+def parse_item_required_section(soup, activity_data):
+    """Parse the 'Item Required' section and attach skill/level to the keyword."""
+    content = soup.find('div', class_='mw-parser-output')
+    if not content: return
+    
+    req_heading = content.find('h1', id='Item_Required')
+    if not req_heading: return
+    
+    # Handle MW 1.44+ div wrappers
+    parent_div = req_heading.parent
+    if parent_div and 'mw-heading' in parent_div.get('class', []):
+        next_elem = parent_div.find_next_sibling()
+    else:
+        next_elem = req_heading.find_next_sibling()
+        
+    while next_elem:
+        if next_elem.name in ['h1', 'h2'] or (next_elem.name == 'div' and 'mw-heading' in next_elem.get('class', [])): 
+            break
+        
+        if next_elem.name == 'ul':
+            for li in next_elem.find_all('li'):
+                text = clean_text(li.get_text())
+                
+                # Matches: "Needs 1x Hunting level 30 Arrows"
+                match = re.search(r'Needs\s+(\d+)x\s+(?:([A-Za-z\s]+)\s+level\s+(\d+)\s+)?(.+)', text, re.IGNORECASE)
+                if match:
+                    qty = int(match.group(1))
+                    skill = normalize_id(match.group(2)) if match.group(2) else None
+                    level = int(match.group(3)) if match.group(3) else None
+                    keyword = normalize_id(match.group(4).replace("Keyword", "").strip())
+                    
+                    # Ensure the keyword count exists
+                    current = activity_data['requirements']['keyword_counts'].get(keyword, 0)
+                    activity_data['requirements']['keyword_counts'][keyword] = max(current, qty)
+                    
+                    # Store the level details in our new dictionary
+                    if skill and level:
+                        activity_data['requirements']['keyword_details'][keyword] = {
+                            'input_skill': skill,
+                            'input_level': level
+                        }
+        next_elem = next_elem.find_next_sibling()
+
 def parse_experience_table(soup, activity_data):
     """Parse base XP and steps from Experience Information table."""
     content = soup.find('div', class_='mw-parser-output')
@@ -572,6 +615,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         'skill_requirements': {},
         'requirements': {
             'keyword_counts': {},
+            'keyword_details': {},
             'achievement_points': 0,
             'reputation': {},
             'activity_completions': {},
@@ -604,6 +648,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         
     parse_locations_section(soup, data)
     parse_requirements_section(soup, data)
+    parse_item_required_section(soup, data)
     parse_experience_table(soup, data)
     parse_faction_reputation(soup, data)
     parse_drop_tables(soup, data)
@@ -612,9 +657,6 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
     
     for sname, level in data['skill_requirements'].items():
         reqs_list.append(Requirement(type=RequirementType.SKILL_LEVEL, target=sname.lower(), value=level))
-    
-    for kw, count in data['requirements']['keyword_counts'].items():
-        reqs_list.append(Requirement(type=RequirementType.KEYWORD_COUNT, target=kw, value=count))
         
     if data['requirements']['achievement_points'] > 0:
         reqs_list.append(Requirement(type=RequirementType.ACHIEVEMENT_POINTS, value=data['requirements']['achievement_points']))
@@ -632,6 +674,20 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
 
     for ability_name in data['requirements']['pet_abilities']:
         reqs_list.append(Requirement(type=RequirementType.PET_ABILITY, target=ability_name, value=1))
+
+    # --- THE CLEAN MERGE ---
+    for kw, count in data['requirements']['keyword_counts'].items():
+        details = data['requirements']['keyword_details'].get(kw, {})
+        req_kwargs = {
+            'type': RequirementType.KEYWORD_COUNT, 
+            'target': kw, 
+            'value': count
+        }
+        if 'input_skill' in details and 'input_level' in details:
+            req_kwargs['input_skill'] = details['input_skill']
+            req_kwargs['input_level'] = details['input_level']
+            
+        reqs_list.append(Requirement(**req_kwargs))
 
     rewards_list = []
     for fac, amt in data['faction_reputation'].items():
@@ -656,6 +712,7 @@ def parse_activity_page(activity_info) -> Optional[Activity]:
         faction_rewards=rewards_list,
         loot_tables=data['loot_tables'] 
     )
+
 def load_ev_values() -> tuple[dict[str, int], dict[str, float]]:
     """Loads item base values and pre-calculated container EVs."""
     item_values = {"coins": 1}
@@ -696,8 +753,6 @@ def load_ev_values() -> tuple[dict[str, int], dict[str, float]]:
             print(f"Warning: Could not load containers.json: {e}")
 
     return item_values, container_evs
-
-
 
 def calculate_activity_evs(activities: list[Activity], item_values: dict[str, int], container_evs: dict[str, float]) -> list[Activity]:
     """Calculates normal, chest, and fine roll worths for activities."""
@@ -743,7 +798,6 @@ def calculate_activity_evs(activities: list[Activity], item_values: dict[str, in
         
     return updated_activities
 
-
 def main():
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     
@@ -771,7 +825,7 @@ def main():
     
     print(f"\nStep 3: Exporting {len(all_data)} activities to {OUTPUT_FILE}...")
     
-    data = [a.model_dump(mode='json') for a in all_data]
+    data = [a.model_dump(mode='json', exclude_none=True) for a in all_data]
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     

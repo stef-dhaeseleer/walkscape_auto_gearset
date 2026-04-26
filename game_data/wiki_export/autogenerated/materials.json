@@ -6,7 +6,8 @@
     "value": 6,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "aerodynamic_thread_fine",
@@ -15,7 +16,8 @@
     "value": 36,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "animal_fur",
@@ -24,7 +26,8 @@
     "value": 5,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "animal_fur_fine",
@@ -33,7 +36,8 @@
     "value": 30,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_scraps",
@@ -42,7 +46,8 @@
     "value": 0,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_scraps_fine",
@@ -51,7 +56,8 @@
     "value": 0,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "lizard_tail",
@@ -60,7 +66,8 @@
     "value": 2,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "lizard_tail_fine",
@@ -69,7 +76,8 @@
     "value": 15,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "unicorn_horn",
@@ -78,7 +86,8 @@
     "value": 12,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "unicorn_horn_fine",
@@ -87,7 +96,8 @@
     "value": 59,
     "keywords": [],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bronze_arrows",
@@ -111,7 +121,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "bronze_arrows_fine",
@@ -179,7 +198,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 10,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "copper_arrows",
@@ -191,7 +219,16 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "copper_arrows_fine",
@@ -248,7 +285,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 1,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "farganite_arrows",
@@ -272,7 +318,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "farganite_arrows_fine",
@@ -340,7 +395,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 50,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "iron_arrows",
@@ -364,7 +428,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "iron_arrows_fine",
@@ -432,7 +505,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 20,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "steel_arrows",
@@ -456,7 +538,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "steel_arrows_fine",
@@ -524,7 +615,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "tarsilium_arrows",
@@ -548,7 +648,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "tarsilium_arrows_fine",
@@ -616,7 +725,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "adamant_bar",
@@ -627,7 +745,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "adamant_bar_fine",
@@ -638,7 +757,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bronze_bar",
@@ -649,7 +769,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bronze_bar_fine",
@@ -660,7 +781,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "copper_bar",
@@ -671,7 +793,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "copper_bar_fine",
@@ -682,7 +805,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "farganite_bar",
@@ -693,7 +817,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "farganite_bar_fine",
@@ -704,7 +829,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "gold_bar",
@@ -715,7 +841,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "gold_bar_fine",
@@ -726,7 +853,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hydrilium_bar",
@@ -737,7 +865,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hydrilium_bar_fine",
@@ -748,7 +877,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "iron_bar",
@@ -759,7 +889,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "iron_bar_fine",
@@ -770,7 +901,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "silver_bar",
@@ -781,7 +913,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "silver_bar_fine",
@@ -792,7 +925,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "steel_bar",
@@ -803,7 +937,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "steel_bar_fine",
@@ -814,7 +949,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tarsilium_bar",
@@ -825,7 +961,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tarsilium_bar_fine",
@@ -836,7 +973,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "violite_bar",
@@ -847,7 +985,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "violite_bar_fine",
@@ -858,7 +997,8 @@
       "Bar"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "linen_cloth",
@@ -893,7 +1033,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "linen_cloth_fine",
@@ -905,7 +1046,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tough_linen_cloth",
@@ -940,7 +1082,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "tailoring",
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "tough_linen_cloth_fine",
@@ -952,7 +1103,16 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "tailoring",
+        "value": 60,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "ectoplasm_fish",
@@ -963,7 +1123,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_fish_fine",
@@ -974,7 +1135,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_anglerfish",
@@ -985,7 +1147,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_anglerfish_fine",
@@ -996,7 +1159,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_carp",
@@ -1007,7 +1171,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_carp_fine",
@@ -1018,7 +1183,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_jellyfish",
@@ -1029,7 +1195,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_jellyfish_fine",
@@ -1040,7 +1207,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_largemouth_bass",
@@ -1051,7 +1219,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_largemouth_bass_fine",
@@ -1062,7 +1231,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_moray",
@@ -1073,7 +1243,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_moray_fine",
@@ -1084,7 +1255,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_perch",
@@ -1095,7 +1267,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_perch_fine",
@@ -1106,7 +1279,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_pike",
@@ -1117,7 +1291,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_pike_fine",
@@ -1128,7 +1303,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_salmon",
@@ -1139,7 +1315,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_salmon_fine",
@@ -1150,7 +1327,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_shark",
@@ -1161,7 +1339,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_shark_fine",
@@ -1172,7 +1351,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_squid",
@@ -1183,7 +1363,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_squid_fine",
@@ -1194,7 +1375,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_stingray",
@@ -1205,7 +1387,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_stingray_fine",
@@ -1216,7 +1399,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_stream_eel",
@@ -1227,7 +1411,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_stream_eel_fine",
@@ -1238,7 +1423,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_swordfish",
@@ -1249,7 +1435,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_swordfish_fine",
@@ -1260,7 +1447,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_trout",
@@ -1271,7 +1459,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_trout_fine",
@@ -1282,7 +1471,8 @@
       "Fish"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_crab",
@@ -1294,7 +1484,8 @@
       "Crustacean"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_crab_fine",
@@ -1306,7 +1497,8 @@
       "Crustacean"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_lobster",
@@ -1318,7 +1510,8 @@
       "Crustacean"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_lobster_fine",
@@ -1330,7 +1523,8 @@
       "Crustacean"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_shrimp",
@@ -1342,7 +1536,8 @@
       "Crustacean"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "raw_shrimp_fine",
@@ -1354,7 +1549,8 @@
       "Crustacean"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ethernite",
@@ -1366,7 +1562,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ethernite_fine",
@@ -1378,7 +1575,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "jade",
@@ -1390,7 +1588,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "jade_fine",
@@ -1402,7 +1601,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "opal",
@@ -1414,7 +1614,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "opal_fine",
@@ -1426,7 +1627,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ruby",
@@ -1438,7 +1640,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ruby_fine",
@@ -1450,7 +1653,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "star_pearl",
@@ -1462,7 +1666,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "star_pearl_fine",
@@ -1474,7 +1679,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sun_stone",
@@ -1486,7 +1692,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sun_stone_fine",
@@ -1498,7 +1705,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "topaz",
@@ -1510,7 +1718,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "topaz_fine",
@@ -1522,7 +1731,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wrentmarine",
@@ -1534,7 +1744,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wrentmarine_fine",
@@ -1546,7 +1757,8 @@
       "Cut gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pearls",
@@ -1558,7 +1770,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pearls_fine",
@@ -1570,7 +1783,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_ethernite",
@@ -1582,7 +1796,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_ethernite_fine",
@@ -1594,7 +1809,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_jade",
@@ -1606,7 +1822,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_jade_fine",
@@ -1618,7 +1835,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_opal",
@@ -1630,7 +1848,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_opal_fine",
@@ -1642,7 +1861,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_ruby",
@@ -1654,7 +1874,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_ruby_fine",
@@ -1666,7 +1887,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_star_pearl",
@@ -1678,7 +1900,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_star_pearl_fine",
@@ -1690,7 +1913,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_sun_stone",
@@ -1702,7 +1926,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_sun_stone_fine",
@@ -1714,7 +1939,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_topaz",
@@ -1726,7 +1952,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_topaz_fine",
@@ -1738,7 +1965,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_wrentmarine",
@@ -1750,7 +1978,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rough_wrentmarine_fine",
@@ -1762,7 +1991,8 @@
       "Rough gem"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "basic_hide",
@@ -1773,7 +2003,8 @@
       "Hide"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "basic_hide_fine",
@@ -1784,7 +2015,8 @@
       "Hide"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "elderhide_hide",
@@ -1795,7 +2027,8 @@
       "Hide"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "elderhide_hide_fine",
@@ -1806,7 +2039,8 @@
       "Hide"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "elderhide_scraps",
@@ -1818,7 +2052,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "elderhide_scraps_fine",
@@ -1830,7 +2065,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hide_scraps",
@@ -1842,7 +2078,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hide_scraps_fine",
@@ -1854,7 +2091,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "kelp_drift_net",
@@ -1866,7 +2104,16 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "kelp_drift_net_fine",
@@ -1923,7 +2170,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 30,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "boxtrap",
@@ -1935,7 +2191,16 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "boxtrap_fine",
@@ -1992,7 +2257,16 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": [
+      {
+        "type": "skill_level",
+        "target": "hunting",
+        "value": 40,
+        "input_skill": null,
+        "input_level": null
+      }
+    ]
   },
   {
     "id": "animal_meat",
@@ -2003,7 +2277,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "animal_meat_fine",
@@ -2014,7 +2289,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "chocolate",
@@ -2025,7 +2301,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "chocolate_fine",
@@ -2036,7 +2313,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "crystallized_flame",
@@ -2047,7 +2325,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "crystallized_flame_fine",
@@ -2058,7 +2337,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "egg",
@@ -2069,7 +2349,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "egg_fine",
@@ -2080,7 +2361,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "honeycomb",
@@ -2091,7 +2373,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "honeycomb_fine",
@@ -2102,7 +2385,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "milk",
@@ -2113,7 +2397,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "milk_fine",
@@ -2124,7 +2409,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mud",
@@ -2135,7 +2421,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mud_fine",
@@ -2146,7 +2433,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "salt_crystal",
@@ -2157,7 +2445,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "salt_crystal_fine",
@@ -2168,7 +2457,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mushroom",
@@ -2180,7 +2470,8 @@
       "Mushroom"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mushroom_fine",
@@ -2192,7 +2483,8 @@
       "Mushroom"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "basic_leather",
@@ -2204,7 +2496,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "basic_leather_fine",
@@ -2216,7 +2509,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "elderhide_leather",
@@ -2228,7 +2522,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "elderhide_leather_fine",
@@ -2240,7 +2535,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "dark_feather",
@@ -2251,7 +2547,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "dark_feather_fine",
@@ -2262,7 +2559,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "feather",
@@ -2273,7 +2571,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "feather_fine",
@@ -2284,7 +2583,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bamboo_logs",
@@ -2295,7 +2595,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bamboo_logs_fine",
@@ -2306,7 +2607,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "birch_logs",
@@ -2317,7 +2619,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "birch_logs_fine",
@@ -2328,7 +2631,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "coral",
@@ -2339,7 +2643,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "coral_fine",
@@ -2350,7 +2655,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_logs",
@@ -2361,7 +2667,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_logs_fine",
@@ -2372,7 +2679,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mangrove_logs",
@@ -2383,7 +2691,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mangrove_logs_fine",
@@ -2394,7 +2703,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "maple_logs",
@@ -2405,7 +2715,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "maple_logs_fine",
@@ -2416,7 +2727,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "oak_logs",
@@ -2427,7 +2739,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "oak_logs_fine",
@@ -2438,7 +2751,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pine_logs",
@@ -2449,7 +2763,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pine_logs_fine",
@@ -2460,7 +2775,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "spruce_logs",
@@ -2471,7 +2787,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "spruce_logs_fine",
@@ -2482,7 +2799,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "teak_logs",
@@ -2493,7 +2811,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "teak_logs_fine",
@@ -2504,7 +2823,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "willow_logs",
@@ -2515,7 +2835,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "willow_logs_fine",
@@ -2526,7 +2847,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "yew_logs",
@@ -2537,7 +2859,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "yew_logs_fine",
@@ -2548,7 +2871,8 @@
       "Log"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bones",
@@ -2559,7 +2883,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bones_fine",
@@ -2570,7 +2895,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "clam_shell",
@@ -2581,7 +2907,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "clam_shell_fine",
@@ -2592,7 +2919,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "fishbone",
@@ -2603,7 +2931,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "fishbone_fine",
@@ -2614,7 +2943,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "stone",
@@ -2625,7 +2955,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "stone_fine",
@@ -2636,7 +2967,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "volcanic_ash",
@@ -2647,7 +2979,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "volcanic_ash_fine",
@@ -2658,7 +2991,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wooden_stick",
@@ -2669,7 +3003,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wooden_stick_fine",
@@ -2680,7 +3015,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "large_stone",
@@ -2692,7 +3028,8 @@
       "Heavy"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "large_stone_fine",
@@ -2704,7 +3041,8 @@
       "Heavy"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sturdy_branch",
@@ -2716,7 +3054,8 @@
       "Heavy"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sturdy_branch_fine",
@@ -2728,7 +3067,8 @@
       "Heavy"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "unidentified_remains",
@@ -2743,7 +3083,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 20
-    }
+    },
+    "requirements": []
   },
   {
     "id": "unidentified_remains_fine",
@@ -2758,7 +3099,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 100
-    }
+    },
+    "requirements": []
   },
   {
     "id": "adventurers_enamel_pin",
@@ -2773,7 +3115,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 2
-    }
+    },
+    "requirements": []
   },
   {
     "id": "adventurers_enamel_pin_fine",
@@ -2788,7 +3131,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 10
-    }
+    },
+    "requirements": []
   },
   {
     "id": "halfmaw_scales",
@@ -2803,7 +3147,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 1
-    }
+    },
+    "requirements": []
   },
   {
     "id": "halfmaw_scales_fine",
@@ -2818,7 +3163,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 5
-    }
+    },
+    "requirements": []
   },
   {
     "id": "halfmaw_teeth",
@@ -2833,7 +3179,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 3
-    }
+    },
+    "requirements": []
   },
   {
     "id": "halfmaw_teeth_fine",
@@ -2848,7 +3195,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 15
-    }
+    },
+    "requirements": []
   },
   {
     "id": "name_tag",
@@ -2863,7 +3211,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 10
-    }
+    },
+    "requirements": []
   },
   {
     "id": "name_tag_fine",
@@ -2878,7 +3227,8 @@
     "special_sell": {
       "item_id": "adventurers_guild_token",
       "amount": 50
-    }
+    },
+    "requirements": []
   },
   {
     "id": "sea_shell",
@@ -2890,7 +3240,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sea_shell_fine",
@@ -2905,7 +3256,8 @@
     "special_sell": {
       "item_id": "sea_shell",
       "amount": 10
-    }
+    },
+    "requirements": []
   },
   {
     "id": "ectoplasm",
@@ -2918,7 +3270,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_fine",
@@ -2931,7 +3284,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "gold_nugget",
@@ -2943,7 +3297,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "gold_nugget_fine",
@@ -2955,7 +3310,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "silver_nugget",
@@ -2967,7 +3323,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "silver_nugget_fine",
@@ -2979,7 +3336,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "metal_scrap",
@@ -2991,7 +3349,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "metal_scrap_fine",
@@ -3003,7 +3362,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wood_scrap",
@@ -3015,7 +3375,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wood_scrap_fine",
@@ -3027,7 +3388,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "adamant_ore",
@@ -3038,7 +3400,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "adamant_ore_fine",
@@ -3049,7 +3412,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "coal",
@@ -3060,7 +3424,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "coal_fine",
@@ -3071,7 +3436,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "copper_ore",
@@ -3082,7 +3448,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "copper_ore_fine",
@@ -3093,7 +3460,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "crystal_coal",
@@ -3104,7 +3472,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "crystal_coal_fine",
@@ -3115,7 +3484,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_rock",
@@ -3126,7 +3496,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ectoplasm_rock_fine",
@@ -3137,7 +3508,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "farganite_ore",
@@ -3148,7 +3520,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "farganite_ore_fine",
@@ -3159,7 +3532,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "gold_ore",
@@ -3170,7 +3544,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "gold_ore_fine",
@@ -3181,7 +3556,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "iron_ore",
@@ -3192,7 +3568,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "iron_ore_fine",
@@ -3203,7 +3580,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "silver_ore",
@@ -3214,7 +3592,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "silver_ore_fine",
@@ -3225,7 +3604,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tarsilium_ore",
@@ -3236,7 +3616,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tarsilium_ore_fine",
@@ -3247,7 +3628,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tin_ore",
@@ -3258,7 +3640,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tin_ore_fine",
@@ -3269,7 +3652,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "violite_ore",
@@ -3280,7 +3664,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "violite_ore_fine",
@@ -3291,7 +3676,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "volcanic_rock",
@@ -3302,7 +3688,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "volcanic_rock_fine",
@@ -3313,7 +3700,8 @@
       "Ore"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bamboo_plank",
@@ -3324,7 +3712,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bamboo_plank_fine",
@@ -3335,7 +3724,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "birch_plank",
@@ -3346,7 +3736,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "birch_plank_fine",
@@ -3357,7 +3748,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "coral_plank",
@@ -3368,7 +3760,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "coral_plank_fine",
@@ -3379,7 +3772,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mahogany_plank",
@@ -3390,7 +3784,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mahogany_plank_fine",
@@ -3401,7 +3796,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mangrove_plank",
@@ -3412,7 +3808,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "mangrove_plank_fine",
@@ -3423,7 +3820,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "maple_plank",
@@ -3434,7 +3832,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "maple_plank_fine",
@@ -3445,7 +3844,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "oak_plank",
@@ -3456,7 +3856,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "oak_plank_fine",
@@ -3467,7 +3868,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pine_plank",
@@ -3478,7 +3880,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pine_plank_fine",
@@ -3489,7 +3892,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "spruce_plank",
@@ -3500,7 +3904,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "spruce_plank_fine",
@@ -3511,7 +3916,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "teak_plank",
@@ -3522,7 +3928,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "teak_plank_fine",
@@ -3533,7 +3940,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "willow_plank",
@@ -3544,7 +3952,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "willow_plank_fine",
@@ -3555,7 +3964,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "yew_plank",
@@ -3566,7 +3976,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "yew_plank_fine",
@@ -3577,7 +3988,8 @@
       "Plank"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "highwater_lotus",
@@ -3588,7 +4000,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "highwater_lotus_fine",
@@ -3644,7 +4057,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "kelp",
@@ -3655,7 +4069,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "kelp_fine",
@@ -3711,7 +4126,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "loverose",
@@ -3722,7 +4138,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "loverose_fine",
@@ -3778,7 +4195,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "moondaisy",
@@ -3789,7 +4207,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "moondaisy_fine",
@@ -3845,7 +4264,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "snowdrop",
@@ -3856,7 +4276,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "snowdrop_fine",
@@ -3912,7 +4333,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sunblossom",
@@ -3923,7 +4345,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sunblossom_fine",
@@ -3979,7 +4402,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "thistle",
@@ -3990,7 +4414,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "thistle_fine",
@@ -4046,7 +4471,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "widows_kiss",
@@ -4057,7 +4483,8 @@
       "Plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "widows_kiss_fine",
@@ -4113,7 +4540,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "cattail",
@@ -4125,7 +4553,8 @@
       "Fibrous plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "cattail_fine",
@@ -4182,7 +4611,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "flax",
@@ -4194,7 +4624,8 @@
       "Fibrous plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "flax_fine",
@@ -4251,7 +4682,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hemp",
@@ -4263,7 +4695,8 @@
       "Fibrous plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hemp_fine",
@@ -4320,7 +4753,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ironweed",
@@ -4332,7 +4766,8 @@
       "Fibrous plant"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ironweed_fine",
@@ -4389,7 +4824,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bell_pepper",
@@ -4401,7 +4837,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bell_pepper_fine",
@@ -4458,7 +4895,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "berries",
@@ -4470,7 +4908,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "berries_fine",
@@ -4527,7 +4966,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "carrot",
@@ -4539,7 +4979,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "carrot_fine",
@@ -4596,7 +5037,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "cucumber",
@@ -4608,7 +5050,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "cucumber_fine",
@@ -4665,7 +5108,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "grass",
@@ -4677,7 +5121,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "grass_fine",
@@ -4734,7 +5179,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "milkweed",
@@ -4746,7 +5192,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "milkweed_fine",
@@ -4803,7 +5250,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "nettle",
@@ -4815,7 +5263,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "nettle_fine",
@@ -4872,7 +5321,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "potato",
@@ -4884,7 +5334,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "potato_fine",
@@ -4941,7 +5392,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "root",
@@ -4953,7 +5405,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "root_fine",
@@ -5010,7 +5463,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rotbud",
@@ -5022,7 +5476,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "rotbud_fine",
@@ -5079,7 +5534,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "salty_hops",
@@ -5091,7 +5547,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "salty_hops_fine",
@@ -5148,7 +5605,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sea_cabbage",
@@ -5160,7 +5618,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sea_cabbage_fine",
@@ -5217,7 +5676,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sea_spinach",
@@ -5229,7 +5689,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sea_spinach_fine",
@@ -5286,7 +5747,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sweet_kelp",
@@ -5298,7 +5760,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "sweet_kelp_fine",
@@ -5355,7 +5818,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tomato",
@@ -5367,7 +5831,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "tomato_fine",
@@ -5424,7 +5889,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "underwater_lotus",
@@ -5436,7 +5902,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "underwater_lotus_fine",
@@ -5493,7 +5960,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wheat",
@@ -5505,7 +5973,8 @@
       "Ingredient"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "wheat_fine",
@@ -5562,7 +6031,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pepper",
@@ -5575,7 +6045,8 @@
       "Light"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pepper_fine",
@@ -5633,7 +6104,8 @@
         ]
       }
     ],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "fishing_line",
@@ -5644,7 +6116,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "fishing_line_fine",
@@ -5655,7 +6128,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hardened_kelp",
@@ -5666,7 +6140,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hardened_kelp_fine",
@@ -5677,7 +6152,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hydrilium",
@@ -5688,7 +6164,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "hydrilium_fine",
@@ -5699,7 +6176,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ironweed_twine",
@@ -5710,7 +6188,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "ironweed_twine_fine",
@@ -5721,7 +6200,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "kelp_twine",
@@ -5732,7 +6212,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "kelp_twine_fine",
@@ -5743,7 +6224,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "simple_bowstring",
@@ -5754,7 +6236,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "simple_bowstring_fine",
@@ -5765,7 +6248,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "strong_bowstring",
@@ -5776,7 +6260,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "strong_bowstring_fine",
@@ -5787,7 +6272,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "twine",
@@ -5798,7 +6284,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "twine_fine",
@@ -5809,7 +6296,8 @@
       "Processed"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "trash",
@@ -5821,7 +6309,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "trash_fine",
@@ -5833,7 +6322,8 @@
       "Misc."
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bat_trinket",
@@ -5844,7 +6334,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "bat_trinket_fine",
@@ -5855,7 +6346,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "beaver_trinket",
@@ -5866,7 +6358,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "beaver_trinket_fine",
@@ -5877,7 +6370,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "circular_root_trinket",
@@ -5888,7 +6382,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "circular_root_trinket_fine",
@@ -5899,7 +6394,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "compass_trinket",
@@ -5910,7 +6406,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "compass_trinket_fine",
@@ -5921,7 +6418,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "cooling_icicle_trinket",
@@ -5932,7 +6430,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "cooling_icicle_trinket_fine",
@@ -5943,7 +6442,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "eel_trinket",
@@ -5954,7 +6454,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "eel_trinket_fine",
@@ -5965,7 +6466,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "heron_trinket",
@@ -5976,7 +6478,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "heron_trinket_fine",
@@ -5987,7 +6490,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "lucky_rabbit_foot_trinket",
@@ -5998,7 +6502,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "lucky_rabbit_foot_trinket_fine",
@@ -6009,7 +6514,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "measuring_spoons_trinket",
@@ -6020,7 +6526,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "measuring_spoons_trinket_fine",
@@ -6031,7 +6538,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pink_pearl_trinket",
@@ -6042,7 +6550,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "pink_pearl_trinket_fine",
@@ -6053,7 +6562,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "shark_tooth_trinket",
@@ -6064,7 +6574,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "shark_tooth_trinket_fine",
@@ -6075,7 +6586,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "shrimp_trinket",
@@ -6086,7 +6598,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "shrimp_trinket_fine",
@@ -6097,7 +6610,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "spider_trinket",
@@ -6108,7 +6622,8 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   },
   {
     "id": "spider_trinket_fine",
@@ -6119,6 +6634,7 @@
       "Trinket"
     ],
     "modifiers": [],
-    "special_sell": null
+    "special_sell": null,
+    "requirements": []
   }
 ]

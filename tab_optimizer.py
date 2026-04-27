@@ -449,7 +449,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                         options_ids.add(mat.item_id)
                         options_ids.add(f"{mat.item_id}_fine") # Auto-include fine variants
                     
-                    valid_mats = [m for m in all_materials if m.id in options_ids]
+                    valid_mats = [m for m in all_materials + all_consumables + all_items_raw if m.id in options_ids]
                     if valid_mats:
                         mat_names = [m.name for m in valid_mats]
                         sel_mat_name = st.selectbox(f"Select Input {i+1}", mat_names, key=f"mat_sel_{selected_obj.id}_{i}")

@@ -393,6 +393,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         selected_service = None
         selected_location_id = None
         selected_input_materials = [] 
+        ui_is_fine_materials = False
         
         if selected_key:
             selected_obj = combined_map[selected_key]
@@ -443,28 +444,7 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
 
             if is_recipe and getattr(selected_obj, 'materials', None):
                 st.markdown("**Input Materials**")
-                for i, mat_group in enumerate(selected_obj.materials):
-                    options_ids = set()
-                    for mat in mat_group:
-                        options_ids.add(mat.item_id)
-                        options_ids.add(f"{mat.item_id}_fine") # Auto-include fine variants
-                    
-                    valid_mats = [m for m in all_materials + all_consumables + all_items_raw if m.id in options_ids]
-                    if valid_mats:
-                        mat_names = [m.name for m in valid_mats]
-                        sel_mat_name = st.selectbox(f"Select Input {i+1}", mat_names, key=f"mat_sel_{selected_obj.id}_{i}")
-                        sel_mat_obj = next((m for m in valid_mats if m.name == sel_mat_name), None)
-                        
-                        if sel_mat_obj:
-                            selected_input_materials.append(sel_mat_obj)
-                            if sel_mat_obj.modifiers:
-                                st.caption(f"*{sel_mat_obj.name} Buffs:*")
-                                html = ""
-                                for mod in sel_mat_obj.modifiers:
-                                    val = mod.value
-                                    if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
-                                    html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
-                                st.markdown(html, unsafe_allow_html=True)
+                ui_is_fine_materials = st.checkbox("💎 Use Fine Materials", value=False, help="Calculate outcomes and exp assuming fine variants are used for all applicable materials.")
                                 
             elif not is_recipe and getattr(selected_obj, 'requirements', None):
                 # For Activities: Find consumable input requirements
@@ -696,21 +676,19 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 if current_loc_id and current_loc_id in loc_map:
                     current_tags = {t.lower() for t in loc_map[current_loc_id].tags}
                 
-                is_fine_materials = True
                 is_equipment_upgrade = False
+                is_fine_materials = False
+                
                 if is_recipe and getattr(selected_obj, 'materials', None):
+                    is_fine_materials = ui_is_fine_materials
                     for i, mat_group in enumerate(selected_obj.materials):
                         base_id = mat_group[0].item_id.replace("_fine", "")
                         has_fine_version = (f"{base_id}_fine" in [m.id for m in all_materials] or 
-                                            f"{base_id}_fine" in [c.id for c in all_consumables])
+                                            f"{base_id}_fine" in [c.id for c in all_consumables] or
+                                            f"{base_id}_fine" in [i.id for i in all_items_raw])
                         
                         if not has_fine_version:
                             is_equipment_upgrade = True
-                        else:
-                            # Check if the user selected the fine variant for this input
-                            selected_mat = next((m for m in selected_input_materials if m.id.startswith(base_id)), None)
-                            if not selected_mat or not selected_mat.id.endswith("_fine"):
-                                is_fine_materials = False
                 else:
                     is_fine_materials = False
                 context = {

@@ -2,7 +2,7 @@ import math
 from typing import Dict, List, Optional, Any, Set, Tuple, Union
 from collections import defaultdict
 from models import Activity, GearSet, Collectible, ConditionType, StatName,CraftingNode, Loadout,Location 
-from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS, GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality, QUALITY_NAMES, BUFF_PET_ABILITIES, INSTANT_ACTION_PET_ABILITIES
+from utils.constants import OPTIMAZATION_TARGET, PERCENTAGE_STATS, GATHERING_SKILLS, ARTISAN_SKILLS, EquipmentQuality, QUALITY_NAMES, BUFF_PET_ABILITIES, INSTANT_ACTION_PET_ABILITIES, UTILITY_SKILLS
 import re
 from scipy.optimize import linprog
 # ============================================================================
@@ -457,6 +457,7 @@ def calculate_passive_stats(collectibles: List[Collectible], context: Dict) -> D
                         if c_target == active_skill: pass
                         elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
                         elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                        elif c_target == "utility" and active_skill in UTILITY_SKILLS: pass
                         else: applies = False
                 elif c_type == ConditionType.LOCATION:
                     if not loc_id: applies = False

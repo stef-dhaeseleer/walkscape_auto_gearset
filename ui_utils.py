@@ -8,7 +8,7 @@ from collections import Counter
 from typing import List, Dict, Tuple, Any, Optional
 
 from utils.data_loader import load_game_data
-from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, BUFF_PET_ABILITIES, OPTIMAZATION_TARGET, SPECIAL_FIND_MAP
+from utils.constants import StatName, PERCENTAGE_STATS, EquipmentQuality, INSTANT_ACTION_PET_ABILITIES, BUFF_PET_ABILITIES, OPTIMAZATION_TARGET, SPECIAL_FIND_MAP, UTILITY_SKILLS
 from calculations import calculate_steps, calculate_quality_probabilities
 from models import (
     Equipment, GearSet, Collectible, Modifier, Condition, Service, Recipe, Activity, 
@@ -89,6 +89,7 @@ def check_condition_details(cond: Condition, context: Dict, set_keyword_counts: 
         if c_target == active_skill: return True, f"Skill is {active_skill}"
         if c_target == "gathering" and active_skill in GATHERING_SKILLS: return True, "Skill is Gathering"
         if c_target == "artisan" and active_skill in ARTISAN_SKILLS: return True, "Skill is Artisan"
+        if c_target == "utility" and active_skill in UTILITY_SKILLS: return True, "Skill is Utility"
         return False, f"Requires {c_target}, current is {active_skill}"
     elif c_type == ConditionType.LOCATION:
         if not loc_id: return False, "No location set"

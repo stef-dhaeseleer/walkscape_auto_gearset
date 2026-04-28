@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field, ConfigDict, model_validator
 from utils.constants import (
     ConditionType, RequirementType, EquipmentSlot, EquipmentQuality, 
     SkillName, StatName, GATHERING_SKILLS, ARTISAN_SKILLS, RESTRICTED_TOOL_KEYWORDS,
-    ActivityLootTableType, ChestTableCategory, PERCENTAGE_STATS
+    ActivityLootTableType, ChestTableCategory, PERCENTAGE_STATS, UTILITY_SKILLS
 )
 
 # ============================================================================
@@ -421,6 +421,7 @@ class GearSet(BaseModel):
                             if c_target == active_skill: pass
                             elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
                             elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                            elif c_target == "utility" and active_skill in UTILITY_SKILLS: pass
                             else: applies = False
                     elif c_type == ConditionType.LOCATION:
                         if not loc_id: applies = False

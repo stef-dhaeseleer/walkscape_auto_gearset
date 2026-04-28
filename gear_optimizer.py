@@ -3,7 +3,7 @@ from typing import Dict, List, Set, Optional, Tuple, Any, Union
 from collections import Counter as PyCounter, defaultdict
 
 from models import Equipment, Activity, GearSet, EquipmentSlot, Location, RequirementType, ConditionType, Collectible, Pet, Consumable
-from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, StatName, BUFF_PET_ABILITIES
+from utils.constants import RESTRICTED_TOOL_KEYWORDS, PERCENTAGE_STATS, OPTIMAZATION_TARGET, StatName, BUFF_PET_ABILITIES,GATHERING_SKILLS, ARTISAN_SKILLS, UTILITY_SKILLS
 from calculations import calculate_score, calculate_steps, calculate_passive_stats, calculate_quality_probabilities, _calculate_single_target_score
 from candidates import CandidateSelector
 
@@ -884,10 +884,10 @@ class GearOptimizer:
                             act_skill = context.get("skill", "").lower()
                             if not act_skill: applies_cond = False
                             elif c_target:
-                                from models import GATHERING_SKILLS, ARTISAN_SKILLS
                                 if c_target == act_skill: pass
                                 elif c_target == "gathering" and act_skill in GATHERING_SKILLS: pass
                                 elif c_target == "artisan" and act_skill in ARTISAN_SKILLS: pass
+                                elif c_target == "utility" and act_skill in UTILITY_SKILLS: pass
                                 else: applies_cond = False
                         elif c_type == ConditionType.LOCATION:
                             loc_id = context.get("location_id")

@@ -1,8 +1,8 @@
 from typing import List, Dict, Set, Optional, Any, Union, Tuple
 from collections import defaultdict
-from models import Equipment, Activity, GearSet, EquipmentSlot, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS
+from models import Equipment, Activity, GearSet, EquipmentSlot, RequirementType, ConditionType, GATHERING_SKILLS, ARTISAN_SKILLS, UTILITY_SKILLS
 from calculations import calculate_score
-from utils.constants import TARGET_TO_STATS, STAT_ENUM_TO_KEY, OPTIMAZATION_TARGET, QUALITY_RANK, RESTRICTED_TOOL_KEYWORDS, StatName, PERCENTAGE_STATS, DOMINANCE_EXEMPT_ITEMS
+from utils.constants import TARGET_TO_STATS, STAT_ENUM_TO_KEY, OPTIMAZATION_TARGET, QUALITY_RANK, RESTRICTED_TOOL_KEYWORDS, StatName, PERCENTAGE_STATS, DOMINANCE_EXEMPT_ITEMS, UTILITY_SKILLS
 
 class CandidateSelector:
     def __init__(self, all_items: List[Equipment]):
@@ -265,6 +265,7 @@ class CandidateSelector:
                                 if c_target == active_skill: pass
                                 elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
                                 elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                                elif c_target == "utility" and active_skill in UTILITY_SKILLS: pass
                                 else: other_conds_met = False
                         elif c_type == ConditionType.LOCATION:
                             if not loc_id: other_conds_met = False
@@ -433,6 +434,7 @@ class CandidateSelector:
                         if c_target == active_skill: pass
                         elif c_target == "gathering" and active_skill in GATHERING_SKILLS: pass
                         elif c_target == "artisan" and active_skill in ARTISAN_SKILLS: pass
+                        elif c_target == "utility" and active_skill in UTILITY_SKILLS: pass
                         else: applies = False
                 elif c_type == ConditionType.LOCATION:
                     if not loc_id: applies = False

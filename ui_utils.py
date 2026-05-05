@@ -934,3 +934,50 @@ def format_target_metric(t_name, raw_val, base_steps):
         return f"{human_val:.2f} Steps / {item_label}" if raw_val > 0 else f"∞ Steps / {item_label}"
     else:
         return f"{raw_val:.4f}"
+
+
+
+def get_filtered_consumables(all_consumables: List[Consumable], selected_obj: Any) -> List[Consumable]:
+    if not selected_obj:
+        return all_consumables
+        
+    skill = getattr(selected_obj, 'primary_skill', getattr(selected_obj, 'skill', "")).lower()
+    is_activity = isinstance(selected_obj, Activity)
+    
+    filtered_with_priority = []
+    
+    for cons in all_consumables:
+        is_global = False
+        is_skill_match = False
+        
+        for mod in cons.modifiers:
+            for cond in mod.conditions:
+                c_type = getattr(cond.type, 'value', cond.type)
+                
+                if c_type == "global":
+                    is_global = True
+                elif c_type == "skill_activity":
+                    c_target = cond.target.lower() if cond.target else ""
+                    if (c_target == skill or 
+                        (c_target == "gathering" and skill in GATHERING_SKILLS) or
+                        (c_target == "artisan" and skill in ARTISAN_SKILLS) or
+                        (c_target == "utility" and skill in UTILITY_SKILLS)):
+                        is_skill_match = True
+
+        if is_skill_match or is_global:
+            if is_activity:
+                clean_modifiers = [
+                    mod for mod in cons.modifiers 
+                    if mod.stat != StatName.QUALITY_OUTCOME
+                ]
+                if clean_modifiers:
+                    cons_copy = cons.model_copy(update={"modifiers": tuple(clean_modifiers)})
+                    priority = 1 if (is_global and not is_skill_match) else 0
+                    filtered_with_priority.append((priority, cons_copy))
+            else:
+                priority = 1 if (is_global and not is_skill_match) else 0
+                filtered_with_priority.append((priority, cons))
+
+    filtered_with_priority.sort(key=lambda x: (x[0], x[1].name))
+    
+    return [item[1] for item in filtered_with_priority]

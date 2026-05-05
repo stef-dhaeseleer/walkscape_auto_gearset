@@ -109,7 +109,7 @@ def main():
                 elif etype == "Pet": all_pets.append(Pet(**data))
             except Exception as e:
                 print(f"Failed to load custom {etype} ({data.get('id')}): {e}")
-
+    all_consumables = list({c.id: c for c in all_consumables}.values())
     drop_calc = DropCalculator()
     WIKI_URL = "https://gear.walkscape.app"
 

@@ -15,7 +15,7 @@ from ui_utils import (
     TARGET_CATEGORIES, find_category, filter_user_items, 
     get_compatible_services, synthesize_activity_from_recipe, 
     extract_modifier_stats, check_condition_details, calculate_level_from_xp,
-    get_best_auto_pet, format_target_metric, is_material_level_valid
+    get_best_auto_pet, format_target_metric, is_material_level_valid,get_filtered_consumables
 )
 
 @st.dialog("Configure Target")
@@ -298,87 +298,6 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 else:
                     st.info("Blacklist empty.")
     
-    with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=False):
-        st.caption("Select active buffs. These are treated as permanent stats during optimization.")
-        col_pet, col_lvl, col_cons = st.columns([2, 1, 2])
-        
-        owned_pets = user_state.get("owned_pets", {})
-        
-        with col_pet:
-            pet_opts = ["Auto", "None"] + [p.id for p in all_pets]
-            
-            def format_pet(pid):
-                if pid == "Auto": return "✨ Auto Select Best Pet"
-                if pid == "None": return "None"
-                p_obj = next((x for x in all_pets if x.id == pid), None)
-                if not p_obj: return pid
-                if pid in owned_pets: return f"{owned_pets[pid]['name']} ({p_obj.name})"
-                return p_obj.name
-                
-            selected_pet_id = st.selectbox("Select Pet", pet_opts, format_func=format_pet)
-        
-        selected_pet = None
-        if selected_pet_id not in ["None", "Auto"]:
-            selected_pet = next((p for p in all_pets if p.id == selected_pet_id), None)
-            
-        with col_lvl:
-            if selected_pet_id == "Auto":
-                st.selectbox("Pet Level", ["Auto"], disabled=True)
-            elif selected_pet:
-                max_lvl = max([l.level for l in selected_pet.levels]) if selected_pet.levels else 1
-                lvls = list(range(1, max_lvl + 1))
-                
-                default_lvl = max_lvl
-                if selected_pet_id in owned_pets:
-                    default_lvl = min(owned_pets[selected_pet_id]["level"], max_lvl)
-                    
-                try: default_idx = lvls.index(default_lvl)
-                except ValueError: default_idx = len(lvls)-1
-                
-                sel_level = st.selectbox("Pet Level", lvls, index=default_idx)
-                selected_pet = selected_pet.copy(update={"active_level": sel_level})
-                
-                has_buff = False
-                buff_name = ""
-                if selected_pet.levels:
-                    eval_lvl = next((l for l in selected_pet.levels if l.level == sel_level), selected_pet.levels[-1])
-                    for ab in eval_lvl.abilities:
-                        if ab.name in BUFF_PET_ABILITIES:
-                            has_buff = True
-                            buff_name = ab.name
-                            break
-                            
-                if has_buff:
-                    use_buff = st.checkbox(f"⚡ Use {buff_name} - Buff", key=f"opt_pet_buff_{selected_pet.id}")
-                    selected_pet.use_pet_ability = use_buff
-                    
-                st.caption(f"**Level {sel_level} Effects:**")
-                mods = selected_pet.modifiers
-                if not mods: st.caption("No modifiers.")
-                else:
-                    html = ""
-                    for mod in mods:
-                        val = mod.value
-                        if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
-                        html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
-                    st.markdown(html, unsafe_allow_html=True)
-            else:
-                st.selectbox("Pet Level", ["-"], disabled=True)
-        with col_cons:
-            cons_names = ["None"] + sorted([c.name for c in all_consumables])
-            selected_cons_name = st.selectbox("Select Consumable", cons_names)
-        
-        selected_cons = None
-        if selected_cons_name != "None":
-            selected_cons = next((c for c in all_consumables if c.name == selected_cons_name), None)
-            if selected_cons and selected_cons.modifiers:
-                st.caption(f"**{selected_cons.name} Effects:**")
-                html = ""
-                for mod in selected_cons.modifiers:
-                    val = mod.value
-                    if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
-                    html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
-                st.markdown(html, unsafe_allow_html=True)
 
     c1, c2, c3 = st.columns([1.5, 2.5, 1])
     act_map = {f"[Activity] {a.name}": a for a in activities}
@@ -394,6 +313,8 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
         selected_location_id = None
         selected_input_materials = [] 
         ui_is_fine_materials = False
+        selected_pet = None
+        selected_cons = None
         
         if selected_key:
             selected_obj = combined_map[selected_key]
@@ -497,7 +418,73 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                                             if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
                                             html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
                                         st.markdown(html, unsafe_allow_html=True)
-    
+                                
+            with st.expander("🧪 Active Buffs (Pet & Consumables)", expanded=True):
+                st.caption("Select active buffs. These are treated as permanent stats during optimization.")
+                
+                c_pet_1, c_pet_2 = st.columns([2, 1])
+                owned_pets = user_state.get("owned_pets", {})
+                
+                with c_pet_1:
+                    pet_opts = ["Auto", "None"] + [p.id for p in all_pets]
+                    def format_pet(pid):
+                        if pid == "Auto": return "✨ Auto Select Best Pet"
+                        if pid == "None": return "None"
+                        p_obj = next((x for x in all_pets if x.id == pid), None)
+                        if not p_obj: return pid
+                        if pid in owned_pets: return f"{owned_pets[pid]['name']} ({p_obj.name})"
+                        return p_obj.name
+                        
+                    selected_pet_id = st.selectbox("Select Pet", pet_opts, format_func=format_pet)
+                
+                with c_pet_2:
+                    if selected_pet_id == "Auto":
+                        st.selectbox("Pet Level", ["Auto"], disabled=True)
+                    elif selected_pet_id != "None":
+                        base_pet = next((p for p in all_pets if p.id == selected_pet_id), None)
+                        if base_pet:
+                            max_lvl = max([l.level for l in base_pet.levels]) if base_pet.levels else 1
+                            lvls = list(range(1, max_lvl + 1))
+                            
+                            default_lvl = max_lvl
+                            if selected_pet_id in owned_pets:
+                                default_lvl = min(owned_pets[selected_pet_id]["level"], max_lvl)
+                                
+                            try: default_idx = lvls.index(default_lvl)
+                            except ValueError: default_idx = len(lvls)-1
+                            
+                            sel_level = st.selectbox("Pet Level", lvls, index=default_idx)
+                            selected_pet = base_pet.copy(update={"active_level": sel_level})
+                            
+                            has_buff = False
+                            buff_name = ""
+                            if selected_pet.levels:
+                                eval_lvl = next((l for l in selected_pet.levels if l.level == sel_level), selected_pet.levels[-1])
+                                for ab in eval_lvl.abilities:
+                                    if ab.name in BUFF_PET_ABILITIES:
+                                        has_buff = True
+                                        buff_name = ab.name
+                                        break
+                                        
+                            if has_buff:
+                                use_buff = st.checkbox(f"⚡ Use {buff_name} - Buff", key=f"opt_pet_buff_{selected_pet.id}")
+                                selected_pet.use_pet_ability = use_buff
+                    else:
+                        st.selectbox("Pet Level", ["-"], disabled=True)
+
+                filtered_consumables = get_filtered_consumables(all_consumables, selected_obj)
+                cons_names = ["None"] + [c.name for c in filtered_consumables]
+                selected_cons_name = st.selectbox("Select Consumable", cons_names)
+                
+                if selected_cons_name != "None":
+                    selected_cons = next((c for c in filtered_consumables if c.name == selected_cons_name), None)
+                    if selected_cons and selected_cons.modifiers:
+                        html = ""
+                        for mod in selected_cons.modifiers:
+                            val = mod.value
+                            if mod.stat in PERCENTAGE_STATS: val = f"{val}%"
+                            html += f"<span class='service-mod'>{mod.stat.replace('_',' ').title()}: {val}</span>"
+                        st.markdown(html, unsafe_allow_html=True)
     with c2:
         st.write("🎯 **Optimization Targets**")
         if is_mobile:

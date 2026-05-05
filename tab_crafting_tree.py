@@ -4,7 +4,7 @@ import json
 import pandas as pd
 from models import CraftingNode
 from utils.constants import EquipmentQuality, OPTIMAZATION_TARGET, INSTANT_ACTION_PET_ABILITIES, BUFF_PET_ABILITIES
-from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained, is_material_level_valid
+from ui_utils import build_default_tree, can_tree_use_fine, calculate_level_from_xp, TARGET_CATEGORIES, get_compatible_services, synthesize_activity_from_recipe, build_activity_context, extract_modifier_stats, get_applicable_abilities, get_best_auto_pet, get_pet_charges_gained, is_material_level_valid, get_filtered_consumables
 from calculations import calculate_node_metrics, solve_crafting_tree_lp
 from gear_optimizer import GearOptimizer
 from utils.export import export_gearset
@@ -110,12 +110,19 @@ def node_settings_dialog(node: CraftingNode, game_data_dict: dict, locations, us
         l_idx = lvls.index(node.selected_pet_level) if getattr(node, 'selected_pet_level', None) in lvls else lvls.index(default_lvl) if default_lvl in lvls else len(lvls)-1
         node.selected_pet_level = st.selectbox("Pet Level", lvls, index=l_idx)
         
-    # 4. Consumable
-    cons = list(game_data_dict['consumables'].values())
-    cons_opts = ["None"] + [c.id for c in cons]
+    activity_obj = None
+    if node.source_type == "recipe":
+        activity_obj = game_data_dict['recipes'].get(node.source_id)
+    elif node.source_type == "activity":
+        activity_obj = game_data_dict['activities'].get(node.source_id)
+        
+    filtered_cons = get_filtered_consumables(list(game_data_dict['consumables'].values()), activity_obj)
+    cons_opts = ["None"] + [c.id for c in filtered_cons]
+    
     def format_cons(x):
         if x == "None": return "None"
-        return next((c.name for c in cons if c.id == x), x)
+        return next((c.name for c in filtered_cons if c.id == x), x)
+        
     c_idx = cons_opts.index(node.selected_consumable_id) if getattr(node, 'selected_consumable_id', None) in cons_opts else 0
     new_cons_id = st.selectbox("Consumable", cons_opts, index=c_idx, format_func=format_cons)
     node.selected_consumable_id = new_cons_id if new_cons_id != "None" else None

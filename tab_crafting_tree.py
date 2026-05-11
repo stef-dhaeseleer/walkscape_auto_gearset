@@ -847,6 +847,26 @@ def render_crafting_tree_tab(recipes, all_items_raw, activities, all_containers,
                                 loc_map, drop_calc, getattr(node, 'selected_location_id', None),user_state.get("skill_group_levels", {}),
                             )
                             
+                            base_input_cost = 0.0
+                            if node.source_type == "recipe" and hasattr(activity_obj, 'materials'):
+                                for mat_group in activity_obj.materials:
+                                    mat = mat_group[0]
+                                    base_id = mat.item_id.replace("_fine", "")
+                                    mat_id = base_id
+                                    if st.session_state.get('global_fine', False):
+                                        fine_id = drop_calc.fine_material_map.get(base_id, f"{base_id}_fine")
+                                        if fine_id in drop_calc.item_values:
+                                            mat_id = fine_id
+                                    base_input_cost += mat.amount * drop_calc.item_values.get(mat_id, 0.0)
+                            elif node.source_type == "activity" and hasattr(activity_obj, 'requirements'):
+                                input_reqs = [r for r in activity_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]
+                                for i, req in enumerate(input_reqs):
+                                    mat_id = getattr(node, 'selected_activity_inputs', {}).get(i)
+                                    if mat_id:
+                                        base_input_cost += req.value * drop_calc.item_values.get(mat_id, 0.0)
+
+                            node_context["base_input_cost"] = base_input_cost
+                            
                             # --- NEW: Extract Extra Passives & Forgive Requirements from Selected Inputs ---
                             if node.source_type == "activity" and hasattr(activity_obj, 'requirements'):
                                 input_reqs = [r for r in activity_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]

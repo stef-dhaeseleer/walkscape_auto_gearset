@@ -666,18 +666,32 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                 is_equipment_upgrade = False
                 is_fine_materials = False
                 
+                base_input_cost = 0.0
                 if is_recipe and getattr(selected_obj, 'materials', None):
                     is_fine_materials = ui_is_fine_materials
                     for i, mat_group in enumerate(selected_obj.materials):
                         base_id = mat_group[0].item_id.replace("_fine", "")
+                        mat_id = base_id
                         has_fine_version = (f"{base_id}_fine" in [m.id for m in all_materials] or 
                                             f"{base_id}_fine" in [c.id for c in all_consumables] or
                                             f"{base_id}_fine" in [i.id for i in all_items_raw])
+                        
+                        if ui_is_fine_materials and has_fine_version:
+                            mat_id = f"{base_id}_fine"
+                            
+                        base_input_cost += mat_group[0].amount * drop_calc.item_values.get(mat_id, 0.0)
                         
                         if not has_fine_version:
                             is_equipment_upgrade = True
                 else:
                     is_fine_materials = False
+                    if getattr(selected_obj, 'requirements', None):
+                        input_reqs = [r for r in selected_obj.requirements if getattr(r.type, 'value', r.type) in ('keyword_count', 'input_keyword', 'item')]
+                        for i, req in enumerate(input_reqs):
+                            if i < len(selected_input_materials):
+                                mat = selected_input_materials[i]
+                                base_input_cost += req.value * drop_calc.item_values.get(mat.id, 0.0)
+
                 context = {
                     "skill": final_activity.primary_skill,
                     "location_id": current_loc_id,
@@ -688,8 +702,10 @@ def render_optimizer_tab(is_mobile, user_state, all_items_raw, activities, recip
                     "total_skill_level": user_total_level,
                     "skill_group_levels": user_state.get("skill_group_levels", {}),
                     "special_ev_map": drop_calc.get_special_ev_map(),
+                    "drop_calc": drop_calc,
                     "is_fine_materials": is_fine_materials,
-                    "is_equipment_upgrade": is_equipment_upgrade
+                    "is_equipment_upgrade": is_equipment_upgrade,
+                    "base_input_cost": base_input_cost
                 }
 
                 locked_items_map = st.session_state.get('locked_items_state', {})

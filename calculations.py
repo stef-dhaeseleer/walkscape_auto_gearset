@@ -382,7 +382,33 @@ def _calculate_single_target_score(target: OPTIMAZATION_TARGET, activity: Activi
         total_ev_per_roll = ev_normal + ev_fine + ev_chest + ev_special        
         
         val = (total_ev_per_roll * da_mult * dr_mult) / steps
-    
+    elif target == OPTIMAZATION_TARGET.net_profit_per_step:
+        drop_calc = context.get("drop_calc")
+        if not drop_calc:
+            val = 0.0
+        else:
+            drop_table = drop_calc.get_drop_table(
+                activity, stats, player_skill_level,
+                is_fine_materials=is_fine,
+                is_equipment_upgrade=is_upg
+            )
+            
+            output_ev_per_step = 0.0
+            for d in drop_table:
+                item_id = d["Item"]
+                steps_for_drop = d["Steps"]
+                if steps_for_drop <= 0 or steps_for_drop == float('inf'):
+                    continue
+                
+                ev = drop_calc.container_evs.get(item_id, drop_calc.item_values.get(item_id, 0.0))
+                output_ev_per_step += ev / steps_for_drop
+            
+            base_input_cost = context.get("base_input_cost", 0.0)
+            
+            input_cost_per_step = (base_input_cost * da_mult * (1.0 - nmc_val)) / steps
+            
+            val = output_ev_per_step - input_cost_per_step
+            
     return val
 
 def analyze_score(gear_set: GearSet, activity, player_skill_level, target, context, passive_stats: Dict[str, float] = None, normalization_context=None):

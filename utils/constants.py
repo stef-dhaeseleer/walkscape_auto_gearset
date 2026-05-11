@@ -216,6 +216,8 @@ class OPTIMAZATION_TARGET(str, Enum):
     coins_no_chests = "coins_no_chests"
     coins_no_fines = "coins_no_fines"
     coins_no_chests_no_fines = "coins_no_chests_no_fines"
+    net_profit_per_step = "net_profit_per_step"
+   
     xp_per_material = "xp_per_material"
     chests_per_material = "chests_per_material"
     
@@ -266,6 +268,14 @@ TARGET_TO_STATS = {
     OPTIMAZATION_TARGET.coins_no_chests: COIN_BASE_STATS | {StatName.FINE_MATERIAL_FINDING},
     OPTIMAZATION_TARGET.coins_no_fines: COIN_BASE_STATS | {StatName.CHEST_FINDING},
     OPTIMAZATION_TARGET.coins_no_chests_no_fines: COIN_BASE_STATS,
+    OPTIMAZATION_TARGET.net_profit_per_step: COIN_BASE_STATS | {
+        StatName.CHEST_FINDING, StatName.FINE_MATERIAL_FINDING, StatName.NO_MATERIALS_CONSUMED,
+        StatName.QUALITY_OUTCOME, StatName.FIND_BIRD_NESTS, StatName.CHANCE_TO_FIND_BIRD_NEST,
+        StatName.FIND_GEMS, StatName.FIND_ADVENTURERS_GUILD_TOKEN,
+        StatName.FIND_SEA_SHELLS, StatName.FIND_CRUSTACEAN,
+        StatName.FIND_FIBROUS_PLANT, StatName.FIND_FISHING_BAIT, StatName.FIND_GOLD_NUGGET,
+        StatName.FIND_RANDOM_GEM, StatName.FIND_SKILL_CHEST
+    },
 
     OPTIMAZATION_TARGET.xp_per_material: {StatName.BONUS_XP_ADD, StatName.BONUS_XP_PERCENT, StatName.NO_MATERIALS_CONSUMED},
     OPTIMAZATION_TARGET.chests_per_material: {StatName.CHEST_FINDING, StatName.DOUBLE_REWARDS, StatName.NO_MATERIALS_CONSUMED}, 

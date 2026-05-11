@@ -28,7 +28,7 @@ TARGET_CATEGORIES = {
         "Gold Nugget Per Step", "Fine Gold Nugget Per Step",
         "Find Random Gem Per Step", "Find Random Fine Gem Per Step", "Gem Finding", "Gem Finding Fine"
     ],
-    "🤑": ["Coins", "Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
+    "🤑": ["Coins", "Net Profit Per Step","Coins No Chests", "Coins No Fines", "Coins No Chests No Fines"],
     "Pets & Abilities":["Reward Rolls No Steps", "Exp No Steps","Chests No Steps", "Fine No Steps", "Collectibles No Steps"],
     "Misc":["Chests Per Material", "Xp Per Material"]
 }
@@ -919,6 +919,9 @@ def format_target_metric(t_name, raw_val, base_steps):
     elif "coins" in t_name_lower:
         human_val = raw_val * 1000.0
         return f"{human_val:.2f} Coins/1k Steps"
+    elif "net profit" in t_name_lower:
+        human_val = raw_val * 1000.0
+        return f"{human_val:.4f} Coins/1k Steps"
     elif "eternal per input" in t_name_lower:
         human_val = 1.0 / raw_val if raw_val > 0 else float('inf')
         return f"{human_val:.2f} Inputs/Eternal" if raw_val > 0 else "∞ Inputs/Eternal"

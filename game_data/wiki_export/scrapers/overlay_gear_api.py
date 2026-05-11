@@ -432,12 +432,35 @@ def overlay(dry_run=False):
                 wiki['secondary_xp'] = sec
 
             if loot:
-                tables = convert_loot_tables(detail, loot)
+                api_tables = convert_loot_tables(detail, loot)
                 old_n = sum(len(t.get('drops', [])) for t in wiki.get('loot_tables', []))
-                new_n = sum(len(t.get('drops', [])) for t in tables)
+                
+                # --- MERGE LOGIC ---
+                # Create a set of all item IDs the API knows about for this activity
+                api_item_ids = {drop['item_id'] for t in api_tables for drop in t['drops']}
+                
+                # Iterate through the drops we parsed from the Wiki
+                for wiki_table in wiki.get('loot_tables', []):
+                    t_type = wiki_table.get('type')
+                    
+                    # Find the matching table type in the API data, or use the Wiki's table if it's completely new
+                    matching_api_tables = [t for t in api_tables if t.get('type') == t_type]
+                    if not matching_api_tables:
+                        api_tables.append(wiki_table)
+                        continue
+                        
+                    target_api_table = matching_api_tables[0]
+                    
+                    # If the Wiki found an item the API missed, inject it back into the table
+                    for wiki_drop in wiki_table.get('drops', []):
+                        if wiki_drop['item_id'] not in api_item_ids:
+                            target_api_table['drops'].append(wiki_drop)
+                # -------------------
+
+                new_n = sum(len(t.get('drops', [])) for t in api_tables)
                 if old_n != new_n:
                     changes.append(f"drops {old_n}→{new_n}")
-                wiki['loot_tables'] = tables
+                wiki['loot_tables'] = api_tables
 
             print(f" {'(' + ', '.join(changes) + ')' if changes else '✓'}")
             patched += 1

@@ -206,7 +206,8 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
   },
   {
     "id": "chicken",
@@ -373,7 +374,8 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
   },
   {
     "id": "dolphin",
@@ -562,7 +564,198 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
+  },
+  {
+    "id": "gecko",
+    "wiki_slug": "Gecko",
+    "name": "Gecko",
+    "egg_item_id": "gecko_egg",
+    "xp_requirement_desc": null,
+    "levels": [
+      {
+        "level": 1,
+        "total_xp": 35000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 1.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 2,
+        "total_xp": 85000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 2.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 3,
+        "total_xp": 150000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 6.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": []
+      },
+      {
+        "level": 4,
+        "total_xp": 250000,
+        "modifiers": [
+          {
+            "stat": "work_efficiency",
+            "value": 7.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "fine_material_finding",
+            "value": 13.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "double_rewards",
+            "value": 3.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "bonus_xp_percent",
+            "value": 7.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          },
+          {
+            "stat": "find_gems",
+            "value": 15.0,
+            "conditions": [
+              {
+                "type": "skill_activity",
+                "target": "mining",
+                "value": null
+              }
+            ]
+          }
+        ],
+        "abilities": [
+          {
+            "name": "Clever Climber",
+            "effect": "Counts as a Climbing gear.",
+            "requirements": null,
+            "cooldown": null,
+            "charges": 1
+          }
+        ]
+      }
+    ],
+    "active_level": 1,
+    "use_pet_ability": false
   },
   {
     "id": "mummy",
@@ -729,7 +922,8 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
   },
   {
     "id": "reindeer",
@@ -882,7 +1076,8 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
   },
   {
     "id": "tiger",
@@ -1049,7 +1244,8 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
   },
   {
     "id": "tortoise",
@@ -1282,6 +1478,7 @@
         ]
       }
     ],
-    "active_level": 1
+    "active_level": 1,
+    "use_pet_ability": false
   }
 ]

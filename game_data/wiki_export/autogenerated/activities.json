@@ -120,7 +120,7 @@
     "modifiers": [],
     "normal_roll_worth": 7.6,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 77.6,
+    "fine_roll_worth": 79.6,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -279,7 +279,7 @@
     "modifiers": [],
     "normal_roll_worth": 26.0094339623,
     "chest_roll_worth": 2.2384763178,
-    "fine_roll_worth": 98.0801886792,
+    "fine_roll_worth": 84.9056603774,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -461,7 +461,7 @@
     "modifiers": [],
     "normal_roll_worth": 8.4347739295,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 75.3077153409,
+    "fine_roll_worth": 72.9122666933,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -657,7 +657,7 @@
     "modifiers": [],
     "normal_roll_worth": 1.74,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 118.44,
+    "fine_roll_worth": 118.35,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -791,7 +791,7 @@
     "modifiers": [],
     "normal_roll_worth": 1.1331476323,
     "chest_roll_worth": 0.5519943488,
-    "fine_roll_worth": 7.3293593315,
+    "fine_roll_worth": 7.5379387187,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -1054,7 +1054,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.6666666667,
     "chest_roll_worth": 0.2895198904,
-    "fine_roll_worth": 23.0,
+    "fine_roll_worth": 22.7777777778,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -1195,7 +1195,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.28,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 51.28,
+    "fine_roll_worth": 49.12,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -1431,7 +1431,7 @@
     "modifiers": [],
     "normal_roll_worth": 2.7345740621,
     "chest_roll_worth": 1.2027595712,
-    "fine_roll_worth": 7.2124699113,
+    "fine_roll_worth": 7.0877707979,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -1818,12 +1818,38 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "other",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 90.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          },
+          {
+            "item_id": "sea_shell",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 10.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 25.1288461538,
+    "normal_roll_worth": 25.6288461538,
     "chest_roll_worth": 1.3209504208,
-    "fine_roll_worth": 143.0326923077,
+    "fine_roll_worth": 114.8442307692,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -1870,6 +1896,22 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -2221,12 +2263,38 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "other",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 90.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          },
+          {
+            "item_id": "sea_shell",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 10.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 4.5,
+    "normal_roll_worth": 5.0,
     "chest_roll_worth": 0.721444808,
-    "fine_roll_worth": 27.1,
+    "fine_roll_worth": 29.2,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -2403,7 +2471,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.0231160703,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 24.1043622584,
+    "fine_roll_worth": 24.0803963326,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -2593,7 +2661,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.0,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 0.0,
+    "fine_roll_worth": 5.0,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -2684,7 +2752,7 @@
     "modifiers": [],
     "normal_roll_worth": 5.037789419,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 31.1699124245,
+    "fine_roll_worth": 26.1318430839,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -2775,7 +2843,7 @@
     "modifiers": [],
     "normal_roll_worth": 2.0220764678,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 15.0996640538,
+    "fine_roll_worth": 15.0771076628,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3123,7 +3191,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.0393921216,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 21.1781643671,
+    "fine_roll_worth": 24.1067786443,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3225,7 +3293,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.0176777019,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 24.0798096247,
+    "fine_roll_worth": 24.0614820073,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3313,7 +3381,7 @@
     "modifiers": [],
     "normal_roll_worth": 6.0,
     "chest_roll_worth": 0.5788265224,
-    "fine_roll_worth": 36.0,
+    "fine_roll_worth": 27.0,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3431,7 +3499,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.69,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 63.59,
+    "fine_roll_worth": 62.63,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3581,7 +3649,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.3499306903,
     "chest_roll_worth": 0.5761307232,
-    "fine_roll_worth": 20.6496257278,
+    "fine_roll_worth": 17.6776268367,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3728,7 +3796,7 @@
     "modifiers": [],
     "normal_roll_worth": 7.75,
     "chest_roll_worth": 0.6468265384,
-    "fine_roll_worth": 57.140625,
+    "fine_roll_worth": 60.890625,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3799,7 +3867,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.0,
     "chest_roll_worth": 0.2895198904,
-    "fine_roll_worth": 0.0,
+    "fine_roll_worth": 5.0,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -3877,7 +3945,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.0,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 0.0,
+    "fine_roll_worth": 30.0,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -4282,7 +4350,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.6719378953,
     "chest_roll_worth": 0.5761307232,
-    "fine_roll_worth": 12.9913743531,
+    "fine_roll_worth": 12.5845313399,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -4336,6 +4404,22 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -4408,6 +4492,22 @@
             "no_drop_chance": 0.0,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -4704,7 +4804,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.4,
     "chest_roll_worth": 0.313464016,
-    "fine_roll_worth": 30.1,
+    "fine_roll_worth": 22.05,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -4815,7 +4915,7 @@
     "modifiers": [],
     "normal_roll_worth": 5.980750083,
     "chest_roll_worth": 0.2895198904,
-    "fine_roll_worth": 32.6983073349,
+    "fine_roll_worth": 31.5366744109,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -5119,6 +5219,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -5127,7 +5237,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
     "chest_roll_worth": 0.7448196976,
-    "fine_roll_worth": 1.2707692308,
+    "fine_roll_worth": 1.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -5184,6 +5294,22 @@
             "no_drop_chance": 98.48,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -5256,7 +5382,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.0,
     "chest_roll_worth": 0.2626667072,
-    "fine_roll_worth": 0.0,
+    "fine_roll_worth": 5.0,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -5555,7 +5681,7 @@
     "modifiers": [],
     "normal_roll_worth": 1.6472295434,
     "chest_roll_worth": 0.6438005056,
-    "fine_roll_worth": 11.22634692,
+    "fine_roll_worth": 10.1959117377,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -5679,7 +5805,7 @@
     "modifiers": [],
     "normal_roll_worth": 2.4927272727,
     "chest_roll_worth": 0.313464016,
-    "fine_roll_worth": 17.9472727273,
+    "fine_roll_worth": 16.6381818182,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -5979,7 +6105,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.0567375887,
     "chest_roll_worth": 0.79137274,
-    "fine_roll_worth": 7.4359338061,
+    "fine_roll_worth": 7.4028368794,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -6233,7 +6359,7 @@
     "modifiers": [],
     "normal_roll_worth": 5.7906557604,
     "chest_roll_worth": 1.36406748,
-    "fine_roll_worth": 20.2589768474,
+    "fine_roll_worth": 20.0135865798,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -6568,7 +6694,7 @@
     "modifiers": [],
     "normal_roll_worth": 10.1311084625,
     "chest_roll_worth": 0.2895198904,
-    "fine_roll_worth": 50.7948450536,
+    "fine_roll_worth": 42.1619487485,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -6615,6 +6741,22 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -6744,7 +6886,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.7546583851,
     "chest_roll_worth": 0.2626667072,
-    "fine_roll_worth": 7.6836734694,
+    "fine_roll_worth": 7.5330079858,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -6869,12 +7011,38 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "other",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 90.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          },
+          {
+            "item_id": "sea_shell",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 10.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 4.5952380952,
+    "normal_roll_worth": 5.0952380952,
     "chest_roll_worth": 1.034908824,
-    "fine_roll_worth": 27.5761904762,
+    "fine_roll_worth": 29.819047619,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -7084,7 +7252,7 @@
     "modifiers": [],
     "normal_roll_worth": 15.3514261977,
     "chest_roll_worth": 0.2983143512,
-    "fine_roll_worth": 21.6482968707,
+    "fine_roll_worth": 21.3051786209,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -7301,6 +7469,16 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
+          },
+          {
+            "item_id": "gecko_egg",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.24,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -7559,7 +7737,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.7106377678,
     "chest_roll_worth": 0.6029839064,
-    "fine_roll_worth": 9.4754608869,
+    "fine_roll_worth": 9.3708271051,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -7821,12 +7999,38 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "other",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 90.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          },
+          {
+            "item_id": "sea_shell",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 10.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 3.3,
+    "normal_roll_worth": 3.8,
     "chest_roll_worth": 0.7040030984,
-    "fine_roll_worth": 21.7,
+    "fine_roll_worth": 23.8,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -7939,6 +8143,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 3.0,
             "table_weight": 23.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -7947,7 +8161,7 @@
     "modifiers": [],
     "normal_roll_worth": 8.3960869565,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 46.9039130435,
+    "fine_roll_worth": 40.3473913043,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8011,6 +8225,16 @@
             "no_drop_chance": 99.6,
             "row_weight": 10.0,
             "table_weight": 10.0
+          },
+          {
+            "item_id": "gecko_egg",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 0.055,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8037,6 +8261,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8045,7 +8279,7 @@
     "modifiers": [],
     "normal_roll_worth": 2.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 16.2707692308,
+    "fine_roll_worth": 16.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8144,6 +8378,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8152,7 +8396,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 7.2707692308,
+    "fine_roll_worth": 7.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8278,6 +8522,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 3.0,
             "table_weight": 23.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8286,7 +8540,7 @@
     "modifiers": [],
     "normal_roll_worth": 9.2985259809,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 46.5380593849,
+    "fine_roll_worth": 50.7620254507,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8382,6 +8636,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 8.0,
             "table_weight": 28.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8390,7 +8654,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.3485714286,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 1.6771428571,
+    "fine_roll_worth": 6.2985714286,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8479,6 +8743,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8487,7 +8761,7 @@
     "modifiers": [],
     "normal_roll_worth": 5.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 31.2707692308,
+    "fine_roll_worth": 37.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8593,6 +8867,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 3.0,
             "table_weight": 23.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8601,7 +8885,7 @@
     "modifiers": [],
     "normal_roll_worth": 10.3960869565,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 52.9039130435,
+    "fine_roll_worth": 52.3473913043,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8700,6 +8984,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8708,7 +9002,7 @@
     "modifiers": [],
     "normal_roll_worth": 1.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 12.2707692308,
+    "fine_roll_worth": 12.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8814,6 +9108,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 3.0,
             "table_weight": 23.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8822,7 +9126,7 @@
     "modifiers": [],
     "normal_roll_worth": 7.3960869565,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 39.9039130435,
+    "fine_roll_worth": 39.3473913043,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -8911,6 +9215,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -8919,7 +9233,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 22.2707692308,
+    "fine_roll_worth": 25.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -9015,6 +9329,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -9023,7 +9347,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 22.2707692308,
+    "fine_roll_worth": 25.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -9122,6 +9446,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -9130,7 +9464,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 7.2707692308,
+    "fine_roll_worth": 7.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -9243,6 +9577,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 3.0,
             "table_weight": 23.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -9251,7 +9595,7 @@
     "modifiers": [],
     "normal_roll_worth": 10.3960869565,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 52.9039130435,
+    "fine_roll_worth": 52.3473913043,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -9377,6 +9721,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -9385,7 +9739,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.409010989,
     "chest_roll_worth": 0.7448196976,
-    "fine_roll_worth": 25.9374358974,
+    "fine_roll_worth": 25.8751282051,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -9922,6 +10276,22 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -10037,12 +10407,28 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
     "normal_roll_worth": 8.9964,
     "chest_roll_worth": 39.40000608,
-    "fine_roll_worth": 54.5168,
+    "fine_roll_worth": 40.2725,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -10226,6 +10612,22 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -10291,6 +10693,22 @@
             "no_drop_chance": 99.5,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -10420,7 +10838,7 @@
     "modifiers": [],
     "normal_roll_worth": 2.1990551002,
     "chest_roll_worth": 0.578847532,
-    "fine_roll_worth": 13.951189663,
+    "fine_roll_worth": 13.8535689891,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -10542,7 +10960,7 @@
     "modifiers": [],
     "normal_roll_worth": 1.456252497,
     "chest_roll_worth": 0.633971932,
-    "fine_roll_worth": 10.8293048342,
+    "fine_roll_worth": 12.5642229325,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -10807,12 +11225,38 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "other",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 90.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          },
+          {
+            "item_id": "sea_shell",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 10.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 5.1425187032,
+    "normal_roll_worth": 5.6425187032,
     "chest_roll_worth": 0.6800589728,
-    "fine_roll_worth": 29.6354114713,
+    "fine_roll_worth": 31.6882793017,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -10888,6 +11332,22 @@
             "no_drop_chance": 87.5,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -11022,7 +11482,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.0582427197,
     "chest_roll_worth": 0.6027916576,
-    "fine_roll_worth": 25.8061742282,
+    "fine_roll_worth": 18.0982752156,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -11163,6 +11623,22 @@
             "no_drop_chance": 99.8,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -11342,7 +11818,7 @@
     "modifiers": [],
     "normal_roll_worth": 7.5015890821,
     "chest_roll_worth": 0.2983143512,
-    "fine_roll_worth": 11.5322490185,
+    "fine_roll_worth": 11.3116470368,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -11487,7 +11963,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.1374891399,
     "chest_roll_worth": 0.2824592064,
-    "fine_roll_worth": 2.1331450912,
+    "fine_roll_worth": 2.0960034752,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -11664,7 +12140,7 @@
     "modifiers": [],
     "normal_roll_worth": 10.8465463597,
     "chest_roll_worth": 1.1843352312,
-    "fine_roll_worth": 51.3015556938,
+    "fine_roll_worth": 56.1578095831,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -11721,6 +12197,22 @@
             "no_drop_chance": 0.0,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -11840,7 +12332,7 @@
     "modifiers": [],
     "normal_roll_worth": 1.4441199078,
     "chest_roll_worth": 0.313464016,
-    "fine_roll_worth": 10.6996156802,
+    "fine_roll_worth": 10.6538816295,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -12123,7 +12615,7 @@
     "modifiers": [],
     "normal_roll_worth": 15.1222194451,
     "chest_roll_worth": 0.313464016,
-    "fine_roll_worth": 104.0529867533,
+    "fine_roll_worth": 103.9255186203,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -12222,6 +12714,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -12230,7 +12732,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
     "chest_roll_worth": 0.4094050152,
-    "fine_roll_worth": 7.2707692308,
+    "fine_roll_worth": 7.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -12525,6 +13027,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 20.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -12533,7 +13045,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.2661538462,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 7.2707692308,
+    "fine_roll_worth": 7.2084615385,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -12674,7 +13186,7 @@
     "modifiers": [],
     "normal_roll_worth": 5.7061340942,
     "chest_roll_worth": 0.313464016,
-    "fine_roll_worth": 39.4607703281,
+    "fine_roll_worth": 38.9557774608,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -12922,6 +13434,22 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -13130,7 +13658,7 @@
     "modifiers": [],
     "normal_roll_worth": 5.1919770774,
     "chest_roll_worth": 0.5761307232,
-    "fine_roll_worth": 13.6263610315,
+    "fine_roll_worth": 13.423495702,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -13267,6 +13795,16 @@
             "no_drop_chance": 99.0,
             "row_weight": 6.0,
             "table_weight": 26.0
+          },
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 99.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -13275,7 +13813,7 @@
     "modifiers": [],
     "normal_roll_worth": 0.3007692308,
     "chest_roll_worth": 0.6740535384,
-    "fine_roll_worth": 19.4369230769,
+    "fine_roll_worth": 19.2453846154,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -13436,7 +13974,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.3058916591,
     "chest_roll_worth": 0.3542806152,
-    "fine_roll_worth": 28.6046201171,
+    "fine_roll_worth": 26.9133466088,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -13688,7 +14226,7 @@
     "modifiers": [],
     "normal_roll_worth": 4.1882716049,
     "chest_roll_worth": 0.6532057896,
-    "fine_roll_worth": 22.7635802469,
+    "fine_roll_worth": 22.2635802469,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -13806,7 +14344,7 @@
     "modifiers": [],
     "normal_roll_worth": 21.5344,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 163.0847,
+    "fine_roll_worth": 175.1986,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -13905,12 +14443,28 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "other",
+        "drops": [
+          {
+            "item_id": "coins",
+            "min_quantity": 1,
+            "max_quantity": 1,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
-    "normal_roll_worth": 1.6666666667,
+    "normal_roll_worth": 2.6666666667,
     "chest_roll_worth": 0.2824592064,
-    "fine_roll_worth": 7.0,
+    "fine_roll_worth": 8.0,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -13967,6 +14521,22 @@
             "no_drop_chance": 0.0,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -14035,6 +14605,22 @@
           }
         ],
         "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
+          }
+        ],
+        "rolls": 1
       }
     ],
     "modifiers": [],
@@ -14097,6 +14683,22 @@
             "no_drop_chance": 0.0,
             "row_weight": 10.0,
             "table_weight": 10.0
+          }
+        ],
+        "rolls": 1
+      },
+      {
+        "type": "main",
+        "drops": [
+          {
+            "item_id": "nothing",
+            "min_quantity": 0,
+            "max_quantity": 0,
+            "chance": 100.0,
+            "category": null,
+            "no_drop_chance": null,
+            "row_weight": null,
+            "table_weight": null
           }
         ],
         "rolls": 1
@@ -14248,7 +14850,7 @@
     "modifiers": [],
     "normal_roll_worth": 3.3250207814,
     "chest_roll_worth": 1.1125138224,
-    "fine_roll_worth": 20.7401496259,
+    "fine_roll_worth": 20.6264339152,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -14366,7 +14968,7 @@
     "modifiers": [],
     "normal_roll_worth": 2.04,
     "chest_roll_worth": 0.256287456,
-    "fine_roll_worth": 59.94,
+    "fine_roll_worth": 59.7,
     "output_item_id": null,
     "output_quantity": null
   },
@@ -14637,7 +15239,7 @@
     "modifiers": [],
     "normal_roll_worth": 45.6460674157,
     "chest_roll_worth": 1.9401377144,
-    "fine_roll_worth": 285.7584269663,
+    "fine_roll_worth": 244.5224719101,
     "output_item_id": null,
     "output_quantity": null
   }

@@ -13,7 +13,7 @@
     "id": "aerodynamic_thread_fine",
     "wiki_slug": "Aerodynamic_thread",
     "name": "Aerodynamic thread (Fine)",
-    "value": 36,
+    "value": 27,
     "keywords": [],
     "modifiers": [],
     "special_sell": null,
@@ -33,7 +33,7 @@
     "id": "animal_fur_fine",
     "wiki_slug": "Animal_fur",
     "name": "Animal fur (Fine)",
-    "value": 30,
+    "value": 26,
     "keywords": [],
     "modifiers": [],
     "special_sell": null,
@@ -53,7 +53,7 @@
     "id": "ectoplasm_scraps_fine",
     "wiki_slug": "Ectoplasm_scraps",
     "name": "Ectoplasm scraps (Fine)",
-    "value": 0,
+    "value": 5,
     "keywords": [],
     "modifiers": [],
     "special_sell": null,
@@ -93,7 +93,7 @@
     "id": "unicorn_horn_fine",
     "wiki_slug": "Unicorn_horn",
     "name": "Unicorn horn (Fine)",
-    "value": 59,
+    "value": 70,
     "keywords": [],
     "modifiers": [],
     "special_sell": null,
@@ -333,7 +333,7 @@
     "id": "farganite_arrows_fine",
     "wiki_slug": "Farganite_arrows",
     "name": "Farganite arrows (Fine)",
-    "value": 22,
+    "value": 17,
     "keywords": [
       "Arrows",
       "Light"
@@ -663,7 +663,7 @@
     "id": "tarsilium_arrows_fine",
     "wiki_slug": "Tarsilium_arrows",
     "name": "Tarsilium arrows (Fine)",
-    "value": 22,
+    "value": 13,
     "keywords": [
       "Arrows",
       "Light"
@@ -752,7 +752,7 @@
     "id": "adamant_bar_fine",
     "wiki_slug": "Adamant_bar",
     "name": "Adamant bar (Fine)",
-    "value": 60,
+    "value": 43,
     "keywords": [
       "Bar"
     ],
@@ -824,7 +824,7 @@
     "id": "farganite_bar_fine",
     "wiki_slug": "Farganite_bar",
     "name": "Farganite bar (Fine)",
-    "value": 45,
+    "value": 39,
     "keywords": [
       "Bar"
     ],
@@ -992,7 +992,7 @@
     "id": "violite_bar_fine",
     "wiki_slug": "Violite_bar",
     "name": "Violite bar (Fine)",
-    "value": 76,
+    "value": 46,
     "keywords": [
       "Bar"
     ],
@@ -1097,7 +1097,7 @@
     "id": "tough_linen_cloth_fine",
     "wiki_slug": "Tough_linen_cloth",
     "name": "Tough linen cloth (Fine)",
-    "value": 30,
+    "value": 36,
     "keywords": [
       "Fabric",
       "Processed"
@@ -1130,7 +1130,7 @@
     "id": "ectoplasm_fish_fine",
     "wiki_slug": "Ectoplasm_fish",
     "name": "Ectoplasm fish (Fine)",
-    "value": 0,
+    "value": 5,
     "keywords": [
       "Fish"
     ],
@@ -1202,7 +1202,7 @@
     "id": "raw_jellyfish_fine",
     "wiki_slug": "Raw_jellyfish",
     "name": "Raw jellyfish (Fine)",
-    "value": 19,
+    "value": 23,
     "keywords": [
       "Fish"
     ],
@@ -1250,7 +1250,7 @@
     "id": "raw_moray_fine",
     "wiki_slug": "Raw_moray",
     "name": "Raw moray (Fine)",
-    "value": 66,
+    "value": 55,
     "keywords": [
       "Fish"
     ],
@@ -1418,7 +1418,7 @@
     "id": "raw_stream_eel_fine",
     "wiki_slug": "Raw_stream_eel",
     "name": "Raw stream eel (Fine)",
-    "value": 61,
+    "value": 54,
     "keywords": [
       "Fish"
     ],
@@ -1569,7 +1569,7 @@
     "id": "ethernite_fine",
     "wiki_slug": "Ethernite",
     "name": "Ethernite (Fine)",
-    "value": 502,
+    "value": 257,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1595,7 +1595,7 @@
     "id": "jade_fine",
     "wiki_slug": "Jade",
     "name": "Jade (Fine)",
-    "value": 353,
+    "value": 224,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1647,7 +1647,7 @@
     "id": "ruby_fine",
     "wiki_slug": "Ruby",
     "name": "Ruby (Fine)",
-    "value": 390,
+    "value": 232,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1673,7 +1673,7 @@
     "id": "star_pearl_fine",
     "wiki_slug": "Star_pearl",
     "name": "Star pearl (Fine)",
-    "value": 241,
+    "value": 199,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1699,7 +1699,7 @@
     "id": "sun_stone_fine",
     "wiki_slug": "Sun_stone",
     "name": "Sun stone (Fine)",
-    "value": 427,
+    "value": 240,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1725,7 +1725,7 @@
     "id": "topaz_fine",
     "wiki_slug": "Topaz",
     "name": "Topaz (Fine)",
-    "value": 316,
+    "value": 215,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1751,7 +1751,7 @@
     "id": "wrentmarine_fine",
     "wiki_slug": "Wrentmarine",
     "name": "Wrentmarine (Fine)",
-    "value": 279,
+    "value": 207,
     "keywords": [
       "Gem",
       "Cut gem"
@@ -1777,7 +1777,7 @@
     "id": "pearls_fine",
     "wiki_slug": "Pearls",
     "name": "Pearls (Fine)",
-    "value": 112,
+    "value": 65,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1803,7 +1803,7 @@
     "id": "rough_ethernite_fine",
     "wiki_slug": "Rough_ethernite",
     "name": "Rough ethernite (Fine)",
-    "value": 321,
+    "value": 164,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1829,7 +1829,7 @@
     "id": "rough_jade_fine",
     "wiki_slug": "Rough_jade",
     "name": "Rough jade (Fine)",
-    "value": 226,
+    "value": 143,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1881,7 +1881,7 @@
     "id": "rough_ruby_fine",
     "wiki_slug": "Rough_ruby",
     "name": "Rough ruby (Fine)",
-    "value": 249,
+    "value": 148,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1907,7 +1907,7 @@
     "id": "rough_star_pearl_fine",
     "wiki_slug": "Rough_star_pearl",
     "name": "Rough star pearl (Fine)",
-    "value": 154,
+    "value": 127,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1933,7 +1933,7 @@
     "id": "rough_sun_stone_fine",
     "wiki_slug": "Rough_sun_stone",
     "name": "Rough sun stone (Fine)",
-    "value": 273,
+    "value": 153,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1959,7 +1959,7 @@
     "id": "rough_topaz_fine",
     "wiki_slug": "Rough_topaz",
     "name": "Rough topaz (Fine)",
-    "value": 202,
+    "value": 137,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -1985,7 +1985,7 @@
     "id": "rough_wrentmarine_fine",
     "wiki_slug": "Rough_wrentmarine",
     "name": "Rough wrentmarine (Fine)",
-    "value": 178,
+    "value": 132,
     "keywords": [
       "Gem",
       "Rough gem"
@@ -2034,7 +2034,7 @@
     "id": "elderhide_hide_fine",
     "wiki_slug": "Elderhide_hide",
     "name": "Elderhide hide (Fine)",
-    "value": 18,
+    "value": 23,
     "keywords": [
       "Hide"
     ],
@@ -2119,7 +2119,7 @@
     "id": "kelp_drift_net_fine",
     "wiki_slug": "Kelp_drift_net",
     "name": "Kelp drift net (Fine)",
-    "value": 22,
+    "value": 13,
     "keywords": [
       "Hunting net",
       "Light"
@@ -2332,7 +2332,7 @@
     "id": "crystallized_flame_fine",
     "wiki_slug": "Crystallized_flame",
     "name": "Crystallized flame (Fine)",
-    "value": 30,
+    "value": 26,
     "keywords": [
       "Ingredient"
     ],
@@ -2674,7 +2674,7 @@
     "id": "ectoplasm_logs_fine",
     "wiki_slug": "Ectoplasm_logs",
     "name": "Ectoplasm logs (Fine)",
-    "value": 0,
+    "value": 5,
     "keywords": [
       "Log"
     ],
@@ -2698,7 +2698,7 @@
     "id": "mangrove_logs_fine",
     "wiki_slug": "Mangrove_logs",
     "name": "Mangrove logs (Fine)",
-    "value": 31,
+    "value": 26,
     "keywords": [
       "Log"
     ],
@@ -2818,7 +2818,7 @@
     "id": "teak_logs_fine",
     "wiki_slug": "Teak_logs",
     "name": "Teak logs (Fine)",
-    "value": 21,
+    "value": 24,
     "keywords": [
       "Log"
     ],
@@ -2866,7 +2866,7 @@
     "id": "yew_logs_fine",
     "wiki_slug": "Yew_logs",
     "name": "Yew logs (Fine)",
-    "value": 36,
+    "value": 27,
     "keywords": [
       "Log"
     ],
@@ -2914,7 +2914,7 @@
     "id": "clam_shell_fine",
     "wiki_slug": "Clam_shell",
     "name": "Clam shell (Fine)",
-    "value": 50,
+    "value": 30,
     "keywords": [
       "Misc."
     ],
@@ -3247,7 +3247,7 @@
     "id": "sea_shell_fine",
     "wiki_slug": "Sea_shell",
     "name": "Sea shell (Fine)",
-    "value": 31,
+    "value": 26,
     "keywords": [
       "Misc.",
       "Light"
@@ -3277,7 +3277,7 @@
     "id": "ectoplasm_fine",
     "wiki_slug": "Ectoplasm",
     "name": "Ectoplasm (Fine)",
-    "value": 0,
+    "value": 5,
     "keywords": [
       "Misc.",
       "Ultra light",
@@ -3304,7 +3304,7 @@
     "id": "gold_nugget_fine",
     "wiki_slug": "Gold_nugget",
     "name": "Gold nugget (Fine)",
-    "value": 45,
+    "value": 39,
     "keywords": [
       "Nugget",
       "Light"
@@ -3330,7 +3330,7 @@
     "id": "silver_nugget_fine",
     "wiki_slug": "Silver_nugget",
     "name": "Silver nugget (Fine)",
-    "value": 28,
+    "value": 25,
     "keywords": [
       "Nugget",
       "Light"
@@ -3407,7 +3407,7 @@
     "id": "adamant_ore_fine",
     "wiki_slug": "Adamant_ore",
     "name": "Adamant ore (Fine)",
-    "value": 45,
+    "value": 39,
     "keywords": [
       "Ore"
     ],
@@ -3479,7 +3479,7 @@
     "id": "crystal_coal_fine",
     "wiki_slug": "Crystal_coal",
     "name": "Crystal coal (Fine)",
-    "value": 45,
+    "value": 50,
     "keywords": [
       "Ore"
     ],
@@ -3503,7 +3503,7 @@
     "id": "ectoplasm_rock_fine",
     "wiki_slug": "Ectoplasm_rock",
     "name": "Ectoplasm rock (Fine)",
-    "value": 0,
+    "value": 5,
     "keywords": [
       "Ore"
     ],
@@ -3527,7 +3527,7 @@
     "id": "farganite_ore_fine",
     "wiki_slug": "Farganite_ore",
     "name": "Farganite ore (Fine)",
-    "value": 30,
+    "value": 36,
     "keywords": [
       "Ore"
     ],
@@ -3623,7 +3623,7 @@
     "id": "tarsilium_ore_fine",
     "wiki_slug": "Tarsilium_ore",
     "name": "Tarsilium ore (Fine)",
-    "value": 21,
+    "value": 24,
     "keywords": [
       "Ore"
     ],
@@ -3719,7 +3719,7 @@
     "id": "bamboo_plank_fine",
     "wiki_slug": "Bamboo_plank",
     "name": "Bamboo plank (Fine)",
-    "value": 26,
+    "value": 35,
     "keywords": [
       "Plank"
     ],
@@ -3839,7 +3839,7 @@
     "id": "maple_plank_fine",
     "wiki_slug": "Maple_plank",
     "name": "Maple plank (Fine)",
-    "value": 22,
+    "value": 17,
     "keywords": [
       "Plank"
     ],
@@ -3935,7 +3935,7 @@
     "id": "teak_plank_fine",
     "wiki_slug": "Teak_plank",
     "name": "Teak plank (Fine)",
-    "value": 30,
+    "value": 36,
     "keywords": [
       "Plank"
     ],
@@ -3959,7 +3959,7 @@
     "id": "willow_plank_fine",
     "wiki_slug": "Willow_plank",
     "name": "Willow plank (Fine)",
-    "value": 34,
+    "value": 37,
     "keywords": [
       "Plank"
     ],
@@ -3983,7 +3983,7 @@
     "id": "yew_plank_fine",
     "wiki_slug": "Yew_plank",
     "name": "Yew plank (Fine)",
-    "value": 40,
+    "value": 49,
     "keywords": [
       "Plank"
     ],
@@ -4007,7 +4007,7 @@
     "id": "highwater_lotus_fine",
     "wiki_slug": "Highwater_lotus",
     "name": "Highwater lotus (Fine)",
-    "value": 40,
+    "value": 28,
     "keywords": [
       "Plant"
     ],
@@ -4145,7 +4145,7 @@
     "id": "loverose_fine",
     "wiki_slug": "Loverose",
     "name": "Loverose (Fine)",
-    "value": 36,
+    "value": 27,
     "keywords": [
       "Plant"
     ],
@@ -4490,7 +4490,7 @@
     "id": "widows_kiss_fine",
     "wiki_slug": "Widow%27s_kiss",
     "name": "Widow's kiss (Fine)",
-    "value": 30,
+    "value": 26,
     "keywords": [
       "Plant"
     ],
@@ -4560,7 +4560,7 @@
     "id": "cattail_fine",
     "wiki_slug": "Cattail",
     "name": "Cattail (Fine)",
-    "value": 30,
+    "value": 19,
     "keywords": [
       "Plant",
       "Fibrous plant"
@@ -4773,7 +4773,7 @@
     "id": "ironweed_fine",
     "wiki_slug": "Ironweed",
     "name": "Ironweed (Fine)",
-    "value": 30,
+    "value": 26,
     "keywords": [
       "Plant",
       "Fibrous plant"
@@ -5767,7 +5767,7 @@
     "id": "sweet_kelp_fine",
     "wiki_slug": "Sweet_kelp",
     "name": "Sweet kelp (Fine)",
-    "value": 34,
+    "value": 37,
     "keywords": [
       "Plant",
       "Ingredient"
@@ -6195,7 +6195,7 @@
     "id": "ironweed_twine_fine",
     "wiki_slug": "Ironweed_twine",
     "name": "Ironweed twine (Fine)",
-    "value": 48,
+    "value": 30,
     "keywords": [
       "Processed"
     ],
@@ -6267,7 +6267,7 @@
     "id": "strong_bowstring_fine",
     "wiki_slug": "Strong_bowstring",
     "name": "Strong bowstring (Fine)",
-    "value": 36,
+    "value": 27,
     "keywords": [
       "Processed"
     ],
@@ -6341,7 +6341,7 @@
     "id": "bat_trinket_fine",
     "wiki_slug": "Bat_trinket",
     "name": "Bat trinket (Fine)",
-    "value": 386,
+    "value": 301,
     "keywords": [
       "Trinket"
     ],
@@ -6365,7 +6365,7 @@
     "id": "beaver_trinket_fine",
     "wiki_slug": "Beaver_trinket",
     "name": "Beaver trinket (Fine)",
-    "value": 912,
+    "value": 558,
     "keywords": [
       "Trinket"
     ],
@@ -6389,7 +6389,7 @@
     "id": "circular_root_trinket_fine",
     "wiki_slug": "Circular_root_trinket",
     "name": "Circular root trinket (Fine)",
-    "value": 638,
+    "value": 497,
     "keywords": [
       "Trinket"
     ],
@@ -6413,7 +6413,7 @@
     "id": "compass_trinket_fine",
     "wiki_slug": "Compass_trinket",
     "name": "Compass trinket (Fine)",
-    "value": 496,
+    "value": 325,
     "keywords": [
       "Trinket"
     ],
@@ -6437,7 +6437,7 @@
     "id": "cooling_icicle_trinket_fine",
     "wiki_slug": "Cooling_icicle_trinket",
     "name": "Cooling icicle trinket (Fine)",
-    "value": 547,
+    "value": 477,
     "keywords": [
       "Trinket"
     ],
@@ -6485,7 +6485,7 @@
     "id": "heron_trinket_fine",
     "wiki_slug": "Heron_trinket",
     "name": "Heron trinket (Fine)",
-    "value": 331,
+    "value": 289,
     "keywords": [
       "Trinket"
     ],
@@ -6509,7 +6509,7 @@
     "id": "lucky_rabbit_foot_trinket_fine",
     "wiki_slug": "Lucky_rabbit_foot_trinket",
     "name": "Lucky rabbit foot trinket (Fine)",
-    "value": 820,
+    "value": 537,
     "keywords": [
       "Trinket"
     ],
@@ -6533,7 +6533,7 @@
     "id": "measuring_spoons_trinket_fine",
     "wiki_slug": "Measuring_spoons_trinket",
     "name": "Measuring spoons trinket (Fine)",
-    "value": 496,
+    "value": 325,
     "keywords": [
       "Trinket"
     ],
@@ -6557,7 +6557,7 @@
     "id": "pink_pearl_trinket_fine",
     "wiki_slug": "Pink_pearl_trinket",
     "name": "Pink pearl trinket (Fine)",
-    "value": 547,
+    "value": 477,
     "keywords": [
       "Trinket"
     ],
@@ -6581,7 +6581,7 @@
     "id": "shark_tooth_trinket_fine",
     "wiki_slug": "Shark_tooth_trinket",
     "name": "Shark tooth trinket (Fine)",
-    "value": 441,
+    "value": 313,
     "keywords": [
       "Trinket"
     ],
@@ -6605,7 +6605,7 @@
     "id": "shrimp_trinket_fine",
     "wiki_slug": "Shrimp_trinket",
     "name": "Shrimp trinket (Fine)",
-    "value": 684,
+    "value": 507,
     "keywords": [
       "Trinket"
     ],
@@ -6629,7 +6629,7 @@
     "id": "spider_trinket_fine",
     "wiki_slug": "Spider_trinket",
     "name": "Spider trinket (Fine)",
-    "value": 684,
+    "value": 507,
     "keywords": [
       "Trinket"
     ],
